@@ -39,7 +39,6 @@
         android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
 
 
-
         <activity
             android:name=".custom.CameraEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -52,13 +51,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".custom.SecondEntryActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:label="@string/app_name"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|adjustResize" >
-        </activity>
 
         <activity
             android:name=".DemoEntryActivity"
@@ -66,6 +58,7 @@
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" >
+
         </activity>
         
         <activity

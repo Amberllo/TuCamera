@@ -7,7 +7,9 @@
  * @Copyright 	(c) 2015 tusdk.com. All rights reserved.
  * 
  */
-package org.lasque.tusdkdemo.examples.feature;
+package org.lasque.tusdkdemo.custom.suite;
+
+import android.app.Activity;
 
 import org.lasque.tusdk.TuSdkGeeV1;
 import org.lasque.tusdk.core.TuSdkResult;
@@ -20,20 +22,19 @@ import org.lasque.tusdk.impl.components.camera.TuCameraFragment.TuCameraFragment
 import org.lasque.tusdk.impl.components.camera.TuCameraOption;
 import org.lasque.tusdk.modules.components.TuSdkComponent.TuSdkComponentDelegate;
 import org.lasque.tusdk.modules.components.TuSdkHelperComponent;
+import org.lasque.tusdk.modules.components.edit.TuEditActionType;
 import org.lasque.tusdkdemo.R;
 import org.lasque.tusdkdemo.SampleBase;
 import org.lasque.tusdkdemo.SampleGroup.GroupType;
-
-import android.app.Activity;
 
 /**
  * 拍照 + 编辑示例
  * 
  * @author Yanlin
  */
-public class CameraAndEditorSample extends SampleBase implements TuCameraFragmentDelegate
+public class CameraAndEditor extends SampleBase implements TuCameraFragmentDelegate
 {
-	public CameraAndEditorSample()
+	public CameraAndEditor()
 	{
 		super(GroupType.FeatureSample, R.string.sample_comp_CameraAndEditor);
 	}
@@ -64,10 +65,10 @@ public class CameraAndEditorSample extends SampleBase implements TuCameraFragmen
 		option.setOutputCompress(100);
 
 		// 是否开启滤镜支持 (默认: 关闭)
-		option.setEnableFilters(true);
+		option.setEnableFilters(false);
 
 		// 默认是否显示滤镜视图 (默认: 不显示, 如果mEnableFilters = false, mShowFilterDefault将失效)
-		option.setShowFilterDefault(true);
+		option.setShowFilterDefault(false);
 
 		// 是否保存最后一次使用的滤镜
 		option.setSaveLastFilter(true);
@@ -143,7 +144,19 @@ public class CameraAndEditorSample extends SampleBase implements TuCameraFragmen
 		};
 				
 		TuEditMultipleComponent component = TuSdkGeeV1.editMultipleCommponent(fragment, delegate);
-		
+
+		component.componentOption().editMultipleOption().setComponentClazz(CustomMultipleFragment.class);
+		component.componentOption().editMultipleOption().disableModule(TuEditActionType.TypeCuter);
+		component.componentOption().editMultipleOption().disableModule(TuEditActionType.TypeSmudge);
+		component.componentOption().editMultipleOption().disableModule(TuEditActionType.TypeAdjust);
+		component.componentOption().editMultipleOption().disableModule(TuEditActionType.TypeWipeFilter);
+		component.componentOption().editMultipleOption().disableModule(TuEditActionType.TypeSharpness);
+		component.componentOption().editMultipleOption().disableModule(TuEditActionType.TypeVignette);
+		component.componentOption().editMultipleOption().disableModule(TuEditActionType.TypeAperture);
+		component.componentOption().editMultipleOption().disableModule(TuEditActionType.TypeHolyLight);
+
+		// 指定根视图资源ID
+		component.componentOption().editMultipleOption().setRootViewLayoutId(R.layout.custom_multiple_fragment_layout);
 		component.componentOption().editFilterOption().setEnableFilterConfig(true);
 		
 		component.setImage(result.image)
