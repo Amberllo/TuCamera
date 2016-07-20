@@ -1,10 +1,12 @@
 package org.lasque.tusdkdemo.custom.suite;
 
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import org.lasque.tusdk.core.secret.StatisticsManger;
+import org.lasque.tusdk.core.view.widget.button.TuSdkTextButton;
 import org.lasque.tusdk.impl.components.edit.TuEditMultipleFragment;
 import org.lasque.tusdk.modules.components.ComponentActType;
 import org.lasque.tusdk.modules.components.edit.TuEditActionType;
@@ -38,22 +40,27 @@ public class CustomMultipleFragment extends TuEditMultipleFragment {
         LinearLayout actionTypeLayout;
         if((actionTypeLayout = this.getActionsWrap()) != null) {
             actionTypeLayout.removeAllViews();
-//            Iterator iterator = this.getModules().iterator();
-//
-//            while(iterator.hasNext()) {
-//                TuEditActionType actionType = (TuEditActionType)iterator.next();
-                View actionButton;
-                if((actionButton = buildActionButton(TuEditActionType.TypeFilter)) != null) {
-                    actionButton.setTag(TuEditActionType.TypeFilter);
-                    actionButton.setOnClickListener(mButtonClickListener);
-                    actionTypeLayout.addView(actionButton);
-                }
-//            }
-
-//            result.add(TuEditActionType.TypeFilter);
-//            result.add(TuEditActionType.TypeSkin);
+            actionTypeLayout.setVisibility(View.GONE);
         }
 
+        LinearLayout actionTypeLayout2 = (LinearLayout)view.findViewById(R.id.lsq_actions_wrapview2);
+        for(int i=0;i<actionTypeLayout2.getChildCount();i++){
+            View child = actionTypeLayout2.getChildAt(i);
+            if(child instanceof TuSdkTextButton){
+//                child = buildActionButton()
+            }
+//            Iterator var4 = this.getModules().iterator();
+//
+//            while(var4.hasNext()) {
+//                TuEditActionType var3 = (TuEditActionType)var4.next();
+//                View var5;
+//                if((var5 = var6.buildActionButton(var3)) != null) {
+//                    var5.setTag(var3);
+//                    var5.setOnClickListener(var6.mButtonClickListener);
+//                    var2.addView(var5);
+//                }
+//            }
+        }
         this.refreshStepStates();
 
     }
