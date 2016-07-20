@@ -3,7 +3,9 @@ package org.lasque.tusdkdemo.custom.suite;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import org.lasque.tusdk.core.secret.StatisticsManger;
 import org.lasque.tusdk.core.view.widget.button.TuSdkTextButton;
@@ -44,23 +46,29 @@ public class CustomMultipleFragment extends TuEditMultipleFragment {
         }
 
         LinearLayout actionTypeLayout2 = (LinearLayout)view.findViewById(R.id.lsq_actions_wrapview2);
-        for(int i=0;i<actionTypeLayout2.getChildCount();i++){
-            View child = actionTypeLayout2.getChildAt(i);
-            if(child instanceof TuSdkTextButton){
-//                child = buildActionButton()
-            }
-//            Iterator var4 = this.getModules().iterator();
-//
-//            while(var4.hasNext()) {
-//                TuEditActionType var3 = (TuEditActionType)var4.next();
-//                View var5;
-//                if((var5 = var6.buildActionButton(var3)) != null) {
-//                    var5.setTag(var3);
-//                    var5.setOnClickListener(var6.mButtonClickListener);
-//                    var2.addView(var5);
-//                }
-//            }
-        }
+
+        TuSdkTextButton filterButton = (TuSdkTextButton)actionTypeLayout2.findViewById(R.id.lsq_filterButton);
+        TuSdkTextButton skinButton = (TuSdkTextButton)actionTypeLayout2.findViewById(R.id.lsq_skinButton);
+        ImageView shareButton = (ImageView) actionTypeLayout2.findViewById(R.id.lsq_shareButton);
+        TuSdkTextButton fontButton = (TuSdkTextButton)actionTypeLayout2.findViewById(R.id.lsq_fontButton);
+        TuSdkTextButton stickerButton = (TuSdkTextButton)actionTypeLayout2.findViewById(R.id.lsq_stickerButton);
+
+
+        filterButton.setTag(TuEditActionType.TypeFilter);
+        filterButton.setOnClickListener(mButtonClickListener);
+
+        skinButton.setTag(TuEditActionType.TypeSkin);
+        skinButton.setOnClickListener(mButtonClickListener);
+
+        shareButton.setOnClickListener(shareOnClickListener);
+
+        fontButton.setOnClickListener(fontOnClickListener);
+
+        stickerButton.setTag(TuEditActionType.TypeSticker);
+        stickerButton.setOnClickListener(mButtonClickListener);
+
+
+
         this.refreshStepStates();
 
     }
@@ -83,4 +91,21 @@ public class CustomMultipleFragment extends TuEditMultipleFragment {
         result.add(TuEditActionType.TypeSkin);
         return result;
     }
+
+    View.OnClickListener fontOnClickListener = new View.OnClickListener(){
+
+        @Override
+        public void onClick(View v) {
+            Toast.makeText(getContext(),"文字编辑!",Toast.LENGTH_SHORT).show();
+        }
+    };
+
+    View.OnClickListener shareOnClickListener = new View.OnClickListener(){
+
+        @Override
+        public void onClick(View v) {
+            Toast.makeText(getContext(),"分享功能!",Toast.LENGTH_SHORT).show();
+        }
+    };
+
 }

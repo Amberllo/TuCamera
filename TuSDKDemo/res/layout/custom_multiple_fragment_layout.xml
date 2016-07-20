@@ -43,6 +43,7 @@
             android:text="@string/lsq_edit_skin_title" />
 
         <ImageView
+            android:id="@+id/lsq_shareButton"
             android:padding="10dp"
             android:src="@drawable/ic_launcher"
             android:layout_weight="1"
@@ -51,11 +52,11 @@
 
         <org.lasque.tusdk.core.view.widget.button.TuSdkTextButton
             android:layout_weight="1"
-            android:id="@+id/lsq_cutButton"
+            android:id="@+id/lsq_fontButton"
             style="@style/lsq_edit_entryOptionButton"
             android:layout_width="match_parent"
             android:drawableTop="@drawable/lsq_style_default_edit_icon_edit"
-            android:text="@string/lsq_edit_entry_cuter" />
+            android:text="文字" />
 
         <org.lasque.tusdk.core.view.widget.button.TuSdkTextButton
             android:layout_weight="1"
