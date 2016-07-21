@@ -84,7 +84,7 @@ public class SizeAdjustingTextView extends TextView {
     protected void onTextChanged(final CharSequence text, final int start, final int before, final int after) {
         mNeedsResize = true;
         // Since this view may be reused, it is good to reset the text size
-        resetTextSize();
+//        resetTextSize();
     }
 
     @Override

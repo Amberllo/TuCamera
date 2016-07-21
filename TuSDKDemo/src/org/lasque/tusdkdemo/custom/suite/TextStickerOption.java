@@ -1,5 +1,6 @@
 package org.lasque.tusdkdemo.custom.suite;
 
+import org.lasque.tusdk.core.TuSdkResult;
 import org.lasque.tusdk.impl.activity.TuImageResultOption;
 import org.lasque.tusdkdemo.R;
 
@@ -21,6 +22,21 @@ public class TextStickerOption extends TuImageResultOption {
         TextStickerFragment var1;
         var1 = this.fragmentInstance();
         return var1;
+    }
+
+    TextStickerDelegate delegate;
+
+    public void setDelegate(TextStickerDelegate delegate){
+        this.delegate = delegate;
+    }
+
+
+    public TextStickerDelegate getDelegate() {
+        return delegate;
+    }
+
+    interface TextStickerDelegate{
+        void onTextStickerResult(TuSdkResult result);
     }
 
 }

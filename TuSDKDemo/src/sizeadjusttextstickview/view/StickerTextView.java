@@ -29,7 +29,7 @@ import sizeadjusttextstickview.utils.PrintUtils;
 /**
  * Created by sam on 14-8-14.
  */
-public class StickerView extends View {
+public class StickerTextView extends View {
 
 //    private float mScaleSize;
 
@@ -79,15 +79,15 @@ public class StickerView extends View {
 
     private OnStickerTouchListener mOnStickerTouchListener;
 
-    public StickerView(Context context, boolean hasTxt) {
+    public StickerTextView(Context context, boolean hasTxt) {
         this(context, null, hasTxt);
     }
 
-    public StickerView(Context context, AttributeSet attrs, boolean hasTxt) {
+    public StickerTextView(Context context, AttributeSet attrs, boolean hasTxt) {
         this(context, attrs, 0, hasTxt);
     }
 
-    public StickerView(Context context, AttributeSet attrs, int defStyle, boolean hasTxt) {
+    public StickerTextView(Context context, AttributeSet attrs, int defStyle, boolean hasTxt) {
         super(context, attrs, defStyle);
         init(hasTxt);
     }
@@ -125,6 +125,7 @@ public class StickerView extends View {
             sizeTextView.setTextColor(fontColor);
 //            linearLayout.addView(sizeTextView);
             sizeTextView.setTextSize(getTextSize(fontSize));
+            sizeTextView.setBackgroundColor(Color.parseColor("#336699"));
 //            textPaint = new TextPaint();
 //            textPaint.setAntiAlias(true);
 //            textPaint.setColor(fontColor);
@@ -522,13 +523,13 @@ public class StickerView extends View {
     }
 
     public interface OnStickerTouchListener {
-        public void onCopy(StickerView stickerView);
+        public void onCopy(StickerTextView stickerView);
 
-        public void onDelete(StickerView stickerView);
+        public void onDelete(StickerTextView stickerView);
 
-        public void onMoveToHead(StickerView stickerView);
+        public void onMoveToHead(StickerTextView stickerView);
 
-        public void onDoubleClick(StickerView stickerView);
+        public void onDoubleClick(StickerTextView stickerView);
     }
     /**
      * 触摸的位置和图片左上角位置的中点
@@ -621,4 +622,5 @@ public class StickerView extends View {
     public void setOnStickerTouchListener(OnStickerTouchListener listener) {
         mOnStickerTouchListener = listener;
     }
+
 }

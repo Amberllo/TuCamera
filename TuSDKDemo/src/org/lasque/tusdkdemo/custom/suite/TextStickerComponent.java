@@ -3,7 +3,6 @@ package org.lasque.tusdkdemo.custom.suite;
 import android.app.Activity;
 
 import org.lasque.tusdk.impl.TuAnimType;
-import org.lasque.tusdk.impl.components.edit.TuEditMultipleFragment;
 import org.lasque.tusdk.modules.components.TuEditMultipleComponentBase;
 import org.lasque.tusdk.modules.components.TuSdkComponent;
 import org.lasque.tusdk.modules.components.TuSdkHelperComponent;
@@ -37,13 +36,14 @@ public class TextStickerComponent extends TuEditMultipleComponentBase {
             if(option==null)return this;
 
             TextStickerFragment fragment = option.fragment();
+            fragment.setDelegate(option.getDelegate());
             fragment.setImage(this.getImage());
             fragment.setTempFilePath(this.getTempFilePath());
             fragment.setImageSqlInfo(this.getImageSqlInfo());
 
             // 文字贴纸页面
             this.componentHelper.presentModalNavigationActivity(fragment,TuAnimType.fade, TuAnimType.fade, true);
-//            fragment.setDelegate(this);
+
 
 
             return this;
@@ -54,6 +54,7 @@ public class TextStickerComponent extends TuEditMultipleComponentBase {
         this.option = option;
         return this;
     }
+
 
 
 }

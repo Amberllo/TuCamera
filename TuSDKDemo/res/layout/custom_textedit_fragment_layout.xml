@@ -33,13 +33,13 @@
             android:layout_above="@+id/lsq_bottomBar"
             android:background="@color/lsq_background_option_bar" >
 
-            <org.lasque.tusdk.core.view.widget.button.TuSdkTextButton
-                android:id="@+id/lsq_fontButton"
-                android:layout_weight="1"
-                style="@style/lsq_edit_entryOptionButton"
-                android:layout_width="match_parent"
-                android:drawableTop="@drawable/lsq_style_default_edit_icon_filter"
-                android:text="添加文字" />
+            <!--<org.lasque.tusdk.core.view.widget.button.TuSdkTextButton-->
+                <!--android:id="@+id/lsq_fontButton"-->
+                <!--android:layout_weight="1"-->
+                <!--style="@style/lsq_edit_entryOptionButton"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:drawableTop="@drawable/lsq_style_default_edit_icon_filter"-->
+                <!--android:text="添加文字" />-->
 
             <org.lasque.tusdk.core.view.widget.button.TuSdkTextButton
                 android:layout_weight="1"

@@ -11,7 +11,6 @@ package org.lasque.tusdkdemo.custom.suite;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Rect;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -22,41 +21,32 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-import org.lasque.tusdk.core.TuSdkContext;
 import org.lasque.tusdk.core.TuSdkResult;
-import org.lasque.tusdk.core.struct.TuSdkSize;
-import org.lasque.tusdk.core.utils.image.BitmapHelper;
-import org.lasque.tusdk.core.view.widget.TuSdkNavigatorBar;
-import org.lasque.tusdk.core.view.widget.button.TuSdkTextButton;
-import org.lasque.tusdk.impl.activity.TuComponentFragment;
 import org.lasque.tusdk.impl.activity.TuImageResultFragment;
-import org.lasque.tusdk.modules.view.widget.sticker.StickerData;
 import org.lasque.tusdkdemo.R;
-
-import sizeadjusttextstickview.view.StickerView;
+import sizeadjusttextstickview.view.StickerTextView;
 
 /**
  * @author Amberllo
  * 文字编辑页面
  */
-public class TextStickerFragment extends TuImageResultFragment implements StickerView.OnStickerTouchListener
+public class TextStickerFragment extends TuImageResultFragment
 {
-
-    StickerView stickerView;
+    TextStickerOption.TextStickerDelegate delegate;
+    StickerTextView stickerView;
     EditText edt_input;
     RelativeLayout imageWrapView;
     ImageView imageView;
-    TuSdkTextButton fontButton;
+
     public static int getLayoutId() {
         return R.layout.custom_textedit_fragment_layout;
     }
 
-    public View onCreateView(LayoutInflater var1, ViewGroup var2, Bundle var3) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup viewGroup, Bundle saveInstance) {
         if(this.getRootViewLayoutId() == 0) {
             this.setRootViewLayoutId(getLayoutId());
         }
-
-        return super.onCreateView(var1, var2, var3);
+        return super.onCreateView(inflater, viewGroup, saveInstance);
     }
 
     @Override
@@ -65,32 +55,9 @@ public class TextStickerFragment extends TuImageResultFragment implements Sticke
         imageView = (ImageView)viewGroup.findViewById(R.id.lsq_imageView);
         imageWrapView = (RelativeLayout)viewGroup.findViewById(R.id.lsq_imageWrapView);
         edt_input = (EditText)viewGroup.findViewById(R.id.lsq_input);
-        fontButton = (TuSdkTextButton)viewGroup.findViewById(R.id.lsq_fontButton);
-        fontButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addStikerTextView();
-                edt_input.setVisibility(View.VISIBLE);
-            }
-        });
+        edt_input.addTextChangedListener(textWatcher);
 
-        edt_input.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                stickerView.resetText(s.toString());
-            }
-        });
-
+        addStikerTextView();
     }
 
     @Override
@@ -104,8 +71,8 @@ public class TextStickerFragment extends TuImageResultFragment implements Sticke
 
 
     private void addStikerTextView() {
-        stickerView = new StickerView(getContext(),true);
-        stickerView.setOnStickerTouchListener(this);
+        stickerView = new StickerTextView(getContext(),true);
+        stickerView.setOnStickerTouchListener(onStickerTouchListener);
         RelativeLayout.LayoutParams rl = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,RelativeLayout.LayoutParams.WRAP_CONTENT);
         rl.addRule(RelativeLayout.CENTER_IN_PARENT);
 
@@ -114,37 +81,6 @@ public class TextStickerFragment extends TuImageResultFragment implements Sticke
 
         Bitmap bitmap  = BitmapFactory.decodeResource(getResources(),R.mipmap.txt_button_0);
         stickerView.setTextDraw(bitmap,28,29.5f,118,85);
-    }
-
-
-    @Override
-    public void onCopy(StickerView stickerView) {
-
-    }
-
-    @Override
-    public void onDelete(StickerView stickerView) {
-
-    }
-
-    @Override
-    public void onMoveToHead(StickerView stickerView) {
-
-    }
-
-    @Override
-    public void onDoubleClick(StickerView stickerView) {
-
-    }
-
-    public void setDisplayImage(Bitmap var1) {
-        if(var1 != null) {
-//            this.setImage(var1);
-            if(this.imageView != null) {
-                this.imageView.setImageBitmap(var1);
-            }
-
-        }
     }
 
     protected void handleBackButton() {
@@ -159,6 +95,10 @@ public class TextStickerFragment extends TuImageResultFragment implements Sticke
     @Override
     protected boolean asyncNotifyProcessing(TuSdkResult tuSdkResult) {
         return false;
+    }
+
+    public void setDelegate(TextStickerOption.TextStickerDelegate delegate) {
+        this.delegate = delegate;
     }
 
 //    public final void appendStickerItem(StickerData var1) {
@@ -191,4 +131,43 @@ public class TextStickerFragment extends TuImageResultFragment implements Sticke
 //        }
 //    }
 
+    StickerTextView.OnStickerTouchListener onStickerTouchListener = new StickerTextView.OnStickerTouchListener() {
+        @Override
+        public void onCopy(StickerTextView stickerView) {
+
+        }
+
+        @Override
+        public void onDelete(StickerTextView stickerView) {
+            edt_input.setVisibility(View.GONE);
+        }
+
+        @Override
+        public void onMoveToHead(StickerTextView stickerView) {
+
+        }
+
+        @Override
+        public void onDoubleClick(StickerTextView stickerView) {
+            edt_input.setVisibility(View.VISIBLE);
+        }
+    };
+
+
+    TextWatcher textWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            stickerView.resetText(s.toString());
+        }
+    };
 }
