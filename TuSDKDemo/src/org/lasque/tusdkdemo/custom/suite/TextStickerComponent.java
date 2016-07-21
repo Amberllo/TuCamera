@@ -1,54 +1,59 @@
 package org.lasque.tusdkdemo.custom.suite;
 
 import android.app.Activity;
-import android.widget.Toast;
 
-import org.lasque.tusdk.core.TuSdkResult;
-import org.lasque.tusdk.impl.activity.TuFragment;
+import org.lasque.tusdk.impl.TuAnimType;
 import org.lasque.tusdk.impl.components.edit.TuEditMultipleFragment;
+import org.lasque.tusdk.modules.components.TuEditMultipleComponentBase;
+import org.lasque.tusdk.modules.components.TuSdkComponent;
 import org.lasque.tusdk.modules.components.TuSdkHelperComponent;
-import org.lasque.tusdk.modules.components.edit.TuEditActionType;
-import org.lasque.tusdkdemo.R;
-import org.lasque.tusdkdemo.SampleBase;
-import org.lasque.tusdkdemo.SampleGroup;
 
 /**
  * Created by apple on 16/7/20.
  */
-public class TextStickerComponent extends SampleBase implements TuEditMultipleFragment.TuEditMultipleFragmentDelegate{
+public class TextStickerComponent extends TuEditMultipleComponentBase {
+    TextStickerOption option;
+    TuSdkHelperComponent componentHelper;
+    public TextStickerComponent(Activity activity) {
+        super(activity);
+        this.componentHelper = new TuSdkHelperComponent(activity);
+    }
+
     /**
      * 文字贴纸
      */
-    public TextStickerComponent() {
-        super(SampleGroup.GroupType.UISample, R.string.lsq_edit_entry_fontsticker);
-    }
 
     @Override
-    public void showSample(Activity activity) {
-        TextStickerOption option = new TextStickerOption();
-        // see-http://tusdk.com/docs/android/api/org/lasque/tusdk/impl/components/base/TuSdkHelperComponent.html
-        this.componentHelper = new TuSdkHelperComponent(activity);
-        // 文字贴纸页面
-        this.componentHelper.presentModalNavigationActivity(option.fragment(), true);
-    }
-
-    @Override
-    public void onComponentError(TuFragment tuFragment, TuSdkResult tuSdkResult, Error error) {
+    protected void initComponent() {
 
     }
 
     @Override
-    public void onTuEditMultipleFragmentEdited(TuEditMultipleFragment tuEditMultipleFragment, TuSdkResult tuSdkResult) {
+    public TuSdkComponent showComponent() {
+        if(this.showAlertIfCannotSaveFile()) {
+            return this;
+        } else {
 
+            if(option==null)return this;
+
+            TextStickerFragment fragment = option.fragment();
+            fragment.setImage(this.getImage());
+            fragment.setTempFilePath(this.getTempFilePath());
+            fragment.setImageSqlInfo(this.getImageSqlInfo());
+
+            // 文字贴纸页面
+            this.componentHelper.presentModalNavigationActivity(fragment,TuAnimType.fade, TuAnimType.fade, true);
+//            fragment.setDelegate(this);
+
+
+            return this;
+        }
     }
 
-    @Override
-    public boolean onTuEditMultipleFragmentEditedAsync(TuEditMultipleFragment tuEditMultipleFragment, TuSdkResult tuSdkResult) {
-        return false;
+    public TextStickerComponent setOption(TextStickerOption option) {
+        this.option = option;
+        return this;
     }
 
-    @Override
-    public void onTuEditMultipleFragmentAction(TuEditMultipleFragment tuEditMultipleFragment, TuEditActionType tuEditActionType) {
 
-    }
 }

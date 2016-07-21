@@ -11,6 +11,7 @@ package org.lasque.tusdkdemo.custom.suite;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -18,9 +19,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
+
+import org.lasque.tusdk.core.TuSdkContext;
+import org.lasque.tusdk.core.TuSdkResult;
+import org.lasque.tusdk.core.struct.TuSdkSize;
+import org.lasque.tusdk.core.utils.image.BitmapHelper;
+import org.lasque.tusdk.core.view.widget.TuSdkNavigatorBar;
 import org.lasque.tusdk.core.view.widget.button.TuSdkTextButton;
 import org.lasque.tusdk.impl.activity.TuComponentFragment;
+import org.lasque.tusdk.impl.activity.TuImageResultFragment;
+import org.lasque.tusdk.modules.view.widget.sticker.StickerData;
 import org.lasque.tusdkdemo.R;
 
 import sizeadjusttextstickview.view.StickerView;
@@ -29,12 +39,13 @@ import sizeadjusttextstickview.view.StickerView;
  * @author Amberllo
  * 文字编辑页面
  */
-public class TextStickerFragment extends TuComponentFragment implements StickerView.OnStickerTouchListener
+public class TextStickerFragment extends TuImageResultFragment implements StickerView.OnStickerTouchListener
 {
 
     StickerView stickerView;
     EditText edt_input;
     RelativeLayout imageWrapView;
+    ImageView imageView;
     TuSdkTextButton fontButton;
     public static int getLayoutId() {
         return R.layout.custom_textedit_fragment_layout;
@@ -50,7 +61,8 @@ public class TextStickerFragment extends TuComponentFragment implements StickerV
 
     @Override
     protected void loadView(ViewGroup viewGroup) {
-        
+
+        imageView = (ImageView)viewGroup.findViewById(R.id.lsq_imageView);
         imageWrapView = (RelativeLayout)viewGroup.findViewById(R.id.lsq_imageWrapView);
         edt_input = (EditText)viewGroup.findViewById(R.id.lsq_input);
         fontButton = (TuSdkTextButton)viewGroup.findViewById(R.id.lsq_fontButton);
@@ -84,6 +96,10 @@ public class TextStickerFragment extends TuComponentFragment implements StickerV
     @Override
     protected void viewDidLoad(ViewGroup viewGroup) {
 
+
+        if(getImage()!=null && imageView!=null){
+            imageView.setImageBitmap(getImage());
+        }
     }
 
 
@@ -120,5 +136,59 @@ public class TextStickerFragment extends TuComponentFragment implements StickerV
     public void onDoubleClick(StickerView stickerView) {
 
     }
+
+    public void setDisplayImage(Bitmap var1) {
+        if(var1 != null) {
+//            this.setImage(var1);
+            if(this.imageView != null) {
+                this.imageView.setImageBitmap(var1);
+            }
+
+        }
+    }
+
+    protected void handleBackButton() {
+        this.navigatorBarBackAction(null);
+    }
+
+    @Override
+    protected void notifyProcessing(TuSdkResult tuSdkResult) {
+
+    }
+
+    @Override
+    protected boolean asyncNotifyProcessing(TuSdkResult tuSdkResult) {
+        return false;
+    }
+
+//    public final void appendStickerItem(StickerData var1) {
+//        if(var1 != null && this.getStickerView() != null) {
+//            this.getStickerView().appenSticker(var1);
+//        }
+//    }
+//
+//    protected void handleCompleteButton() {
+//        if(this.getStickerView() == null) {
+//            this.handleBackButton();
+//        } else {
+//            final TuSdkResult result = new TuSdkResult();
+//            Rect var2 = null;
+//            if(this.getCutRegionView() != null) {
+//                var2 = this.getCutRegionView().getRegionRect();
+//            }
+//
+//            result.stickers = this.getStickerView().getResults(var2);
+//            if(result.stickers != null && result.stickers.size() != 0) {
+//                this.hubStatus(TuSdkContext.getString("lsq_edit_processing"));
+//                (new Thread(new Runnable() {
+//                    public void run() {
+//                        TextStickerFragment.this.asyncEditWithResult(var1);
+//                    }
+//                })).start();
+//            } else {
+//                this.handleBackButton();
+//            }
+//        }
+//    }
 
 }

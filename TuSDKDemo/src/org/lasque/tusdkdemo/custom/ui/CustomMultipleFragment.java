@@ -6,13 +6,16 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import org.lasque.tusdk.TuSdkGeeV1;
 import org.lasque.tusdk.core.secret.StatisticsManger;
 import org.lasque.tusdk.core.view.widget.button.TuSdkTextButton;
+import org.lasque.tusdk.impl.components.TuEditMultipleComponent;
 import org.lasque.tusdk.impl.components.edit.TuEditMultipleFragment;
 import org.lasque.tusdk.modules.components.ComponentActType;
 import org.lasque.tusdk.modules.components.edit.TuEditActionType;
 import org.lasque.tusdkdemo.R;
 import org.lasque.tusdkdemo.custom.suite.TextStickerComponent;
+import org.lasque.tusdkdemo.custom.suite.TextStickerOption;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +28,7 @@ public class CustomMultipleFragment extends TuEditMultipleFragment {
     @Override
     protected void loadView(ViewGroup view)
     {
-        super.loadView(view);
+
         StatisticsManger.appendComponent(ComponentActType.editMultipleFragment);
         // 在这里使用 getViewById()方法找到新添加的视图
 
@@ -70,30 +73,24 @@ public class CustomMultipleFragment extends TuEditMultipleFragment {
     }
 
 
-    @Override
-    protected View buildActionButton(TuEditActionType tuEditActionType) {
-        return super.buildActionButton(tuEditActionType);
-    }
-
-    @Override
-    public LinearLayout getActionsWrap() {
-        return super.getActionsWrap();
-    }
-
-    @Override
-    public List<TuEditActionType> getModules() {
-        List<TuEditActionType> result = new ArrayList<>();
-
-        result.add(TuEditActionType.TypeFilter);
-        result.add(TuEditActionType.TypeSkin);
-        return result;
-    }
 
     View.OnClickListener fontOnClickListener = new View.OnClickListener(){
 
         @Override
         public void onClick(View v) {
-            new TextStickerComponent().showSample(getActivity());
+
+            TextStickerComponent component = new TextStickerComponent(getActivity());
+            TextStickerOption option = new TextStickerOption();
+            component.setOption(option)
+                    .setImage(getImage())
+                    // 设置系统照片
+                    .setImageSqlInfo(getImageSqlInfo())
+                    // 设置临时文件
+                    .setTempFilePath(getTempFilePath())
+                    // 在组件执行完成后自动关闭组件
+                    .setAutoDismissWhenCompleted(true)
+                    // 开启组件
+                    .showComponent();
 
         }
     };
