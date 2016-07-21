@@ -22,12 +22,10 @@ import org.lasque.tusdk.impl.components.camera.TuCameraFragment.TuCameraFragment
 import org.lasque.tusdk.impl.components.camera.TuCameraOption;
 import org.lasque.tusdk.modules.components.TuSdkComponent.TuSdkComponentDelegate;
 import org.lasque.tusdk.modules.components.TuSdkHelperComponent;
-import org.lasque.tusdk.modules.components.edit.TuEditActionType;
 import org.lasque.tusdkdemo.R;
 import org.lasque.tusdkdemo.SampleBase;
 import org.lasque.tusdkdemo.SampleGroup.GroupType;
-
-import java.util.ArrayList;
+import org.lasque.tusdkdemo.custom.ui.CustomMultipleFragment;
 
 /**
  * 拍照 + 编辑示例
@@ -146,16 +144,7 @@ public class CameraAndEditor extends SampleBase implements TuCameraFragmentDeleg
 		};
 				
 		TuEditMultipleComponent component = TuSdkGeeV1.editMultipleCommponent(fragment, delegate);
-
 		component.componentOption().editMultipleOption().setComponentClazz(CustomMultipleFragment.class);
-//		component.componentOption().editMultipleOption().disableModule(TuEditActionType.TypeCuter);
-//		component.componentOption().editMultipleOption().disableModule(TuEditActionType.TypeSmudge);
-//		component.componentOption().editMultipleOption().disableModule(TuEditActionType.TypeAdjust);
-//		component.componentOption().editMultipleOption().disableModule(TuEditActionType.TypeWipeFilter);
-//		component.componentOption().editMultipleOption().disableModule(TuEditActionType.TypeSharpness);
-//		component.componentOption().editMultipleOption().disableModule(TuEditActionType.TypeVignette);
-//		component.componentOption().editMultipleOption().disableModule(TuEditActionType.TypeAperture);
-//		component.componentOption().editMultipleOption().disableModule(TuEditActionType.TypeHolyLight);
 
 		// 指定根视图资源ID
 		component.componentOption().editMultipleOption().setRootViewLayoutId(R.layout.custom_multiple_fragment_layout);

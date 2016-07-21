@@ -103,6 +103,7 @@
     <string name="lsq_edit_multiple_title">编辑</string>
     <string name="lsq_edit_skin_title">美颜</string>
     <string name="lsq_edit_holy_light">圣光</string>
+    <string name="lsq_edit_entry_fontsticker">字体</string>
 
     <!-- sticker -->
     <string name="lsq_sticker_title">贴纸</string>

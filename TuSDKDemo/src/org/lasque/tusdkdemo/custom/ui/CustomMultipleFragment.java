@@ -1,6 +1,5 @@
-package org.lasque.tusdkdemo.custom.suite;
+package org.lasque.tusdkdemo.custom.ui;
 
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -13,16 +12,15 @@ import org.lasque.tusdk.impl.components.edit.TuEditMultipleFragment;
 import org.lasque.tusdk.modules.components.ComponentActType;
 import org.lasque.tusdk.modules.components.edit.TuEditActionType;
 import org.lasque.tusdkdemo.R;
+import org.lasque.tusdkdemo.custom.suite.TextStickerComponent;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**
  * Created by LYL on 2016/7/19.
  */
 public class CustomMultipleFragment extends TuEditMultipleFragment {
-
 
     @Override
     protected void loadView(ViewGroup view)
@@ -71,6 +69,7 @@ public class CustomMultipleFragment extends TuEditMultipleFragment {
 
     }
 
+
     @Override
     protected View buildActionButton(TuEditActionType tuEditActionType) {
         return super.buildActionButton(tuEditActionType);
@@ -94,7 +93,8 @@ public class CustomMultipleFragment extends TuEditMultipleFragment {
 
         @Override
         public void onClick(View v) {
-            Toast.makeText(getContext(),"文字编辑!",Toast.LENGTH_SHORT).show();
+            new TextStickerComponent().showSample(getActivity());
+
         }
     };
 
@@ -105,5 +105,6 @@ public class CustomMultipleFragment extends TuEditMultipleFragment {
             Toast.makeText(getContext(),"分享功能!",Toast.LENGTH_SHORT).show();
         }
     };
+
 
 }

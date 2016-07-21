@@ -7,7 +7,7 @@
  * @Copyright 	(c) 2014 tusdk.com. All rights reserved.
  * @link 		开发文档:http://tusdk.com/docs/android/api/
  */
-package org.lasque.tusdkdemo.custom;
+package org.lasque.tusdkdemo.custom.ui;
 
 import org.lasque.tusdk.core.TuSdk;
 import org.lasque.tusdk.core.secret.StatisticsManger;
