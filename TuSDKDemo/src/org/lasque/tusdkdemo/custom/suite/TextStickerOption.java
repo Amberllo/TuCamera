@@ -35,7 +35,7 @@ public class TextStickerOption extends TuImageResultOption {
         return delegate;
     }
 
-    interface TextStickerDelegate{
+    public interface TextStickerDelegate{
         void onTextStickerResult(TuSdkResult result);
     }
 

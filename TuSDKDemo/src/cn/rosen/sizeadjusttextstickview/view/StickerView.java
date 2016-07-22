@@ -1,4 +1,4 @@
-package sizeadjusttextstickview.view;
+package cn.rosen.sizeadjusttextstickview.view;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -24,12 +24,13 @@ import android.widget.TextView;
 
 import org.lasque.tusdkdemo.R;
 
-import sizeadjusttextstickview.utils.PrintUtils;
+import cn.rosen.sizeadjusttextstickview.utils.PrintUtils;
+
 
 /**
  * Created by sam on 14-8-14.
  */
-public class StickerTextView extends View {
+public class StickerView extends View {
 
 //    private float mScaleSize;
 
@@ -79,15 +80,15 @@ public class StickerTextView extends View {
 
     private OnStickerTouchListener mOnStickerTouchListener;
 
-    public StickerTextView(Context context, boolean hasTxt) {
+    public StickerView(Context context, boolean hasTxt) {
         this(context, null, hasTxt);
     }
 
-    public StickerTextView(Context context, AttributeSet attrs, boolean hasTxt) {
+    public StickerView(Context context, AttributeSet attrs, boolean hasTxt) {
         this(context, attrs, 0, hasTxt);
     }
 
-    public StickerTextView(Context context, AttributeSet attrs, int defStyle, boolean hasTxt) {
+    public StickerView(Context context, AttributeSet attrs, int defStyle, boolean hasTxt) {
         super(context, attrs, defStyle);
         init(hasTxt);
     }
@@ -119,13 +120,12 @@ public class StickerTextView extends View {
             sizeTextView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));//ViewGroup.LayoutParams.MATCH_PARENT
 //            sizeTextView.setWidth(100);
 //            sizeTextView.setHeight(100);
-            sizeTextView.setText(mStr, TextView.BufferType.NORMAL);
+            sizeTextView.setText(mStr,TextView.BufferType.NORMAL);
             fontColor = Color.BLACK;
             sizeTextView.setBackgroundColor(Color.parseColor("#00000000"));
             sizeTextView.setTextColor(fontColor);
 //            linearLayout.addView(sizeTextView);
             sizeTextView.setTextSize(getTextSize(fontSize));
-            sizeTextView.setBackgroundColor(Color.parseColor("#336699"));
 //            textPaint = new TextPaint();
 //            textPaint.setAntiAlias(true);
 //            textPaint.setColor(fontColor);
@@ -185,7 +185,7 @@ public class StickerTextView extends View {
 
     }
 
-    public void setTextDraw(Bitmap bitmap, float left, float top, float right, float bottom) {
+    public void setTextDraw(Bitmap bitmap, float left, float top,float right,float bottom) {
 //        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
 //        lp.leftMargin = (int)dpToPx(x);
 //        lp.topMargin = (int)dpToPx(y);
@@ -439,7 +439,7 @@ public class StickerTextView extends View {
                     mMatrix.postRotate(rotation(event),mid.x,mid.y);//mPoints[8], mPoints[9]
                     float nowLenght = caculateLength(mPoints[4], mPoints[5]);
                     float touchLenght = caculateLength(event.getX(), event.getY());
-                    if ((float) Math.sqrt((nowLenght - touchLenght) * (nowLenght - touchLenght)) > 0.0f) {
+                    if ((float)Math.sqrt((nowLenght - touchLenght) * (nowLenght - touchLenght)) > 0.0f) {
                         float scale = touchLenght / nowLenght;
                         float nowsc = mStickerScaleSize * scale;
                         if (nowsc >= MIN_SCALE_SIZE && nowsc <= MAX_SCALE_SIZE) {
@@ -505,7 +505,7 @@ public class StickerTextView extends View {
     private float caculateLength(float x, float y) {
         float ex = x - mid.x;
         float ey = y - mid.y;
-        return (float) Math.sqrt(ex * ex + ey * ey);
+        return (float)Math.sqrt(ex * ex + ey * ey);
     }
 
 
@@ -523,13 +523,13 @@ public class StickerTextView extends View {
     }
 
     public interface OnStickerTouchListener {
-        public void onCopy(StickerTextView stickerView);
+        public void onCopy(StickerView stickerView);
 
-        public void onDelete(StickerTextView stickerView);
+        public void onDelete(StickerView stickerView);
 
-        public void onMoveToHead(StickerTextView stickerView);
+        public void onMoveToHead(StickerView stickerView);
 
-        public void onDoubleClick(StickerTextView stickerView);
+        public void onDoubleClick(StickerView stickerView);
     }
     /**
      * 触摸的位置和图片左上角位置的中点
@@ -622,5 +622,4 @@ public class StickerTextView extends View {
     public void setOnStickerTouchListener(OnStickerTouchListener listener) {
         mOnStickerTouchListener = listener;
     }
-
 }

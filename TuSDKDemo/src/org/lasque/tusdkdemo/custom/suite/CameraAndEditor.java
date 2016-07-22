@@ -84,11 +84,19 @@ public class CameraAndEditor extends SampleBase implements TuCameraFragmentDeleg
 
 		// 显示滤镜标题视图
 		option.setDisplayFiltersSubtitles(true);
-		
+
+        option.setSaveToAlbum(true);
+
 		// 是否开启脸部追踪 (需要相机人脸追踪权限，请访问tusdk.com 控制台开启权限)
 		option.enableFaceDetection = true;
 
-		TuCameraFragment fragment = option.fragment();
+        // 控制器类型
+        option.setComponentClazz(CameraFragment.class);
+
+        // 设置根视图布局资源ID
+        option.setRootViewLayoutId(CameraFragment.getLayoutId());
+
+        TuCameraFragment fragment = option.fragment();
 		fragment.setDelegate(this);
 
 		// see-http://tusdk.com/docs/android/api/org/lasque/tusdk/impl/components/base/TuSdkHelperComponent.html
@@ -112,8 +120,8 @@ public class CameraAndEditor extends SampleBase implements TuCameraFragmentDeleg
 	@Override
 	public void onTuCameraFragmentCaptured(TuCameraFragment fragment, TuSdkResult result)
 	{
-		fragment.hubDismissRightNow();
-		fragment.dismissActivityWithAnim();
+//		fragment.hubDismissRightNow();
+//		fragment.dismissActivityWithAnim();
 		TLog.d("onTuCameraFragmentCaptured: %s", result);
 		
 		// 默认输出为 Bitmap  -> result.image
@@ -132,7 +140,6 @@ public class CameraAndEditor extends SampleBase implements TuCameraFragmentDeleg
 			public void onComponentFinished(TuSdkResult result, Error error, TuFragment lastFragment)
 			{
 				TLog.d("onEditMultipleComponentReaded: %s | %s", result, error);
-				
 				// 默认输出为 Bitmap  -> result.image
 				
 				// 如果保存到临时文件 (默认不保存, 当设置为true时, TuSdkResult.imageFile, 处理完成后将自动清理原始图片)
@@ -145,6 +152,7 @@ public class CameraAndEditor extends SampleBase implements TuCameraFragmentDeleg
 				
 		TuEditMultipleComponent component = TuSdkGeeV1.editMultipleCommponent(fragment, delegate);
 		component.componentOption().editMultipleOption().setComponentClazz(CustomMultipleFragment.class);
+        component.componentOption().editMultipleOption().setSaveToAlbum(true);
 
 		// 指定根视图资源ID
 		component.componentOption().editMultipleOption().setRootViewLayoutId(R.layout.custom_multiple_fragment_layout);

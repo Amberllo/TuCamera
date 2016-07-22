@@ -6,10 +6,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import org.lasque.tusdk.TuSdkGeeV1;
+import org.lasque.tusdk.core.TuSdkResult;
 import org.lasque.tusdk.core.secret.StatisticsManger;
 import org.lasque.tusdk.core.view.widget.button.TuSdkTextButton;
-import org.lasque.tusdk.impl.components.TuEditMultipleComponent;
 import org.lasque.tusdk.impl.components.edit.TuEditMultipleFragment;
 import org.lasque.tusdk.modules.components.ComponentActType;
 import org.lasque.tusdk.modules.components.edit.TuEditActionType;
@@ -17,8 +16,6 @@ import org.lasque.tusdkdemo.R;
 import org.lasque.tusdkdemo.custom.suite.TextStickerComponent;
 import org.lasque.tusdkdemo.custom.suite.TextStickerOption;
 
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by LYL on 2016/7/19.
@@ -81,6 +78,21 @@ public class CustomMultipleFragment extends TuEditMultipleFragment {
 
             TextStickerComponent component = new TextStickerComponent(getActivity());
             TextStickerOption option = new TextStickerOption();
+            option.setDelegate(new TextStickerOption.TextStickerDelegate() {
+                @Override
+                public void onTextStickerResult(final TuSdkResult result) {
+//                    notifyProcessing(result);
+
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            setImage(result.image);
+                            getImageView().setImageBitmap(result.image);
+
+                        }
+                    });
+                }
+            });
             component.setOption(option)
                     .setImage(getImage())
                     // 设置系统照片

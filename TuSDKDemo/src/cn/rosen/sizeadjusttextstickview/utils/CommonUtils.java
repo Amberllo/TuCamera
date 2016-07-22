@@ -1,4 +1,4 @@
-package sizeadjusttextstickview.utils;
+package cn.rosen.sizeadjusttextstickview.utils;
 
 import android.app.Activity;
 import android.app.ActivityManager;
@@ -40,6 +40,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.EditText;
 
+import java.io.File;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -64,7 +65,7 @@ public class CommonUtils{
 	 * @param act
 	 * @return
 	 */
-	public static int getDisplayWidth(Activity act)
+	public static int getDisplayWidth(Activity act) 
 	{	
 		return act.getWindowManager().getDefaultDisplay().getWidth();
 	}
@@ -73,7 +74,7 @@ public class CommonUtils{
 	 * @param act
 	 * @return
 	 */
-	public static int getDisplayHeight(Activity act)
+	public static int getDisplayHeight(Activity act) 
 	{
 		return act.getWindowManager().getDefaultDisplay().getHeight();
 	}
@@ -88,10 +89,10 @@ public class CommonUtils{
      * @param context
      * @return
      */
-	public static int getScreenWidth(Context context) {
-	 WindowManager manager = (WindowManager) context
-	         .getSystemService(Context.WINDOW_SERVICE);
-	 Display display = manager.getDefaultDisplay();
+	public static int getScreenWidth(Context context) { 
+	 WindowManager manager = (WindowManager) context 
+	         .getSystemService(Context.WINDOW_SERVICE); 
+	 Display display = manager.getDefaultDisplay(); 
 	 return display.getWidth(); 
 	} 
 	/**
@@ -99,10 +100,10 @@ public class CommonUtils{
 	 * @param context
 	 * @return
 	 */
-	public static int getScreenHeight(Context context) {
-	 WindowManager manager = (WindowManager) context
-	         .getSystemService(Context.WINDOW_SERVICE);
-	 Display display = manager.getDefaultDisplay();
+	public static int getScreenHeight(Context context) { 
+	 WindowManager manager = (WindowManager) context 
+	         .getSystemService(Context.WINDOW_SERVICE); 
+	 Display display = manager.getDefaultDisplay(); 
 	 return display.getHeight(); 
 	}
 	/**
@@ -120,9 +121,9 @@ public class CommonUtils{
 	 * @param context
 	 * @return
 	 */
-	public static int getWidthPixels(Context context)
+	public static int getWidthPixels(Context context) 
 	{		
-		 DisplayMetrics dm = new DisplayMetrics();
+		 DisplayMetrics dm = new DisplayMetrics();   
 		 dm = context.getResources().getDisplayMetrics();   
 		   		
 		return dm.widthPixels;
@@ -132,9 +133,9 @@ public class CommonUtils{
 	 * @param context
 	 * @return
 	 */
-	public static int getHeightPixels(Context context)
+	public static int getHeightPixels(Context context) 
 	{
-		DisplayMetrics dm = new DisplayMetrics();
+		DisplayMetrics dm = new DisplayMetrics();   
 		dm = context.getResources().getDisplayMetrics();   
 		return dm.heightPixels;
 	}
@@ -205,7 +206,7 @@ public class CommonUtils{
 	 * @param pxValue
 	 * @return
 	 */
-	public static int pxToDip(Context context, float pxValue){
+	public static int pxToDip(Context context,float pxValue){
 		final float density = context.getResources().getDisplayMetrics().density;
 		return  (int)(pxValue/density +0.5f);
 		
@@ -535,8 +536,8 @@ public class CommonUtils{
 		} 
 		//木有sd卡
 		else {
-			String rootPath = Environment.getRootDirectory().getPath();
-			StatFs statFs = new StatFs(rootPath);
+			String rootPath = Environment.getRootDirectory().getPath(); 
+			StatFs statFs = new StatFs(rootPath); 
 			// 获取一个文件的存储大小
 			long blockSize = statFs.getBlockSize();
 			// 获取剩下可用的文件大小
@@ -550,7 +551,7 @@ public class CommonUtils{
 	 * @param pagckageName
 	 * @return
 	 */
-	public boolean isAppAvilible(Context context, String pagckageName){
+	public boolean isAppAvilible(Context context,String pagckageName){
 		if(pagckageName == null || "".equals(pagckageName)){
 			return false;
 		}
@@ -570,7 +571,7 @@ public class CommonUtils{
 	 * @param pagckageName
 	 * @param activityName
 	 */
-	public static void goApplication(Context context, String pagckageName, String activityName){
+	public static void goApplication(Context context,String pagckageName,String activityName){
 		Intent it = new Intent();
 		ComponentName cn = new ComponentName(pagckageName,activityName);
 		it.setComponent(cn);
@@ -581,7 +582,7 @@ public class CommonUtils{
 	 * @param context
 	 * @param pagckageName
 	 */
-	public static void goApplication(Context context, String pagckageName){
+	public static void goApplication(Context context,String pagckageName){
 		PackageManager packageManager = context.getPackageManager();
 		Intent it = packageManager.getLaunchIntentForPackage(pagckageName);
 		context.startActivity(it);
@@ -592,15 +593,15 @@ public class CommonUtils{
      * @param className 判断的服务名字：包名+类名
      * @return true 在运行, false 不在运行
      */
-    public static boolean isServiceRunning(Context context, String className) {
+    public static boolean isServiceRunning(Context context,String className) {  
     	if(context == null || TextUtils.isEmpty(className)){
     		return false;
     	}
     	
         boolean isRunning = false;
-        ActivityManager activityManager =
-            (ActivityManager)context.getSystemService(Context.ACTIVITY_SERVICE);
-        List<ActivityManager.RunningServiceInfo> serviceList
+        ActivityManager activityManager = 
+            (ActivityManager)context.getSystemService(Context.ACTIVITY_SERVICE); 
+        List<ActivityManager.RunningServiceInfo> serviceList 
         = activityManager.getRunningServices(Integer.MAX_VALUE);
         if (!(serviceList.size()>0)) {
             return false;
@@ -649,7 +650,7 @@ public class CommonUtils{
 	 * @param toY
 	 */
 	public static void setImageSlide(View v, int startX, int toX, int startY,
-                                     int toY) {
+			int toY) {
 		TranslateAnimation anim = new TranslateAnimation(startX, toX, startY,
 				toY);
 		anim.setDuration(100);
@@ -681,7 +682,7 @@ public class CommonUtils{
      */
     public static String getVersionName(Context context)
 	{
-	    PackageManager packageManager = context.getPackageManager();
+	    PackageManager packageManager = context.getPackageManager();  
 	    //GetPackageName () is your current class package name, 0 stands for is to get version information  
 	    PackageInfo packInfo;
 		try {
@@ -699,7 +700,7 @@ public class CommonUtils{
      */
     public static int getVersionCode(Context context)
 	{
-	    PackageManager packageManager = context.getPackageManager();
+	    PackageManager packageManager = context.getPackageManager();  
 	    //GetPackageName () is your current class package name, 0 stands for is to get version information  
 	    PackageInfo packInfo;
 		try {
@@ -766,12 +767,12 @@ public class CommonUtils{
 	 * 去设置默认浏览器
 	 * @param context
 	 */
-	public static void setDefaultBrowser(Context context, String tip){
-		Intent intent = new Intent();
+	public static void setDefaultBrowser(Context context,String tip){
+		Intent intent = new Intent();  
 	    intent.setAction("android.intent.action.VIEW");  
 	    intent.addCategory("android.intent.category.BROWSABLE");  
-	    intent.setData(Uri.parse(tip));
-	    intent.setComponent(new ComponentName("android","com.android.internal.app.ResolverActivity"));
+	    intent.setData(Uri.parse(tip));  
+	    intent.setComponent(new ComponentName("android","com.android.internal.app.ResolverActivity"));  
 	    context.startActivity(intent); 
 	}
 	/**
@@ -779,11 +780,11 @@ public class CommonUtils{
 	 * @param context
 	 * @return
 	 */
-	public static String checkHasDefaultBrowser(Context context) {
-		Intent intent = new Intent(Intent.ACTION_VIEW);
+	public static String checkHasDefaultBrowser(Context context) { 
+		Intent intent = new Intent(Intent.ACTION_VIEW);  
 	    intent.setData(Uri.parse("http://www.baidu.com"));
-	    PackageManager pm = context.getPackageManager();
-	    ResolveInfo info = pm.resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY);
+	    PackageManager pm = context.getPackageManager();  
+	    ResolveInfo info = pm.resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY);  
 	    return info.activityInfo.packageName; 
 	}
 	/**
@@ -791,8 +792,8 @@ public class CommonUtils{
 	 * @param context
 	 * @param packgeName
 	 */
-	public static void clearDefaultBrowser(Context context, String packgeName){
-		Intent intent = new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:"+packgeName));
+	public static void clearDefaultBrowser(Context context,String packgeName){
+		Intent intent = new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:"+packgeName));  
 		context.startActivity(intent);
 	}
 	/**
@@ -800,7 +801,7 @@ public class CommonUtils{
 	 * @param context
 	 */
 	public static void clearMyDefaultBrowser(Context context){
-		 PackageManager pm = context.getPackageManager();
+		 PackageManager pm = context.getPackageManager();  
 		 pm.clearPackagePreferredActivities(context.getPackageName());  
 	}
 	/**
@@ -808,7 +809,7 @@ public class CommonUtils{
      * @param act
      * @param alpha 0.4f变暗 1f恢复亮度
      */
-    public static void ajustWindow(Activity act, float alpha){
+    public static void ajustWindow(Activity act,float alpha){
     	 WindowManager.LayoutParams lp= act.getWindow().getAttributes();
     	 lp.alpha = alpha;
     	 act.getWindow().setAttributes(lp);
@@ -819,7 +820,7 @@ public class CommonUtils{
 	 * @param text
 	 */
 	@SuppressWarnings("deprecation")
-	public static void copyText(Context context, String text){
+	public static void copyText(Context context,String text){
 		ClipboardManager cm =(ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
 		cm.setText(text);
 	}
@@ -868,7 +869,7 @@ public class CommonUtils{
 	// 排序
 	@SuppressWarnings("rawtypes")
 	public static void Sort(List<Map> list, final String sortKey,
-                            final boolean IsAsc) {
+			final boolean IsAsc) {
 		Comparator<Map> cp = new Comparator<Map>() {
 			private final Collator collator = Collator.getInstance();
 
@@ -913,7 +914,7 @@ public class CommonUtils{
 	 * @param path
 	 * @return
 	 */
-	public static Bitmap createFromAsset(Context context, String path){
+	public static Bitmap createFromAsset(Context context,String path){
 		if(!TextUtils.isEmpty(path)){
 			try{
 				InputStream is = context.getAssets().open(path);
@@ -955,7 +956,7 @@ public class CommonUtils{
 	 * @param filename
 	 * @param context
 	 */
-	public static void updateMedia(String filename, Context context)//filename是我们的文件全名，包括后缀哦
+	public static void updateMedia(String filename,Context context)//filename是我们的文件全名，包括后缀哦
 	{
 		MediaScannerConnection.scanFile(context,
 				new String[]{filename}, null,

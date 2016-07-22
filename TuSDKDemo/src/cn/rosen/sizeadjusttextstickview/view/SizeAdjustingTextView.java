@@ -1,4 +1,4 @@
-package sizeadjusttextstickview.view;
+package cn.rosen.sizeadjusttextstickview.view;
 
 import android.content.Context;
 import android.graphics.RectF;
@@ -35,7 +35,7 @@ import android.widget.TextView;
  * @since Apr 4, 2011
  *
  */
-public class SizeAdjustingTextView extends TextView {
+public class SizeAdjustingTextView extends TextView{
 
     // Minimum text size for this text view
     public static final float MIN_TEXT_SIZE = 1;
@@ -84,7 +84,7 @@ public class SizeAdjustingTextView extends TextView {
     protected void onTextChanged(final CharSequence text, final int start, final int before, final int after) {
         mNeedsResize = true;
         // Since this view may be reused, it is good to reset the text size
-//        resetTextSize();
+        resetTextSize();
     }
 
     @Override

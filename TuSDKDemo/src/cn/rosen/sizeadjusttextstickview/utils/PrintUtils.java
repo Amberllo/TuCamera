@@ -1,4 +1,4 @@
-package sizeadjusttextstickview.utils;
+package cn.rosen.sizeadjusttextstickview.utils;
 
 //import java.lang.reflect.Array;
 	/**

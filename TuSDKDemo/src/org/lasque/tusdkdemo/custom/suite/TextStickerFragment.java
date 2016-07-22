@@ -11,6 +11,8 @@ package org.lasque.tusdkdemo.custom.suite;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -21,22 +23,30 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import org.lasque.tusdk.core.TuSdkContext;
 import org.lasque.tusdk.core.TuSdkResult;
+import org.lasque.tusdk.core.view.widget.button.TuSdkImageButton;
 import org.lasque.tusdk.impl.activity.TuImageResultFragment;
+
+import org.lasque.tusdk.modules.view.widget.sticker.StickerFactory;
 import org.lasque.tusdkdemo.R;
-import sizeadjusttextstickview.view.StickerTextView;
+
+import cn.rosen.sizeadjusttextstickview.view.StickerView;
 
 /**
  * @author Amberllo
  * 文字编辑页面
  */
-public class TextStickerFragment extends TuImageResultFragment
+public class TextStickerFragment extends TuImageResultFragment implements View.OnClickListener
+
 {
     TextStickerOption.TextStickerDelegate delegate;
-    StickerTextView stickerView;
+    StickerView stickerView;
     EditText edt_input;
     RelativeLayout imageWrapView;
     ImageView imageView;
+    TuSdkImageButton cancelButton;
+    TuSdkImageButton okButton;
 
     public static int getLayoutId() {
         return R.layout.custom_textedit_fragment_layout;
@@ -56,7 +66,10 @@ public class TextStickerFragment extends TuImageResultFragment
         imageWrapView = (RelativeLayout)viewGroup.findViewById(R.id.lsq_imageWrapView);
         edt_input = (EditText)viewGroup.findViewById(R.id.lsq_input);
         edt_input.addTextChangedListener(textWatcher);
-
+        cancelButton = (TuSdkImageButton)viewGroup.findViewById(R.id.lsq_configCancelButton);
+        cancelButton.setOnClickListener(this);
+        okButton = (TuSdkImageButton)viewGroup.findViewById(R.id.lsq_configCompleteButton);
+        okButton.setOnClickListener(this);
         addStikerTextView();
     }
 
@@ -71,9 +84,9 @@ public class TextStickerFragment extends TuImageResultFragment
 
 
     private void addStikerTextView() {
-        stickerView = new StickerTextView(getContext(),true);
+        stickerView = new StickerView(getContext(),true);
         stickerView.setOnStickerTouchListener(onStickerTouchListener);
-        RelativeLayout.LayoutParams rl = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,RelativeLayout.LayoutParams.WRAP_CONTENT);
+        RelativeLayout.LayoutParams rl = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,RelativeLayout.LayoutParams.MATCH_PARENT);
         rl.addRule(RelativeLayout.CENTER_IN_PARENT);
 
         imageWrapView.addView(stickerView,rl);
@@ -106,49 +119,53 @@ public class TextStickerFragment extends TuImageResultFragment
 //            this.getStickerView().appenSticker(var1);
 //        }
 //    }
-//
-//    protected void handleCompleteButton() {
-//        if(this.getStickerView() == null) {
-//            this.handleBackButton();
-//        } else {
-//            final TuSdkResult result = new TuSdkResult();
-//            Rect var2 = null;
-//            if(this.getCutRegionView() != null) {
-//                var2 = this.getCutRegionView().getRegionRect();
-//            }
-//
-//            result.stickers = this.getStickerView().getResults(var2);
-//            if(result.stickers != null && result.stickers.size() != 0) {
-//                this.hubStatus(TuSdkContext.getString("lsq_edit_processing"));
-//                (new Thread(new Runnable() {
-//                    public void run() {
-//                        TextStickerFragment.this.asyncEditWithResult(var1);
-//                    }
-//                })).start();
-//            } else {
-//                this.handleBackButton();
-//            }
-//        }
-//    }
 
-    StickerTextView.OnStickerTouchListener onStickerTouchListener = new StickerTextView.OnStickerTouchListener() {
+    protected void handleCompleteButton() {
+        if(this.stickerView  == null) {
+            this.handleBackButton();
+        } else {
+            final TuSdkResult result = new TuSdkResult();
+//            Rect rect = null;
+//            if(this.getCutRegionView() != null) {
+//                rect = this.getCutRegionView().getRegionRect();
+//            }
+//            result.stickers = this.stickerView.getResults(var2);
+            result.image = saveViewBitmap (imageWrapView);
+            if(result.image!= null) {
+                this.hubStatus(TuSdkContext.getString("lsq_edit_processing"));
+                (new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        TextStickerFragment.this.asyncEditWithResult(result);
+                    }
+                })).start();
+                if(delegate!=null)delegate.onTextStickerResult(result);
+                handleBackButton();
+                imageView.setImageBitmap(result.image);
+            } else {
+                this.handleBackButton();
+            }
+        }
+    }
+
+    StickerView.OnStickerTouchListener onStickerTouchListener = new StickerView.OnStickerTouchListener() {
         @Override
-        public void onCopy(StickerTextView stickerView) {
+        public void onCopy(StickerView stickerView) {
 
         }
 
         @Override
-        public void onDelete(StickerTextView stickerView) {
+        public void onDelete(StickerView stickerView) {
             edt_input.setVisibility(View.GONE);
         }
 
         @Override
-        public void onMoveToHead(StickerTextView stickerView) {
+        public void onMoveToHead(StickerView stickerView) {
 
         }
 
         @Override
-        public void onDoubleClick(StickerTextView stickerView) {
+        public void onDoubleClick(StickerView stickerView) {
             edt_input.setVisibility(View.VISIBLE);
         }
     };
@@ -170,4 +187,56 @@ public class TextStickerFragment extends TuImageResultFragment
             stickerView.resetText(s.toString());
         }
     };
+
+    @Override
+    public void onClick(View v) {
+        if(v == cancelButton){
+            handleBackButton();
+        }else if(v == okButton){
+            handleCompleteButton();
+        }
+    }
+
+    protected void asyncEditWithResult(TuSdkResult result) {
+        this.loadOrginImage(result);
+//        if(result.stickers != null) {
+//            result.image = StickerFactory.megerStickers(result.image, result.stickers);
+//            result.stickers = null;
+//        }
+        this.asyncProcessingIfNeedSave(result);
+    }
+
+
+
+    private Bitmap saveViewBitmap(View view) {
+// get current view bitmap
+        view.setDrawingCacheEnabled(true);
+        view.buildDrawingCache(true);
+        Bitmap bitmap = view.getDrawingCache(true);
+
+        Bitmap bmp = duplicateBitmap(bitmap);
+        if (bitmap != null && !bitmap.isRecycled()) { bitmap.recycle(); bitmap = null; }
+        // clear the cache
+        view.setDrawingCacheEnabled(false);
+        return bmp;
+    }
+
+
+    public static Bitmap duplicateBitmap(Bitmap bmpSrc)
+    {
+        if (null == bmpSrc)
+        { return null; }
+
+        int bmpSrcWidth = bmpSrc.getWidth();
+        int bmpSrcHeight = bmpSrc.getHeight();
+
+        Bitmap bmpDest = Bitmap.createBitmap(bmpSrcWidth, bmpSrcHeight, Bitmap.Config.ARGB_8888);
+        if (null != bmpDest) {
+            Canvas canvas = new Canvas(bmpDest);
+            final Rect rect = new Rect(0, 0, bmpSrcWidth, bmpSrcHeight);
+            canvas.drawBitmap(bmpSrc, rect, rect, null);
+        }
+        return bmpDest;
+    }
+
 }

@@ -44,8 +44,6 @@ public class TextStickerComponent extends TuEditMultipleComponentBase {
             // 文字贴纸页面
             this.componentHelper.presentModalNavigationActivity(fragment,TuAnimType.fade, TuAnimType.fade, true);
 
-
-
             return this;
         }
     }
