@@ -89,7 +89,7 @@
             android:layout_height="44dp"
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
             android:scaleType="centerCrop" />
 
         <org.lasque.tusdk.core.view.widget.button.TuSdkImageButton
@@ -105,7 +105,7 @@
             android:layout_width="44dp"
             android:layout_height="44dp"
             android:layout_alignParentLeft="true"
-            android:layout_marginRight="40dp"
+            android:layout_marginLeft="40dp"
             android:layout_alignParentBottom="true"
             android:scaleType="center"
             android:src="@drawable/lsq_style_default_camera_bg_filter" />

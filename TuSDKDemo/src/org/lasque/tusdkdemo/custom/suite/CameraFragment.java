@@ -11,6 +11,8 @@ package org.lasque.tusdkdemo.custom.suite;
 
 import android.view.View;
 import android.view.ViewGroup;
+
+import org.lasque.tusdk.core.view.TuSdkImageView;
 import org.lasque.tusdk.impl.components.camera.TuCameraFragment;
 import org.lasque.tusdkdemo.R;
 
@@ -18,7 +20,7 @@ import org.lasque.tusdkdemo.R;
  * @author Amberllo
  * 自定义相机页面
  */
-public class CameraFragment extends TuCameraFragment implements View.OnClickListener
+public class CameraFragment extends TuCameraFragment
 {
 
     /**
@@ -33,19 +35,14 @@ public class CameraFragment extends TuCameraFragment implements View.OnClickList
     protected void loadView(ViewGroup view)
     {
         super.loadView(view);
-
+        TuSdkImageView albumButton = (TuSdkImageView)view.findViewById(R.id.lsq_albumPosterView);
+        albumButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new AlbumEditMultipleComponent().showSample(getActivity());
+            }
+        });
         // 在这里使用 getViewById()方法找到新添加的视图
     }
 
-
-    @Override
-    public void onClick(View v) {
-
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        getActivity().finish();
-    }
 }

@@ -59,7 +59,7 @@ public class CameraAndEditor extends SampleBase implements TuCameraFragmentDeleg
 		option.setSaveToTemp(false);
 
 		// 保存到系统相册 (默认不保存, 当设置为true时, TuSdkResult.sqlInfo, 处理完成后将自动清理原始图片)
-		option.setSaveToAlbum(false);
+		option.setSaveToAlbum(true);
 		
 		// 照片输出压缩率 (默认:90，0-100 如果设置为0 将保存为PNG格式)
 		option.setOutputCompress(100);
@@ -77,13 +77,15 @@ public class CameraAndEditor extends SampleBase implements TuCameraFragmentDeleg
 		option.setAutoSelectGroupDefaultFilter(true);
 
 		// 开启用户滤镜历史记录
-		option.setEnableFiltersHistory(true);
+		option.setEnableFiltersHistory(false);
 
 		// 开启在线滤镜
-		option.setEnableOnlineFilter(true);
+		option.setEnableOnlineFilter(false);
 
 		// 显示滤镜标题视图
-		option.setDisplayFiltersSubtitles(true);
+		option.setDisplayFiltersSubtitles(false);
+
+        option.setDisplayAlbumPoster(true);
 
         option.setSaveToAlbum(true);
 
@@ -123,16 +125,7 @@ public class CameraAndEditor extends SampleBase implements TuCameraFragmentDeleg
 //		fragment.hubDismissRightNow();
 //		fragment.dismissActivityWithAnim();
 		TLog.d("onTuCameraFragmentCaptured: %s", result);
-		
-		// 默认输出为 Bitmap  -> result.image
-		
-		// 如果保存到临时文件 (默认不保存, 当设置为true时, TuSdkResult.imageFile, 处理完成后将自动清理原始图片)
-		// option.setSaveToTemp(true);  ->  result.imageFile
 
-		// 保存到系统相册 (默认不保存, 当设置为true时, TuSdkResult.sqlInfo, 处理完成后将自动清理原始图片)
-		// option.setSaveToAlbum(true);  -> result.image
-		
-		
 		// 组件委托
 		TuSdkComponentDelegate delegate = new TuSdkComponentDelegate()
 		{
@@ -141,12 +134,6 @@ public class CameraAndEditor extends SampleBase implements TuCameraFragmentDeleg
 			{
 				TLog.d("onEditMultipleComponentReaded: %s | %s", result, error);
 				// 默认输出为 Bitmap  -> result.image
-				
-				// 如果保存到临时文件 (默认不保存, 当设置为true时, TuSdkResult.imageFile, 处理完成后将自动清理原始图片)
-				// option.setSaveToTemp(true);  ->  result.imageFile
-
-				// 保存到系统相册 (默认不保存, 当设置为true时, TuSdkResult.sqlInfo, 处理完成后将自动清理原始图片)
-				// option.setSaveToAlbum(true);  -> result.image
 			}
 		};
 				
