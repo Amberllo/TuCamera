@@ -7,7 +7,7 @@
  * @Copyright 	(c) 2014 tusdk.com. All rights reserved.
  * @link 		开发文档:http://tusdk.com/docs/android/api/
  */
-package org.lasque.tusdkdemo.custom.suite;
+package org.lasque.tusdkdemo.custom.ui;
 
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import org.lasque.tusdk.core.view.TuSdkImageView;
 import org.lasque.tusdk.impl.components.camera.TuCameraFragment;
 import org.lasque.tusdkdemo.R;
+import org.lasque.tusdkdemo.custom.suite.AlbumEditMultipleComponent;
 
 /**
  * @author Amberllo
@@ -43,6 +44,7 @@ public class CameraFragment extends TuCameraFragment
             }
         });
         // 在这里使用 getViewById()方法找到新添加的视图
+//        this.getBottomBar().setVisibility(View.GONE);
     }
 
 }

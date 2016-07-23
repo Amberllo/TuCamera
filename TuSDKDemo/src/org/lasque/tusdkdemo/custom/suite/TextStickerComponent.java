@@ -6,6 +6,7 @@ import org.lasque.tusdk.impl.TuAnimType;
 import org.lasque.tusdk.modules.components.TuEditMultipleComponentBase;
 import org.lasque.tusdk.modules.components.TuSdkComponent;
 import org.lasque.tusdk.modules.components.TuSdkHelperComponent;
+import org.lasque.tusdkdemo.custom.ui.TextStickerFragment;
 
 /**
  * Created by apple on 16/7/20.

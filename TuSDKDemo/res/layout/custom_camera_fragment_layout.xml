@@ -81,7 +81,7 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/tusdk_component_camera_bottombar_bg" >
+        android:background="@color/lsq_background_camera_bar_alpha" >
 
         <org.lasque.tusdk.core.view.TuSdkImageView
             android:id="@+id/lsq_albumPosterView"
@@ -172,6 +172,14 @@
                 android:paddingLeft="8dp"
                 android:textSize="14sp" />
         </LinearLayout>
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine"
+            android:ems="10"
+            android:id="@+id/editText" android:layout_alignParentBottom="true"
+            android:layout_toLeftOf="@+id/lsq_flashWrapView"
+            android:layout_toStartOf="@+id/lsq_flashWrapView" android:layout_marginBottom="76dp"/>
     </RelativeLayout>
 
     <include

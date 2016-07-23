@@ -53,13 +53,6 @@
         </activity>
 
         <activity
-            android:name=".custom.suite.TextStickerFragment"
-            android:screenOrientation="portrait">
-        </activity>
-
-
-
-        <activity
             android:name=".DemoEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/app_name"

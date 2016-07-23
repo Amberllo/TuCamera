@@ -14,10 +14,6 @@ import android.app.Activity;
 import org.lasque.tusdk.TuSdkGeeV1;
 import org.lasque.tusdk.core.TuSdkResult;
 import org.lasque.tusdk.core.utils.TLog;
-import org.lasque.tusdk.core.utils.TuSdkWaterMarkOption;
-import org.lasque.tusdk.core.utils.TuSdkWaterMarkOption.TextPosition;
-import org.lasque.tusdk.core.utils.TuSdkWaterMarkOption.WaterMarkPosition;
-import org.lasque.tusdk.core.utils.image.BitmapHelper;
 import org.lasque.tusdk.impl.activity.TuFragment;
 import org.lasque.tusdk.impl.components.TuEditMultipleComponent;
 import org.lasque.tusdk.modules.components.TuSdkComponent.TuSdkComponentDelegate;
@@ -25,7 +21,7 @@ import org.lasque.tusdk.modules.components.TuSdkHelperComponent;
 import org.lasque.tusdkdemo.R;
 import org.lasque.tusdkdemo.SampleBase;
 import org.lasque.tusdkdemo.SampleGroup.GroupType;
-import org.lasque.tusdkdemo.custom.ui.CustomMultipleFragment;
+import org.lasque.tusdkdemo.custom.ui.EditMultipleFragment;
 
 /**
  * 照片美化组件范例
@@ -90,7 +86,7 @@ public class AlbumEditMultipleComponent extends SampleBase
         };
 
         TuEditMultipleComponent component = TuSdkGeeV1.editMultipleCommponent(lastFragment, delegate);
-        component.componentOption().editMultipleOption().setComponentClazz(CustomMultipleFragment.class);
+        component.componentOption().editMultipleOption().setComponentClazz(EditMultipleFragment.class);
         component.componentOption().editMultipleOption().setSaveToAlbum(true);
 
         // 指定根视图资源ID

@@ -1,6 +1,6 @@
 /** 
  * TuSdkDemo
- * CameraAndEditor.java
+ * CameraAndEditorComponent.java
  *
  * @author 		Yanlin
  * @Date 		2016-1-26 下午1:40:10 
@@ -25,16 +25,17 @@ import org.lasque.tusdk.modules.components.TuSdkHelperComponent;
 import org.lasque.tusdkdemo.R;
 import org.lasque.tusdkdemo.SampleBase;
 import org.lasque.tusdkdemo.SampleGroup.GroupType;
-import org.lasque.tusdkdemo.custom.ui.CustomMultipleFragment;
+import org.lasque.tusdkdemo.custom.ui.CameraFragment;
+import org.lasque.tusdkdemo.custom.ui.EditMultipleFragment;
 
 /**
  * 拍照 + 编辑示例
  * 
  * @author Yanlin
  */
-public class CameraAndEditor extends SampleBase implements TuCameraFragmentDelegate
+public class CameraAndEditorComponent extends SampleBase implements TuCameraFragmentDelegate
 {
-	public CameraAndEditor()
+	public CameraAndEditorComponent()
 	{
 		super(GroupType.FeatureSample, R.string.sample_comp_CameraAndEditor);
 	}
@@ -138,7 +139,7 @@ public class CameraAndEditor extends SampleBase implements TuCameraFragmentDeleg
 		};
 				
 		TuEditMultipleComponent component = TuSdkGeeV1.editMultipleCommponent(fragment, delegate);
-		component.componentOption().editMultipleOption().setComponentClazz(CustomMultipleFragment.class);
+		component.componentOption().editMultipleOption().setComponentClazz(EditMultipleFragment.class);
         component.componentOption().editMultipleOption().setSaveToAlbum(true);
 
 		// 指定根视图资源ID

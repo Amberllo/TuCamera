@@ -3,6 +3,7 @@ package org.lasque.tusdkdemo.custom.suite;
 import org.lasque.tusdk.core.TuSdkResult;
 import org.lasque.tusdk.impl.activity.TuImageResultOption;
 import org.lasque.tusdkdemo.R;
+import org.lasque.tusdkdemo.custom.ui.TextStickerFragment;
 
 /**
  * Created by apple on 16/7/21.

@@ -7,7 +7,7 @@
  * @Copyright 	(c) 2014 tusdk.com. All rights reserved.
  * @link 		开发文档:http://tusdk.com/docs/android/api/
  */
-package org.lasque.tusdkdemo.custom.suite;
+package org.lasque.tusdkdemo.custom.ui;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -28,8 +28,8 @@ import org.lasque.tusdk.core.TuSdkResult;
 import org.lasque.tusdk.core.view.widget.button.TuSdkImageButton;
 import org.lasque.tusdk.impl.activity.TuImageResultFragment;
 
-import org.lasque.tusdk.modules.view.widget.sticker.StickerFactory;
 import org.lasque.tusdkdemo.R;
+import org.lasque.tusdkdemo.custom.suite.TextStickerOption;
 
 import cn.rosen.sizeadjusttextstickview.view.StickerView;
 

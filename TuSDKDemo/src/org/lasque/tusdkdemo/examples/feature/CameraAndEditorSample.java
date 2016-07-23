@@ -1,6 +1,6 @@
 /** 
  * TuSdkDemo
- * CameraAndEditor.java
+ * CameraAndEditorComponent.java
  *
  * @author 		Yanlin
  * @Date 		2016-1-26 下午1:40:10 

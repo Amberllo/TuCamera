@@ -20,7 +20,7 @@ import org.lasque.tusdkdemo.custom.suite.TextStickerOption;
 /**
  * Created by LYL on 2016/7/19.
  */
-public class CustomMultipleFragment extends TuEditMultipleFragment {
+public class EditMultipleFragment extends TuEditMultipleFragment {
 
     @Override
     protected void loadView(ViewGroup view)
@@ -63,7 +63,7 @@ public class CustomMultipleFragment extends TuEditMultipleFragment {
         fontButton.setOnClickListener(fontOnClickListener);
 
         stickerButton.setTag(TuEditActionType.TypeSticker);
-        stickerButton.setOnClickListener(mButtonClickListener);
+//        stickerButton.setOnClickListener(mButtonClickListener);
 
         this.refreshStepStates();
 
@@ -88,6 +88,7 @@ public class CustomMultipleFragment extends TuEditMultipleFragment {
                         public void run() {
                             setImage(result.image);
                             getImageView().setImageBitmap(result.image);
+
 
                         }
                     });

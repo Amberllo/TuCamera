@@ -8,7 +8,14 @@ dependencies {
 android {
     compileSdkVersion 21
     buildToolsVersion "21.1.2"
-
+    defaultConfig {
+//        applicationId 'com.share.photoshare'
+        minSdkVersion 11
+        targetSdkVersion 23
+        versionCode 255
+        versionName "6.3.172"
+        multiDexEnabled true
+    }
     sourceSets {
         main {
             manifest.srcFile 'AndroidManifest.xml'

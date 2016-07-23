@@ -16,7 +16,7 @@ import org.lasque.tusdk.core.seles.tusdk.FilterManager.FilterManagerDelegate;
 import org.lasque.tusdk.impl.activity.TuFragmentActivity;
 import org.lasque.tusdk.modules.components.ComponentActType;
 import org.lasque.tusdkdemo.R;
-import org.lasque.tusdkdemo.custom.suite.CameraAndEditor;
+import org.lasque.tusdkdemo.custom.suite.CameraAndEditorComponent;
 
 /**
  * @author Clear
@@ -54,7 +54,7 @@ public class CameraEntryActivity extends TuFragmentActivity
 		// 需要等待滤镜管理器初始化完成，才能使用所有功能
 		TuSdk.messageHub().setStatus(this, R.string.lsq_initing);
 		TuSdk.checkFilterManager(mFilterManagerDelegate);
-		new CameraAndEditor().showSample(this);
+		new CameraAndEditorComponent().showSample(this);
 	}
 
 	/** 滤镜管理器委托 */

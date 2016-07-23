@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">TuSDK</string>
+    <string name="ShareCamera">TuSDK</string>
     <string name="filter_toggle_title">Filters</string>
     
     <!-- Nav label -->
