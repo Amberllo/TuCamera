@@ -87,7 +87,9 @@ public class EditMultipleFragment extends TuEditMultipleFragment {
                         @Override
                         public void run() {
                             setImage(result.image);
-                            getImageView().setImageBitmap(result.image);
+                            setTempFilePath(result.imageFile);
+                            setDisplayImage(result.image);
+                            appendHistory(result.imageFile);
 
 
                         }

@@ -29,6 +29,8 @@ import org.lasque.tusdk.core.view.widget.button.TuSdkImageButton;
 import org.lasque.tusdk.impl.activity.TuImageResultFragment;
 import org.lasque.tusdkdemo.R;
 import org.lasque.tusdkdemo.custom.suite.TextStickerOption;
+
+import java.io.File;
 import java.util.ArrayList;
 
 /**
@@ -48,8 +50,7 @@ public class TextStickerFragment extends TuImageResultFragment implements View.O
 
     //存储贴纸列表
     private ArrayList<View> mViews = new ArrayList<>();
-    //当前处于编辑状态的贴纸
-    private StickerView mCurrentView;
+
     //当前处于编辑状态的气泡
     private BubbleTextView mCurrentEditTextView;
     public static int getLayoutId() {
@@ -107,9 +108,7 @@ public class TextStickerFragment extends TuImageResultFragment implements View.O
 
             @Override
             public void onEdit(BubbleTextView bubbleTextView) {
-                if (mCurrentView != null) {
-                    mCurrentView.setInEdit(false);
-                }
+
                 mCurrentEditTextView.setInEdit(false);
                 mCurrentEditTextView = bubbleTextView;
                 mCurrentEditTextView.setInEdit(true);
@@ -159,20 +158,18 @@ public class TextStickerFragment extends TuImageResultFragment implements View.O
 
 
     protected void handleCompleteButton() {
+        if(mCurrentEditTextView!=null)mCurrentEditTextView.setInEdit(false);
         if(this.mViews.size() == 0) {
             this.handleBackButton();
         } else {
 
-            mCurrentView.setInEdit(false);
-            generateBitmap();
-
-            final TuSdkResult result = new TuSdkResult();
+            final TuSdkResult result = generateBitmap();
 //            Rect rect = null;
 //            if(this.getCutRegionView() != null) {
 //                rect = this.getCutRegionView().getRegionRect();
 //            }
 //            result.stickers = this.stickerView.getResults(var2);
-            result.image = saveViewBitmap (imageWrapView);
+
             if(result.image!= null) {
                 this.hubStatus(TuSdkContext.getString("lsq_edit_processing"));
                 (new Thread(new Runnable() {
@@ -183,7 +180,7 @@ public class TextStickerFragment extends TuImageResultFragment implements View.O
                 })).start();
                 if(delegate!=null)delegate.onTextStickerResult(result);
                 handleBackButton();
-                imageView.setImageBitmap(result.image);
+
             } else {
                 this.handleBackButton();
             }
@@ -209,45 +206,11 @@ public class TextStickerFragment extends TuImageResultFragment implements View.O
     }
 
 
-
-    private Bitmap saveViewBitmap(View view) {
-// get current view bitmap
-        view.setDrawingCacheEnabled(true);
-        view.buildDrawingCache(true);
-        Bitmap bitmap = view.getDrawingCache(true);
-
-        Bitmap bmp = duplicateBitmap(bitmap);
-        if (bitmap != null && !bitmap.isRecycled()) { bitmap.recycle(); bitmap = null; }
-        // clear the cache
-        view.setDrawingCacheEnabled(false);
-        return bmp;
-    }
-
-
-    public static Bitmap duplicateBitmap(Bitmap bmpSrc)
-    {
-        if (null == bmpSrc)
-        { return null; }
-
-        int bmpSrcWidth = bmpSrc.getWidth();
-        int bmpSrcHeight = bmpSrc.getHeight();
-
-        Bitmap bmpDest = Bitmap.createBitmap(bmpSrcWidth, bmpSrcHeight, Bitmap.Config.ARGB_8888);
-        if (null != bmpDest) {
-            Canvas canvas = new Canvas(bmpDest);
-            final Rect rect = new Rect(0, 0, bmpSrcWidth, bmpSrcHeight);
-            canvas.drawBitmap(bmpSrc, rect, rect, null);
-        }
-        return bmpDest;
-    }
-
     /**
      * 设置当前处于编辑模式的气泡
      */
     private void setCurrentEdit(BubbleTextView bubbleTextView) {
-        if (mCurrentView != null) {
-            mCurrentView.setInEdit(false);
-        }
+
         if (mCurrentEditTextView != null) {
             mCurrentEditTextView.setInEdit(false);
         }
@@ -255,7 +218,7 @@ public class TextStickerFragment extends TuImageResultFragment implements View.O
         mCurrentEditTextView.setInEdit(true);
     }
 
-    private void generateBitmap() {
+    private TuSdkResult generateBitmap() {
 
         Bitmap bitmap = Bitmap.createBitmap(imageWrapView.getWidth(),
                 imageWrapView.getHeight()
@@ -263,10 +226,13 @@ public class TextStickerFragment extends TuImageResultFragment implements View.O
         Canvas canvas = new Canvas(bitmap);
         imageWrapView.draw(canvas);
 
-        String iamgePath = FileUtils.saveBitmapToLocal(bitmap, getActivity());
-//        Intent intent = new Intent(this, DisplayActivity.class);
-//        intent.putExtra("image", iamgePath);
-//        startActivity(intent);
+        String imagePath = FileUtils.saveBitmapToLocal(bitmap, getActivity());
+        TuSdkResult result = new TuSdkResult();
+
+        result.image = bitmap;
+        result.imageFile = new File(imagePath);
+        return result;
+
     }
 
 }
