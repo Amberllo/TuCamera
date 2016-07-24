@@ -10,28 +10,26 @@
 package org.lasque.tusdkdemo.custom.ui;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Rect;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-
+import com.example.abner.stickerdemo.utils.FileUtils;
+import com.example.abner.stickerdemo.view.BubbleInputDialog;
+import com.example.abner.stickerdemo.view.BubbleTextView;
+import com.example.abner.stickerdemo.view.StickerView;
 import org.lasque.tusdk.core.TuSdkContext;
 import org.lasque.tusdk.core.TuSdkResult;
 import org.lasque.tusdk.core.view.widget.button.TuSdkImageButton;
 import org.lasque.tusdk.impl.activity.TuImageResultFragment;
-
 import org.lasque.tusdkdemo.R;
 import org.lasque.tusdkdemo.custom.suite.TextStickerOption;
-
-import cn.rosen.sizeadjusttextstickview.view.StickerView;
+import java.util.ArrayList;
 
 /**
  * @author Amberllo
@@ -41,13 +39,19 @@ public class TextStickerFragment extends TuImageResultFragment implements View.O
 
 {
     TextStickerOption.TextStickerDelegate delegate;
-    StickerView stickerView;
-    EditText edt_input;
+    //气泡输入框
+    private BubbleInputDialog mBubbleInputDialog;
     RelativeLayout imageWrapView;
     ImageView imageView;
     TuSdkImageButton cancelButton;
     TuSdkImageButton okButton;
 
+    //存储贴纸列表
+    private ArrayList<View> mViews = new ArrayList<>();
+    //当前处于编辑状态的贴纸
+    private StickerView mCurrentView;
+    //当前处于编辑状态的气泡
+    private BubbleTextView mCurrentEditTextView;
     public static int getLayoutId() {
         return R.layout.custom_textedit_fragment_layout;
     }
@@ -64,13 +68,20 @@ public class TextStickerFragment extends TuImageResultFragment implements View.O
 
         imageView = (ImageView)viewGroup.findViewById(R.id.lsq_imageView);
         imageWrapView = (RelativeLayout)viewGroup.findViewById(R.id.lsq_imageWrapView);
-        edt_input = (EditText)viewGroup.findViewById(R.id.lsq_input);
-        edt_input.addTextChangedListener(textWatcher);
+
         cancelButton = (TuSdkImageButton)viewGroup.findViewById(R.id.lsq_configCancelButton);
         cancelButton.setOnClickListener(this);
         okButton = (TuSdkImageButton)viewGroup.findViewById(R.id.lsq_configCompleteButton);
         okButton.setOnClickListener(this);
-        addStikerTextView();
+        mBubbleInputDialog = new BubbleInputDialog(getContext());
+        mBubbleInputDialog.setCompleteCallBack(new BubbleInputDialog.CompleteCallBack() {
+            @Override
+            public void onComplete(View bubbleTextView, String str) {
+                ((BubbleTextView) bubbleTextView).setText(str);
+            }
+        });
+
+        addBubble();
     }
 
     @Override
@@ -83,17 +94,48 @@ public class TextStickerFragment extends TuImageResultFragment implements View.O
     }
 
 
-    private void addStikerTextView() {
-        stickerView = new StickerView(getContext(),true);
-        stickerView.setOnStickerTouchListener(onStickerTouchListener);
-        RelativeLayout.LayoutParams rl = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,RelativeLayout.LayoutParams.MATCH_PARENT);
-        rl.addRule(RelativeLayout.CENTER_IN_PARENT);
+    //添加气泡
+    private void addBubble() {
+        final BubbleTextView bubbleTextView = new BubbleTextView(getContext(),Color.WHITE,0);
+        bubbleTextView.setImageResource(R.mipmap.bubble_7_rb);
+        bubbleTextView.setOperationListener(new BubbleTextView.OperationListener() {
+            @Override
+            public void onDeleteClick() {
+                mViews.remove(bubbleTextView);
+                imageWrapView.removeView(bubbleTextView);
+            }
 
-        imageWrapView.addView(stickerView,rl);
-        imageWrapView.addView(stickerView.getSizeTextView());
+            @Override
+            public void onEdit(BubbleTextView bubbleTextView) {
+                if (mCurrentView != null) {
+                    mCurrentView.setInEdit(false);
+                }
+                mCurrentEditTextView.setInEdit(false);
+                mCurrentEditTextView = bubbleTextView;
+                mCurrentEditTextView.setInEdit(true);
+            }
 
-        Bitmap bitmap  = BitmapFactory.decodeResource(getResources(),R.mipmap.txt_button_0);
-        stickerView.setTextDraw(bitmap,28,29.5f,118,85);
+            @Override
+            public void onClick(BubbleTextView bubbleTextView) {
+
+                mBubbleInputDialog.setBubbleTextView(bubbleTextView);
+                mBubbleInputDialog.show();
+            }
+
+            @Override
+            public void onTop(BubbleTextView bubbleTextView) {
+                int position = mViews.indexOf(bubbleTextView);
+                if (position == mViews.size() - 1) {
+                    return;
+                }
+                BubbleTextView textView = (BubbleTextView) mViews.remove(position);
+                mViews.add(mViews.size(), textView);
+            }
+        });
+        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
+        imageWrapView.addView(bubbleTextView, lp);
+        mViews.add(bubbleTextView);
+        setCurrentEdit(bubbleTextView);
     }
 
     protected void handleBackButton() {
@@ -114,16 +156,16 @@ public class TextStickerFragment extends TuImageResultFragment implements View.O
         this.delegate = delegate;
     }
 
-//    public final void appendStickerItem(StickerData var1) {
-//        if(var1 != null && this.getStickerView() != null) {
-//            this.getStickerView().appenSticker(var1);
-//        }
-//    }
+
 
     protected void handleCompleteButton() {
-        if(this.stickerView  == null) {
+        if(this.mViews.size() == 0) {
             this.handleBackButton();
         } else {
+
+            mCurrentView.setInEdit(false);
+            generateBitmap();
+
             final TuSdkResult result = new TuSdkResult();
 //            Rect rect = null;
 //            if(this.getCutRegionView() != null) {
@@ -147,46 +189,6 @@ public class TextStickerFragment extends TuImageResultFragment implements View.O
             }
         }
     }
-
-    StickerView.OnStickerTouchListener onStickerTouchListener = new StickerView.OnStickerTouchListener() {
-        @Override
-        public void onCopy(StickerView stickerView) {
-
-        }
-
-        @Override
-        public void onDelete(StickerView stickerView) {
-            edt_input.setVisibility(View.GONE);
-        }
-
-        @Override
-        public void onMoveToHead(StickerView stickerView) {
-
-        }
-
-        @Override
-        public void onDoubleClick(StickerView stickerView) {
-            edt_input.setVisibility(View.VISIBLE);
-        }
-    };
-
-
-    TextWatcher textWatcher = new TextWatcher() {
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-            stickerView.resetText(s.toString());
-        }
-    };
 
     @Override
     public void onClick(View v) {
@@ -237,6 +239,34 @@ public class TextStickerFragment extends TuImageResultFragment implements View.O
             canvas.drawBitmap(bmpSrc, rect, rect, null);
         }
         return bmpDest;
+    }
+
+    /**
+     * 设置当前处于编辑模式的气泡
+     */
+    private void setCurrentEdit(BubbleTextView bubbleTextView) {
+        if (mCurrentView != null) {
+            mCurrentView.setInEdit(false);
+        }
+        if (mCurrentEditTextView != null) {
+            mCurrentEditTextView.setInEdit(false);
+        }
+        mCurrentEditTextView = bubbleTextView;
+        mCurrentEditTextView.setInEdit(true);
+    }
+
+    private void generateBitmap() {
+
+        Bitmap bitmap = Bitmap.createBitmap(imageWrapView.getWidth(),
+                imageWrapView.getHeight()
+                , Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        imageWrapView.draw(canvas);
+
+        String iamgePath = FileUtils.saveBitmapToLocal(bitmap, getActivity());
+//        Intent intent = new Intent(this, DisplayActivity.class);
+//        intent.putExtra("image", iamgePath);
+//        startActivity(intent);
     }
 
 }

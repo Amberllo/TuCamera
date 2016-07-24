@@ -113,11 +113,11 @@
             android:src="@drawable/lsq_style_default_edit_button_completed" />
     </RelativeLayout>
 
-    <EditText
-        android:visibility="gone"
-        android:layout_above="@id/lsq_option_wrap"
-        android:id="@+id/lsq_input"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+    <!--<EditText-->
+        <!--android:visibility="gone"-->
+        <!--android:layout_above="@id/lsq_option_wrap"-->
+        <!--android:id="@+id/lsq_input"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content" />-->
 
 </RelativeLayout>

@@ -63,7 +63,7 @@ public class EditMultipleFragment extends TuEditMultipleFragment {
         fontButton.setOnClickListener(fontOnClickListener);
 
         stickerButton.setTag(TuEditActionType.TypeSticker);
-//        stickerButton.setOnClickListener(mButtonClickListener);
+        stickerButton.setOnClickListener(mButtonClickListener);
 
         this.refreshStepStates();
 
