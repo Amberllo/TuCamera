@@ -22,4 +22,5 @@
         <item name="android:background">#00000000</item>
         <item name="android:drawablePadding">16dp</item>
     </style>
-</resources>
+
+</resources>
