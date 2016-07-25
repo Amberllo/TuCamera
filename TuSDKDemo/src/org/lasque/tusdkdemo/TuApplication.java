@@ -9,6 +9,9 @@
  */
 package org.lasque.tusdkdemo;
 
+import android.content.Context;
+import android.support.multidex.MultiDex;
+
 import org.lasque.tusdk.core.TuSdkApplication;
 
 /**
@@ -78,4 +81,11 @@ public class TuApplication extends TuSdkApplication
 		// 需要指定开发模式 需要与lsq_tusdk_configs.json中masters.key匹配， 如果找不到devType将默认读取master字段
 		// TuSdk.init(this.getApplicationContext(), "12aa4847a3a9ce68-04-ewdjn1", "debug");
 	}
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
+    }
+
 }

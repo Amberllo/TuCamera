@@ -9,10 +9,10 @@
  */
 package org.lasque.tusdkdemo.custom.ui;
 
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,10 +22,15 @@ import android.widget.RelativeLayout;
 import com.example.abner.stickerdemo.utils.FileUtils;
 import com.example.abner.stickerdemo.view.BubbleInputDialog;
 import com.example.abner.stickerdemo.view.BubbleTextView;
-import com.example.abner.stickerdemo.view.StickerView;
+import com.flask.colorpicker.ColorPickerView;
+import com.flask.colorpicker.OnColorSelectedListener;
+import com.flask.colorpicker.builder.ColorPickerClickListener;
+import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
+
 import org.lasque.tusdk.core.TuSdkContext;
 import org.lasque.tusdk.core.TuSdkResult;
 import org.lasque.tusdk.core.view.widget.button.TuSdkImageButton;
+import org.lasque.tusdk.core.view.widget.button.TuSdkTextButton;
 import org.lasque.tusdk.impl.activity.TuImageResultFragment;
 import org.lasque.tusdkdemo.R;
 import org.lasque.tusdkdemo.custom.suite.TextStickerOption;
@@ -38,21 +43,21 @@ import java.util.ArrayList;
  * 文字编辑页面
  */
 public class TextStickerFragment extends TuImageResultFragment implements View.OnClickListener
-
 {
     TextStickerOption.TextStickerDelegate delegate;
     //气泡输入框
-    private BubbleInputDialog mBubbleInputDialog;
+    BubbleInputDialog mBubbleInputDialog;
     RelativeLayout imageWrapView;
     ImageView imageView;
     TuSdkImageButton cancelButton;
     TuSdkImageButton okButton;
-
+    TuSdkTextButton colorButton;
     //存储贴纸列表
-    private ArrayList<View> mViews = new ArrayList<>();
+    ArrayList<View> mViews = new ArrayList<>();
 
     //当前处于编辑状态的气泡
-    private BubbleTextView mCurrentEditTextView;
+    BubbleTextView mCurrentEditTextView;
+
     public static int getLayoutId() {
         return R.layout.custom_textedit_fragment_layout;
     }
@@ -74,6 +79,10 @@ public class TextStickerFragment extends TuImageResultFragment implements View.O
         cancelButton.setOnClickListener(this);
         okButton = (TuSdkImageButton)viewGroup.findViewById(R.id.lsq_configCompleteButton);
         okButton.setOnClickListener(this);
+
+        colorButton = (TuSdkTextButton)viewGroup.findViewById(R.id.lsq_colorButton);
+        colorButton.setOnClickListener(this);
+
         mBubbleInputDialog = new BubbleInputDialog(getContext());
         mBubbleInputDialog.setCompleteCallBack(new BubbleInputDialog.CompleteCallBack() {
             @Override
@@ -164,11 +173,6 @@ public class TextStickerFragment extends TuImageResultFragment implements View.O
         } else {
 
             final TuSdkResult result = generateBitmap();
-//            Rect rect = null;
-//            if(this.getCutRegionView() != null) {
-//                rect = this.getCutRegionView().getRegionRect();
-//            }
-//            result.stickers = this.stickerView.getResults(var2);
 
             if(result.image!= null) {
                 this.hubStatus(TuSdkContext.getString("lsq_edit_processing"));
@@ -193,6 +197,8 @@ public class TextStickerFragment extends TuImageResultFragment implements View.O
             handleBackButton();
         }else if(v == okButton){
             handleCompleteButton();
+        }else if(v == colorButton){
+            showColorPicker();
         }
     }
 
@@ -234,5 +240,34 @@ public class TextStickerFragment extends TuImageResultFragment implements View.O
         return result;
 
     }
+
+    private void showColorPicker(){
+        ColorPickerDialogBuilder
+                .with(getActivity())
+                .setTitle("Choose color")
+//                .initialColor(currentBackgroundColor)
+                .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
+                .density(12)
+                .setOnColorSelectedListener(new OnColorSelectedListener() {
+                    @Override
+                    public void onColorSelected(int selectedColor) {
+//                        toast("onColorSelected: 0x" + Integer.toHexString(selectedColor));
+                    }
+                })
+                .setPositiveButton("ok", new ColorPickerClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int selectedColor, Integer[] allColors) {
+//                        changeBackgroundColor(selectedColor);
+                    }
+                })
+                .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                })
+                .build()
+                .show();
+    }
+
 
 }
