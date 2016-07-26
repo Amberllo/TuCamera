@@ -9,12 +9,9 @@
  */
 package org.lasque.tusdkdemo.custom.ui;
 
-import android.app.Activity;
 import android.view.View;
 import android.view.ViewGroup;
 
-import org.lasque.tusdk.core.activity.ActivityHelper;
-import org.lasque.tusdk.core.activity.ActivityObserver;
 import org.lasque.tusdk.core.view.TuSdkImageView;
 import org.lasque.tusdk.impl.components.camera.TuCameraFragment;
 import org.lasque.tusdkdemo.R;

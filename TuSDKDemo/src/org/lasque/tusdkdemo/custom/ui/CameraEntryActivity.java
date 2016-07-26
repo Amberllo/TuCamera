@@ -23,22 +23,6 @@ import org.lasque.tusdkdemo.custom.suite.CameraAndEditorComponent;
  */
 public class CameraEntryActivity extends TuFragmentActivity
 {
-	/** 布局ID */
-	public static final int layoutId = R.layout.demo_entry_activity;
-
-	public CameraEntryActivity()
-	{
-
-	}
-
-	/** 初始化控制器 */
-	@Override
-	protected void initActivity()
-	{
-		super.initActivity();
-
-	}
-
 
 	/**
 	 * 初始化视图

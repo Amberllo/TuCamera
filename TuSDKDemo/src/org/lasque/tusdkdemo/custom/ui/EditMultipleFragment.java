@@ -1,5 +1,8 @@
 package org.lasque.tusdkdemo.custom.ui;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -67,6 +70,8 @@ public class EditMultipleFragment extends TuEditMultipleFragment {
 
         this.refreshStepStates();
 
+
+//        setDefaultBorder();
     }
 
 
@@ -119,4 +124,39 @@ public class EditMultipleFragment extends TuEditMultipleFragment {
     };
 
 
+    public void setDefaultBorder(){
+        if(getImage()==null)return;
+
+        int width = getImage().getWidth();
+        int height = getImage().getHeight();
+
+        BitmapFactory.Options option = new BitmapFactory.Options();
+//         int sacle = option.outWidth/width;
+
+//        option.outHeight = height;
+
+        Bitmap composedBitmap = Bitmap.createBitmap(getImage().getWidth(), getImage().getHeight(), Bitmap.Config.ARGB_8888);
+        Bitmap boraderBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.img_board_default,option);
+
+        Canvas cv = new Canvas(composedBitmap);
+        cv.drawBitmap(getImage(), 0, 0, null);
+        cv.drawBitmap(boraderBitmap, 0, 0, null);
+
+        cv.save(Canvas.ALL_SAVE_FLAG);
+        cv.restore();
+
+        setDisplayImage(composedBitmap);
+
+//        setImage(result.image);
+//        setTempFilePath(result.imageFile);
+//        setDisplayImage(result.image);
+//        appendHistory(result.imageFile);
+    }
+
+
+    @Override
+    protected void asyncLoadImageCompleted(Bitmap bitmap) {
+        super.asyncLoadImageCompleted(bitmap);
+//        setDefaultBorder();
+    }
 }
