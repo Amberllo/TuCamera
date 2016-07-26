@@ -49,49 +49,58 @@ public class CameraAndEditorComponent extends SampleBase implements TuCameraFrag
 	private void showCamera(Activity activity)
 	{
 		if (activity == null) return;
+        // 如果不支持摄像头显示警告信息
+        if (CameraHelper.showAlertIfNotSupportCamera(activity)) return;
+		TuCameraFragment fragment = getFragment();
+		// see-http://tusdk.com/docs/android/api/org/lasque/tusdk/impl/components/base/TuSdkHelperComponent.html
+		this.componentHelper = new TuSdkHelperComponent(activity);
+		// 开启相机
+		this.componentHelper.presentModalNavigationActivity(fragment, true);
 
-		// 如果不支持摄像头显示警告信息
-		if (CameraHelper.showAlertIfNotSupportCamera(activity)) return;
-		// 组件选项配置
-		// @see-http://tusdk.com/docs/android/api/org/lasque/tusdk/impl/components/camera/TuCameraOption.html
-		TuCameraOption option = new TuCameraOption();
+	}
 
-		// 保存到临时文件 (默认不保存, 当设置为true时, TuSdkResult.imageFile, 处理完成后将自动清理原始图片)
-		option.setSaveToTemp(false);
+    public TuCameraFragment getFragment(){
 
-		// 保存到系统相册 (默认不保存, 当设置为true时, TuSdkResult.sqlInfo, 处理完成后将自动清理原始图片)
-		option.setSaveToAlbum(true);
-		
-		// 照片输出压缩率 (默认:90，0-100 如果设置为0 将保存为PNG格式)
-		option.setOutputCompress(100);
+        // 组件选项配置
+        // @see-http://tusdk.com/docs/android/api/org/lasque/tusdk/impl/components/camera/TuCameraOption.html
+        TuCameraOption option = new TuCameraOption();
 
-		// 是否开启滤镜支持 (默认: 关闭)
-		option.setEnableFilters(false);
+        // 保存到临时文件 (默认不保存, 当设置为true时, TuSdkResult.imageFile, 处理完成后将自动清理原始图片)
+        option.setSaveToTemp(false);
 
-		// 默认是否显示滤镜视图 (默认: 不显示, 如果mEnableFilters = false, mShowFilterDefault将失效)
-		option.setShowFilterDefault(false);
+        // 保存到系统相册 (默认不保存, 当设置为true时, TuSdkResult.sqlInfo, 处理完成后将自动清理原始图片)
+        option.setSaveToAlbum(true);
 
-		// 是否保存最后一次使用的滤镜
-		option.setSaveLastFilter(true);
+        // 照片输出压缩率 (默认:90，0-100 如果设置为0 将保存为PNG格式)
+        option.setOutputCompress(100);
 
-		// 自动选择分组滤镜指定的默认滤镜
-		option.setAutoSelectGroupDefaultFilter(true);
+        // 是否开启滤镜支持 (默认: 关闭)
+        option.setEnableFilters(false);
 
-		// 开启用户滤镜历史记录
-		option.setEnableFiltersHistory(false);
+        // 默认是否显示滤镜视图 (默认: 不显示, 如果mEnableFilters = false, mShowFilterDefault将失效)
+        option.setShowFilterDefault(false);
 
-		// 开启在线滤镜
-		option.setEnableOnlineFilter(false);
+        // 是否保存最后一次使用的滤镜
+        option.setSaveLastFilter(true);
 
-		// 显示滤镜标题视图
-		option.setDisplayFiltersSubtitles(false);
+        // 自动选择分组滤镜指定的默认滤镜
+        option.setAutoSelectGroupDefaultFilter(true);
+
+        // 开启用户滤镜历史记录
+        option.setEnableFiltersHistory(false);
+
+        // 开启在线滤镜
+        option.setEnableOnlineFilter(false);
+
+        // 显示滤镜标题视图
+        option.setDisplayFiltersSubtitles(false);
 
         option.setDisplayAlbumPoster(true);
 
         option.setSaveToAlbum(true);
 
-		// 是否开启脸部追踪 (需要相机人脸追踪权限，请访问tusdk.com 控制台开启权限)
-		option.enableFaceDetection = true;
+        // 是否开启脸部追踪 (需要相机人脸追踪权限，请访问tusdk.com 控制台开启权限)
+        option.enableFaceDetection = true;
 
         // 控制器类型
         option.setComponentClazz(CameraFragment.class);
@@ -100,13 +109,9 @@ public class CameraAndEditorComponent extends SampleBase implements TuCameraFrag
         option.setRootViewLayoutId(CameraFragment.getLayoutId());
 
         TuCameraFragment fragment = option.fragment();
-		fragment.setDelegate(this);
-
-		// see-http://tusdk.com/docs/android/api/org/lasque/tusdk/impl/components/base/TuSdkHelperComponent.html
-		this.componentHelper = new TuSdkHelperComponent(activity);
-		// 开启相机
-		this.componentHelper.presentModalNavigationActivity(fragment, true);
-	}
+        fragment.setDelegate(this);
+        return fragment;
+    }
 
 	/**
 	 * 获取一个拍摄结果。

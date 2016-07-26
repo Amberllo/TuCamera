@@ -49,7 +49,7 @@ public class CameraEntryActivity extends TuFragmentActivity
 		super.initView();
 		// sdk统计代码，请不要加入您的应用
 		StatisticsManger.appendComponent(ComponentActType.sdkComponent);
-		
+
 		// 异步方式初始化滤镜管理器 (注意：如果需要一开启应用马上执行SDK组件，需要做该检测，否则可以忽略检测)
 		// 需要等待滤镜管理器初始化完成，才能使用所有功能
 		TuSdk.messageHub().setStatus(this, R.string.lsq_initing);

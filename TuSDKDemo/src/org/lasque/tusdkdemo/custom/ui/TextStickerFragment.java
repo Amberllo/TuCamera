@@ -245,19 +245,21 @@ public class TextStickerFragment extends TuImageResultFragment implements View.O
         ColorPickerDialogBuilder
                 .with(getActivity())
                 .setTitle("Choose color")
-//                .initialColor(currentBackgroundColor)
+                .initialColor(mCurrentEditTextView.getFontColor())
                 .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
                 .density(12)
                 .setOnColorSelectedListener(new OnColorSelectedListener() {
                     @Override
                     public void onColorSelected(int selectedColor) {
 //                        toast("onColorSelected: 0x" + Integer.toHexString(selectedColor));
+//                        mCurrentEditTextView.setFontColor(selectedColor);
                     }
                 })
                 .setPositiveButton("ok", new ColorPickerClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int selectedColor, Integer[] allColors) {
 //                        changeBackgroundColor(selectedColor);
+                        mCurrentEditTextView.setFontColor(selectedColor);
                     }
                 })
                 .setNegativeButton("cancel", new DialogInterface.OnClickListener() {

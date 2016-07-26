@@ -143,7 +143,7 @@ public class BubbleTextView extends ImageView {
 
     private boolean isInBitmap;
 
-    private final int fontColor;
+    private int fontColor = Color.BLACK;
 
     private final long bubbleId;
 
@@ -151,7 +151,6 @@ public class BubbleTextView extends ImageView {
     public BubbleTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
         defaultStr = getContext().getString(R.string.double_click_input_text);
-        this.fontColor = Color.BLACK;
         bubbleId = 0;
         init();
     }
@@ -159,7 +158,6 @@ public class BubbleTextView extends ImageView {
     public BubbleTextView(Context context) {
         super(context);
         defaultStr = getContext().getString(R.string.double_click_input_text);
-        this.fontColor = Color.BLACK;
         bubbleId = 0;
         init();
     }
@@ -167,7 +165,6 @@ public class BubbleTextView extends ImageView {
     public BubbleTextView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         defaultStr = getContext().getString(R.string.double_click_input_text);
-        this.fontColor = Color.BLACK;
         bubbleId = 0;
         init();
     }
@@ -211,6 +208,12 @@ public class BubbleTextView extends ImageView {
         baseline = fm.descent - fm.ascent;
         isInit = true;
         mStr = defaultStr;
+    }
+
+    public void setFontColor(int color){
+        this.fontColor = color;
+        this.mFontPaint.setColor(fontColor);
+        invalidate();
     }
 
     @Override
@@ -739,6 +742,10 @@ public class BubbleTextView extends ImageView {
         } else {
             return 0;
         }
+    }
+
+    public int getFontColor() {
+        return fontColor;
     }
 
     public interface OperationListener {

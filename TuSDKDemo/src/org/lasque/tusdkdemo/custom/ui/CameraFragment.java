@@ -9,9 +9,12 @@
  */
 package org.lasque.tusdkdemo.custom.ui;
 
+import android.app.Activity;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.lasque.tusdk.core.activity.ActivityHelper;
+import org.lasque.tusdk.core.activity.ActivityObserver;
 import org.lasque.tusdk.core.view.TuSdkImageView;
 import org.lasque.tusdk.impl.components.camera.TuCameraFragment;
 import org.lasque.tusdkdemo.R;
@@ -43,8 +46,12 @@ public class CameraFragment extends TuCameraFragment
                 new AlbumEditMultipleComponent().showSample(getActivity());
             }
         });
-        // 在这里使用 getViewById()方法找到新添加的视图
-//        this.getBottomBar().setVisibility(View.GONE);
+
     }
 
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        System.exit(0);
+    }
 }
