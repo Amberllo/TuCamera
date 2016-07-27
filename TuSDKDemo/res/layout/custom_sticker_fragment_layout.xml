@@ -1,4 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?><RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/lsq_background_editor" >
@@ -12,25 +14,25 @@
         android:background="@color/lsq_background_editor"
         android:scaleType="fitCenter" />
 
-    <org.lasque.tusdkdemo.custom.CustomStickerBarView
+    <org.lasque.tusdk.impl.components.widget.sticker.StickerView
         android:id="@+id/lsq_stickerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/lsq_sticker_bar" />
+        android:layout_above="@+id/lsq_sticker_bar" >
+    </org.lasque.tusdk.impl.components.widget.sticker.StickerView>
 
     <org.lasque.tusdk.core.view.widget.TuMaskRegionView
-
         android:id="@+id/lsq_cutRegionView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/lsq_sticker_bar"/>
 
-    <org.lasque.tusdkdemo.custom.CustomStickerBarView
+    <include
         android:id="@+id/lsq_sticker_bar"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:layout_above="@+id/lsq_bar_bottomBar"
-        />
+        layout="@layout/custom_sticker_sticker_bar" />
 
     <LinearLayout
         android:id="@+id/lsq_bar_bottomBar"
@@ -49,7 +51,6 @@
             android:src="@drawable/lsq_style_default_edit_button_cancel" />
 
         <org.lasque.tusdk.core.view.widget.button.TuSdkImageButton
-            android:visibility="gone"
             android:id="@+id/lsq_bar_listButton"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -73,5 +74,14 @@
             android:scaleType="center"
             android:src="@drawable/lsq_style_default_edit_button_completed" />
     </LinearLayout>
+
+    <TextView
+        android:text="1212012301023123812937182"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/red_alpha_95"
+        android:textSize="24sp"/>
+
 
 </RelativeLayout>
