@@ -5,6 +5,7 @@ import android.app.Activity;
 import org.lasque.tusdk.core.TuSdkResult;
 import org.lasque.tusdk.impl.TuAnimType;
 import org.lasque.tusdk.impl.components.TuEditMultipleComponent;
+import org.lasque.tusdk.impl.components.edit.TuEditCuterFragment;
 import org.lasque.tusdk.impl.components.sticker.TuEditStickerFragment;
 import org.lasque.tusdk.modules.components.TuEditMultipleComponentBase;
 import org.lasque.tusdk.modules.components.TuSdkComponent;
@@ -13,7 +14,7 @@ import org.lasque.tusdk.modules.components.TuSdkHelperComponent;
 /**
  * Created by apple on 16/7/20.
  */
-public class StickerComponent extends TuEditMultipleComponent {
+public abstract class StickerComponent extends TuEditMultipleComponent{
 
     TuSdkHelperComponent componentHelper;
     StickerComponentOption option;
@@ -54,5 +55,18 @@ public class StickerComponent extends TuEditMultipleComponent {
         return this;
     }
 
+    @Override
+    public boolean onTuEditStickerFragmentEditedAsync(TuEditStickerFragment tuEditStickerFragment, TuSdkResult tuSdkResult) {
+        onTuEditStickerResult(tuSdkResult);
+        return super.onTuEditStickerFragmentEditedAsync(tuEditStickerFragment, tuSdkResult);
+    }
+
+    @Override
+    public void onTuEditStickerFragmentEdited(TuEditStickerFragment tuEditStickerFragment, TuSdkResult tuSdkResult) {
+        super.onTuEditStickerFragmentEdited(tuEditStickerFragment, tuSdkResult);
+        onTuEditStickerResult(tuSdkResult);
+    }
+
+    public abstract void onTuEditStickerResult(TuSdkResult result);
 
 }

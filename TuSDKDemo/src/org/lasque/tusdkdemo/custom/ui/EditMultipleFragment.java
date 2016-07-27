@@ -11,6 +11,7 @@ import com.example.abner.stickerdemo.utils.FileUtils;
 
 import org.lasque.tusdk.core.TuSdkResult;
 import org.lasque.tusdk.core.secret.StatisticsManger;
+import org.lasque.tusdk.core.view.TuSdkViewHelper;
 import org.lasque.tusdk.core.view.widget.button.TuSdkTextButton;
 import org.lasque.tusdk.impl.components.edit.TuEditMultipleFragment;
 import org.lasque.tusdk.impl.components.sticker.TuEditStickerFragment;
@@ -82,10 +83,10 @@ public class EditMultipleFragment extends TuEditMultipleFragment {
 
 
 
-    View.OnClickListener fontOnClickListener = new View.OnClickListener(){
+    View.OnClickListener fontOnClickListener = new TuSdkViewHelper.OnSafeClickListener(){
 
         @Override
-        public void onClick(View v) {
+        public void onSafeClick(View view) {
 
             TextStickerComponent component = new TextStickerComponent(getActivity());
             TextStickerComponentOption option = new TextStickerComponentOption();
@@ -121,12 +122,19 @@ public class EditMultipleFragment extends TuEditMultipleFragment {
         }
     };
 
-    View.OnClickListener stickerOnClickListener = new View.OnClickListener(){
+    View.OnClickListener stickerOnClickListener = new TuSdkViewHelper.OnSafeClickListener(){
 
         @Override
-        public void onClick(View v) {
-
-            StickerComponent component = new StickerComponent(getActivity());
+        public void onSafeClick(View view) {
+            StickerComponent component = new StickerComponent(getActivity()) {
+                @Override
+                public void onTuEditStickerResult(TuSdkResult result) {
+                    setImage(result.image);
+                    setTempFilePath(result.imageFile);
+                    setDisplayImage(result.image);
+                    appendHistory(result.imageFile);
+                }
+            };
             StickerComponentOption option = new StickerComponentOption();
             component.setOption(option)
                     .setImage(getImage())
@@ -138,14 +146,13 @@ public class EditMultipleFragment extends TuEditMultipleFragment {
                     .setAutoDismissWhenCompleted(true)
                     // 开启组件
                     .showComponent();
-
         }
     };
 
-    View.OnClickListener shareOnClickListener = new View.OnClickListener(){
+    View.OnClickListener shareOnClickListener = new TuSdkViewHelper.OnSafeClickListener(){
 
         @Override
-        public void onClick(View v) {
+        public void onSafeClick(View view) {
             Toast.makeText(getContext(),"分享功能!",Toast.LENGTH_SHORT).show();
         }
     };

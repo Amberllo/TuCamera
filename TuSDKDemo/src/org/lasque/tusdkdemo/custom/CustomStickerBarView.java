@@ -21,21 +21,29 @@ public class CustomStickerBarView extends StickerBarView {
 
     @Override
     public void loadCategories(List<StickerCategory> list) {
-//        super.loadCategories(list);
-        if(this.getParamsView() != null) {
-            this.getParamsView().removeAllViews();
-
-            LayoutParams var1 = new LayoutParams(0, -1, 1.0F);
-            int var2 = 0;
-            List<StickerCategory> shared = StickerLocalPackage.shared().getCategories();
-//            for(Iterator var4 = shared.iterator(); var4.hasNext(); ++var2) {
+        super.loadCategories(list);
+//        if(this.getParamsView() != null) {
+////            this.getParamsView().removeAllViews();
+//
+//            LayoutParams layoutParams = new LayoutParams(0, -1, 1.0F);
+//            int tag = 0;
+//            List<StickerCategory> shared = StickerLocalPackage.shared().getCategories();
+//            for(Iterator var4 = shared.iterator(); var4.hasNext(); ++tag) {
 //                StickerCategory var3 = (StickerCategory)var4.next();
-//                this.buildCateButton(var3, var2, var1);
+//                this.buildCateButton(var3, tag, layoutParams);
 //            }
-            this.buildCateButton(shared.get(0), var2, var1);
-            this.selectCateIndex(0);
-        }
+//            this.selectCateIndex(0);
+//        }
 
 
     }
+
+
+    public void loadCategoriesList(List<StickerCategory> var1) {
+        if(this.getParamsView() != null) {
+            this.getParamsView().removeAllViews();
+            super.loadCategories(var1);
+        }
+    }
+
 }
