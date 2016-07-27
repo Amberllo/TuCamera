@@ -8,7 +8,7 @@ import org.lasque.tusdkdemo.custom.ui.TextStickerFragment;
 /**
  * Created by apple on 16/7/21.
  */
-public class TextStickerOption extends TuImageResultOption {
+public class TextStickerComponentOption extends TuImageResultOption {
     @Override
     protected Class<?> getDefaultComponentClazz() {
         return TextStickerFragment.class;
