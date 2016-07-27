@@ -1,23 +1,29 @@
 package org.lasque.tusdkdemo.custom.ui;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.example.abner.stickerdemo.utils.FileUtils;
+
 import org.lasque.tusdk.core.TuSdkResult;
 import org.lasque.tusdk.core.secret.StatisticsManger;
 import org.lasque.tusdk.core.view.widget.button.TuSdkTextButton;
 import org.lasque.tusdk.impl.components.edit.TuEditMultipleFragment;
+import org.lasque.tusdk.impl.components.sticker.TuEditStickerFragment;
 import org.lasque.tusdk.modules.components.ComponentActType;
 import org.lasque.tusdk.modules.components.edit.TuEditActionType;
 import org.lasque.tusdkdemo.R;
+import org.lasque.tusdkdemo.custom.BitmapUtils;
+import org.lasque.tusdkdemo.custom.suite.StickerComponent;
+import org.lasque.tusdkdemo.custom.suite.StickerComponentOption;
 import org.lasque.tusdkdemo.custom.suite.TextStickerComponent;
-import org.lasque.tusdkdemo.custom.suite.TextStickerOption;
+import org.lasque.tusdkdemo.custom.suite.TextStickerComponentOption;
+
+import java.io.File;
 
 
 /**
@@ -65,8 +71,8 @@ public class EditMultipleFragment extends TuEditMultipleFragment {
 
         fontButton.setOnClickListener(fontOnClickListener);
 
-        stickerButton.setTag(TuEditActionType.TypeSticker);
-        stickerButton.setOnClickListener(mButtonClickListener);
+//        stickerButton.setTag(TuEditActionType.TypeSticker);
+        stickerButton.setOnClickListener(stickerOnClickListener);
 
         this.refreshStepStates();
 
@@ -82,8 +88,8 @@ public class EditMultipleFragment extends TuEditMultipleFragment {
         public void onClick(View v) {
 
             TextStickerComponent component = new TextStickerComponent(getActivity());
-            TextStickerOption option = new TextStickerOption();
-            option.setDelegate(new TextStickerOption.TextStickerDelegate() {
+            TextStickerComponentOption option = new TextStickerComponentOption();
+            option.setDelegate(new TextStickerComponentOption.TextStickerDelegate() {
                 @Override
                 public void onTextStickerResult(final TuSdkResult result) {
 //                    notifyProcessing(result);
@@ -115,6 +121,27 @@ public class EditMultipleFragment extends TuEditMultipleFragment {
         }
     };
 
+    View.OnClickListener stickerOnClickListener = new View.OnClickListener(){
+
+        @Override
+        public void onClick(View v) {
+
+            StickerComponent component = new StickerComponent(getActivity());
+            StickerComponentOption option = new StickerComponentOption();
+            component.setOption(option)
+                    .setImage(getImage())
+                    // 设置系统照片
+                    .setImageSqlInfo(getImageSqlInfo())
+                    // 设置临时文件
+                    .setTempFilePath(getTempFilePath())
+                    // 在组件执行完成后自动关闭组件
+                    .setAutoDismissWhenCompleted(true)
+                    // 开启组件
+                    .showComponent();
+
+        }
+    };
+
     View.OnClickListener shareOnClickListener = new View.OnClickListener(){
 
         @Override
@@ -125,32 +152,12 @@ public class EditMultipleFragment extends TuEditMultipleFragment {
 
 
     public void setDefaultBorder(){
-        if(getImage()==null)return;
 
-        int width = getImage().getWidth();
-        int height = getImage().getHeight();
-
-        BitmapFactory.Options option = new BitmapFactory.Options();
-//         int sacle = option.outWidth/width;
-
-//        option.outHeight = height;
-
-        Bitmap composedBitmap = Bitmap.createBitmap(getImage().getWidth(), getImage().getHeight(), Bitmap.Config.ARGB_8888);
-        Bitmap boraderBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.img_board_default,option);
-
-        Canvas cv = new Canvas(composedBitmap);
-        cv.drawBitmap(getImage(), 0, 0, null);
-        cv.drawBitmap(boraderBitmap, 0, 0, null);
-
-        cv.save(Canvas.ALL_SAVE_FLAG);
-        cv.restore();
-
+        Bitmap composedBitmap = BitmapUtils.getBordorBitmap(getContext(),getImage());
+        String filepath = FileUtils.saveBitmapToLocal(composedBitmap,getContext());
+        setTempFilePath(new File(filepath));
         setDisplayImage(composedBitmap);
-
-//        setImage(result.image);
-//        setTempFilePath(result.imageFile);
-//        setDisplayImage(result.image);
-//        appendHistory(result.imageFile);
+        appendHistory(new File(filepath));
     }
 
 

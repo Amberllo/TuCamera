@@ -106,7 +106,7 @@
     ],
     "stickerCategories": [
         { "id": 1, "name": "lsq_sticker_cate_default" },
-        { "id": 2, "name": "lsq_sticker_cate_mood" },
+//        { "id": 2, "name": "lsq_sticker_cate_mood" },
         { "id": 3, "name": "lsq_sticker_cate_watermark" }
     ],
     "stickerGroups": [

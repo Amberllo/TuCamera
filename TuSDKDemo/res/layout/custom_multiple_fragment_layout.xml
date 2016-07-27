@@ -52,19 +52,21 @@
 
         <org.lasque.tusdk.core.view.widget.button.TuSdkTextButton
             android:layout_weight="1"
-            android:id="@+id/lsq_fontButton"
-            style="@style/lsq_edit_entryOptionButton"
-            android:layout_width="match_parent"
-            android:drawableTop="@drawable/lsq_style_default_edit_icon_edit"
-            android:text="文字" />
-
-        <org.lasque.tusdk.core.view.widget.button.TuSdkTextButton
-            android:layout_weight="1"
             android:id="@+id/lsq_stickerButton"
             style="@style/lsq_edit_entryOptionButton"
             android:layout_width="match_parent"
             android:drawableTop="@drawable/lsq_style_default_edit_icon_sticker"
             android:text="@string/lsq_edit_entry_sticker" />
+
+        <org.lasque.tusdk.core.view.widget.button.TuSdkTextButton
+            android:layout_weight="1"
+            android:id="@+id/lsq_fontButton"
+            style="@style/lsq_edit_entryOptionButton"
+            android:layout_width="match_parent"
+            android:drawableTop="@drawable/lsq_style_default_edit_icon_edit"
+            android:text="@string/lsq_edit_entry_font" />
+
+
     </LinearLayout>
 
     <ImageView

@@ -2,26 +2,25 @@ package org.lasque.tusdkdemo.custom.suite;
 
 import android.app.Activity;
 
+import org.lasque.tusdk.core.TuSdkResult;
 import org.lasque.tusdk.impl.TuAnimType;
+import org.lasque.tusdk.impl.components.TuEditMultipleComponent;
+import org.lasque.tusdk.impl.components.sticker.TuEditStickerFragment;
 import org.lasque.tusdk.modules.components.TuEditMultipleComponentBase;
 import org.lasque.tusdk.modules.components.TuSdkComponent;
 import org.lasque.tusdk.modules.components.TuSdkHelperComponent;
-import org.lasque.tusdkdemo.custom.ui.TextStickerFragment;
 
 /**
  * Created by apple on 16/7/20.
  */
-public class StickerComponent extends TuEditMultipleComponentBase {
-    TextStickerComponentOption option;
+public class StickerComponent extends TuEditMultipleComponent {
+
     TuSdkHelperComponent componentHelper;
+    StickerComponentOption option;
     public StickerComponent(Activity activity) {
         super(activity);
         this.componentHelper = new TuSdkHelperComponent(activity);
     }
-
-    /**
-     * 文字贴纸
-     */
 
     @Override
     protected void initComponent() {
@@ -29,31 +28,31 @@ public class StickerComponent extends TuEditMultipleComponentBase {
     }
 
     @Override
-    public TuSdkComponent showComponent() {
+    public TuEditMultipleComponent showComponent() {
         if(this.showAlertIfCannotSaveFile()) {
             return this;
         } else {
 
             if(option==null)return this;
 
-            TextStickerFragment fragment = option.fragment();
-            fragment.setDelegate(option.getDelegate());
+            TuEditStickerFragment fragment = option.fragment();
+            fragment.setDelegate(this);
             fragment.setImage(this.getImage());
             fragment.setTempFilePath(this.getTempFilePath());
             fragment.setImageSqlInfo(this.getImageSqlInfo());
 
             // 文字贴纸页面
-            this.componentHelper.presentModalNavigationActivity(fragment,TuAnimType.fade, TuAnimType.fade, true);
+            this.componentHelper.presentModalNavigationActivity(fragment, TuAnimType.fade, TuAnimType.fade, true);
 
             return this;
         }
     }
 
-    public StickerComponent setOption(TextStickerComponentOption option) {
+
+    public StickerComponent setOption(StickerComponentOption option) {
         this.option = option;
         return this;
     }
-
 
 
 }

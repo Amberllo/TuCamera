@@ -33,7 +33,7 @@ import org.lasque.tusdk.core.view.widget.button.TuSdkImageButton;
 import org.lasque.tusdk.core.view.widget.button.TuSdkTextButton;
 import org.lasque.tusdk.impl.activity.TuImageResultFragment;
 import org.lasque.tusdkdemo.R;
-import org.lasque.tusdkdemo.custom.suite.TextStickerOption;
+import org.lasque.tusdkdemo.custom.suite.TextStickerComponentOption;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -44,7 +44,7 @@ import java.util.ArrayList;
  */
 public class TextStickerFragment extends TuImageResultFragment implements View.OnClickListener
 {
-    TextStickerOption.TextStickerDelegate delegate;
+    TextStickerComponentOption.TextStickerDelegate delegate;
     //气泡输入框
     BubbleInputDialog mBubbleInputDialog;
     RelativeLayout imageWrapView;
@@ -160,7 +160,7 @@ public class TextStickerFragment extends TuImageResultFragment implements View.O
         return false;
     }
 
-    public void setDelegate(TextStickerOption.TextStickerDelegate delegate) {
+    public void setDelegate(TextStickerComponentOption.TextStickerDelegate delegate) {
         this.delegate = delegate;
     }
 

@@ -92,6 +92,7 @@
     <string name="lsq_edit_entry_filter">Filters</string>
     <string name="lsq_edit_entry_cuter">Crop</string>
     <string name="lsq_edit_entry_sticker">Stickers</string>
+    <string name="lsq_edit_entry_font">font</string>
     <string name="lsq_edit_entry_smudge">Smudge</string>
      <string name="lsq_edit_entry_smudge_filter">Blur</string>
     <string name="lsq_edit_cuter_ratio_orgin">Original</string>

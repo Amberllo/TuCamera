@@ -12,7 +12,7 @@ import org.lasque.tusdkdemo.custom.ui.TextStickerFragment;
  * Created by apple on 16/7/20.
  */
 public class TextStickerComponent extends TuEditMultipleComponentBase {
-    TextStickerOption option;
+    TextStickerComponentOption option;
     TuSdkHelperComponent componentHelper;
     public TextStickerComponent(Activity activity) {
         super(activity);
@@ -49,7 +49,7 @@ public class TextStickerComponent extends TuEditMultipleComponentBase {
         }
     }
 
-    public TextStickerComponent setOption(TextStickerOption option) {
+    public TextStickerComponent setOption(TextStickerComponentOption option) {
         this.option = option;
         return this;
     }
