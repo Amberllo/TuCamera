@@ -75,13 +75,13 @@
             android:src="@drawable/lsq_style_default_edit_button_completed" />
     </LinearLayout>
 
-    <TextView
-        android:text="1212012301023123812937182"
-        android:layout_centerInParent="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/red_alpha_95"
-        android:textSize="24sp"/>
+    <!--<TextView-->
+        <!--android:text="1212012301023123812937182"-->
+        <!--android:layout_centerInParent="true"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:textColor="@color/red_alpha_95"-->
+        <!--android:textSize="24sp"/>-->
 
 
 </RelativeLayout>

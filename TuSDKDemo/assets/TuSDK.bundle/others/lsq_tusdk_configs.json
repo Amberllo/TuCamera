@@ -49,18 +49,19 @@
         }
     ],
     "stickerCategories":[
+      {
+        "id":3,
+        "name":"相框"
+      },
         {
             "id":1,
             "name":"\u8d34\u7eb8"
-        },
-        {
-            "id":2,
-            "name":"\u5fc3\u60c5"
-        },
-        {
-            "id":3,
-            "name":"\u6c34\u5370"
         }
+//        {
+//            "id":2,
+//            "name":"\u5fc3\u60c5"
+//        },
+
     ],
     "stickerGroups":[
         {
