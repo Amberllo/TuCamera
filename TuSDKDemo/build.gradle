@@ -43,7 +43,7 @@ dependencies {
     compile fileTree(dir: 'libs', include: '*.jar')
     compile project(':TuSDK')
     compile project(':ColorPickerLibrary')
-
+//    compile project(':UmengLibrary')
     compile 'com.android.support:appcompat-v7:23.2.1'
 //    compile 'com.github.QuadFlask:colorpicker:0.0.10'
 }
