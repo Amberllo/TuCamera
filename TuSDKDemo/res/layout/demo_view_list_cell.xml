@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<org.lasque.tusdkdemo.view.DemoListCell xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="50dp" >
+<com.share.photoshare.view.DemoListCell xmlns:android="http://schemas.android.com/apk/res/android"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="50dp" >
 
     <TextView
         android:id="@+id/lsq_titleLabel"
@@ -15,4 +15,4 @@
         android:textColor="@color/lsq_color_black"
         android:textSize="15sp" />
 
-</org.lasque.tusdkdemo.view.DemoListCell>
+</com.share.photoshare.view.DemoListCell>

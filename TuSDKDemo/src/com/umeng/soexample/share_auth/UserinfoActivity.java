@@ -11,7 +11,7 @@ import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.utils.Log;
 import com.umeng.socialize.view.UMFriendListener;
-import org.lasque.tusdkdemo.R;
+import com.share.photoshare.R;
 
 import java.util.Map;
 

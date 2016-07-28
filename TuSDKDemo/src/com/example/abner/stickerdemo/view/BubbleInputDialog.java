@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 import com.example.abner.stickerdemo.utils.CommonUtils;
 
-import org.lasque.tusdkdemo.R;
+import com.share.photoshare.R;
 
 /**
  * Created by Abner on 15/6/12.

@@ -1,18 +1,16 @@
 package com.umeng.soexample.share_auth;
 
 import android.content.Context;
-import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.umeng.socialize.common.ResContainer;
 import com.umeng.socialize.shareboard.SnsPlatform;
-import org.lasque.tusdkdemo.R;
+import com.share.photoshare.R;
 
 import java.util.ArrayList;
 

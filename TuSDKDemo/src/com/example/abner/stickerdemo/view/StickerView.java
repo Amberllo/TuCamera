@@ -18,7 +18,7 @@ import android.widget.ImageView;
 
 import com.example.abner.stickerdemo.model.StickerPropertyModel;
 
-import org.lasque.tusdkdemo.R;
+import com.share.photoshare.R;
 
 
 /**

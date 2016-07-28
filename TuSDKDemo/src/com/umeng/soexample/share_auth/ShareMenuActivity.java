@@ -16,7 +16,7 @@ import com.umeng.socialize.media.UMImage;
 import com.umeng.socialize.shareboard.SnsPlatform;
 import com.umeng.socialize.utils.Log;
 import com.umeng.socialize.utils.ShareBoardlistener;
-import org.lasque.tusdkdemo.R;
+import com.share.photoshare.R;
 import com.umeng.soexample.model.Defaultcontent;
 
 import java.util.ArrayList;

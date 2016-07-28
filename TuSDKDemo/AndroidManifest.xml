@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.lasque.tusdkdemo"
+    package="com.share.photoshare"
     android:versionCode="20160711"
     android:versionName="2.4.8" xmlns:tools="http://schemas.android.com/tools">
 
@@ -40,7 +40,7 @@
 
 
     <application
-        android:name="org.lasque.tusdkdemo.TuApplication"
+        android:name=".TuApplication"
         android:allowBackup="true"
         android:hardwareAccelerated="true"
         android:icon="@drawable/ic_launcher"
@@ -91,14 +91,14 @@
         
         <!-- 示例 -->
         <activity
-            android:name="org.lasque.tusdkdemo.examples.component.GifImageViewActivity"
+            android:name=".examples.component.GifImageViewActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize"
             />
         
         <activity
-            android:name="org.lasque.tusdkdemo.examples.feature.FilterEditorSampleActivity"
+            android:name=".examples.feature.FilterEditorSampleActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize"
@@ -107,11 +107,110 @@
 
         <!-- 友盟 -->
 
+        <!-- above activity that demo required,has nothing to with umeng sdk  -->
+        <!-- *************************    related to Share START **************************** -->
+        <!-- Share edit page-->
+
+        <activity
+            android:name="com.sina.weibo.sdk.component.WeiboSdkBrowser"
+            android:configChanges="keyboardHidden|orientation"
+            android:windowSoftInputMode="adjustResize"
+            android:exported="false" >
+        </activity>
+        <!--登录回调-->
+        <activity android:name="jp.line.android.sdk.activity.LineAuthCompleteActivity"
+                  android:configChanges="keyboard|orientation"
+                  android:exported="true"
+                  android:screenOrientation="sensor">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="line.1471474450" />
+            </intent-filter>
+        </activity>
+        <!--没安装客户端下登录-->
+        <activity android:name="jp.line.android.sdk.activity.WebLoginActivity"
+                  android:exported="false"
+                  android:configChanges="keyboard|orientation"
+                  android:screenOrientation="sensor">
+        </activity>
+        <!-- tencent -->
+        <activity
+            android:name="com.tencent.tauth.AuthActivity"
+            android:launchMode="singleTask"
+            android:noHistory="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="tencent100424468" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.tencent.connect.common.AssistActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
+        <uses-library
+            android:name="com.google.android.maps"
+            android:required="false" />
+        <uses-library android:name="android.test.runner" />
 
         <activity
             android:name="com.umeng.socialize.editorpage.ShareActivity"
             android:theme="@style/Theme.UMDefault"
             android:excludeFromRecents="true"/>
+
+
+        <!-- 微博 -->
+        <activity
+            android:name="com.umeng.soexample.WBShareActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.sina.weibo.sdk.component.WeiboSdkBrowser"
+            android:configChanges="keyboardHidden|orientation"
+            android:windowSoftInputMode="adjustResize"
+            android:exported="false" >
+        </activity>
+        <service
+            android:name="com.sina.weibo.sdk.net.DownloadService"
+            android:exported="false">
+        </service>
+
+
+
+
+        <activity
+            android:name="com.umeng.soexample.share_auth.UserinfoActivity"
+            android:configChanges="orientation|keyboard"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.umeng.soexample.share_auth.ShareActivity"
+            android:configChanges="orientation|keyboard"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:fitsSystemWindows="true"
+            android:theme="@android:style/Theme.Black.NoTitleBar" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+
         <!-- 微信页面 -->
         <activity
             android:name="com.umeng.soexample.wxapi.WXEntryActivity"

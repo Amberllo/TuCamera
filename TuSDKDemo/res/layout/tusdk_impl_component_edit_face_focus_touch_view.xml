@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<org.lasque.tusdkdemo.examples.face.TuFaceDetectionFocusTouchView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+<com.share.photoshare.examples.face.TuFaceDetectionFocusTouchView xmlns:android="http://schemas.android.com/apk/res/android"
+                                                                  android:layout_width="match_parent"
+                                                                  android:layout_height="match_parent" >
 
     <org.lasque.tusdk.core.view.widget.TuGuideRegionView
         android:id="@+id/lsq_guideRegionView"
@@ -21,4 +21,4 @@
         android:layout_marginTop="80dp"
         layout="@layout/tusdk_impl_component_widget_filter_config_view" />
 
-</org.lasque.tusdkdemo.examples.face.TuFaceDetectionFocusTouchView>
+</com.share.photoshare.examples.face.TuFaceDetectionFocusTouchView>

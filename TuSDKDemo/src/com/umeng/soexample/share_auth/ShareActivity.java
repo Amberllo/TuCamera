@@ -9,7 +9,6 @@ import android.widget.CompoundButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import com.umeng.socialize.Config;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.UMShareListener;
@@ -17,11 +16,11 @@ import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.media.UMImage;
 import com.umeng.socialize.media.UMVideo;
 import com.umeng.socialize.media.UMusic;
-import com.umeng.socialize.shareboard.SnsPlatform;
 import com.umeng.socialize.utils.Log;
-import com.umeng.socialize.utils.ShareBoardlistener;
-import org.lasque.tusdkdemo.R;
+
 import com.umeng.soexample.model.Defaultcontent;
+
+import com.share.photoshare.R;
 
 /**
  * Created by umeng on 15/9/14.
@@ -34,7 +33,7 @@ public class ShareActivity extends Activity{
     private int mediatype = 0;//0 none 1 image 2 music 3 video
     private SHARE_MEDIA share_media = SHARE_MEDIA.ALIPAY;
 //    UMImage image = new UMImage(ShareActivity.this, Defaultcontent.imageurl);
-    UMImage image = new UMImage(ShareActivity.this,R.drawable.aa);
+    UMImage image = new UMImage(ShareActivity.this, R.drawable.aa);
     UMusic music = new UMusic(Defaultcontent.musicurl);
     UMVideo video = new UMVideo(Defaultcontent.videourl);
     protected void onCreate(Bundle savedInstanceState) {

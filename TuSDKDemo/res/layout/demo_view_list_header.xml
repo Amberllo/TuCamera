@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<org.lasque.tusdkdemo.view.DemoListHeader xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="40dp"
-    android:background="@color/lsq_background_default_header"
-    android:paddingLeft="10dp"
-    android:paddingRight="10dp" >
+<com.share.photoshare.view.DemoListHeader xmlns:android="http://schemas.android.com/apk/res/android"
+                                          android:layout_width="match_parent"
+                                          android:layout_height="40dp"
+                                          android:background="@color/lsq_background_default_header"
+                                          android:paddingLeft="10dp"
+                                          android:paddingRight="10dp" >
 
     <TextView
         android:id="@+id/lsq_titleLabel"
@@ -15,4 +15,4 @@
         android:textColor="@color/lsq_color_white"
         android:textSize="14sp" />
 
-</org.lasque.tusdkdemo.view.DemoListHeader>
+</com.share.photoshare.view.DemoListHeader>
