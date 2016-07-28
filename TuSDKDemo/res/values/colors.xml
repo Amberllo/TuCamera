@@ -70,4 +70,9 @@
     <color name="pink_pressed">#ec407a</color>
     <color name="blue_semi_transparent">#805677fc</color>
     <color name="blue_semi_transparent_pressed">#80738ffe</color>
+
+    <color name="umeng_white">#ffffff</color>
+    <color name="umeng_blue">#469ef8</color>
+    <color name="umeng_black">#000000</color>
+
 </resources>
