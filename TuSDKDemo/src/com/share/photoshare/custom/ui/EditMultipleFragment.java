@@ -2,6 +2,8 @@ package com.share.photoshare.custom.ui;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.Environment;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -39,6 +41,11 @@ import java.io.File;
  */
 public class EditMultipleFragment extends TuEditMultipleFragment {
 
+    TuSdkTextButton filterButton;
+    TuSdkTextButton skinButton;
+    ImageView shareButton;
+    TuSdkTextButton fontButton;
+    TuSdkTextButton stickerButton;
     @Override
     protected void loadView(ViewGroup view)
     {
@@ -62,11 +69,11 @@ public class EditMultipleFragment extends TuEditMultipleFragment {
 
         LinearLayout actionTypeLayout2 = (LinearLayout)view.findViewById(R.id.lsq_actions_wrapview2);
 
-        TuSdkTextButton filterButton = (TuSdkTextButton)actionTypeLayout2.findViewById(R.id.lsq_filterButton);
-        TuSdkTextButton skinButton = (TuSdkTextButton)actionTypeLayout2.findViewById(R.id.lsq_skinButton);
-        ImageView shareButton = (ImageView) actionTypeLayout2.findViewById(R.id.lsq_shareButton);
-        TuSdkTextButton fontButton = (TuSdkTextButton)actionTypeLayout2.findViewById(R.id.lsq_fontButton);
-        TuSdkTextButton stickerButton = (TuSdkTextButton)actionTypeLayout2.findViewById(R.id.lsq_stickerButton);
+        filterButton = (TuSdkTextButton)actionTypeLayout2.findViewById(R.id.lsq_filterButton);
+        skinButton = (TuSdkTextButton)actionTypeLayout2.findViewById(R.id.lsq_skinButton);
+        shareButton = (ImageView) actionTypeLayout2.findViewById(R.id.lsq_shareButton);
+        fontButton = (TuSdkTextButton)actionTypeLayout2.findViewById(R.id.lsq_fontButton);
+        stickerButton = (TuSdkTextButton)actionTypeLayout2.findViewById(R.id.lsq_stickerButton);
 
 
         filterButton.setTag(TuEditActionType.TypeFilter);
@@ -83,12 +90,13 @@ public class EditMultipleFragment extends TuEditMultipleFragment {
         stickerButton.setOnClickListener(stickerOnClickListener);
 
         this.refreshStepStates();
-
-
-//        setDefaultBorder();
     }
 
-
+    @Override
+    protected void viewDidLoad(ViewGroup viewGroup) {
+        super.viewDidLoad(viewGroup);
+        ()stickerOnClickListener.stricker();
+    }
 
     View.OnClickListener fontOnClickListener = new TuSdkViewHelper.OnSafeClickListener(){
 
@@ -131,8 +139,7 @@ public class EditMultipleFragment extends TuEditMultipleFragment {
 
     View.OnClickListener stickerOnClickListener = new TuSdkViewHelper.OnSafeClickListener(){
 
-        @Override
-        public void onSafeClick(View view) {
+        public void sticker(boolean autoSelect){
             StickerComponent component = new StickerComponent(getActivity()) {
                 @Override
                 public void onTuEditStickerResult(TuSdkResult result) {
@@ -154,24 +161,46 @@ public class EditMultipleFragment extends TuEditMultipleFragment {
                     // 开启组件
                     .showComponent();
         }
+
+        @Override
+        public void onSafeClick(View view) {
+            sticker(false);
+        }
     };
 
     View.OnClickListener shareOnClickListener = new TuSdkViewHelper.OnSafeClickListener(){
 
         @Override
         public void onSafeClick(View view) {
+            shareSingleImage();
 //            Toast.makeText(getContext(),"分享功能!",Toast.LENGTH_SHORT).show();
 //            new ShareAction(getActivity()).setDisplayList(SHARE_MEDIA.SINA,SHARE_MEDIA.QQ,SHARE_MEDIA.QZONE,SHARE_MEDIA.WEIXIN,SHARE_MEDIA.WEIXIN_CIRCLE,SHARE_MEDIA.WEIXIN_FAVORITE)
-            new ShareAction(getActivity()).setDisplayList(SHARE_MEDIA.QQ)
-                    .withTitle(Defaultcontent.title)
-                    .withText(Defaultcontent.text+"——来自友盟分享面板")
-                    .withMedia(new UMImage(getActivity(),"http://dev.umeng.com/images/tab2_1.png"))
-                    .withTargetUrl("https://wsq.umeng.com/")
-                    .setCallback(umShareListener)
-                    .open();
+//            new ShareAction(getActivity()).setDisplayList(SHARE_MEDIA.QQ)
+//                    .withTitle(Defaultcontent.title)
+//                    .withText(Defaultcontent.text+"——来自友盟分享面板")
+//                    .withMedia(new UMImage(getActivity(),"http://dev.umeng.com/images/tab2_1.png"))
+//                    .withTargetUrl("https://wsq.umeng.com/")
+//                    .setCallback(umShareListener)
+//                    .open();
+
+
         }
     };
 
+
+    //分享单张图片
+    public void shareSingleImage() {
+//        String imagePath = Environment.getExternalStorageDirectory() + File.separator + "test.jpg";
+        //由文件得到uri
+        Uri imageUri = Uri.fromFile(getTempFilePath());
+//        Log.d("share", "uri:" + imageUri);  //输出：file:///storage/emulated/0/test.jpg
+
+        Intent shareIntent = new Intent();
+        shareIntent.setAction(Intent.ACTION_SEND);
+        shareIntent.putExtra(Intent.EXTRA_STREAM, imageUri);
+        shareIntent.setType("image/*");
+        startActivity(Intent.createChooser(shareIntent, "分享到"));
+    }
 
     public void setDefaultBorder(){
 
@@ -189,38 +218,38 @@ public class EditMultipleFragment extends TuEditMultipleFragment {
 //        setDefaultBorder();
     }
 
-    private UMShareListener umShareListener = new UMShareListener() {
-        @Override
-        public void onResult(SHARE_MEDIA platform) {
-            Log.d("plat","platform"+platform);
-            if(platform.name().equals("WEIXIN_FAVORITE")){
-                Toast.makeText(getActivity(),platform + " 收藏成功啦",Toast.LENGTH_SHORT).show();
-            }else{
-                Toast.makeText(getActivity(), platform + " 分享成功啦", Toast.LENGTH_SHORT).show();
-            }
-        }
-
-        @Override
-        public void onError(SHARE_MEDIA platform, Throwable t) {
-            Toast.makeText(getActivity(),platform + " 分享失败啦", Toast.LENGTH_SHORT).show();
-            if(t!=null){
-                Log.d("throw","throw:"+t.getMessage());
-            }
-        }
-
-        @Override
-        public void onCancel(SHARE_MEDIA platform) {
-            Toast.makeText(getActivity(),platform + " 分享取消了", Toast.LENGTH_SHORT).show();
-        }
-    };
-
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        /** attention to this below ,must add this**/
-        UMShareAPI.get(getActivity()).onActivityResult(requestCode, resultCode, data);
-        Log.d("result","onActivityResult");
-    }
+//    private UMShareListener umShareListener = new UMShareListener() {
+//        @Override
+//        public void onResult(SHARE_MEDIA platform) {
+//            Log.d("plat","platform"+platform);
+//            if(platform.name().equals("WEIXIN_FAVORITE")){
+//                Toast.makeText(getActivity(),platform + " 收藏成功啦",Toast.LENGTH_SHORT).show();
+//            }else{
+//                Toast.makeText(getActivity(), platform + " 分享成功啦", Toast.LENGTH_SHORT).show();
+//            }
+//        }
+//
+//        @Override
+//        public void onError(SHARE_MEDIA platform, Throwable t) {
+//            Toast.makeText(getActivity(),platform + " 分享失败啦", Toast.LENGTH_SHORT).show();
+//            if(t!=null){
+//                Log.d("throw","throw:"+t.getMessage());
+//            }
+//        }
+//
+//        @Override
+//        public void onCancel(SHARE_MEDIA platform) {
+//            Toast.makeText(getActivity(),platform + " 分享取消了", Toast.LENGTH_SHORT).show();
+//        }
+//    };
+//
+//
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        /** attention to this below ,must add this**/
+//        UMShareAPI.get(getActivity()).onActivityResult(requestCode, resultCode, data);
+//        Log.d("result","onActivityResult");
+//    }
 
 }

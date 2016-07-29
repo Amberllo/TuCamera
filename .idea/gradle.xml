@@ -12,7 +12,7 @@
             <option value="$PROJECT_DIR$/ColorPickerLibrary" />
             <option value="$PROJECT_DIR$/TuSDK" />
             <option value="$PROJECT_DIR$/TuSDKDemo" />
-            <option value="$PROJECT_DIR$/UmengLibrary" />
+            <option value="$PROJECT_DIR$/UMengLibrary" />
           </set>
         </option>
         <option name="myModules">
@@ -21,7 +21,7 @@
             <option value="$PROJECT_DIR$/ColorPickerLibrary" />
             <option value="$PROJECT_DIR$/TuSDK" />
             <option value="$PROJECT_DIR$/TuSDKDemo" />
-            <option value="$PROJECT_DIR$/UmengLibrary" />
+            <option value="$PROJECT_DIR$/UMengLibrary" />
           </set>
         </option>
       </GradleProjectSettings>

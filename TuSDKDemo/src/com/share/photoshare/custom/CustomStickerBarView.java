@@ -31,20 +31,7 @@ public class CustomStickerBarView extends StickerBarView {
 
     protected View buildCateButton(StickerCategory category, int tag, LayoutParams layoutParams) {
 
-        TuSdkTextButton button = new TuSdkTextButton(this.getContext());
-        int[] color = new int[]{TuSdkContext.getColor("lsq_filter_config_highlight"), TuSdkContext.getColor("lsq_color_white")};
-        int[][] states = new int[][]{{16842913}, new int[0]};
-        ColorStateList colorStateList = new ColorStateList(states, color);
-        button.setTextColor(colorStateList);
-        button.setGravity(17);
-        button.setText(TuSdkContext.getString(category.name));
-        button.setTextSize(2, 12.0F);
-        button.setEllipsize(TextUtils.TruncateAt.END);
-        button.setLines(1);
-        button.setTag(Integer.valueOf(tag));
-        button.setOnClickListener(this.mButtonClickListener);
-        this.getParamsView().addView(button, layoutParams);
-
+        View button = super.buildCateButton(category,tag,layoutParams);
         if(category.name.equals("lsq_sticker_cate_all")){
             button.setVisibility(View.GONE);
         }

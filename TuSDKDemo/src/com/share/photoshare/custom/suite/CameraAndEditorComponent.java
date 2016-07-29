@@ -66,7 +66,7 @@ public class CameraAndEditorComponent extends SampleBase implements TuCameraFrag
         TuCameraOption option = new TuCameraOption();
 
         // 保存到临时文件 (默认不保存, 当设置为true时, TuSdkResult.imageFile, 处理完成后将自动清理原始图片)
-        option.setSaveToTemp(false);
+        option.setSaveToTemp(true);
 
         // 保存到系统相册 (默认不保存, 当设置为true时, TuSdkResult.sqlInfo, 处理完成后将自动清理原始图片)
         option.setSaveToAlbum(true);
