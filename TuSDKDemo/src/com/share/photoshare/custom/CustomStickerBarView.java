@@ -26,35 +26,11 @@ public class CustomStickerBarView extends StickerBarView {
     @Override
     public void loadCategories(List<StickerCategory> list) {
         super.loadCategories(list);
-//        if(this.getParamsView() != null) {
-//            this.getParamsView().removeAllViews();
-//
-//            LayoutParams layoutParams = new LayoutParams(0, -1, 1.0F);
-////            int tag = 0;
-//            List<StickerCategory> shared = StickerLocalPackage.shared().getCategories();
-//            shared.get(2).name = "相框";
-//            this.buildCateButton(shared.get(2), 0, layoutParams);
-//            this.buildCateButton(shared.get(0), 1, layoutParams);
-////            for(Iterator var4 = shared.iterator(); var4.hasNext(); ++tag) {
-////                StickerCategory var3 = (StickerCategory)var4.next();
-////                this.buildCateButton(var3, tag, layoutParams);
-////
-////            }
-//            this.selectCateIndex(0);
-//        }
-
-
+        this.selectCateIndex(1);
     }
 
-
-//    public void loadCategoriesList(List<StickerCategory> var1) {
-//        if(this.getParamsView() != null) {
-//            this.getParamsView().removeAllViews();
-//            super.loadCategories(var1);
-//        }
-//    }
-
     protected View buildCateButton(StickerCategory category, int tag, LayoutParams layoutParams) {
+
         TuSdkTextButton button = new TuSdkTextButton(this.getContext());
         int[] color = new int[]{TuSdkContext.getColor("lsq_filter_config_highlight"), TuSdkContext.getColor("lsq_color_white")};
         int[][] states = new int[][]{{16842913}, new int[0]};
@@ -68,6 +44,10 @@ public class CustomStickerBarView extends StickerBarView {
         button.setTag(Integer.valueOf(tag));
         button.setOnClickListener(this.mButtonClickListener);
         this.getParamsView().addView(button, layoutParams);
+
+        if(category.name.equals("lsq_sticker_cate_all")){
+            button.setVisibility(View.GONE);
+        }
         return button;
     }
 
