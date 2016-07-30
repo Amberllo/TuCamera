@@ -95,7 +95,7 @@ public class EditMultipleFragment extends TuEditMultipleFragment {
     @Override
     protected void viewDidLoad(ViewGroup viewGroup) {
         super.viewDidLoad(viewGroup);
-        ()stickerOnClickListener.stricker();
+        onSticker(true);
     }
 
     View.OnClickListener fontOnClickListener = new TuSdkViewHelper.OnSafeClickListener(){
@@ -139,32 +139,12 @@ public class EditMultipleFragment extends TuEditMultipleFragment {
 
     View.OnClickListener stickerOnClickListener = new TuSdkViewHelper.OnSafeClickListener(){
 
-        public void sticker(boolean autoSelect){
-            StickerComponent component = new StickerComponent(getActivity()) {
-                @Override
-                public void onTuEditStickerResult(TuSdkResult result) {
-                    setImage(result.image);
-                    setTempFilePath(result.imageFile);
-                    setDisplayImage(result.image);
-                    appendHistory(result.imageFile);
-                }
-            };
-            StickerComponentOption option = new StickerComponentOption();
-            component.setOption(option)
-                    .setImage(getImage())
-                    // 设置系统照片
-                    .setImageSqlInfo(getImageSqlInfo())
-                    // 设置临时文件
-                    .setTempFilePath(getTempFilePath())
-                    // 在组件执行完成后自动关闭组件
-                    .setAutoDismissWhenCompleted(true)
-                    // 开启组件
-                    .showComponent();
-        }
+
+
 
         @Override
         public void onSafeClick(View view) {
-            sticker(false);
+            onSticker(false);
         }
     };
 
@@ -200,6 +180,30 @@ public class EditMultipleFragment extends TuEditMultipleFragment {
         shareIntent.putExtra(Intent.EXTRA_STREAM, imageUri);
         shareIntent.setType("image/*");
         startActivity(Intent.createChooser(shareIntent, "分享到"));
+    }
+
+    public void onSticker(boolean autoBorder){
+        StickerComponent component = new StickerComponent(getActivity()) {
+            @Override
+            public void onTuEditStickerResult(TuSdkResult result) {
+                setImage(result.image);
+                setTempFilePath(result.imageFile);
+                setDisplayImage(result.image);
+                appendHistory(result.imageFile);
+            }
+        };
+        StickerComponentOption option = new StickerComponentOption();
+        component.setAutoBorder(true);
+        component.setOption(option)
+                .setImage(getImage())
+                // 设置系统照片
+                .setImageSqlInfo(getImageSqlInfo())
+                // 设置临时文件
+                .setTempFilePath(getTempFilePath())
+                // 在组件执行完成后自动关闭组件
+                .setAutoDismissWhenCompleted(true)
+                // 开启组件
+                .showComponent();
     }
 
     public void setDefaultBorder(){

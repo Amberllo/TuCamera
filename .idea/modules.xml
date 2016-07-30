@@ -6,7 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/TuCamera.iml" filepath="$PROJECT_DIR$/TuCamera.iml" />
       <module fileurl="file://$PROJECT_DIR$/TuSDK/TuSDK.iml" filepath="$PROJECT_DIR$/TuSDK/TuSDK.iml" />
       <module fileurl="file://$PROJECT_DIR$/TuSDKDemo/TuSDKDemo.iml" filepath="$PROJECT_DIR$/TuSDKDemo/TuSDKDemo.iml" />
-      <module fileurl="file://$PROJECT_DIR$/UMengLibrary/UmengLibrary.iml" filepath="$PROJECT_DIR$/UMengLibrary/UmengLibrary.iml" />
+      <module fileurl="file://$PROJECT_DIR$/UmengLibrary/UmengLibrary.iml" filepath="$PROJECT_DIR$/UmengLibrary/UmengLibrary.iml" />
     </modules>
   </component>
 </project>

@@ -10,6 +10,7 @@ import com.share.photoshare.custom.ui.StickerFragment;
  * Created by LYL on 2016/7/27.
  */
 public class StickerComponentOption extends TuEditStickerOption{
+
     @Override
     public TuEditStickerFragment fragment() {
         StickerFragment fragment = null;
@@ -37,4 +38,6 @@ public class StickerComponentOption extends TuEditStickerOption{
     public Class<?> getComponentClazz() {
         return StickerFragment.class;
     }
+
+
 }

@@ -2,10 +2,13 @@ package com.share.photoshare.custom.suite;
 
 import android.app.Activity;
 
+import com.share.photoshare.custom.ui.StickerFragment;
+
 import org.lasque.tusdk.core.TuSdkResult;
 import org.lasque.tusdk.impl.TuAnimType;
 import org.lasque.tusdk.impl.components.TuEditMultipleComponent;
 import org.lasque.tusdk.impl.components.sticker.TuEditStickerFragment;
+import org.lasque.tusdk.modules.components.TuSdkComponent;
 import org.lasque.tusdk.modules.components.TuSdkHelperComponent;
 
 /**
@@ -38,7 +41,7 @@ public abstract class StickerComponent extends TuEditMultipleComponent{
             fragment.setImage(this.getImage());
             fragment.setTempFilePath(this.getTempFilePath());
             fragment.setImageSqlInfo(this.getImageSqlInfo());
-
+            ((StickerFragment)fragment).setAutoBorder(autoBorder);
             // 文字贴纸页面
             this.componentHelper.presentModalNavigationActivity(fragment, TuAnimType.fade, TuAnimType.fade, true);
 
@@ -46,6 +49,10 @@ public abstract class StickerComponent extends TuEditMultipleComponent{
         }
     }
 
+    private boolean autoBorder = false;
+    public void setAutoBorder(boolean autoBorder) {
+        this.autoBorder = autoBorder;
+    }
 
     public StickerComponent setOption(StickerComponentOption option) {
         this.option = option;

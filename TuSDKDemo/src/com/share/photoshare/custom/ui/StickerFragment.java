@@ -12,6 +12,7 @@ package com.share.photoshare.custom.ui;
 import android.graphics.Rect;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.abner.stickerdemo.utils.FileUtils;
 
@@ -20,7 +21,11 @@ import org.lasque.tusdk.core.secret.StatisticsManger;
 import org.lasque.tusdk.impl.components.sticker.TuEditStickerFragment;
 import org.lasque.tusdk.impl.components.widget.sticker.StickerBarView;
 import org.lasque.tusdk.modules.components.ComponentActType;
+import org.lasque.tusdk.modules.view.widget.sticker.StickerCategory;
+import org.lasque.tusdk.modules.view.widget.sticker.StickerData;
 import org.lasque.tusdk.modules.view.widget.sticker.StickerFactory;
+import org.lasque.tusdk.modules.view.widget.sticker.StickerLocalPackage;
+
 import com.share.photoshare.R;
 import com.share.photoshare.custom.CustomStickerBarView;
 
@@ -59,6 +64,17 @@ public class StickerFragment extends TuEditStickerFragment
         }
 
 
+        if(autoBorder){
+            Toast.makeText(getActivity(),"自动加载相框", Toast.LENGTH_SHORT).show();
+            try {
+                StickerCategory category = StickerLocalPackage.shared().getCategories().get(0);
+                appendStickerItem(category.datas.get(0).stickers.get(0));
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
+        }
+
     }
 
 
@@ -79,6 +95,7 @@ public class StickerFragment extends TuEditStickerFragment
                 k.setGridPadding(this.getGridPadding());
                 k.setGridHeight(this.getGridHeight());
                 k.setDelegate(this);
+
             }
 
         return k;
@@ -121,4 +138,11 @@ public class StickerFragment extends TuEditStickerFragment
             }
         }
     }
+
+    boolean autoBorder;
+    public void setAutoBorder(boolean autoBorder) {
+        this.autoBorder = autoBorder;
+    }
+
+
 }
