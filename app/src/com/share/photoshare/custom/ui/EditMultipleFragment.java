@@ -172,7 +172,7 @@ public class EditMultipleFragment extends TuEditMultipleFragment {
     public void shareSingleImage() {
 //        String imagePath = Environment.getExternalStorageDirectory() + File.separator + "test.jpg";
         //由文件得到uri
-        Uri imageUri = Uri.fromFile(getTempFilePath());
+        Uri imageUri = Uri.fromFile(getLastSteps());
 //        Log.d("share", "uri:" + imageUri);  //输出：file:///storage/emulated/0/test.jpg
 
         Intent shareIntent = new Intent();

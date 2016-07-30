@@ -1,4 +1,4 @@
-include ':TuSDKDemo'
+include ':app'
 include ':TuSDK'
 include ':ColorPickerLibrary'
 include ':UMengLibrary'

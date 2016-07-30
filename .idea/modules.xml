@@ -5,8 +5,8 @@
       <module fileurl="file://$PROJECT_DIR$/ColorPickerLibrary/ColorPickerLibrary.iml" filepath="$PROJECT_DIR$/ColorPickerLibrary/ColorPickerLibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/TuCamera.iml" filepath="$PROJECT_DIR$/TuCamera.iml" />
       <module fileurl="file://$PROJECT_DIR$/TuSDK/TuSDK.iml" filepath="$PROJECT_DIR$/TuSDK/TuSDK.iml" />
-      <module fileurl="file://$PROJECT_DIR$/TuSDKDemo/TuSDKDemo.iml" filepath="$PROJECT_DIR$/TuSDKDemo/TuSDKDemo.iml" />
-      <module fileurl="file://$PROJECT_DIR$/UmengLibrary/UmengLibrary.iml" filepath="$PROJECT_DIR$/UmengLibrary/UmengLibrary.iml" />
+      <module fileurl="file://$PROJECT_DIR$/UmengLibrary/UMengLibrary.iml" filepath="$PROJECT_DIR$/UmengLibrary/UMengLibrary.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
 </project>

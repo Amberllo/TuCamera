@@ -190,11 +190,11 @@ public class BubbleTextView extends ImageView {
         dst_flipV = new Rect();
         dst_top = new Rect();
         localPaint = new Paint();
-        localPaint.setColor(getResources().getColor(R.color.red_e73a3d));
+        localPaint.setColor(getResources().getColor(R.color.white));
         localPaint.setAntiAlias(true);
         localPaint.setDither(true);
         localPaint.setStyle(Paint.Style.STROKE);
-        localPaint.setStrokeWidth(2.0f);
+        localPaint.setStrokeWidth(2.5f);
         mScreenwidth = dm.widthPixels;
         mScreenHeight = dm.heightPixels;
         mFontSize = mDefultSize;
@@ -323,11 +323,11 @@ public class BubbleTextView extends ImageView {
         setBitmap(BitmapFactory.decodeResource(getResources(), resId));
     }
 
-    public void setImageResource(int resId, BubblePropertyModel model) {
-        matrix.reset();
-        //使用拷贝 不然会对资源文件进行引用而修改
-        setBitmap(BitmapFactory.decodeResource(getResources(), resId), model);
-    }
+//    public void setImageResource(int resId, BubblePropertyModel model) {
+//        matrix.reset();
+//        //使用拷贝 不然会对资源文件进行引用而修改
+//        setBitmap(BitmapFactory.decodeResource(getResources(), resId), model);
+//    }
 
     public void setBitmap(Bitmap bitmap, BubblePropertyModel model) {
         mFontSize = mDefultSize;

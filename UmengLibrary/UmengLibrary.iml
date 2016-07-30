@@ -7,6 +7,28 @@
         <option name="BUILDABLE" value="false" />
       </configuration>
     </facet>
+    <facet type="android-gradle" name="Android-Gradle">
+      <configuration>
+        <option name="GRADLE_PROJECT_PATH" value=":UMengLibrary" />
+      </configuration>
+    </facet>
+    <facet type="android" name="Android">
+      <configuration>
+        <option name="SELECTED_BUILD_VARIANT" value="debug" />
+        <option name="SELECTED_TEST_ARTIFACT" value="_android_test_" />
+        <option name="ASSEMBLE_TASK_NAME" value="assembleDebug" />
+        <option name="COMPILE_JAVA_TASK_NAME" value="compileDebugSources" />
+        <option name="ASSEMBLE_TEST_TASK_NAME" value="assembleDebugAndroidTest" />
+        <option name="COMPILE_JAVA_TEST_TASK_NAME" value="compileDebugAndroidTestSources" />
+        <afterSyncTasks>
+          <task>generateDebugAndroidTestSources</task>
+          <task>generateDebugSources</task>
+        </afterSyncTasks>
+        <option name="ALLOW_USER_CONFIGURATION" value="false" />
+        <option name="RES_FOLDERS_RELATIVE_PATH" value="file://$MODULE_DIR$/res" />
+        <option name="LIBRARY_PROJECT" value="true" />
+      </configuration>
+    </facet>
   </component>
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_7" inherit-compiler-output="false">
     <output url="file://$MODULE_DIR$/build/intermediates/classes/debug" />
@@ -60,7 +82,52 @@
       <excludeFolder url="file://$MODULE_DIR$/build/outputs" />
       <excludeFolder url="file://$MODULE_DIR$/build/tmp" />
     </content>
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="Android API 23 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" exported="" name="SocialSDK_twitter" level="project" />
+    <orderEntry type="library" exported="" name="SocialSDK_facebook_2" level="project" />
+    <orderEntry type="library" exported="" name="SocialSDK_email" level="project" />
+    <orderEntry type="library" exported="" name="SocialSDK_facebook_1" level="project" />
+    <orderEntry type="library" exported="" name="volley" level="project" />
+    <orderEntry type="library" exported="" name="SocialSDK_Sina" level="project" />
+    <orderEntry type="library" exported="" name="libapshare" level="project" />
+    <orderEntry type="library" exported="" name="SocialSDK_flickr" level="project" />
+    <orderEntry type="library" exported="" name="umeng_social_sdk" level="project" />
+    <orderEntry type="library" exported="" name="SocialSDK_douban" level="project" />
+    <orderEntry type="library" exported="" name="weiboSDKCore_3.1.4" level="project" />
+    <orderEntry type="library" exported="" name="SocialSDK_evernote" level="project" />
+    <orderEntry type="library" exported="" name="support-v4-23.2.1" level="project" />
+    <orderEntry type="library" exported="" name="SocialSDK_alipay" level="project" />
+    <orderEntry type="library" exported="" name="SocialSDK_renren_2" level="project" />
+    <orderEntry type="library" exported="" name="SocialSDK_renren_1" level="project" />
+    <orderEntry type="library" exported="" name="SocialSDK_tumblr" level="project" />
+    <orderEntry type="library" exported="" name="SocialSDK_WeiXin_1" level="project" />
+    <orderEntry type="library" exported="" name="SocialSDK_WeiXin_2" level="project" />
+    <orderEntry type="library" exported="" name="SocialSDK_QQZone_3" level="project" />
+    <orderEntry type="library" exported="" name="SocialSDK_whatsapp" level="project" />
+    <orderEntry type="library" exported="" name="SocialSDK_pinterest" level="project" />
+    <orderEntry type="library" exported="" name="SocialSDK_tencentWB_1" level="project" />
+    <orderEntry type="library" exported="" name="support-annotations-23.2.1" level="project" />
+    <orderEntry type="library" exported="" name="SocialSDK_tencentWB_2" level="project" />
+    <orderEntry type="library" exported="" name="animated-vector-drawable-23.2.1" level="project" />
+    <orderEntry type="library" exported="" name="support-vector-drawable-23.2.1" level="project" />
+    <orderEntry type="library" exported="" name="SocialSDK_tencentWB_3" level="project" />
+    <orderEntry type="library" exported="" name="appcompat-v7-23.2.1" level="project" />
+    <orderEntry type="library" exported="" name="SocialSDK_pocket" level="project" />
+    <orderEntry type="library" exported="" name="SocialSDK_yixin_2" level="project" />
+    <orderEntry type="library" exported="" name="SocialSDK_foursquare" level="project" />
+    <orderEntry type="library" exported="" name="SocialSDK_laiwang_2" level="project" />
+    <orderEntry type="library" exported="" name="SocialSDK_yixin_1" level="project" />
+    <orderEntry type="library" exported="" name="SocialSDK_laiwang_1" level="project" />
+    <orderEntry type="library" exported="" name="SocialSDK_kakao" level="project" />
+    <orderEntry type="library" exported="" name="mta-sdk-1.6.2" level="project" />
+    <orderEntry type="library" exported="" name="open_sdk_r5756" level="project" />
+    <orderEntry type="library" exported="" name="SocialSDK_linkedin_1" level="project" />
+    <orderEntry type="library" exported="" name="SocialSDK_linkedin_2" level="project" />
+    <orderEntry type="library" exported="" name="SocialSDK_line" level="project" />
+    <orderEntry type="library" exported="" name="twitter4j-core-4.0.4" level="project" />
+    <orderEntry type="library" exported="" name="SocialSDK_sms" level="project" />
+    <orderEntry type="library" exported="" name="SocialSDK_instagram" level="project" />
+    <orderEntry type="library" exported="" name="SocialSDK_ynote" level="project" />
   </component>
 </module>
