@@ -193,7 +193,7 @@ public class EditMultipleFragment extends TuEditMultipleFragment {
             }
         };
         StickerComponentOption option = new StickerComponentOption();
-        component.setAutoBorder(true);
+        component.setAutoBorder(autoBorder);
         component.setOption(option)
                 .setImage(getImage())
                 // 设置系统照片
