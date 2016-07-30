@@ -52,6 +52,7 @@ public class TextStickerFragment extends TuImageResultFragment implements View.O
     TuSdkImageButton cancelButton;
     TuSdkImageButton okButton;
     TuSdkTextButton colorButton;
+    TuSdkTextButton lsq_fontButton;
     //存储贴纸列表
     ArrayList<View> mViews = new ArrayList<>();
 
@@ -79,6 +80,9 @@ public class TextStickerFragment extends TuImageResultFragment implements View.O
         cancelButton.setOnClickListener(this);
         okButton = (TuSdkImageButton)viewGroup.findViewById(R.id.lsq_configCompleteButton);
         okButton.setOnClickListener(this);
+
+        lsq_fontButton = (TuSdkTextButton)viewGroup.findViewById(R.id.lsq_fontButton);
+        lsq_fontButton.setOnClickListener(this);
 
         colorButton = (TuSdkTextButton)viewGroup.findViewById(R.id.lsq_colorButton);
         colorButton.setOnClickListener(this);
@@ -175,7 +179,7 @@ public class TextStickerFragment extends TuImageResultFragment implements View.O
             final TuSdkResult result = generateBitmap();
 
             if(result.image!= null) {
-                this.hubStatus(TuSdkContext.getString("lsq_edit_processing"));
+//                this.hubStatus(TuSdkContext.getString("lsq_edit_processing"));
                 (new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -199,6 +203,8 @@ public class TextStickerFragment extends TuImageResultFragment implements View.O
             handleCompleteButton();
         }else if(v == colorButton){
             showColorPicker();
+        }else if(v == lsq_fontButton){
+            addBubble();
         }
     }
 
