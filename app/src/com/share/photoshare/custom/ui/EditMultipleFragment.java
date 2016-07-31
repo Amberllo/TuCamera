@@ -19,8 +19,10 @@ import com.umeng.socialize.media.UMImage;
 import com.umeng.socialize.utils.Log;
 import com.umeng.soexample.model.Defaultcontent;
 
+import org.lasque.tusdk.core.TuSdkContext;
 import org.lasque.tusdk.core.TuSdkResult;
 import org.lasque.tusdk.core.secret.StatisticsManger;
+import org.lasque.tusdk.core.utils.image.BitmapHelper;
 import org.lasque.tusdk.core.view.TuSdkViewHelper;
 import org.lasque.tusdk.core.view.widget.button.TuSdkTextButton;
 import org.lasque.tusdk.impl.components.edit.TuEditMultipleFragment;
@@ -172,6 +174,7 @@ public class EditMultipleFragment extends TuEditMultipleFragment {
     public void shareSingleImage() {
 //        String imagePath = Environment.getExternalStorageDirectory() + File.separator + "test.jpg";
         //由文件得到uri
+        shareOnComplete();
         Uri imageUri = Uri.fromFile(getLastSteps());
 //        Log.d("share", "uri:" + imageUri);  //输出：file:///storage/emulated/0/test.jpg
 
@@ -215,14 +218,28 @@ public class EditMultipleFragment extends TuEditMultipleFragment {
         appendHistory(new File(filepath));
     }
 
+    private Bitmap shareOnComplete(){
+        final TuSdkResult tuSdkResult;
+        (tuSdkResult = new TuSdkResult()).imageFile = this.getLastSteps();
+        if(tuSdkResult.imageFile != null && tuSdkResult.imageFile.exists() && tuSdkResult.imageFile.isFile()) {
+//            this.hubStatus(TuSdkContext.getString("lsq_edit_processing"));
+            (new Thread(new Runnable() {
+                public void run() {
 
-    @Override
-    protected void asyncLoadImageCompleted(Bitmap bitmap) {
-        super.asyncLoadImageCompleted(bitmap);
-//        setDefaultBorder();
+//                    if(this.getWaterMarkOption() != null) {
+//                        tuSdkResult.image = this.addWaterMarkToImage(tuSdkResult.image);
+//                    }
+//
+//                    this.asyncProcessingIfNeedSave(tuSdkResult);
+                }
+            })).start();
+            return BitmapHelper.getBitmap(tuSdkResult.imageFile, true);
+        }
+        return null;
     }
 
-//    private UMShareListener umShareListener = new UMShareListener() {
+
+    //    private UMShareListener umShareListener = new UMShareListener() {
 //        @Override
 //        public void onResult(SHARE_MEDIA platform) {
 //            Log.d("plat","platform"+platform);

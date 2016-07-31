@@ -51,7 +51,7 @@
     "stickerCategories":[
       {
         "id":3,
-        "name":"相框"
+        "name":"\u76f8\u6846"
       },
         {
             "id":1,
@@ -98,14 +98,18 @@
             "file":"lsq_sticker_3_1110.gsce",
             "name":"\u76f8\u6846",
             "stickers":[
+              {
+                "id":8654
+              },
                 {
                     "id":8573
                 },
                 {
                     "id":8574
                 }
+
             ]
         }
     ],
-    "master":"ystkOLI5QfUhjXLmX0S7o+byKDh65VTBOpwbiiblaIL8Sp0uGx8TZwDUCM+4q2crrX8t0ht2iYwa4xTksgpgw17CSSqnUrxzYkWFBKkF0FY6d\/KdN3rRDGK9\/Yd4D2DUdovM+b2W7oLBmFaw7YrSh+LF1Is9\/Apu18wNDuiO2FJKFEdwpsfvDnpOTCku044jV6xq\/P+wfY1p+8RRRBsB0YX7WDWfcFtlA+YCLzuJOOVwyxQPuMDoy6hpTmhgaG\/fXJYYM78j8XSGrYcjcmlUP4JGYLwy+Yotns\/5LY5Pp6fAfV4gqqF14Z6jESIsq6nSD+yf0oe9k1T4CZFUUh0P+8eFEyVnL0L1gWB6cwNAhuTszCdtxOOX8mad5D7mt5su\/vaJaTqSo+wfG\/ZBDwowcbuGfqzzo7GWJJikqeNFP2DDff24aVg4YGoeBFHzBO4CpZPg7ifXWSQdF0rsy48uOM\/dT2XXEn8k5ERls0fImXKhwEvZq74Zh6KnTMjo\/laHXwBjuCaMpxtQpae\/yTG4F2gC40BiKqo3+jC3cq9liShPRLidG3K1LRUpahiVaROZRuYNVaOdYBcz0nYWZgsQSCmyubvXnnpl\/rEDoy644VPo3vvsf2idVJUJcOieDZVfn6A98a7L0qQKPjU3ZO0Bu6COhVH2t0YNIj6CIr9p9\/PicVPP9oLORxv8eH\/F4dymHXIhtOCyad5uDm43rtSZqLIWpx86tEjExu0cDLn0RGeFS+HRKNQdS5VYkaJ8V3S614069E052B"
+    "master":"epmyneAKsbwNzzD+KYBhEiXP6xrFahnPVd76dUdE6iAk5e\/H\/V6Dj0UWHNpk6pFp0990LMXkLZ5hfXYnCnFl\/HvXcX556iEdWJ0RD6y2gc0Bsh\/BhAnYC2Bdvx8OFRQOz+n7qoRw7S1FrszNLjXHoJ3nPoe9iIdc+qXzOnP7X96owi7C4bVl+\/ZqQRiVoFdskQnw9R92waEhvYecqL92RIoNPVP5OOUvSi0SrOcySKPlIShuiwp6vbYIabCaTtI7dOXGWO+d4zW2seOvdRBVl8Cq+tAbAKsEd+sbXF4Nkg2DZfcqhXwV151h2x\/eWOSGmcnn\/Xhei91GwUJexfdrXkcoMNmgvjFk+qDJ6TKjNTBP4gAIt4pwQYlbtTv3VI5pW9CZMHEnyuqRcMM8YMvehSnqvqWmRCe6m7svj05oBbTXs3az4krD+73ejxY3odie3HcLE3njO5fQPIvqaLbtwCDjLzyhEXBQTs3u\/xtq6B+R6gXwDmd7X9NHu6q43NIB22KW8T5RxL6QixKKdOaIXOLeeWRWcnlXwh77pG0PHCasMfb1qohUyPDCiIDCBGkpvfQh3edaa6IhQ3VuinGwFe97nwor0mk6xvYFQ7sgWKLzp9ZHTdtlq0OPZWifMPRuM5opMpKdt+QuWX4GZcVZz2EkOD0cr\/96I0px9hCbWxGGgx\/TsbSgy4JXqqO5TQI4FgFf76uxL6jmvzEo+9ShJkQzXSPgbPzzUW+QjobdoQMroZLPVh8QDbpEto5qoiPW6041185531"
 }
