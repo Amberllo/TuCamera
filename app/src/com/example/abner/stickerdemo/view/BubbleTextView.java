@@ -24,6 +24,7 @@ import com.example.abner.stickerdemo.model.BubblePropertyModel;
 import com.example.abner.stickerdemo.utils.DensityUtils;
 
 import com.share.photoshare.R;
+import com.share.photoshare.custom.BitmapUtils;
 
 
 /**
@@ -269,20 +270,20 @@ public class BubbleTextView extends ImageView {
             canvas.drawBitmap(mBitmap, matrix, null);
 
             //删除在右上角
-            dst_delete.left = (int) (f3 - deleteBitmapWidth / 2);
-            dst_delete.right = (int) (f3 + deleteBitmapWidth / 2);
-            dst_delete.top = (int) (f4 - deleteBitmapHeight / 2);
-            dst_delete.bottom = (int) (f4 + deleteBitmapHeight / 2);
+            dst_delete.left = (int) (f1 - deleteBitmapWidth );
+            dst_delete.right = (int) (f1 + deleteBitmapWidth );
+            dst_delete.top = (int) (f2 - deleteBitmapHeight );
+            dst_delete.bottom = (int) (f2 + deleteBitmapHeight );
             //拉伸等操作在右下角
-            dst_resize.left = (int) (f7 - resizeBitmapWidth / 2);
-            dst_resize.right = (int) (f7 + resizeBitmapWidth / 2);
-            dst_resize.top = (int) (f8 - resizeBitmapHeight / 2);
-            dst_resize.bottom = (int) (f8 + resizeBitmapHeight / 2);
-            //置顶在左上角
-            dst_top.left = (int) (f1 - topBitmapWidth / 2);
-            dst_top.right = (int) (f1 + topBitmapWidth / 2);
-            dst_top.top = (int) (f2 - topBitmapHeight / 2);
-            dst_top.bottom = (int) (f2 + topBitmapHeight / 2);
+            dst_resize.left = (int) (f7 - resizeBitmapWidth );
+            dst_resize.right = (int) (f7 + resizeBitmapWidth);
+            dst_resize.top = (int) (f8 - resizeBitmapHeight );
+            dst_resize.bottom = (int) (f8 + resizeBitmapHeight );
+//            //置顶在左上角
+//            dst_top.left = (int) (f3 - topBitmapWidth / 2);
+//            dst_top.right = (int) (f3 + topBitmapWidth / 2);
+//            dst_top.top = (int) (f4 - topBitmapHeight / 2);
+//            dst_top.bottom = (int) (f4 + topBitmapHeight / 2);
             //水平镜像在右下角
 //                dst_flipV.left = (int) (f5 - topBitmapWidth / 2);
 //                dst_flipV.right = (int) (f5 + topBitmapWidth / 2);
@@ -295,10 +296,21 @@ public class BubbleTextView extends ImageView {
                 canvas.drawLine(f5, f6, f7, f8, localPaint);
                 canvas.drawLine(f5, f6, f1, f2, localPaint);
 
+                Bitmap orange = BitmapFactory.decodeResource(getContext().getResources(),R.drawable.circle_orange);
+                Bitmap blue = BitmapFactory.decodeResource(getContext().getResources(),R.drawable.circle_blue);
+
+                canvas.drawBitmap(orange, null, dst_delete, null);
+                canvas.drawBitmap(blue, null, dst_resize, null);
+
                 canvas.drawBitmap(deleteBitmap, null, dst_delete, null);
                 canvas.drawBitmap(resizeBitmap, null, dst_resize, null);
 //                canvas.drawBitmap(flipVBitmap, null, dst_flipV, null);
-                canvas.drawBitmap(topBitmap, null, dst_top, null);
+//                canvas.drawBitmap(topBitmap, null, dst_top, null);
+
+
+                canvas.drawBitmap(deleteBitmap, null, dst_delete, null);
+                canvas.drawBitmap(resizeBitmap, null, dst_resize, null);
+
             }
 
             canvas.restore();
@@ -394,9 +406,9 @@ public class BubbleTextView extends ImageView {
             MAX_SCALE = 1.0f * mScreenwidth / mBitmap.getWidth();
         }
         topBitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.icon_top_enable);
-        deleteBitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.icon_delete);
+        deleteBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.lsq_style_default_edit_drag_cancel);
         flipVBitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.icon_flip);
-        resizeBitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.icon_resize);
+        resizeBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.lsq_style_default_edit_drag_rotate_scale);
 
         deleteBitmapWidth = (int) (deleteBitmap.getWidth() * BITMAP_SCALE);
         deleteBitmapHeight = (int) (deleteBitmap.getHeight() * BITMAP_SCALE);
