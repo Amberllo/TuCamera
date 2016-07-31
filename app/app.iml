@@ -62,6 +62,7 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/classes" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/dependency-cache" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/dex" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/TuCamera/UMengLibrary/unspecified/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/multidex/1.0.1/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/manifests" />
@@ -80,6 +81,6 @@
     <orderEntry type="library" exported="" name="support-annotations-23.2.1" level="project" />
     <orderEntry type="module" module-name="TuSDK" exported="" />
     <orderEntry type="module" module-name="ColorPickerLibrary" exported="" />
-    <orderEntry type="module" module-name="UMengLibrary" exported="" />
+    <orderEntry type="library" exported="" name="UMengLibrary-unspecified" level="project" />
   </component>
 </module>

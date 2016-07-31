@@ -64,6 +64,32 @@ public class FileUtils {
     }
 
     /**
+     * 保存图像到本地
+     *
+     * @param bm
+     * @return
+     */
+    public static String saveShareBitmapToLocal(Bitmap bm, Context context) {
+        String path = null;
+        try {
+            File file = FileUtils.getInstance(context).createTempShareFile("IMG_", ".jpg");
+            FileOutputStream fos = new FileOutputStream(file);
+            bm.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+            fos.flush();
+            fos.close();
+            path = file.getAbsolutePath();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+        return path;
+    }
+
+    /**
      * @param prefix
      * @param extension
      * @return
@@ -73,6 +99,23 @@ public class FileUtils {
             throws IOException {
         File file = new File(getAppDirPath() + ".TEMP/" + prefix
                 + System.currentTimeMillis() + extension);
+        file.createNewFile();
+        return file;
+    }
+
+    /**
+     * @param prefix
+     * @param extension
+     * @return
+     * @throws java.io.IOException
+     */
+    public File createTempShareFile(String prefix, String extension) throws IOException {
+        String base = Environment.getExternalStorageDirectory().getPath();
+        File file = new File(base +"/" + ".TempShare");
+        if(!file.exists()){
+            file.mkdirs();
+        }
+        file = new File(base +"/" + ".TempShare/" + prefix + System.currentTimeMillis() + extension);
         file.createNewFile();
         return file;
     }

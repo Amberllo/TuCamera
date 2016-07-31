@@ -172,17 +172,17 @@ public class EditMultipleFragment extends TuEditMultipleFragment {
 
     //分享单张图片
     public void shareSingleImage() {
-//        String imagePath = Environment.getExternalStorageDirectory() + File.separator + "test.jpg";
-        //由文件得到uri
-        shareOnComplete();
-        Uri imageUri = Uri.fromFile(getLastSteps());
-//        Log.d("share", "uri:" + imageUri);  //输出：file:///storage/emulated/0/test.jpg
+        Bitmap bitmap = shareOnComplete();
+        if(bitmap!=null){
+            String file = FileUtils.saveShareBitmapToLocal(bitmap,getContext());
+            Uri imageUri = Uri.fromFile(new File(file));
+            Intent shareIntent = new Intent();
+            shareIntent.setAction(Intent.ACTION_SEND);
+            shareIntent.putExtra(Intent.EXTRA_STREAM, imageUri);
+            shareIntent.setType("image/*");
+            startActivity(Intent.createChooser(shareIntent, "分享到"));
+        }
 
-        Intent shareIntent = new Intent();
-        shareIntent.setAction(Intent.ACTION_SEND);
-        shareIntent.putExtra(Intent.EXTRA_STREAM, imageUri);
-        shareIntent.setType("image/*");
-        startActivity(Intent.createChooser(shareIntent, "分享到"));
     }
 
     public void onSticker(boolean autoBorder){
@@ -222,17 +222,6 @@ public class EditMultipleFragment extends TuEditMultipleFragment {
         final TuSdkResult tuSdkResult;
         (tuSdkResult = new TuSdkResult()).imageFile = this.getLastSteps();
         if(tuSdkResult.imageFile != null && tuSdkResult.imageFile.exists() && tuSdkResult.imageFile.isFile()) {
-//            this.hubStatus(TuSdkContext.getString("lsq_edit_processing"));
-            (new Thread(new Runnable() {
-                public void run() {
-
-//                    if(this.getWaterMarkOption() != null) {
-//                        tuSdkResult.image = this.addWaterMarkToImage(tuSdkResult.image);
-//                    }
-//
-//                    this.asyncProcessingIfNeedSave(tuSdkResult);
-                }
-            })).start();
             return BitmapHelper.getBitmap(tuSdkResult.imageFile, true);
         }
         return null;
