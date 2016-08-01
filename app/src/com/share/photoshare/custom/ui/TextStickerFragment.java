@@ -51,8 +51,8 @@ public class TextStickerFragment extends TuImageResultFragment implements View.O
     ImageView imageView;
     TuSdkImageButton cancelButton;
     TuSdkImageButton okButton;
-    TuSdkTextButton colorButton;
-    TuSdkTextButton lsq_fontButton;
+    TuSdkImageButton colorButton;
+    TuSdkImageButton lsq_fontButton;
     //存储贴纸列表
     ArrayList<View> mViews = new ArrayList<>();
 
@@ -81,10 +81,10 @@ public class TextStickerFragment extends TuImageResultFragment implements View.O
         okButton = (TuSdkImageButton)viewGroup.findViewById(R.id.lsq_configCompleteButton);
         okButton.setOnClickListener(this);
 
-        lsq_fontButton = (TuSdkTextButton)viewGroup.findViewById(R.id.lsq_fontButton);
+        lsq_fontButton = (TuSdkImageButton)viewGroup.findViewById(R.id.lsq_fontButton);
         lsq_fontButton.setOnClickListener(this);
 
-        colorButton = (TuSdkTextButton)viewGroup.findViewById(R.id.lsq_colorButton);
+        colorButton = (TuSdkImageButton)viewGroup.findViewById(R.id.lsq_colorButton);
         colorButton.setOnClickListener(this);
 
         mBubbleInputDialog = new BubbleInputDialog(getContext());

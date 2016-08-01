@@ -29,28 +29,12 @@
 
 
         <LinearLayout
+            android:orientation="vertical"
             android:id="@+id/lsq_option_wrap"
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:layout_above="@+id/lsq_bottomBar"
             android:background="@color/lsq_background_option_bar" >
-
-            <org.lasque.tusdk.core.view.widget.button.TuSdkTextButton
-                android:id="@+id/lsq_fontButton"
-                android:layout_weight="1"
-                style="@style/lsq_edit_entryOptionButton"
-                android:layout_width="match_parent"
-                android:drawableTop="@drawable/lsq_style_default_edit_icon_filter"
-                android:text="添加文字" />
-
-            <org.lasque.tusdk.core.view.widget.button.TuSdkTextButton
-                android:layout_weight="1"
-                android:id="@+id/lsq_colorButton"
-                style="@style/lsq_edit_entryOptionButton"
-                android:layout_width="match_parent"
-                android:drawableTop="@drawable/lsq_style_default_edit_icon_filter"
-                android:text="颜色" />
-
         </LinearLayout>
 
     <RelativeLayout
@@ -83,35 +67,48 @@
             android:src="@drawable/lsq_style_default_edit_button_completed" />
     </RelativeLayout>
 
-    <RelativeLayout
+    <LinearLayout
+        android:gravity="center"
         android:id="@+id/lsq_config_bottomBar"
         android:layout_width="match_parent"
-        android:layout_height="49dp"
+        android:layout_height="80dp"
         android:layout_alignParentBottom="true"
         android:background="@color/lsq_background_editor_bottom_bar" >
 
         <org.lasque.tusdk.core.view.widget.button.TuSdkImageButton
+            android:layout_weight="1"
             android:id="@+id/lsq_configCancelButton"
-            android:layout_width="44dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginLeft="16dp"
-            android:layout_marginStart="16dp"
             android:scaleType="center"
             android:src="@drawable/lsq_style_default_edit_button_cancel" />
 
+
         <org.lasque.tusdk.core.view.widget.button.TuSdkImageButton
+            android:padding="15dp"
+            android:id="@+id/lsq_fontButton"
+            android:layout_weight="1"
+
+            android:layout_width="match_parent"
+            android:src="@drawable/btn_add"
+            android:layout_height="match_parent"/>
+
+        <org.lasque.tusdk.core.view.widget.button.TuSdkImageButton
+            android:layout_weight="1"
+            android:id="@+id/lsq_colorButton"
+            android:scaleType="center"
+            android:layout_width="match_parent"
+            android:src="@drawable/lsq_style_default_edit_icon_filter"
+            android:layout_height="match_parent"/>
+
+        <org.lasque.tusdk.core.view.widget.button.TuSdkImageButton
+            android:layout_weight="1"
             android:id="@+id/lsq_configCompleteButton"
-            android:layout_width="44dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginRight="16dp"
-            android:layout_marginEnd="16dp"
             android:scaleType="center"
             android:src="@drawable/lsq_style_default_edit_button_completed" />
-    </RelativeLayout>
+    </LinearLayout>
 
     <!--<EditText-->
         <!--android:visibility="gone"-->

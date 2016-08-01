@@ -44,8 +44,8 @@
 
         <ImageView
             android:id="@+id/lsq_shareButton"
-            android:padding="10dp"
-            android:src="@drawable/ic_launcher"
+            android:padding="20dp"
+            android:src="@drawable/style_default_edit_redo"
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
