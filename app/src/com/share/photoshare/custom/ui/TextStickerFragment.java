@@ -49,6 +49,7 @@ public class TextStickerFragment extends TuImageResultFragment implements View.O
     //气泡输入框
     BubbleInputDialog mBubbleInputDialog;
     RelativeLayout imageWrapView;
+    RelativeLayout imageWrapView2;
     ImageView imageView;
     TuSdkImageButton cancelButton;
     TuSdkImageButton okButton;
@@ -107,24 +108,9 @@ public class TextStickerFragment extends TuImageResultFragment implements View.O
         Bitmap bitmap = getImage();
 
 
+
         if(getImage()!=null && imageView!=null){
             imageView.setImageBitmap(bitmap);
-
-            TuSdkSize size = getImageDisplaySize();
-            int resizeWidth = imageView.getHeight() * size.width / size.height;
-            RelativeLayout.LayoutParams paramsLayout = (RelativeLayout.LayoutParams) imageView.getLayoutParams();
-            paramsLayout.width = resizeWidth;
-            paramsLayout.height = imageView.getHeight();
-
-            RelativeLayout.LayoutParams paramsImage = (RelativeLayout.LayoutParams) imageWrapView.getLayoutParams();
-            paramsImage.width = resizeWidth;
-            paramsImage.height = imageView.getHeight();
-
-            imageView.setLayoutParams(paramsImage);
-            imageWrapView.setLayoutParams(paramsLayout);
-
-
-
         }
     }
 

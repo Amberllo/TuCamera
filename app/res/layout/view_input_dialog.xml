@@ -14,7 +14,7 @@
         android:layout_height="80dp"
         android:textSize="16sp"
         android:hint="@string/publish_comment"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:inputType="text|textMultiLine"
         android:imeOptions="actionDone"
         android:gravity="center"

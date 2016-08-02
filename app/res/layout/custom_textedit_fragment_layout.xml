@@ -102,22 +102,28 @@
 
     <RelativeLayout
         android:layout_centerHorizontal="true"
-        android:id="@+id/lsq_imageWrapView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_alignParentTop="true"
         android:layout_above="@+id/lsq_param_config_view"
         android:background="@color/lsq_background_editor">
 
 
-        <ImageView
-            android:background="@color/lsq_background_editor"
-            android:layout_centerHorizontal="true"
-            android:id="@+id/lsq_imageView"
-            android:scaleType="fitCenter"
+        <RelativeLayout
+            android:id="@+id/lsq_imageWrapView"
+            android:layout_centerInParent="true"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content">
 
+            <ImageView
+                android:background="@color/lsq_background_editor"
+                android:layout_centerInParent="true"
+                android:id="@+id/lsq_imageView"
+                android:scaleType="fitCenter"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </RelativeLayout>
     </RelativeLayout>
 
 </RelativeLayout>
