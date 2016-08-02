@@ -57,6 +57,7 @@
     </RelativeLayout>
 
     <LinearLayout
+
         android:gravity="center"
         android:id="@+id/lsq_config_bottomBar"
         android:layout_width="match_parent"
@@ -82,12 +83,12 @@
             android:src="@drawable/btn_add"
             android:layout_height="match_parent"/>
 
-        <org.lasque.tusdk.core.view.widget.button.TuSdkImageButton
+        <com.share.photoshare.custom.CustomColorImageView
+
             android:layout_weight="1"
             android:id="@+id/lsq_colorButton"
-            android:scaleType="center"
             android:layout_width="match_parent"
-            android:src="@drawable/lsq_style_default_edit_icon_filter"
+
             android:layout_height="match_parent"/>
 
         <org.lasque.tusdk.core.view.widget.button.TuSdkImageButton

@@ -34,6 +34,7 @@ import org.lasque.tusdk.core.view.widget.button.TuSdkImageButton;
 import org.lasque.tusdk.core.view.widget.button.TuSdkTextButton;
 import org.lasque.tusdk.impl.activity.TuImageResultFragment;
 import com.share.photoshare.R;
+import com.share.photoshare.custom.CustomColorImageView;
 import com.share.photoshare.custom.suite.TextStickerComponentOption;
 
 import java.io.File;
@@ -53,7 +54,7 @@ public class TextStickerFragment extends TuImageResultFragment implements View.O
     ImageView imageView;
     TuSdkImageButton cancelButton;
     TuSdkImageButton okButton;
-    TuSdkImageButton colorButton;
+    CustomColorImageView colorButton;
     TuSdkImageButton lsq_fontButton;
     //存储贴纸列表
     ArrayList<View> mViews = new ArrayList<>();
@@ -88,7 +89,7 @@ public class TextStickerFragment extends TuImageResultFragment implements View.O
         lsq_fontButton = (TuSdkImageButton)viewGroup.findViewById(R.id.lsq_fontButton);
         lsq_fontButton.setOnClickListener(this);
 
-        colorButton = (TuSdkImageButton)viewGroup.findViewById(R.id.lsq_colorButton);
+        colorButton = (CustomColorImageView) viewGroup.findViewById(R.id.lsq_colorButton);
         colorButton.setOnClickListener(this);
 
         mBubbleInputDialog = new BubbleInputDialog(getContext());
@@ -137,7 +138,7 @@ public class TextStickerFragment extends TuImageResultFragment implements View.O
 
             @Override
             public void onClick(final BubbleTextView bubbleTextView) {
-
+                colorButton.setColor(bubbleTextView.getFontColor());
                 mBubbleInputDialog.setBubbleTextView(bubbleTextView);
                 mBubbleInputDialog.show();
                 mBubbleInputDialog.setOnTextChangeCallback(new BubbleInputDialog.OnTextChangeCallback() {
@@ -250,7 +251,7 @@ public class TextStickerFragment extends TuImageResultFragment implements View.O
      * 设置当前处于编辑模式的气泡
      */
     private void setCurrentEdit(BubbleTextView bubbleTextView) {
-
+        colorButton.setColor(bubbleTextView.getFontColor());
         if (mCurrentEditTextView != null) {
             mCurrentEditTextView.setInEdit(false);
         }
@@ -293,6 +294,7 @@ public class TextStickerFragment extends TuImageResultFragment implements View.O
                     @Override
                     public void onClick(DialogInterface dialog, int selectedColor, Integer[] allColors) {
 //                        changeBackgroundColor(selectedColor);
+                        colorButton.setColor(selectedColor);
                         mCurrentEditTextView.setFontColor(selectedColor);
                     }
                 })
