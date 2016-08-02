@@ -29,6 +29,7 @@ import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
 
 import org.lasque.tusdk.core.TuSdkContext;
 import org.lasque.tusdk.core.TuSdkResult;
+import org.lasque.tusdk.core.struct.TuSdkSize;
 import org.lasque.tusdk.core.view.widget.button.TuSdkImageButton;
 import org.lasque.tusdk.core.view.widget.button.TuSdkTextButton;
 import org.lasque.tusdk.impl.activity.TuImageResultFragment;
@@ -59,6 +60,8 @@ public class TextStickerFragment extends TuImageResultFragment implements View.O
     //当前处于编辑状态的气泡
     BubbleTextView mCurrentEditTextView;
 
+    View bottomBar;
+
     public static int getLayoutId() {
         return R.layout.custom_textedit_fragment_layout;
     }
@@ -72,7 +75,7 @@ public class TextStickerFragment extends TuImageResultFragment implements View.O
 
     @Override
     protected void loadView(ViewGroup viewGroup) {
-
+        bottomBar = viewGroup.findViewById(R.id.lsq_config_bottomBar);
         imageView = (ImageView)viewGroup.findViewById(R.id.lsq_imageView);
         imageWrapView = (RelativeLayout)viewGroup.findViewById(R.id.lsq_imageWrapView);
 
@@ -101,22 +104,41 @@ public class TextStickerFragment extends TuImageResultFragment implements View.O
     @Override
     protected void viewDidLoad(ViewGroup viewGroup) {
 
+        Bitmap bitmap = getImage();
+
 
         if(getImage()!=null && imageView!=null){
-            imageView.setImageBitmap(getImage());
+            imageView.setImageBitmap(bitmap);
+
+            TuSdkSize size = getImageDisplaySize();
+            int resizeWidth = imageView.getHeight() * size.width / size.height;
+            RelativeLayout.LayoutParams paramsLayout = (RelativeLayout.LayoutParams) imageView.getLayoutParams();
+            paramsLayout.width = resizeWidth;
+            paramsLayout.height = imageView.getHeight();
+
+            RelativeLayout.LayoutParams paramsImage = (RelativeLayout.LayoutParams) imageWrapView.getLayoutParams();
+            paramsImage.width = resizeWidth;
+            paramsImage.height = imageView.getHeight();
+
+            imageView.setLayoutParams(paramsImage);
+            imageWrapView.setLayoutParams(paramsLayout);
+
+
+
         }
     }
 
 
     //添加气泡
     private void addBubble() {
-        final BubbleTextView bubbleTextView = new BubbleTextView(getContext(),Color.BLACK,0);
+        final BubbleTextView bubbleTextView = new BubbleTextView(getContext(),Color.WHITE,0);
         bubbleTextView.setImageResource(R.drawable.alpha);
         bubbleTextView.setOperationListener(new BubbleTextView.OperationListener() {
             @Override
             public void onDeleteClick() {
                 mViews.remove(bubbleTextView);
                 imageWrapView.removeView(bubbleTextView);
+
             }
 
             @Override
@@ -128,10 +150,30 @@ public class TextStickerFragment extends TuImageResultFragment implements View.O
             }
 
             @Override
-            public void onClick(BubbleTextView bubbleTextView) {
+            public void onClick(final BubbleTextView bubbleTextView) {
 
                 mBubbleInputDialog.setBubbleTextView(bubbleTextView);
                 mBubbleInputDialog.show();
+                mBubbleInputDialog.setOnTextChangeCallback(new BubbleInputDialog.OnTextChangeCallback() {
+                    @Override
+                    public void onText(String text) {
+                        bubbleTextView.setText(text);
+                    }
+                });
+
+                mBubbleInputDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                    @Override
+                    public void onShow(DialogInterface dialog) {
+                        bottomBar.setVisibility(View.INVISIBLE);
+                    }
+                });
+
+                mBubbleInputDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+                        bottomBar.setVisibility(View.VISIBLE);
+                    }
+                });
             }
 
             @Override
@@ -276,6 +318,7 @@ public class TextStickerFragment extends TuImageResultFragment implements View.O
                 .build()
                 .show();
     }
+
 
 
 }

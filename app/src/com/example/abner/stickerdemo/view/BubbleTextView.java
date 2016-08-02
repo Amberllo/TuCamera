@@ -109,8 +109,8 @@ public class BubbleTextView extends ImageView {
     private String mStr = "";
 
     //字号默认16sp
-    private final float mDefultSize = 16;
-    private float mFontSize = 16;
+    private final float mDefultSize = 24;
+    private float mFontSize = 24;
     //最大最小字号
     private final float mMaxFontSize = 25;
     private final float mMinFontSize = 14;
@@ -144,7 +144,7 @@ public class BubbleTextView extends ImageView {
 
     private boolean isInBitmap;
 
-    private int fontColor = Color.BLACK;
+    private int fontColor = Color.WHITE;
 
     private final long bubbleId;
 
@@ -222,16 +222,19 @@ public class BubbleTextView extends ImageView {
         if (mBitmap != null) {
 
 
+            float mWidth = this.mBitmap.getWidth();
+            float mHeight = this.mBitmap.getHeight();
+
             float[] arrayOfFloat = new float[9];
             matrix.getValues(arrayOfFloat);
             float f1 = 0.0F * arrayOfFloat[0] + 0.0F * arrayOfFloat[1] + arrayOfFloat[2];
             float f2 = 0.0F * arrayOfFloat[3] + 0.0F * arrayOfFloat[4] + arrayOfFloat[5];
-            float f3 = arrayOfFloat[0] * this.mBitmap.getWidth() + 0.0F * arrayOfFloat[1] + arrayOfFloat[2];
-            float f4 = arrayOfFloat[3] * this.mBitmap.getWidth() + 0.0F * arrayOfFloat[4] + arrayOfFloat[5];
-            float f5 = 0.0F * arrayOfFloat[0] + arrayOfFloat[1] * this.mBitmap.getHeight() + arrayOfFloat[2];
-            float f6 = 0.0F * arrayOfFloat[3] + arrayOfFloat[4] * this.mBitmap.getHeight() + arrayOfFloat[5];
-            float f7 = arrayOfFloat[0] * this.mBitmap.getWidth() + arrayOfFloat[1] * this.mBitmap.getHeight() + arrayOfFloat[2];
-            float f8 = arrayOfFloat[3] * this.mBitmap.getWidth() + arrayOfFloat[4] * this.mBitmap.getHeight() + arrayOfFloat[5];
+            float f3 = arrayOfFloat[0] * mWidth + 0.0F * arrayOfFloat[1] + arrayOfFloat[2];
+            float f4 = arrayOfFloat[3] * mWidth + 0.0F * arrayOfFloat[4] + arrayOfFloat[5];
+            float f5 = 0.0F * arrayOfFloat[0] + arrayOfFloat[1] * mHeight + arrayOfFloat[2];
+            float f6 = 0.0F * arrayOfFloat[3] + arrayOfFloat[4] * mHeight + arrayOfFloat[5];
+            float f7 = arrayOfFloat[0] * mWidth + arrayOfFloat[1] * mHeight + arrayOfFloat[2];
+            float f8 = arrayOfFloat[3] * mWidth + arrayOfFloat[4] * mHeight + arrayOfFloat[5];
 
 
             canvas.save();

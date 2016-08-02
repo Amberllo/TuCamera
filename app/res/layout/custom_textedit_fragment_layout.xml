@@ -4,21 +4,7 @@
                 android:layout_height="match_parent"
                 android:background="@color/lsq_background_editor" >
 
-    <RelativeLayout
 
-        android:id="@+id/lsq_imageWrapView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/lsq_param_config_view"
-        android:background="@color/lsq_background_editor" >
-
-        <ImageView
-            android:layout_centerInParent="true"
-            android:id="@+id/lsq_imageView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-    </RelativeLayout>
 
     <include
         android:id="@+id/lsq_param_config_view"
@@ -38,6 +24,7 @@
         </LinearLayout>
 
     <RelativeLayout
+
         android:id="@+id/lsq_bottomBar"
         android:layout_width="match_parent"
         android:layout_height="49dp"
@@ -45,6 +32,7 @@
         android:background="@color/lsq_background_editor_bottom_bar">
 
         <org.lasque.tusdk.core.view.widget.button.TuSdkImageButton
+            android:visibility="gone"
             android:id="@+id/lsq_cancelButton"
             android:layout_width="44dp"
             android:layout_height="match_parent"
@@ -56,6 +44,7 @@
             android:src="@drawable/lsq_style_default_edit_button_cancel" />
 
         <org.lasque.tusdk.core.view.widget.button.TuSdkImageButton
+            android:visibility="gone"
             android:id="@+id/lsq_completeButton"
             android:layout_width="44dp"
             android:layout_height="match_parent"
@@ -110,11 +99,25 @@
             android:src="@drawable/lsq_style_default_edit_button_completed" />
     </LinearLayout>
 
-    <!--<EditText-->
-        <!--android:visibility="gone"-->
-        <!--android:layout_above="@id/lsq_option_wrap"-->
-        <!--android:id="@+id/lsq_input"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content" />-->
+
+    <RelativeLayout
+        android:layout_centerHorizontal="true"
+        android:id="@+id/lsq_imageWrapView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_above="@+id/lsq_param_config_view"
+        android:background="@color/lsq_background_editor">
+
+
+        <ImageView
+            android:background="@color/lsq_background_editor"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/lsq_imageView"
+            android:scaleType="fitCenter"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+
+    </RelativeLayout>
 
 </RelativeLayout>

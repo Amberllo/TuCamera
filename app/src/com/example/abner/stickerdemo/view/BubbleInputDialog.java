@@ -31,6 +31,7 @@ public class BubbleInputDialog extends Dialog {
     private static final int MAX_COUNT = 33; //字数最大限制33个
     private Context mContext;
     private BubbleTextView bubbleTextView;
+    private View root_bubble;
 
     public BubbleInputDialog(Context context) {
         super(context, android.R.style.Theme_Translucent_NoTitleBar);
@@ -63,7 +64,8 @@ public class BubbleInputDialog extends Dialog {
         tv_action_done = (TextView) findViewById(R.id.tv_action_done);
         et_bubble_input = (EditText) findViewById(R.id.et_bubble_input);
         tv_show_count = (TextView) findViewById(R.id.tv_show_count);
-        et_bubble_input.addTextChangedListener(new TextWatcher() {
+        root_bubble = findViewById(R.id.root_bubble);
+                et_bubble_input.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -77,6 +79,10 @@ public class BubbleInputDialog extends Dialog {
                     tv_show_count.setTextColor(mContext.getResources().getColor(R.color.red_e73a3d));
                 } else {
                     tv_show_count.setTextColor(mContext.getResources().getColor(R.color.grey_8b8b8b));
+                }
+
+                if(mOnTextChangeCallback!=null){
+                    mOnTextChangeCallback.onText(s.toString());
                 }
             }
 
@@ -96,6 +102,12 @@ public class BubbleInputDialog extends Dialog {
             }
         });
         tv_action_done.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                done();
+            }
+        });
+        root_bubble.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 done();
@@ -125,6 +137,10 @@ public class BubbleInputDialog extends Dialog {
         m.hideSoftInputFromWindow(et_bubble_input.getWindowToken(), 0);
     }
 
+    public void setOnTextChangeCallback(OnTextChangeCallback onTextChangeCallback) {
+        this.mOnTextChangeCallback = onTextChangeCallback;
+    }
+
     public interface CompleteCallBack {
         void onComplete(View bubbleTextView, String str);
     }
@@ -133,6 +149,11 @@ public class BubbleInputDialog extends Dialog {
 
     public void setCompleteCallBack(CompleteCallBack completeCallBack) {
         this.mCompleteCallBack = completeCallBack;
+    }
+
+    private OnTextChangeCallback mOnTextChangeCallback;
+    public interface OnTextChangeCallback {
+        void onText(String text);
     }
 
     private void done() {
