@@ -151,4 +151,8 @@
     <string name="facebook_app_id">487692214752558</string>
     <string name="perm">需要权限:</string>
 
+    <string name="color_lib_title">选择颜色</string>
+    <string name="color_lib_ok">确定</string>
+    <string name="color_lib_cancel">取消</string>
+
 </resources>

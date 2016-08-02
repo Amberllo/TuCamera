@@ -43,4 +43,8 @@
     <string name="lsq_face_detection_title">Face Detection</string>
     <string name="sample_api_face_detection_image">Face Detection (Picture)</string>
     <string name="sample_api_face_detection_camera">Face Detection (Video)</string>
+
+    <string name="color_lib_title">Choose color</string>
+    <string name="color_lib_ok">ok</string>
+    <string name="color_lib_cancel">cancel</string>
 </resources>

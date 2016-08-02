@@ -278,7 +278,7 @@ public class TextStickerFragment extends TuImageResultFragment implements View.O
     private void showColorPicker(){
         ColorPickerDialogBuilder
                 .with(getActivity())
-                .setTitle("Choose color")
+                .setTitle(getResString(R.string.color_lib_title))
                 .initialColor(mCurrentEditTextView.getFontColor())
                 .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
                 .density(12)
@@ -289,14 +289,14 @@ public class TextStickerFragment extends TuImageResultFragment implements View.O
 //                        mCurrentEditTextView.setFontColor(selectedColor);
                     }
                 })
-                .setPositiveButton("ok", new ColorPickerClickListener() {
+                .setPositiveButton(getResString(R.string.color_lib_ok), new ColorPickerClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int selectedColor, Integer[] allColors) {
 //                        changeBackgroundColor(selectedColor);
                         mCurrentEditTextView.setFontColor(selectedColor);
                     }
                 })
-                .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                .setNegativeButton(getResString(R.string.color_lib_cancel), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                     }
