@@ -6,13 +6,15 @@
     android:id="@+id/root_bubble">
 
     <EditText
-        android:background="@color/white"
+        android:alpha="0.8"
+        android:background="#ffffff"
         android:layout_alignParentBottom="true"
         android:id="@+id/et_bubble_input"
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:textSize="16sp"
         android:hint="@string/publish_comment"
+        android:textColorHint="@color/grey_8b8b8b"
         android:textColor="@color/black"
         android:inputType="text|textMultiLine"
         android:imeOptions="actionDone"
@@ -34,20 +36,16 @@
         android:layout_marginLeft="20dp"
     />
 
-    <TextView
-        android:visibility="gone"
+    <ImageView
+
         android:layout_alignTop="@id/et_bubble_input"
         android:id="@+id/tv_action_done"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/red_e73a3d"
-        android:paddingRight="20dp"
-        android:paddingBottom="10dp"
-        android:paddingTop="10dp"
-        android:paddingLeft="20dp"
-        android:textSize="15sp"
-        android:text="@string/complete"
+        android:padding="10dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/btn_delete"
         android:gravity="center"
+
         android:layout_alignParentRight="true"
     />
 

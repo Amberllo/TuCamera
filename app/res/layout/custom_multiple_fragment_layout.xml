@@ -63,8 +63,8 @@
             android:id="@+id/lsq_fontButton"
             style="@style/lsq_edit_entryOptionButton"
             android:layout_width="match_parent"
-            android:drawableTop="@drawable/lsq_style_default_edit_icon_edit"
-            android:text="@string/lsq_edit_entry_font" />
+            android:drawableTop="@drawable/lsq_style_default_edit_icon_smudge"
+            android:text="@string/lsq_edit_entry_smudge" />
 
 
     </LinearLayout>
@@ -107,16 +107,8 @@
             android:scaleType="centerInside"
             android:text="@string/lsq_edit_step_prev"
             android:drawableTop="@drawable/lsq_style_default_edit_step_prev"
-            android:paddingLeft="16dp" />
-
-        <org.lasque.tusdk.core.view.widget.button.TuSdkTextButton
-            android:id="@+id/lsq_step_next"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:scaleType="centerInside"
-            android:text="@string/lsq_edit_step_next"
-            android:drawableTop="@drawable/lsq_style_default_edit_step_next"
-            android:paddingLeft="32dp" />
+            android:paddingLeft="20dp"
+            android:layout_marginLeft="80dp"/>
 
         <View
             android:layout_width="0dp"
@@ -124,13 +116,27 @@
             android:layout_weight="1"/>
 
         <org.lasque.tusdk.core.view.widget.button.TuSdkTextButton
+            android:visibility="gone"
             android:id="@+id/lsq_auto_adjust"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:scaleType="centerInside"
             android:text="@string/lsq_edit_auto_adjust"
             android:drawableTop="@drawable/lsq_style_default_edit_auto_adjust"
-            android:paddingRight="16dp" />
+            android:paddingRight="20dp" />
+
+
+        <org.lasque.tusdk.core.view.widget.button.TuSdkTextButton
+
+            android:id="@+id/lsq_step_next"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:scaleType="centerInside"
+            android:text="@string/lsq_edit_step_next"
+            android:drawableTop="@drawable/lsq_style_default_edit_step_next"
+            android:layout_marginRight="80dp"
+            android:paddingRight="20dp" />
+
     </LinearLayout>
 
 </RelativeLayout>

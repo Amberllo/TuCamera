@@ -219,11 +219,14 @@ public class BubbleTextView extends ImageView {
 
     @Override
     protected void onDraw(Canvas canvas) {
+
+        float mWidth = BitmapUtils.dip2px(getContext(),200.0f);
+        float mHeight = BitmapUtils.dip2px(getContext(),80.0f);
         if (mBitmap != null) {
 
 
-            float mWidth = this.mBitmap.getWidth();
-            float mHeight = this.mBitmap.getHeight();
+            mWidth = this.mBitmap.getWidth();
+            mHeight = this.mBitmap.getHeight();
 
             float[] arrayOfFloat = new float[9];
             matrix.getValues(arrayOfFloat);
@@ -282,16 +285,16 @@ public class BubbleTextView extends ImageView {
             dst_resize.right = (int) (f7 + resizeBitmapWidth / 2);
             dst_resize.top = (int) (f8 - resizeBitmapHeight / 2);
             dst_resize.bottom = (int) (f8 + resizeBitmapHeight / 2);
-//            //置顶在左上角
-//            dst_top.left = (int) (f3 - topBitmapWidth / 2);
-//            dst_top.right = (int) (f3 + topBitmapWidth / 2);
-//            dst_top.top = (int) (f4 - topBitmapHeight / 2);
-//            dst_top.bottom = (int) (f4 + topBitmapHeight / 2);
+    //            //置顶在左上角
+    //            dst_top.left = (int) (f3 - topBitmapWidth / 2);
+    //            dst_top.right = (int) (f3 + topBitmapWidth / 2);
+    //            dst_top.top = (int) (f4 - topBitmapHeight / 2);
+    //            dst_top.bottom = (int) (f4 + topBitmapHeight / 2);
             //水平镜像在右下角
-//                dst_flipV.left = (int) (f5 - topBitmapWidth / 2);
-//                dst_flipV.right = (int) (f5 + topBitmapWidth / 2);
-//                dst_flipV.top = (int) (f6 - topBitmapHeight / 2);
-//                dst_flipV.bottom = (int) (f6 + topBitmapHeight / 2);
+    //                dst_flipV.left = (int) (f5 - topBitmapWidth / 2);
+    //                dst_flipV.right = (int) (f5 + topBitmapWidth / 2);
+    //                dst_flipV.top = (int) (f6 - topBitmapHeight / 2);
+    //                dst_flipV.bottom = (int) (f6 + topBitmapHeight / 2);
             if (isInEdit) {
 
                 canvas.drawLine(f1, f2, f3, f4, localPaint);
@@ -299,35 +302,36 @@ public class BubbleTextView extends ImageView {
                 canvas.drawLine(f5, f6, f7, f8, localPaint);
                 canvas.drawLine(f5, f6, f1, f2, localPaint);
 
-//                Bitmap orange = BitmapFactory.decodeResource(getContext().getResources(),R.drawable.circle_orange);
-//                Bitmap blue = BitmapFactory.decodeResource(getContext().getResources(),R.drawable.circle_blue);
+    //                Bitmap orange = BitmapFactory.decodeResource(getContext().getResources(),R.drawable.circle_orange);
+    //                Bitmap blue = BitmapFactory.decodeResource(getContext().getResources(),R.drawable.circle_blue);
 
-//                canvas.drawBitmap(orange, null, dst_delete, null);
-//                canvas.drawBitmap(blue, null, dst_resize, null);
+    //                canvas.drawBitmap(orange, null, dst_delete, null);
+    //                canvas.drawBitmap(blue, null, dst_resize, null);
 
                 canvas.drawBitmap(deleteBitmap, null, dst_delete, null);
                 canvas.drawBitmap(resizeBitmap, null, dst_resize, null);
-//                canvas.drawBitmap(flipVBitmap, null, dst_flipV, null);
-//                canvas.drawBitmap(topBitmap, null, dst_op, null);
+    //                canvas.drawBitmap(flipVBitmap, null, dst_flipV, null);
+    //                canvas.drawBitmap(topBitmap, null, dst_op, null);
 
 
                 canvas.drawBitmap(deleteBitmap, null, dst_delete, null);
                 canvas.drawBitmap(resizeBitmap, null, dst_resize, null);
 
             }
-
-            canvas.restore();
         }
+
+
+        canvas.restore();
     }
 
     public void setText(String text) {
-//        if (TextUtils.isEmpty(text)) {
-//            mStr = defaultStr;
-//            mFontSize = mDefultSize;
-//            mMargin = mDefaultMargin;
-//        } else {
-        mStr = text;
-//        }
+        if (TextUtils.isEmpty(text)) {
+            mStr = defaultStr;
+            mFontSize = mDefultSize;
+            mMargin = mDefaultMargin;
+        } else {
+            mStr = text;
+        }
         invalidate();
     }
 
@@ -344,35 +348,35 @@ public class BubbleTextView extends ImageView {
 //        setBitmap(BitmapFactory.decodeResource(getResources(), resId), model);
 //    }
 
-    public void setBitmap(Bitmap bitmap, BubblePropertyModel model) {
-        mFontSize = mDefultSize;
-        originBitmap = bitmap;
-        mBitmap = originBitmap.copy(Bitmap.Config.ARGB_8888, true);
-        canvasText = new Canvas(mBitmap);
-        setDiagonalLength();
-        initBitmaps();
-        int w = mBitmap.getWidth();
-        int h = mBitmap.getHeight();
-        oringinWidth = w;
-
-        mStr = model.getText();
-        float scale = model.getScaling() * mScreenwidth / mBitmap.getWidth();
-        if (scale > MAX_SCALE) {
-            scale = MAX_SCALE;
-        } else if (scale < MIN_SCALE) {
-            scale = MIN_SCALE;
-        }
-        float degree = (float) Math.toDegrees(model.getDegree());
-        matrix.postRotate(-degree, w >> 1, h >> 1);
-        matrix.postScale(scale, scale, w >> 1, h >> 1);
-        float midX = model.getxLocation() * mScreenwidth;
-        float midY = model.getyLocation() * mScreenwidth;
-        float offset = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 22, dm);
-        midX = midX - (w * scale) / 2 - offset;
-        midY = midY - (h * scale) / 2 - offset;
-        matrix.postTranslate(midX, midY);
-        invalidate();
-    }
+//    public void setBitmap(Bitmap bitmap, BubblePropertyModel model) {
+//        mFontSize = mDefultSize;
+//        originBitmap = bitmap;
+//        mBitmap = originBitmap.copy(Bitmap.Config.ARGB_8888, true);
+//        canvasText = new Canvas(mBitmap);
+//        setDiagonalLength();
+//        initBitmaps();
+//        int w = mBitmap.getWidth();
+//        int h = mBitmap.getHeight();
+//        oringinWidth = w;
+//
+//        mStr = model.getText();
+//        float scale = model.getScaling() * mScreenwidth / mBitmap.getWidth();
+//        if (scale > MAX_SCALE) {
+//            scale = MAX_SCALE;
+//        } else if (scale < MIN_SCALE) {
+//            scale = MIN_SCALE;
+//        }
+//        float degree = (float) Math.toDegrees(model.getDegree());
+//        matrix.postRotate(-degree, w >> 1, h >> 1);
+//        matrix.postScale(scale, scale, w >> 1, h >> 1);
+//        float midX = model.getxLocation() * mScreenwidth;
+//        float midY = model.getyLocation() * mScreenwidth;
+//        float offset = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 22, dm);
+//        midX = midX - (w * scale) / 2 - offset;
+//        midY = midY - (h * scale) / 2 - offset;
+//        matrix.postTranslate(midX, midY);
+//        invalidate();
+//    }
 
     public void setBitmap(Bitmap bitmap) {
         mFontSize = mDefultSize;

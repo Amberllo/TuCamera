@@ -9,6 +9,8 @@
  */
 package com.share.photoshare.custom.ui;
 
+import android.os.Bundle;
+
 import org.lasque.tusdk.core.TuSdk;
 import org.lasque.tusdk.core.secret.StatisticsManger;
 import org.lasque.tusdk.core.seles.tusdk.FilterManager;
@@ -38,7 +40,6 @@ public class CameraEntryActivity extends TuFragmentActivity
 		// 需要等待滤镜管理器初始化完成，才能使用所有功能
 //		TuSdk.messageHub().setStatus(this, R.string.lsq_initing);
 		TuSdk.checkFilterManager(mFilterManagerDelegate);
-		new CameraAndEditorComponent().showSample(this);
 	}
 
 	/** 滤镜管理器委托 */
@@ -51,4 +52,10 @@ public class CameraEntryActivity extends TuFragmentActivity
 		}
 	};
 
+
+    @Override
+    public void onCreate(Bundle bundle) {
+        super.onCreate(bundle);
+        new CameraAndEditorComponent().showSample(this);
+    }
 }

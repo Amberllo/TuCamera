@@ -14,14 +14,24 @@
         layout="@layout/tusdk_impl_component_widget_parameter_config_view" />
 
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:id="@+id/lsq_option_wrap"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:layout_above="@+id/lsq_bottomBar"
-            android:background="@color/lsq_background_option_bar" >
-        </LinearLayout>
+    <LinearLayout
+
+        android:orientation="vertical"
+        android:id="@+id/lsq_option_wrap"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_above="@+id/lsq_bottomBar"
+        android:background="@color/lsq_background_editor">
+    </LinearLayout>
+
+    <LinearLayout
+
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_above="@+id/lsq_bottomBar"
+        android:background="@color/lsq_background_editor">
+    </LinearLayout>
 
     <RelativeLayout
 
@@ -55,6 +65,7 @@
             android:scaleType="center"
             android:src="@drawable/lsq_style_default_edit_button_completed" />
     </RelativeLayout>
+
 
     <LinearLayout
 

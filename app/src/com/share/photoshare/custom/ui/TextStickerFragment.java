@@ -26,12 +26,8 @@ import com.flask.colorpicker.ColorPickerView;
 import com.flask.colorpicker.OnColorSelectedListener;
 import com.flask.colorpicker.builder.ColorPickerClickListener;
 import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
-
-import org.lasque.tusdk.core.TuSdkContext;
 import org.lasque.tusdk.core.TuSdkResult;
-import org.lasque.tusdk.core.struct.TuSdkSize;
 import org.lasque.tusdk.core.view.widget.button.TuSdkImageButton;
-import org.lasque.tusdk.core.view.widget.button.TuSdkTextButton;
 import org.lasque.tusdk.impl.activity.TuImageResultFragment;
 import com.share.photoshare.R;
 import com.share.photoshare.custom.CustomColorImageView;
@@ -50,7 +46,6 @@ public class TextStickerFragment extends TuImageResultFragment implements View.O
     //气泡输入框
     BubbleInputDialog mBubbleInputDialog;
     RelativeLayout imageWrapView;
-    RelativeLayout imageWrapView2;
     ImageView imageView;
     TuSdkImageButton cancelButton;
     TuSdkImageButton okButton;
@@ -112,6 +107,30 @@ public class TextStickerFragment extends TuImageResultFragment implements View.O
 
         if(getImage()!=null && imageView!=null){
             imageView.setImageBitmap(bitmap);
+
+            if(bitmap.getWidth()<bitmap.getHeight()){
+                int resizeWidth = imageView.getHeight() * bitmap.getWidth() / bitmap.getHeight();
+                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) imageView.getLayoutParams();
+                params.width = resizeWidth ;
+
+                RelativeLayout.LayoutParams paramsLayout = (RelativeLayout.LayoutParams) imageWrapView.getLayoutParams();
+                paramsLayout.width = resizeWidth;
+
+                imageView.setLayoutParams(params);
+                imageWrapView.setLayoutParams(paramsLayout);
+
+            }else{
+                int resizeHeight = imageView.getWidth() * bitmap.getHeight() / bitmap.getWidth();
+                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) imageView.getLayoutParams();
+                params.height= resizeHeight;
+
+                RelativeLayout.LayoutParams paramsLayout = (RelativeLayout.LayoutParams) imageWrapView.getLayoutParams();
+                paramsLayout.height = resizeHeight;
+
+                imageView.setLayoutParams(params);
+                imageWrapView.setLayoutParams(paramsLayout);
+            }
+
         }
     }
 
@@ -138,15 +157,6 @@ public class TextStickerFragment extends TuImageResultFragment implements View.O
 
             @Override
             public void onClick(final BubbleTextView bubbleTextView) {
-                colorButton.setColor(bubbleTextView.getFontColor());
-                mBubbleInputDialog.setBubbleTextView(bubbleTextView);
-                mBubbleInputDialog.show();
-                mBubbleInputDialog.setOnTextChangeCallback(new BubbleInputDialog.OnTextChangeCallback() {
-                    @Override
-                    public void onText(String text) {
-                        bubbleTextView.setText(text);
-                    }
-                });
 
                 mBubbleInputDialog.setOnShowListener(new DialogInterface.OnShowListener() {
                     @Override
@@ -161,6 +171,20 @@ public class TextStickerFragment extends TuImageResultFragment implements View.O
                         bottomBar.setVisibility(View.VISIBLE);
                     }
                 });
+
+                mBubbleInputDialog.removeOnTextChangeCallback();
+
+                colorButton.setColor(bubbleTextView.getFontColor());
+                mBubbleInputDialog.setBubbleTextView(bubbleTextView);
+                mBubbleInputDialog.show();
+                mBubbleInputDialog.setOnTextChangeCallback(new BubbleInputDialog.OnTextChangeCallback() {
+                    @Override
+                    public void onText(String text) {
+                        bubbleTextView.setText(text);
+                    }
+                });
+
+
             }
 
             @Override

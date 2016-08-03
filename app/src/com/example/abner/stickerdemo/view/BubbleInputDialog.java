@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,8 +28,8 @@ public class BubbleInputDialog extends Dialog {
     private final String defaultStr;
     private EditText et_bubble_input;
     private TextView tv_show_count;
-    private TextView tv_action_done;
-    private static final int MAX_COUNT = 33; //字数最大限制33个
+    private ImageView tv_action_done;
+    private static final int MAX_COUNT = 150; //字数最大限制33个
     private Context mContext;
     private BubbleTextView bubbleTextView;
     private View root_bubble;
@@ -61,11 +62,12 @@ public class BubbleInputDialog extends Dialog {
 
     private void initView() {
         setContentView(R.layout.view_input_dialog);
-        tv_action_done = (TextView) findViewById(R.id.tv_action_done);
+        tv_action_done = (ImageView) findViewById(R.id.tv_action_done);
         et_bubble_input = (EditText) findViewById(R.id.et_bubble_input);
         tv_show_count = (TextView) findViewById(R.id.tv_show_count);
         root_bubble = findViewById(R.id.root_bubble);
-                et_bubble_input.addTextChangedListener(new TextWatcher() {
+
+        et_bubble_input.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -139,6 +141,10 @@ public class BubbleInputDialog extends Dialog {
 
     public void setOnTextChangeCallback(OnTextChangeCallback onTextChangeCallback) {
         this.mOnTextChangeCallback = onTextChangeCallback;
+    }
+
+    public void removeOnTextChangeCallback() {
+        this.mOnTextChangeCallback = null;
     }
 
     public interface CompleteCallBack {
