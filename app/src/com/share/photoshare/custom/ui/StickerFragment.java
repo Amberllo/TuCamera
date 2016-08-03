@@ -77,6 +77,7 @@ public class StickerFragment extends TuEditStickerFragment
     }
 
 
+
     @Override
     public void setDelegate(TuEditStickerFragmentDelegate delegate) {
         super.setDelegate(delegate);

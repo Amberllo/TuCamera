@@ -11,6 +11,7 @@ import android.graphics.PaintFlagsDrawFilter;
 import android.graphics.PointF;
 import android.graphics.Rect;
 import android.support.v4.view.MotionEventCompat;
+import android.support.v4.view.ViewPager;
 import android.text.TextPaint;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -18,7 +19,10 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.MotionEvent;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.abner.stickerdemo.model.BubblePropertyModel;
 import com.example.abner.stickerdemo.utils.DensityUtils;
@@ -209,6 +213,11 @@ public class BubbleTextView extends ImageView {
         baseline = fm.descent - fm.ascent;
         isInit = true;
         mStr = defaultStr;
+
+        setImageResource(R.drawable.alpha);
+//        Bitmap bitmap = BitmapUtils.decodeForWidthHeight(getResources(),R.drawable.alpha,10,200);
+//        Bitmap bitmap = Bitmap.createBitmap(100,200, Bitmap.Config.ARGB_8888);
+//        setBitmap(bitmap);
     }
 
     public void setFontColor(int color){
@@ -220,13 +229,11 @@ public class BubbleTextView extends ImageView {
     @Override
     protected void onDraw(Canvas canvas) {
 
-        float mWidth = BitmapUtils.dip2px(getContext(),200.0f);
-        float mHeight = BitmapUtils.dip2px(getContext(),80.0f);
         if (mBitmap != null) {
 
 
-            mWidth = this.mBitmap.getWidth();
-            mHeight = this.mBitmap.getHeight();
+            float mWidth = this.mBitmap.getWidth();
+            float mHeight = this.mBitmap.getHeight();
 
             float[] arrayOfFloat = new float[9];
             matrix.getValues(arrayOfFloat);

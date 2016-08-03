@@ -138,7 +138,6 @@ public class TextStickerFragment extends TuImageResultFragment implements View.O
     //添加气泡
     private void addBubble() {
         final BubbleTextView bubbleTextView = new BubbleTextView(getContext(),Color.WHITE,0);
-        bubbleTextView.setImageResource(R.drawable.alpha);
         bubbleTextView.setOperationListener(new BubbleTextView.OperationListener() {
             @Override
             public void onDeleteClick() {

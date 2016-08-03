@@ -16,18 +16,6 @@ public class BitmapUtils {
 
     public static synchronized Bitmap decodeForWidthHeight(Resources res,int id, int reqWidth, int reqHeight) {
 
-//        // First decode with inJustDecodeBounds=true to check dimensions
-//        final BitmapFactory.Options options = new BitmapFactory.Options();
-//        options.inJustDecodeBounds = true;
-//        BitmapFactory.decodeResource(res, id, options);
-//
-//        // Calculate inSampleSize
-//        options.inSampleSize = calculateInSampleSize(options, reqWidth,
-//                reqHeight);
-//
-//        // Decode bitmap with inSampleSize set
-//        options.inJustDecodeBounds = false;
-
         Bitmap bitmap = BitmapFactory.decodeResource(res, id);
         if(bitmap.getWidth() >= bitmap.getHeight()){
             //长图
@@ -62,7 +50,7 @@ public class BitmapUtils {
      *            The requested height of the resulting bitmap
      * @return The value to be used for inSampleSize
      */
-    public static int calculateInSampleSize(BitmapFactory.Options options,
+    public static int calculateSize(BitmapFactory.Options options,
                                             int reqWidth, int reqHeight) {
         // Raw height and width of image
         final int height = options.outHeight;
