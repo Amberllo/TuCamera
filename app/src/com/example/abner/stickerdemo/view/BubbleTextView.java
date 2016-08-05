@@ -172,6 +172,7 @@ public class BubbleTextView extends ImageView {
         defaultStr = getContext().getString(R.string.double_click_input_text);
         bubbleId = 0;
         init();
+
     }
 
     /**
@@ -266,6 +267,9 @@ public class BubbleTextView extends ImageView {
             float height =( 1 * (baseline + fm.leading) + baseline);
             float top = (mBitmap.getHeight() - height) / 2;
             //基于底线开始画的
+            Paint.FontMetrics fm = mFontPaint.getFontMetrics();
+            float fontHeight = fm.descent - fm.ascent;
+
             top += baseline;
             for (String text : texts) {
                 if (TextUtils.isEmpty(text)) {
@@ -273,19 +277,24 @@ public class BubbleTextView extends ImageView {
                 }
 
                 canvasText.drawText(text, mBitmap.getWidth() / 2, top, mFontPaint);  //坐标以控件左上角为原点
+                canvasText.drawBitmap(originBitmap,0,top,null);
                 top += baseline + fm.leading; //添加字体行间距
-                ++ mHeight;
+                fontHeight += baseline + fm.leading;
+
             }
+
+
+
             canvas.drawBitmap(mBitmap, matrix, null);
 
             float f1 = 0.0F * arrayOfFloat[0] + 0.0F * arrayOfFloat[1] + arrayOfFloat[2];
             float f2 = 0.0F * arrayOfFloat[3] + 0.0F * arrayOfFloat[4] + arrayOfFloat[5];
             float f3 = arrayOfFloat[0] * mWidth + 0.0F * arrayOfFloat[1] + arrayOfFloat[2];
             float f4 = arrayOfFloat[3] * mWidth + 0.0F * arrayOfFloat[4] + arrayOfFloat[5];
-            float f5 = 0.0F * arrayOfFloat[0] + arrayOfFloat[1] * mHeight + arrayOfFloat[2];
-            float f6 = 0.0F * arrayOfFloat[3] + arrayOfFloat[4] * mHeight + arrayOfFloat[5];
-            float f7 = arrayOfFloat[0] * mWidth + arrayOfFloat[1] * mHeight + arrayOfFloat[2];
-            float f8 = arrayOfFloat[3] * mWidth + arrayOfFloat[4] * mHeight + arrayOfFloat[5];
+            float f5 = 0.0F * arrayOfFloat[0] + arrayOfFloat[1] * fontHeight + arrayOfFloat[2];
+            float f6 = 0.0F * arrayOfFloat[3] + arrayOfFloat[4] * fontHeight + arrayOfFloat[5];
+            float f7 = arrayOfFloat[0] * mWidth + arrayOfFloat[1] * fontHeight + arrayOfFloat[2];
+            float f8 = arrayOfFloat[3] * mWidth + arrayOfFloat[4] * fontHeight + arrayOfFloat[5];
 
             //删除在右上角
             dst_delete.left = (int) (f1 - deleteBitmapWidth / 2 );
