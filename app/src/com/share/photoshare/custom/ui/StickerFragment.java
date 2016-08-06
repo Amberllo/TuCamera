@@ -20,8 +20,10 @@ import org.lasque.tusdk.core.TuSdkResult;
 import org.lasque.tusdk.core.secret.StatisticsManger;
 import org.lasque.tusdk.impl.components.sticker.TuEditStickerFragment;
 import org.lasque.tusdk.impl.components.widget.sticker.StickerBarView;
+import org.lasque.tusdk.impl.components.widget.sticker.StickerView;
 import org.lasque.tusdk.modules.components.ComponentActType;
 import org.lasque.tusdk.modules.view.widget.sticker.StickerCategory;
+import org.lasque.tusdk.modules.view.widget.sticker.StickerData;
 import org.lasque.tusdk.modules.view.widget.sticker.StickerFactory;
 import org.lasque.tusdk.modules.view.widget.sticker.StickerLocalPackage;
 
@@ -76,8 +78,6 @@ public class StickerFragment extends TuEditStickerFragment
 
     }
 
-
-
     @Override
     public void setDelegate(TuEditStickerFragmentDelegate delegate) {
         super.setDelegate(delegate);
@@ -103,6 +103,19 @@ public class StickerFragment extends TuEditStickerFragment
 
     }
 
+    @Override
+    public StickerView.StickerViewDelegate getStickerViewDelegate() {
+        return new StickerView.StickerViewDelegate() {
+            @Override
+            public boolean canAppendSticker(StickerView stickerView, StickerData stickerData) {
+                if(stickerData.categoryId == 3){
+                    if(stickerView.get)
+                    Toast.makeText(getActivity(),"相框只能加载一次",Toast.LENGTH_SHORT).show();
+                }
+                return true;
+            }
+        };
+    }
 
     @Override
     protected void handleCompleteButton() {

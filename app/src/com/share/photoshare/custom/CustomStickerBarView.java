@@ -23,21 +23,4 @@ public class CustomStickerBarView extends StickerBarView {
         super(context, attributeSet);
     }
 
-    @Override
-    public void loadCategories(List<StickerCategory> list) {
-        super.loadCategories(list);
-        this.selectCateIndex(1);
-    }
-
-    protected View buildCateButton(StickerCategory category, int tag, LayoutParams layoutParams) {
-
-        View button = super.buildCateButton(category,tag,layoutParams);
-        if(category.name.equals("lsq_sticker_cate_all")){
-            button.setVisibility(View.GONE);
-        }
-        return button;
-    }
-
-
-
 }
