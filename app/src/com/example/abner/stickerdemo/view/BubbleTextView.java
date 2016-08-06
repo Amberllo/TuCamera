@@ -152,6 +152,7 @@ public class BubbleTextView extends ImageView {
 
     private final long bubbleId;
 
+    private float fontHeight = 0.0f;
 
     public BubbleTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -268,7 +269,7 @@ public class BubbleTextView extends ImageView {
             float top = (mBitmap.getHeight() - height) / 2;
             //基于底线开始画的
             Paint.FontMetrics fm = mFontPaint.getFontMetrics();
-            float fontHeight = fm.descent - fm.ascent;
+            fontHeight = fm.descent - fm.ascent;
 
             top += baseline;
             for (String text : texts) {
@@ -283,6 +284,9 @@ public class BubbleTextView extends ImageView {
 
             }
 
+//
+//            //Y坐标为 （顶部操作栏+正方形图）/2
+//            matrix.postTranslate(mScreenwidth / 2 - mWidth / 2, mScreenwidth / 2 - fontHeight / 2);
 
 
             canvas.drawBitmap(mBitmap, matrix, null);
@@ -410,8 +414,9 @@ public class BubbleTextView extends ImageView {
         int h = mBitmap.getHeight();
         oringinWidth = w;
         float topbarHeight = DensityUtils.dip2px(getContext(), 50);
+
         //Y坐标为 （顶部操作栏+正方形图）/2
-        matrix.postTranslate(mScreenwidth / 2 - w / 2, (mScreenwidth) / 2 - h / 2);
+        matrix.postTranslate(mScreenwidth / 2 - w / 2, (mScreenwidth) / 2 - h/ 2);
         invalidate();
     }
 

@@ -26,11 +26,13 @@ import org.lasque.tusdk.modules.view.widget.sticker.StickerCategory;
 import org.lasque.tusdk.modules.view.widget.sticker.StickerData;
 import org.lasque.tusdk.modules.view.widget.sticker.StickerFactory;
 import org.lasque.tusdk.modules.view.widget.sticker.StickerLocalPackage;
+import org.lasque.tusdk.modules.view.widget.sticker.StickerResult;
 
 import com.share.photoshare.R;
 import com.share.photoshare.custom.CustomStickerBarView;
 
 import java.io.File;
+import java.util.List;
 
 /**
  * @author Amberllo
@@ -104,17 +106,32 @@ public class StickerFragment extends TuEditStickerFragment
     }
 
     @Override
-    public StickerView.StickerViewDelegate getStickerViewDelegate() {
-        return new StickerView.StickerViewDelegate() {
+    public StickerView getStickerView() {
+        StickerView view =  super.getStickerView();
+        view.setDelegate(new StickerView.StickerViewDelegate() {
             @Override
             public boolean canAppendSticker(StickerView stickerView, StickerData stickerData) {
+
+                Rect rect = null;
+                if(getCutRegionView() != null) {
+                    rect = getCutRegionView().getRegionRect();
+                }
+                List<StickerResult> stickers = getStickerView().getResults(rect);
+
+
                 if(stickerData.categoryId == 3){
-                    if(stickerView.get)
-                    Toast.makeText(getActivity(),"相框只能加载一次",Toast.LENGTH_SHORT).show();
+                    //判断是否只能加载一次相框
+                    for(StickerResult result:stickers){
+                        if(result.item.categoryId == 3){
+                            Toast.makeText(getActivity(),"相框只能加载一次",Toast.LENGTH_SHORT).show();
+                            return false;
+                        }
+                    }
                 }
                 return true;
             }
-        };
+        });
+        return view;
     }
 
     @Override
