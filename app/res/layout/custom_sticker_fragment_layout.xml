@@ -18,8 +18,7 @@
         android:id="@+id/lsq_stickerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/lsq_sticker_bar" >
-    </org.lasque.tusdk.impl.components.widget.sticker.StickerView>
+        android:layout_above="@+id/lsq_sticker_bar" />
 
     <org.lasque.tusdk.core.view.widget.TuMaskRegionView
         android:id="@+id/lsq_cutRegionView"
