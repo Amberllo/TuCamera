@@ -10,11 +10,13 @@ import android.graphics.Paint;
 import android.graphics.PointF;
 import android.graphics.Rect;
 import android.support.v4.view.MotionEventCompat;
+import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.MotionEvent;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -138,15 +140,15 @@ public class TextStickerView extends ImageView {
 
 
         mFontText = getContext().getString(R.string.double_click_input_text);
-
-        initTextBitmap();
+        setBitmap(getTextBitmap());
 
     }
 
-    private void initTextBitmap(){
+    private Bitmap getTextBitmap(){
         TextView textView = new TextView(getContext());
         textView.setText(mFontText);
         int padding = DensityUtils.dip2px(getContext(), 5);
+        textView.setLayoutParams(new ViewGroup.LayoutParams(ViewPager.LayoutParams.WRAP_CONTENT,ViewPager.LayoutParams.WRAP_CONTENT));
         textView.setTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, mFontSize, dm));
         textView.setPadding(padding,padding,padding,padding);
         textView.setDrawingCacheEnabled(true);
@@ -154,7 +156,8 @@ public class TextStickerView extends ImageView {
         textView.measure(MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED), MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
         textView.layout(0, 0, textView.getMeasuredWidth(), textView.getMeasuredHeight());
         Bitmap bitmap = textView.getDrawingCache();
-        setBitmap(bitmap);
+        return bitmap;
+
     }
 
     @Override
@@ -662,7 +665,8 @@ public class TextStickerView extends ImageView {
 
     public void setFontText(String fontText){
         mFontText = fontText;
-        initTextBitmap();
+        mBitmap = getTextBitmap();
+        invalidate();
     }
 
     public String getFontText(){
@@ -675,7 +679,8 @@ public class TextStickerView extends ImageView {
 
     public void setFontColor(int fontColor) {
         this.mFontColor = fontColor;
-        initTextBitmap();
+        mBitmap = getTextBitmap();
+        invalidate();
     }
 
 }
