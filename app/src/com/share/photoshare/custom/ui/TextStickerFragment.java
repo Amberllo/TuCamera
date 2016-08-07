@@ -145,13 +145,10 @@ public class TextStickerFragment extends TuImageResultFragment implements View.O
                 imageWrapView.removeView(textStickerView);
 
             }
-//
-            @Override
-            public void onEdit(TextStickerView bubbleTextView) {
 
-                mCurrentEditTextView.setInEdit(false);
-                mCurrentEditTextView = bubbleTextView;
-                mCurrentEditTextView.setInEdit(true);
+            @Override
+            public void onEdit(TextStickerView stickerView) {
+                setCurrentEdit(stickerView);
             }
 
             @Override
