@@ -50,11 +50,11 @@ public class TextStickerInputDialog extends Dialog {
 
     public void setTextStickerView(TextStickerView textStickerView) {
         this.textStickerView = textStickerView;
-        if (defaultStr.equals(textStickerView.getText())) {
+        if (defaultStr.equals(textStickerView.getFontText())) {
             et_textSticker_input.setText("");
         } else {
-            et_textSticker_input.setText(textStickerView.getText());
-            et_textSticker_input.setSelection(textStickerView.getText().length());
+            et_textSticker_input.setText(textStickerView.getFontText());
+            et_textSticker_input.setSelection(textStickerView.getFontText().length());
         }
     }
 

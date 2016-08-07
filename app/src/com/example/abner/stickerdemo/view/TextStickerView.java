@@ -15,7 +15,6 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.MotionEvent;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -99,8 +98,8 @@ public class TextStickerView extends ImageView {
 
 
     private int mFontColor = Color.WHITE;
-
-    private int mFontSize = 16;
+    private String mFontText = "";
+    private int mFontSize = 14;
 
 
     public TextStickerView(Context context, AttributeSet attrs) {
@@ -138,19 +137,20 @@ public class TextStickerView extends ImageView {
         mScreenHeight = dm.heightPixels;
 
 
-        String text = getContext().getString(R.string.double_click_input_text);
+        mFontText = getContext().getString(R.string.double_click_input_text);
 
-        setTextBitmap(text);
+        initTextBitmap();
 
     }
 
-    public void setTextBitmap(String text){
+    private void initTextBitmap(){
         TextView textView = new TextView(getContext());
-        textView.setText(text);
-        int padding = DensityUtils.dip2px(getContext(), 3);
+        textView.setText(mFontText);
+        int padding = DensityUtils.dip2px(getContext(), 5);
         textView.setTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, mFontSize, dm));
         textView.setPadding(padding,padding,padding,padding);
         textView.setDrawingCacheEnabled(true);
+        textView.setTextColor(mFontColor);
         textView.measure(MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED), MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
         textView.layout(0, 0, textView.getMeasuredWidth(), textView.getMeasuredHeight());
         Bitmap bitmap = textView.getDrawingCache();
@@ -218,7 +218,7 @@ public class TextStickerView extends ImageView {
         setBitmap(BitmapFactory.decodeResource(getResources(), resId));
     }
 
-    public void setBitmap(Bitmap bitmap) {
+    private void setBitmap(Bitmap bitmap) {
         matrix.reset();
         mBitmap = bitmap;
         setDiagonalLength();
@@ -638,13 +638,6 @@ public class TextStickerView extends ImageView {
         }
     }
 
-    public int getFontColor() {
-        return mFontColor;
-    }
-
-    public void setFontColor(int mFontColor) {
-        this.mFontColor = mFontColor;
-    }
 
     public interface OperationListener {
 
@@ -667,12 +660,22 @@ public class TextStickerView extends ImageView {
     }
 
 
-    public void setText(String text){
+    public void setFontText(String fontText){
+        mFontText = fontText;
+        initTextBitmap();
+    }
 
-    };
+    public String getFontText(){
+        return mFontText;
+    }
 
-    public String getText(){
-        return "";
+    public int getFontColor() {
+        return mFontColor;
+    }
+
+    public void setFontColor(int fontColor) {
+        this.mFontColor = fontColor;
+        initTextBitmap();
     }
 
 }

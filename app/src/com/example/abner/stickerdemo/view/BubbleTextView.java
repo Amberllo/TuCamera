@@ -380,7 +380,7 @@ public class BubbleTextView extends ImageView {
 //        int h = mBitmap.getHeight();
 //        oringinWidth = w;
 //
-//        mStr = model.getText();
+//        mStr = model.getFontText();
 //        float scale = model.getScaling() * mScreenwidth / mBitmap.getWidth();
 //        if (scale > MAX_SCALE) {
 //            scale = MAX_SCALE;

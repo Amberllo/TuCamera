@@ -90,7 +90,7 @@ public class TextStickerFragment extends TuImageResultFragment implements View.O
         mTextStickerInputDialog.setCompleteCallBack(new TextStickerInputDialog.CompleteCallBack() {
             @Override
             public void onComplete(View bubbleTextView, String str) {
-                ((TextStickerView) bubbleTextView).setText(str);
+                ((TextStickerView) bubbleTextView).setFontText(str);
             }
         });
 
@@ -179,7 +179,7 @@ public class TextStickerFragment extends TuImageResultFragment implements View.O
                 mTextStickerInputDialog.setOnTextChangeCallback(new TextStickerInputDialog.OnTextChangeCallback() {
                     @Override
                     public void onText(String text) {
-                        stickerView.setText(text);
+                        stickerView.setFontText(text);
                     }
                 });
 
