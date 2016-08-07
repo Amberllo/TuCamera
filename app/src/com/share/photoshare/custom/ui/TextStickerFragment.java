@@ -12,7 +12,6 @@ package com.share.photoshare.custom.ui;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,8 +19,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import com.example.abner.stickerdemo.utils.FileUtils;
-import com.example.abner.stickerdemo.view.BubbleInputDialog;
-import com.example.abner.stickerdemo.view.BubbleTextView;
+import com.example.abner.stickerdemo.view.TextStickerInputDialog;
+import com.example.abner.stickerdemo.view.TextStickerView;
 import com.flask.colorpicker.ColorPickerView;
 import com.flask.colorpicker.OnColorSelectedListener;
 import com.flask.colorpicker.builder.ColorPickerClickListener;
@@ -44,7 +43,7 @@ public class TextStickerFragment extends TuImageResultFragment implements View.O
 {
     TextStickerComponentOption.TextStickerDelegate delegate;
     //气泡输入框
-    BubbleInputDialog mBubbleInputDialog;
+    TextStickerInputDialog mTextStickerInputDialog;
     RelativeLayout imageWrapView;
     ImageView imageView;
     TuSdkImageButton cancelButton;
@@ -55,7 +54,7 @@ public class TextStickerFragment extends TuImageResultFragment implements View.O
     ArrayList<View> mViews = new ArrayList<>();
 
     //当前处于编辑状态的气泡
-    BubbleTextView mCurrentEditTextView;
+    TextStickerView mCurrentEditTextView;
 
     View bottomBar;
 
@@ -87,15 +86,15 @@ public class TextStickerFragment extends TuImageResultFragment implements View.O
         colorButton = (CustomColorImageView) viewGroup.findViewById(R.id.lsq_colorButton);
         colorButton.setOnClickListener(this);
 
-        mBubbleInputDialog = new BubbleInputDialog(getContext());
-        mBubbleInputDialog.setCompleteCallBack(new BubbleInputDialog.CompleteCallBack() {
+        mTextStickerInputDialog = new TextStickerInputDialog(getContext());
+        mTextStickerInputDialog.setCompleteCallBack(new TextStickerInputDialog.CompleteCallBack() {
             @Override
             public void onComplete(View bubbleTextView, String str) {
-                ((BubbleTextView) bubbleTextView).setText(str);
+                ((TextStickerView) bubbleTextView).setText(str);
             }
         });
 
-        addBubble();
+        addTextSticker();
     }
 
     @Override
@@ -136,18 +135,19 @@ public class TextStickerFragment extends TuImageResultFragment implements View.O
 
 
     //添加气泡
-    private void addBubble() {
-        final BubbleTextView bubbleTextView = new BubbleTextView(getContext(),Color.WHITE,0);
-        bubbleTextView.setOperationListener(new BubbleTextView.OperationListener() {
+    private void addTextSticker() {
+
+        final TextStickerView textStickerView = new TextStickerView(getContext());
+        textStickerView.setOperationListener(new TextStickerView.OperationListener() {
             @Override
             public void onDeleteClick() {
-                mViews.remove(bubbleTextView);
-                imageWrapView.removeView(bubbleTextView);
+                mViews.remove(textStickerView);
+                imageWrapView.removeView(textStickerView);
 
             }
-
+//
             @Override
-            public void onEdit(BubbleTextView bubbleTextView) {
+            public void onEdit(TextStickerView bubbleTextView) {
 
                 mCurrentEditTextView.setInEdit(false);
                 mCurrentEditTextView = bubbleTextView;
@@ -155,31 +155,31 @@ public class TextStickerFragment extends TuImageResultFragment implements View.O
             }
 
             @Override
-            public void onClick(final BubbleTextView bubbleTextView) {
+            public void onClick(final TextStickerView stickerView) {
 
-                mBubbleInputDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                mTextStickerInputDialog.setOnShowListener(new DialogInterface.OnShowListener() {
                     @Override
                     public void onShow(DialogInterface dialog) {
                         bottomBar.setVisibility(View.INVISIBLE);
                     }
                 });
 
-                mBubbleInputDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                mTextStickerInputDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                     @Override
                     public void onDismiss(DialogInterface dialog) {
                         bottomBar.setVisibility(View.VISIBLE);
                     }
                 });
 
-                mBubbleInputDialog.removeOnTextChangeCallback();
+                mTextStickerInputDialog.removeOnTextChangeCallback();
 
-                colorButton.setColor(bubbleTextView.getFontColor());
-                mBubbleInputDialog.setBubbleTextView(bubbleTextView);
-                mBubbleInputDialog.show();
-                mBubbleInputDialog.setOnTextChangeCallback(new BubbleInputDialog.OnTextChangeCallback() {
+                colorButton.setColor(stickerView.getFontColor());
+                mTextStickerInputDialog.setTextStickerView(stickerView);
+                mTextStickerInputDialog.show();
+                mTextStickerInputDialog.setOnTextChangeCallback(new TextStickerInputDialog.OnTextChangeCallback() {
                     @Override
                     public void onText(String text) {
-                        bubbleTextView.setText(text);
+                        stickerView.setText(text);
                     }
                 });
 
@@ -187,19 +187,19 @@ public class TextStickerFragment extends TuImageResultFragment implements View.O
             }
 
             @Override
-            public void onTop(BubbleTextView bubbleTextView) {
-                int position = mViews.indexOf(bubbleTextView);
+            public void onTop(TextStickerView stickerView) {
+                int position = mViews.indexOf(stickerView);
                 if (position == mViews.size() - 1) {
                     return;
                 }
-                BubbleTextView textView = (BubbleTextView) mViews.remove(position);
+                TextStickerView textView = (TextStickerView) mViews.remove(position);
                 mViews.add(mViews.size(), textView);
             }
         });
         RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
-        imageWrapView.addView(bubbleTextView, lp);
-        mViews.add(bubbleTextView);
-        setCurrentEdit(bubbleTextView);
+        imageWrapView.addView(textStickerView, lp);
+        mViews.add(textStickerView);
+        setCurrentEdit(textStickerView);
     }
 
     protected void handleBackButton() {
@@ -256,7 +256,7 @@ public class TextStickerFragment extends TuImageResultFragment implements View.O
         }else if(v == colorButton){
             showColorPicker();
         }else if(v == lsq_fontButton){
-            addBubble();
+            addTextSticker();
         }
     }
 
@@ -273,12 +273,12 @@ public class TextStickerFragment extends TuImageResultFragment implements View.O
     /**
      * 设置当前处于编辑模式的气泡
      */
-    private void setCurrentEdit(BubbleTextView bubbleTextView) {
-        colorButton.setColor(bubbleTextView.getFontColor());
+    private void setCurrentEdit(TextStickerView stickerView) {
+        colorButton.setColor(stickerView.getFontColor());
         if (mCurrentEditTextView != null) {
             mCurrentEditTextView.setInEdit(false);
         }
-        mCurrentEditTextView = bubbleTextView;
+        mCurrentEditTextView = stickerView;
         mCurrentEditTextView.setInEdit(true);
     }
 
@@ -316,7 +316,7 @@ public class TextStickerFragment extends TuImageResultFragment implements View.O
                 .setPositiveButton(getResString(R.string.color_lib_ok), new ColorPickerClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int selectedColor, Integer[] allColors) {
-//                        changeBackgroundColor(selectedColor);
+
                         colorButton.setColor(selectedColor);
                         mCurrentEditTextView.setFontColor(selectedColor);
                     }

@@ -7,59 +7,45 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
-import android.graphics.PaintFlagsDrawFilter;
 import android.graphics.PointF;
 import android.graphics.Rect;
 import android.support.v4.view.MotionEventCompat;
-import android.support.v4.view.ViewPager;
-import android.text.TextPaint;
-import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.MotionEvent;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.abner.stickerdemo.model.BubblePropertyModel;
+import com.example.abner.stickerdemo.model.StickerPropertyModel;
 import com.example.abner.stickerdemo.utils.DensityUtils;
-
 import com.share.photoshare.R;
-import com.share.photoshare.custom.BitmapUtils;
 
 
 /**
- * Created by Abner on 15/6/7.
- * QQ 230877476
- * Email nimengbo@gmail.com
+ * 表情贴纸
  */
-public class BubbleTextView extends ImageView {
-
-    private static final String TAG = "BubbleTextView";
-
+public class TextStickerView extends ImageView {
+    private static final String TAG = "StickerView";
 
     private Bitmap deleteBitmap;
     private Bitmap flipVBitmap;
     private Bitmap topBitmap;
     private Bitmap resizeBitmap;
     private Bitmap mBitmap;
-    private Bitmap originBitmap;
     private Rect dst_delete;
     private Rect dst_resize;
     private Rect dst_flipV;
     private Rect dst_top;
-
-
     private int deleteBitmapWidth;
     private int deleteBitmapHeight;
     private int resizeBitmapWidth;
     private int resizeBitmapHeight;
+    //水平镜像
     private int flipVBitmapWidth;
     private int flipVBitmapHeight;
-
     //置顶
     private int topBitmapWidth;
     private int topBitmapHeight;
@@ -75,8 +61,6 @@ public class BubbleTextView extends ImageView {
     //手指移动距离必须超过这个数值
     private final float pointerLimitDis = 20f;
     private final float pointerZoomCoeff = 0.09f;
-
-    private final float moveLimitDis = 0.5f;
     /**
      * 对角线的长度
      */
@@ -97,101 +81,48 @@ public class BubbleTextView extends ImageView {
 
     private float MIN_SCALE = 0.5f;
 
-    private float MAX_SCALE = 1.5f;
+    private float MAX_SCALE = 1.2f;
 
     private double halfDiagonalLength;
 
     private float oringinWidth = 0;
 
-    private DisplayMetrics dm;
-
-    /**
-     * 文字部分
-     */
-    private final String defaultStr;
-    //显示的字符串
-    private String mStr = "";
-
-    //字号默认16sp
-    private final float mDefultSize = 24;
-    private float mFontSize = 24;
-    //最大最小字号
-    private final float mMaxFontSize = 25;
-    private final float mMinFontSize = 14;
-
-    //字离旁边的距离
-    private final float mDefaultMargin = 20;
-    private float mMargin = 20;
-
-    //绘制文字的画笔
-    private TextPaint mFontPaint;
-
-    private Canvas canvasText;
-
-    private Paint.FontMetrics fm;
-    //由于系统基于字体的底部来绘制文本，所有需要加上字体的高度。
-    private float baseline;
-
-    boolean isInit = true;
-
     //双指缩放时的初始距离
     private float oldDis;
 
-    //是否按下
-    private boolean isDown = false;
-    //是否移动
-    private boolean isMove = false;
-    //是否抬起手
-    private boolean isUp = false;
-    //是否在顶部
-    private boolean isTop = true;
+    private final long stickerId;
 
-    private boolean isInBitmap;
+    private DisplayMetrics dm;
 
-    private int fontColor = Color.WHITE;
+    //水平镜像
+    private boolean isHorizonMirror = false;
 
-    private final long bubbleId;
 
-    private float fontHeight = 0.0f;
+    private int mFontColor = Color.WHITE;
 
-    public BubbleTextView(Context context, AttributeSet attrs) {
+    private int mFontSize = 16;
+
+
+    public TextStickerView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        defaultStr = getContext().getString(R.string.double_click_input_text);
-        bubbleId = 0;
+        stickerId = 0;
         init();
     }
 
-    public BubbleTextView(Context context) {
+    public TextStickerView(Context context) {
         super(context);
-        defaultStr = getContext().getString(R.string.double_click_input_text);
-        bubbleId = 0;
+        stickerId = 0;
         init();
     }
 
-    public BubbleTextView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public TextStickerView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        defaultStr = getContext().getString(R.string.double_click_input_text);
-        bubbleId = 0;
-        init();
-
-    }
-
-    /**
-     * @param context
-     * @param fontColor
-     * @param bubbleId  some fuck id
-     */
-    public BubbleTextView(Context context, int fontColor, long bubbleId) {
-        super(context);
-        defaultStr = getContext().getString(R.string.double_click_input_text);
-        this.fontColor = fontColor;
-        this.bubbleId = bubbleId;
+        stickerId = 0;
         init();
     }
-
 
     private void init() {
-        dm = getResources().getDisplayMetrics();
+
         dst_delete = new Rect();
         dst_resize = new Rect();
         dst_flipV = new Rect();
@@ -202,104 +133,48 @@ public class BubbleTextView extends ImageView {
         localPaint.setDither(true);
         localPaint.setStyle(Paint.Style.STROKE);
         localPaint.setStrokeWidth(2.5f);
+        dm = getResources().getDisplayMetrics();
         mScreenwidth = dm.widthPixels;
         mScreenHeight = dm.heightPixels;
-        mFontSize = mDefultSize;
-        mFontPaint = new TextPaint();
-        mFontPaint.setTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, mFontSize, dm));
-        mFontPaint.setColor(fontColor);
-        mFontPaint.setTextAlign(Paint.Align.CENTER);
-        mFontPaint.setAntiAlias(true);
-        fm = mFontPaint.getFontMetrics();
 
-        baseline = fm.descent - fm.ascent;
-        isInit = true;
-        mStr = defaultStr;
 
-        setImageResource(R.drawable.alpha);
-//        Bitmap bitmap = BitmapUtils.decodeForWidthHeight(getResources(),R.drawable.alpha,10,200);
-//        Bitmap bitmap = Bitmap.createBitmap(100,200, Bitmap.Config.ARGB_8888);
-//        setBitmap(bitmap);
+        String text = getContext().getString(R.string.double_click_input_text);
+
+        setTextBitmap(text);
+
     }
 
-    public void setFontColor(int color){
-        this.fontColor = color;
-        this.mFontPaint.setColor(fontColor);
-        invalidate();
+    public void setTextBitmap(String text){
+        TextView textView = new TextView(getContext());
+        textView.setText(text);
+        int padding = DensityUtils.dip2px(getContext(), 3);
+        textView.setTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, mFontSize, dm));
+        textView.setPadding(padding,padding,padding,padding);
+        textView.setDrawingCacheEnabled(true);
+        textView.measure(MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED), MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
+        textView.layout(0, 0, textView.getMeasuredWidth(), textView.getMeasuredHeight());
+        Bitmap bitmap = textView.getDrawingCache();
+        setBitmap(bitmap);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
-
         if (mBitmap != null) {
 
 
-            float mWidth = this.mBitmap.getWidth();
-            float mHeight = this.mBitmap.getHeight();
-
             float[] arrayOfFloat = new float[9];
             matrix.getValues(arrayOfFloat);
-
-
-
-            canvas.save();
-
-            //先往文字上绘图
-            mBitmap = originBitmap.copy(Bitmap.Config.ARGB_8888, true);
-            canvasText.setBitmap(mBitmap);
-            canvasText.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-            canvas.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-            float left = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 15, dm);
-            float scalex = arrayOfFloat[Matrix.MSCALE_X];
-            float skewy = arrayOfFloat[Matrix.MSKEW_Y];
-            float rScale = (float) Math.sqrt(scalex * scalex + skewy * skewy);
-
-            float size = rScale * 0.75f * mDefultSize;
-            if (size > mMaxFontSize) {
-                mFontSize = mMaxFontSize;
-            } else if (size < mMinFontSize) {
-                mFontSize = mMinFontSize;
-            } else {
-                mFontSize = size;
-            }
-            mFontPaint.setTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, mFontSize, dm));
-            String[] texts = autoSplit(mStr, mFontPaint, mBitmap.getWidth() - left * 3);
-//            float height =( texts.length * (baseline + fm.leading) + baseline);
-            float height =( 1 * (baseline + fm.leading) + baseline);
-            float top = (mBitmap.getHeight() - height) / 2;
-            //基于底线开始画的
-            Paint.FontMetrics fm = mFontPaint.getFontMetrics();
-            fontHeight = fm.descent - fm.ascent;
-
-            top += baseline;
-            for (String text : texts) {
-                if (TextUtils.isEmpty(text)) {
-                    continue;
-                }
-
-                canvasText.drawText(text, mBitmap.getWidth() / 2, top, mFontPaint);  //坐标以控件左上角为原点
-                canvasText.drawBitmap(originBitmap,0,top,null);
-                top += baseline + fm.leading; //添加字体行间距
-                fontHeight += baseline + fm.leading;
-
-            }
-
-//
-//            //Y坐标为 （顶部操作栏+正方形图）/2
-//            matrix.postTranslate(mScreenwidth / 2 - mWidth / 2, mScreenwidth / 2 - fontHeight / 2);
-
-
-            canvas.drawBitmap(mBitmap, matrix, null);
-
             float f1 = 0.0F * arrayOfFloat[0] + 0.0F * arrayOfFloat[1] + arrayOfFloat[2];
             float f2 = 0.0F * arrayOfFloat[3] + 0.0F * arrayOfFloat[4] + arrayOfFloat[5];
-            float f3 = arrayOfFloat[0] * mWidth + 0.0F * arrayOfFloat[1] + arrayOfFloat[2];
-            float f4 = arrayOfFloat[3] * mWidth + 0.0F * arrayOfFloat[4] + arrayOfFloat[5];
-            float f5 = 0.0F * arrayOfFloat[0] + arrayOfFloat[1] * fontHeight + arrayOfFloat[2];
-            float f6 = 0.0F * arrayOfFloat[3] + arrayOfFloat[4] * fontHeight + arrayOfFloat[5];
-            float f7 = arrayOfFloat[0] * mWidth + arrayOfFloat[1] * fontHeight + arrayOfFloat[2];
-            float f8 = arrayOfFloat[3] * mWidth + arrayOfFloat[4] * fontHeight + arrayOfFloat[5];
+            float f3 = arrayOfFloat[0] * this.mBitmap.getWidth() + 0.0F * arrayOfFloat[1] + arrayOfFloat[2];
+            float f4 = arrayOfFloat[3] * this.mBitmap.getWidth() + 0.0F * arrayOfFloat[4] + arrayOfFloat[5];
+            float f5 = 0.0F * arrayOfFloat[0] + arrayOfFloat[1] * this.mBitmap.getHeight() + arrayOfFloat[2];
+            float f6 = 0.0F * arrayOfFloat[3] + arrayOfFloat[4] * this.mBitmap.getHeight() + arrayOfFloat[5];
+            float f7 = arrayOfFloat[0] * this.mBitmap.getWidth() + arrayOfFloat[1] * this.mBitmap.getHeight() + arrayOfFloat[2];
+            float f8 = arrayOfFloat[3] * this.mBitmap.getWidth() + arrayOfFloat[4] * this.mBitmap.getHeight() + arrayOfFloat[5];
 
+            canvas.save();
+            canvas.drawBitmap(mBitmap, matrix, null);
             //删除在右上角
             dst_delete.left = (int) (f1 - deleteBitmapWidth / 2 );
             dst_delete.right = (int) (f1 + deleteBitmapWidth / 2);
@@ -310,16 +185,17 @@ public class BubbleTextView extends ImageView {
             dst_resize.right = (int) (f7 + resizeBitmapWidth / 2);
             dst_resize.top = (int) (f8 - resizeBitmapHeight / 2);
             dst_resize.bottom = (int) (f8 + resizeBitmapHeight / 2);
-    //            //置顶在左上角
-    //            dst_top.left = (int) (f3 - topBitmapWidth / 2);
-    //            dst_top.right = (int) (f3 + topBitmapWidth / 2);
-    //            dst_top.top = (int) (f4 - topBitmapHeight / 2);
-    //            dst_top.bottom = (int) (f4 + topBitmapHeight / 2);
-            //水平镜像在右下角
-    //                dst_flipV.left = (int) (f5 - topBitmapWidth / 2);
-    //                dst_flipV.right = (int) (f5 + topBitmapWidth / 2);
-    //                dst_flipV.top = (int) (f6 - topBitmapHeight / 2);
-    //                dst_flipV.bottom = (int) (f6 + topBitmapHeight / 2);
+
+//            //垂直镜像在左上角
+//            dst_top.left = (int) (f1 - flipVBitmapWidth / 2);
+//            dst_top.right = (int) (f1 + flipVBitmapWidth / 2);
+//            dst_top.top = (int) (f2 - flipVBitmapHeight / 2);
+//            dst_top.bottom = (int) (f2 + flipVBitmapHeight / 2);
+//            //水平镜像在左下角
+//            dst_flipV.left = (int) (f5 - topBitmapWidth / 2);
+//            dst_flipV.right = (int) (f5 + topBitmapWidth / 2);
+//            dst_flipV.top = (int) (f6 - topBitmapHeight / 2);
+//            dst_flipV.bottom = (int) (f6 + topBitmapHeight / 2);
             if (isInEdit) {
 
                 canvas.drawLine(f1, f2, f3, f4, localPaint);
@@ -327,115 +203,72 @@ public class BubbleTextView extends ImageView {
                 canvas.drawLine(f5, f6, f7, f8, localPaint);
                 canvas.drawLine(f5, f6, f1, f2, localPaint);
 
-    //                Bitmap orange = BitmapFactory.decodeResource(getContext().getResources(),R.drawable.circle_orange);
-    //                Bitmap blue = BitmapFactory.decodeResource(getContext().getResources(),R.drawable.circle_blue);
-
-    //                canvas.drawBitmap(orange, null, dst_delete, null);
-    //                canvas.drawBitmap(blue, null, dst_resize, null);
-
                 canvas.drawBitmap(deleteBitmap, null, dst_delete, null);
                 canvas.drawBitmap(resizeBitmap, null, dst_resize, null);
-    //                canvas.drawBitmap(flipVBitmap, null, dst_flipV, null);
-    //                canvas.drawBitmap(topBitmap, null, dst_op, null);
-
+//                canvas.drawBitmap(flipVBitmap, null, dst_flipV, null);
+//                canvas.drawBitmap(topBitmap, null, dst_top, null);
             }
+
+            canvas.restore();
         }
-
-
-        canvas.restore();
-    }
-
-    public void setText(String text) {
-        if (TextUtils.isEmpty(text)) {
-            mStr = defaultStr;
-            mFontSize = mDefultSize;
-            mMargin = mDefaultMargin;
-        } else {
-            mStr = text;
-        }
-        invalidate();
     }
 
     @Override
     public void setImageResource(int resId) {
-        matrix.reset();
-        //使用拷贝 不然会对资源文件进行引用而修改
         setBitmap(BitmapFactory.decodeResource(getResources(), resId));
     }
 
-//    public void setImageResource(int resId, BubblePropertyModel model) {
-//        matrix.reset();
-//        //使用拷贝 不然会对资源文件进行引用而修改
-//        setBitmap(BitmapFactory.decodeResource(getResources(), resId), model);
-//    }
-
-//    public void setBitmap(Bitmap bitmap, BubblePropertyModel model) {
-//        mFontSize = mDefultSize;
-//        originBitmap = bitmap;
-//        mBitmap = originBitmap.copy(Bitmap.Config.ARGB_8888, true);
-//        canvasText = new Canvas(mBitmap);
-//        setDiagonalLength();
-//        initBitmaps();
-//        int w = mBitmap.getWidth();
-//        int h = mBitmap.getHeight();
-//        oringinWidth = w;
-//
-//        mStr = model.getText();
-//        float scale = model.getScaling() * mScreenwidth / mBitmap.getWidth();
-//        if (scale > MAX_SCALE) {
-//            scale = MAX_SCALE;
-//        } else if (scale < MIN_SCALE) {
-//            scale = MIN_SCALE;
-//        }
-//        float degree = (float) Math.toDegrees(model.getDegree());
-//        matrix.postRotate(-degree, w >> 1, h >> 1);
-//        matrix.postScale(scale, scale, w >> 1, h >> 1);
-//        float midX = model.getxLocation() * mScreenwidth;
-//        float midY = model.getyLocation() * mScreenwidth;
-//        float offset = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 22, dm);
-//        midX = midX - (w * scale) / 2 - offset;
-//        midY = midY - (h * scale) / 2 - offset;
-//        matrix.postTranslate(midX, midY);
-//        invalidate();
-//    }
-
     public void setBitmap(Bitmap bitmap) {
-        mFontSize = mDefultSize;
-        originBitmap = bitmap;
-        mBitmap = originBitmap.copy(Bitmap.Config.ARGB_8888, true);
-        canvasText = new Canvas(mBitmap);
+        matrix.reset();
+        mBitmap = bitmap;
         setDiagonalLength();
         initBitmaps();
         int w = mBitmap.getWidth();
         int h = mBitmap.getHeight();
         oringinWidth = w;
-        float topbarHeight = DensityUtils.dip2px(getContext(), 50);
-
+        float initScale = (MIN_SCALE + MAX_SCALE) / 2;
+        matrix.postScale(initScale, initScale, w / 2, h / 2);
         //Y坐标为 （顶部操作栏+正方形图）/2
-        matrix.postTranslate(mScreenwidth / 2 - w / 2, (mScreenwidth) / 2 - h/ 2);
+        matrix.postTranslate(mScreenwidth / 2 - w / 2, (mScreenwidth) / 2 - h / 2);
         invalidate();
     }
+
 
     private void setDiagonalLength() {
         halfDiagonalLength = Math.hypot(mBitmap.getWidth(), mBitmap.getHeight()) / 2;
     }
 
     private void initBitmaps() {
+        //当图片的宽比高大时 按照宽计算 缩放大小根据图片的大小而改变 最小为图片的1/8 最大为屏幕宽
+        if (mBitmap.getWidth() >= mBitmap.getHeight()) {
+            float minWidth = mScreenwidth / 8;
+            if (mBitmap.getWidth() < minWidth) {
+                MIN_SCALE = 1f;
+            } else {
+                MIN_SCALE = 1.0f * minWidth / mBitmap.getWidth();
+            }
 
-        float minWidth = mScreenwidth / 8;
-        if (mBitmap.getWidth() < minWidth) {
-            MIN_SCALE = 1f;
+            if (mBitmap.getWidth() > mScreenwidth) {
+                MAX_SCALE = 1;
+            } else {
+                MAX_SCALE = 1.0f * mScreenwidth / mBitmap.getWidth();
+            }
         } else {
+            //当图片高比宽大时，按照图片的高计算
+            float minHeight = mScreenwidth / 8;
+            if (mBitmap.getHeight() < minHeight) {
+                MIN_SCALE = 1f;
+            } else {
+                MIN_SCALE = 1.0f * minHeight / mBitmap.getHeight();
+            }
 
-
-            MIN_SCALE = 1.0f * minWidth / mBitmap.getWidth();
+            if (mBitmap.getHeight() > mScreenwidth) {
+                MAX_SCALE = 1;
+            } else {
+                MAX_SCALE = 1.0f * mScreenwidth / mBitmap.getHeight();
+            }
         }
 
-        if (mBitmap.getWidth() > mScreenwidth) {
-            MAX_SCALE = 1;
-        } else {
-            MAX_SCALE = 1.0f * mScreenwidth / mBitmap.getWidth();
-        }
         topBitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.icon_top_enable);
         deleteBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.circle_orange_48);
         flipVBitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.icon_flip);
@@ -452,8 +285,8 @@ public class BubbleTextView extends ImageView {
 
         topBitmapWidth = (int) (topBitmap.getWidth() * BITMAP_SCALE);
         topBitmapHeight = (int) (topBitmap.getHeight() * BITMAP_SCALE);
-
     }
+
 
     private long preClicktime;
 
@@ -463,25 +296,23 @@ public class BubbleTextView extends ImageView {
     public boolean onTouchEvent(MotionEvent event) {
         int action = MotionEventCompat.getActionMasked(event);
         boolean handled = true;
-        isInBitmap = false;
         switch (action) {
             case MotionEvent.ACTION_DOWN:
                 if (isInButton(event, dst_delete)) {
                     if (operationListener != null) {
                         operationListener.onDeleteClick();
                     }
-                    isDown = false;
                 } else if (isInResize(event)) {
                     isInResize = true;
                     lastRotateDegree = rotationToStartPoint(event);
                     midPointToStartPoint(event);
                     lastLength = diagonalLength(event);
-                    isDown = false;
                 } else if (isInButton(event, dst_flipV)) {
+                    //水平镜像
                     PointF localPointF = new PointF();
                     midDiagonalPoint(localPointF);
                     matrix.postScale(-1.0F, 1.0F, localPointF.x, localPointF.y);
-                    isDown = false;
+                    isHorizonMirror = !isHorizonMirror;
                     invalidate();
                 } else if (isInButton(event, dst_top)) {
                     //置顶
@@ -489,16 +320,10 @@ public class BubbleTextView extends ImageView {
                     if (operationListener != null) {
                         operationListener.onTop(this);
                     }
-                    isDown = false;
                 } else if (isInBitmap(event)) {
                     isInSide = true;
                     lastX = event.getX(0);
                     lastY = event.getY(0);
-                    isDown = true;
-                    isMove = false;
-                    isPointerDown = false;
-                    isUp = false;
-                    isInBitmap = true;
 
                     long currentTime = System.currentTimeMillis();
                     Log.d(TAG, (currentTime - preClicktime) + "");
@@ -547,6 +372,7 @@ public class BubbleTextView extends ImageView {
                     matrix.postScale(scale, scale, mid.x, mid.y);
                     invalidate();
                 } else if (isInResize) {
+
                     matrix.postRotate((rotationToStartPoint(event) - lastRotateDegree) * 2, mid.x, mid.y);
                     lastRotateDegree = rotationToStartPoint(event);
 
@@ -565,16 +391,9 @@ public class BubbleTextView extends ImageView {
 
                     invalidate();
                 } else if (isInSide) {
-                    //TODO 移动区域判断 不能超出屏幕
                     float x = event.getX(0);
                     float y = event.getY(0);
-                    //判断手指抖动距离 加上isMove判断 只要移动过 都是true
-                    if (!isMove && Math.abs(x - lastX) < moveLimitDis
-                            && Math.abs(y - lastY) < moveLimitDis) {
-                        isMove = false;
-                    } else {
-                        isMove = true;
-                    }
+                    //TODO 移动区域判断 不能超出屏幕
                     matrix.postTranslate(x - lastX, y - lastY);
                     lastX = x;
                     lastY = y;
@@ -586,21 +405,22 @@ public class BubbleTextView extends ImageView {
                 isInResize = false;
                 isInSide = false;
                 isPointerDown = false;
-                isUp = true;
                 break;
 
         }
         if (handled && operationListener != null) {
             operationListener.onEdit(this);
         }
-//        //判断是不是做了点击动作 必须在编辑状态 且在图片内 并且是双击
-//        if (isDoubleClick && isDown && !isPointerDown && !isMove && isUp && isInBitmap && isInEdit && operationListener != null) {
-//            operationListener.onClick(this);
-//        }
         return handled;
     }
 
-    public BubblePropertyModel calculate(BubblePropertyModel model) {
+    /**
+     * 计算图片的角度等属性
+     *
+     * @param model
+     * @return
+     */
+    public StickerPropertyModel calculate(StickerPropertyModel model) {
         float[] v = new float[9];
         matrix.getValues(v);
         // translation is simple
@@ -616,26 +436,33 @@ public class BubbleTextView extends ImageView {
         float rAngle = Math.round(Math.atan2(v[Matrix.MSKEW_X], v[Matrix.MSCALE_X]) * (180 / Math.PI));
         Log.d(TAG, "rAngle : " + rAngle);
 
-        float minX = (dst_top.centerX() + dst_resize.centerX()) / 2;
-        float minY = (dst_top.centerY() + dst_resize.centerY()) / 2;
+        PointF localPointF = new PointF();
+        midDiagonalPoint(localPointF);
+
+        Log.d(TAG, " width  : " + (mBitmap.getWidth() * rScale) + " height " + (mBitmap.getHeight() * rScale));
+
+        float minX = localPointF.x;
+        float minY = localPointF.y;
 
         Log.d(TAG, "midX : " + minX + " midY : " + minY);
-
         model.setDegree((float) Math.toRadians(rAngle));
-        model.setBubbleId(bubbleId);
         //TODO 占屏幕百分比
         float precentWidth = (mBitmap.getWidth() * rScale) / mScreenwidth;
         model.setScaling(precentWidth);
-        Log.d(TAG, " x " + (minX / mScreenwidth) + " y " + (minY / mScreenwidth));
         model.setxLocation(minX / mScreenwidth);
         model.setyLocation(minY / mScreenwidth);
-        model.setText(mStr);
+        model.setStickerId(stickerId);
+        if (isHorizonMirror) {
+            model.setHorizonMirror(1);
+        } else {
+            model.setHorizonMirror(2);
+        }
         return model;
     }
 
-
     /**
      * 是否在四条线内部
+     * 图片旋转后 可能存在菱形状态 不能用4个点的坐标范围去判断点击区域是否在图片内
      *
      * @return
      */
@@ -658,15 +485,15 @@ public class BubbleTextView extends ImageView {
         float[] arrayOfFloat2 = new float[4];
         float[] arrayOfFloat3 = new float[4];
         //确定X方向的范围
-        arrayOfFloat2[0] = f1;//左上的左
-        arrayOfFloat2[1] = f3;//右上的右
-        arrayOfFloat2[2] = f7;//右下的右
-        arrayOfFloat2[3] = f5;//左下的左
+        arrayOfFloat2[0] = f1;//左上的x
+        arrayOfFloat2[1] = f3;//右上的x
+        arrayOfFloat2[2] = f7;//右下的x
+        arrayOfFloat2[3] = f5;//左下的x
         //确定Y方向的范围
-        arrayOfFloat3[0] = f2;//左上的上
-        arrayOfFloat3[1] = f4;//右上的上
-        arrayOfFloat3[2] = f8;
-        arrayOfFloat3[3] = f6;
+        arrayOfFloat3[0] = f2;//左上的y
+        arrayOfFloat3[1] = f4;//右上的y
+        arrayOfFloat3[2] = f8;//右下的y
+        arrayOfFloat3[3] = f6;//左下的y
         return pointInRect(arrayOfFloat2, arrayOfFloat3, event.getX(0), event.getY(0));
     }
 
@@ -698,6 +525,7 @@ public class BubbleTextView extends ImageView {
 
         //矩形的面积
         double s = a1 * a2;
+        //海伦公式 计算4个三角形面积
         double ss = Math.sqrt(u1 * (u1 - a1) * (u1 - b1) * (u1 - b2))
                 + Math.sqrt(u2 * (u2 - a2) * (u2 - b2) * (u2 - b3))
                 + Math.sqrt(u3 * (u3 - a3) * (u3 - b3) * (u3 - b4))
@@ -708,6 +536,13 @@ public class BubbleTextView extends ImageView {
     }
 
 
+    /**
+     * 触摸是否在某个button范围
+     *
+     * @param event
+     * @param rect
+     * @return
+     */
     private boolean isInButton(MotionEvent event, Rect rect) {
         int left = rect.left;
         int right = rect.right;
@@ -716,6 +551,12 @@ public class BubbleTextView extends ImageView {
         return event.getX(0) >= left && event.getX(0) <= right && event.getY(0) >= top && event.getY(0) <= bottom;
     }
 
+    /**
+     * 触摸是否在拉伸区域内
+     *
+     * @param event
+     * @return
+     */
     private boolean isInResize(MotionEvent event) {
         int left = -20 + this.dst_resize.left;
         int top = -20 + this.dst_resize.top;
@@ -724,6 +565,11 @@ public class BubbleTextView extends ImageView {
         return event.getX(0) >= left && event.getX(0) <= right && event.getY(0) >= top && event.getY(0) <= bottom;
     }
 
+    /**
+     * 触摸的位置和图片左上角位置的中点
+     *
+     * @param event
+     */
     private void midPointToStartPoint(MotionEvent event) {
         float[] arrayOfFloat = new float[9];
         matrix.getValues(arrayOfFloat);
@@ -734,6 +580,11 @@ public class BubbleTextView extends ImageView {
         mid.set(f3 / 2, f4 / 2);
     }
 
+    /**
+     * 计算对角线交叉的位置
+     *
+     * @param paramPointF
+     */
     private void midDiagonalPoint(PointF paramPointF) {
         float[] arrayOfFloat = new float[9];
         this.matrix.getValues(arrayOfFloat);
@@ -748,7 +599,7 @@ public class BubbleTextView extends ImageView {
 
 
     /**
-     * 在滑动过车中X,Y是不会改变的，这里减Y，减X，其实是相当于把X,Y当做原点
+     * 在滑动旋转过程中,总是以左上角原点作为绝对坐标计算偏转角度
      *
      * @param event
      * @return
@@ -775,7 +626,7 @@ public class BubbleTextView extends ImageView {
     }
 
     /**
-     * Determine the space between the first two fingers
+     * 计算双指之间的距离
      */
     private float spacing(MotionEvent event) {
         if (event.getPointerCount() == 2) {
@@ -788,17 +639,22 @@ public class BubbleTextView extends ImageView {
     }
 
     public int getFontColor() {
-        return fontColor;
+        return mFontColor;
+    }
+
+    public void setFontColor(int mFontColor) {
+        this.mFontColor = mFontColor;
     }
 
     public interface OperationListener {
+
+        void onClick(TextStickerView stickerView);
+
         void onDeleteClick();
 
-        void onEdit(BubbleTextView bubbleTextView);
+        void onEdit(TextStickerView stickerView);
 
-        void onClick(BubbleTextView bubbleTextView);
-
-        void onTop(BubbleTextView bubbleTextView);
+        void onTop(TextStickerView stickerView);
     }
 
     public void setOperationListener(OperationListener operationListener) {
@@ -810,39 +666,13 @@ public class BubbleTextView extends ImageView {
         invalidate();
     }
 
-    /**
-     * 自动分割文本
-     *
-     * @param content 需要分割的文本
-     * @param p       画笔，用来根据字体测量文本的宽度
-     * @param width   指定的宽度
-     * @return 一个字符串数组，保存每行的文本
-     */
-    private String[] autoSplit(String content, Paint p, float width) {
-        int length = content.length();
-        float textWidth = p.measureText(content);
-        if (textWidth <= width) {
-            return new String[]{content};
-        }
 
-        int start = 0, end = 1, i = 0;
-        int lines = (int) Math.ceil(textWidth / width); //计算行数
-        String[] lineTexts = new String[lines];
-        while (start < length) {
-            if (p.measureText(content, start, end) > width) { //文本宽度超出控件宽度时
-                lineTexts[i++] = (String) content.subSequence(start, end);
-                start = end;
-            }
-            if (end == length) { //不足一行的文本
-                lineTexts[i] = (String) content.subSequence(start, end);
-                break;
-            }
-            end += 1;
-        }
-        return lineTexts;
+    public void setText(String text){
+
+    };
+
+    public String getText(){
+        return "";
     }
 
-    public String getmStr() {
-        return mStr;
-    }
 }
