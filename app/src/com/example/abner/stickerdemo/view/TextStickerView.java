@@ -135,7 +135,7 @@ public class TextStickerView extends ImageView {
         localPaint.setAntiAlias(true);
         localPaint.setDither(true);
         localPaint.setStyle(Paint.Style.STROKE);
-        localPaint.setStrokeWidth(2.5f);
+        localPaint.setStrokeWidth(3.5f);
         dm = getResources().getDisplayMetrics();
         mScreenwidth = dm.widthPixels;
         mScreenHeight = dm.heightPixels;
@@ -149,7 +149,7 @@ public class TextStickerView extends ImageView {
     private Bitmap getTextBitmap(){
         TextView textView = new TextView(getContext());
         textView.setText(mFontText);
-        int padding = DensityUtils.dip2px(getContext(), 5);
+        int padding = DensityUtils.dip2px(getContext(), 8);
         textView.setLayoutParams(new ViewGroup.LayoutParams(ViewPager.LayoutParams.WRAP_CONTENT,ViewPager.LayoutParams.WRAP_CONTENT));
         textView.setTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, mFontSize, dm));
         textView.setPadding(padding,padding,padding,padding);
