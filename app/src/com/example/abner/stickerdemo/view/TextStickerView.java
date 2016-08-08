@@ -11,6 +11,7 @@ import android.graphics.PointF;
 import android.graphics.Rect;
 import android.support.v4.view.MotionEventCompat;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -100,7 +101,8 @@ public class TextStickerView extends ImageView {
 
 
     private int mFontColor = Color.WHITE;
-    private String mFontText = "";
+    private String mFontText;
+    private String mFontTextDefault;
     private int mFontSize = 14;
 
 
@@ -138,8 +140,8 @@ public class TextStickerView extends ImageView {
         mScreenwidth = dm.widthPixels;
         mScreenHeight = dm.heightPixels;
 
-
-        mFontText = getContext().getString(R.string.double_click_input_text);
+        mFontTextDefault = getContext().getString(R.string.double_click_input_text);
+        mFontText = mFontTextDefault;
         setBitmap(getTextBitmap());
 
     }
@@ -665,6 +667,9 @@ public class TextStickerView extends ImageView {
 
     public void setFontText(String fontText){
         mFontText = fontText;
+        if(TextUtils.isEmpty(mFontText)){
+            mFontText = mFontTextDefault;
+        }
         mBitmap = getTextBitmap();
         invalidate();
     }

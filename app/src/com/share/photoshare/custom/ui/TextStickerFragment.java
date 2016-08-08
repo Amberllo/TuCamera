@@ -94,7 +94,6 @@ public class TextStickerFragment extends TuImageResultFragment implements View.O
             }
         });
 
-        addTextSticker();
     }
 
     @Override
@@ -152,35 +151,8 @@ public class TextStickerFragment extends TuImageResultFragment implements View.O
             }
 
             @Override
-            public void onClick(final TextStickerView stickerView) {
-
-                mTextStickerInputDialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                    @Override
-                    public void onShow(DialogInterface dialog) {
-                        bottomBar.setVisibility(View.INVISIBLE);
-                    }
-                });
-
-                mTextStickerInputDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                    @Override
-                    public void onDismiss(DialogInterface dialog) {
-                        bottomBar.setVisibility(View.VISIBLE);
-                    }
-                });
-
-                mTextStickerInputDialog.removeOnTextChangeCallback();
-
-                colorButton.setColor(stickerView.getFontColor());
-                mTextStickerInputDialog.setTextStickerView(stickerView);
-                mTextStickerInputDialog.show();
-                mTextStickerInputDialog.setOnTextChangeCallback(new TextStickerInputDialog.OnTextChangeCallback() {
-                    @Override
-                    public void onText(String text) {
-                        stickerView.setFontText(text);
-                    }
-                });
-
-
+            public void onClick(TextStickerView stickerView) {
+                onStickerClick(stickerView);
             }
 
             @Override
@@ -197,6 +169,35 @@ public class TextStickerFragment extends TuImageResultFragment implements View.O
         imageWrapView.addView(textStickerView, lp);
         mViews.add(textStickerView);
         setCurrentEdit(textStickerView);
+        onStickerClick(textStickerView);
+    }
+
+    private void onStickerClick(final TextStickerView stickerView){
+        mTextStickerInputDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialog) {
+                bottomBar.setVisibility(View.INVISIBLE);
+            }
+        });
+
+        mTextStickerInputDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                bottomBar.setVisibility(View.VISIBLE);
+            }
+        });
+
+        mTextStickerInputDialog.removeOnTextChangeCallback();
+
+        colorButton.setColor(stickerView.getFontColor());
+        mTextStickerInputDialog.setTextStickerView(stickerView);
+        mTextStickerInputDialog.show();
+        mTextStickerInputDialog.setOnTextChangeCallback(new TextStickerInputDialog.OnTextChangeCallback() {
+            @Override
+            public void onText(String text) {
+                stickerView.setFontText(text);
+            }
+        });
     }
 
     protected void handleBackButton() {

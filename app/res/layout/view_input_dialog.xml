@@ -5,6 +5,8 @@
     android:layout_height="match_parent"
     android:id="@+id/root_bubble">
 
+    <!--        android:hint="@string/publish_comment"
+        android:textColorHint="@color/grey_8b8b8b"-->
     <EditText
         android:alpha="0.8"
         android:background="#ffffff"
@@ -13,12 +15,12 @@
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:textSize="16sp"
-        android:hint="@string/publish_comment"
-        android:textColorHint="@color/grey_8b8b8b"
+
         android:textColor="@color/black"
         android:inputType="text|textMultiLine"
         android:imeOptions="actionDone"
-        android:gravity="center"
+        android:gravity="left"
+        android:padding="15dp"
         android:singleLine="false"
         />
 
@@ -37,7 +39,7 @@
     />
 
     <ImageView
-
+        android:visibility="gone"
         android:layout_alignTop="@id/et_bubble_input"
         android:id="@+id/tv_action_done"
         android:padding="10dp"
