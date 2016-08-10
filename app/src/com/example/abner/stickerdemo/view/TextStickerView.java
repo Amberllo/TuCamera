@@ -103,7 +103,7 @@ public class TextStickerView extends ImageView {
     private int mFontColor = Color.WHITE;
     private String mFontText;
     private String mFontTextDefault;
-    private int mFontSize = 7;
+    private int mFontSize = 18;
 
 
     public TextStickerView(Context context,int mScreenwidth,int mScreenHeight) {
@@ -144,7 +144,8 @@ public class TextStickerView extends ImageView {
         textView.setText(mFontText);
         int padding = DensityUtils.dip2px(getContext(), 8);
         textView.setLayoutParams(new ViewGroup.LayoutParams(ViewPager.LayoutParams.WRAP_CONTENT,ViewPager.LayoutParams.WRAP_CONTENT));
-        textView.setTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, mFontSize, dm));
+//        textView.setTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, mFontSize, dm));
+        textView.setTextSize(mFontSize);
         textView.setMaxWidth((int) (mScreenwidth*0.75));
         textView.setPadding(padding,padding,padding,padding);
         textView.setDrawingCacheEnabled(true);
@@ -338,6 +339,10 @@ public class TextStickerView extends ImageView {
 
                 } else {
                     handled = false;
+
+                    this.isInEdit = false;
+                    invalidate();
+
                 }
                 break;
             case MotionEvent.ACTION_POINTER_DOWN:
