@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">圖像分享</string>
+    <string name="app_name">特寫美刻</string>
     <string name="filter_toggle_title">濾鏡</string>
     
     <!-- Nav label -->
@@ -47,4 +47,5 @@
     <string name="color_lib_title">選擇顏色</string>
     <string name="color_lib_ok">確定</string>
     <string name="color_lib_cancel">取消</string>
+    <string name="double_click_input_text">請輸入文字</string>
 </resources>

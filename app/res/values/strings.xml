@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">图像分享</string>
+    <string name="app_name">特写美刻</string>
     <string name="filter_toggle_title">滤镜</string>
     
     <!-- Nav label -->
@@ -45,7 +45,7 @@
     <string name="sample_api_face_detection_camera">人脸检测 (视频)</string>
 
     <string name="action_complete">完成</string>
-    <string name="double_click_input_text">双击输入文字</string>
+    <string name="double_click_input_text">请输入文字</string>請輸入文字
     <string name="add_sticker">添加贴纸</string>
     <string name="add_bubble">添加气泡</string>
     <string name="complete">完成</string>

@@ -53,7 +53,7 @@ public class TextStickerView extends ImageView {
     private int topBitmapHeight;
     private Paint localPaint;
     private int mScreenwidth, mScreenHeight;
-    private static final float BITMAP_SCALE = 0.7f;
+    private static final float BITMAP_SCALE = 0.65f;
     private PointF mid = new PointF();
     private OperationListener operationListener;
     private float lastRotateDegree;
@@ -103,26 +103,19 @@ public class TextStickerView extends ImageView {
     private int mFontColor = Color.WHITE;
     private String mFontText;
     private String mFontTextDefault;
-    private int mFontSize = 14;
+    private int mFontSize = 7;
 
 
-    public TextStickerView(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        stickerId = 0;
-        init();
-    }
-
-    public TextStickerView(Context context) {
+    public TextStickerView(Context context,int mScreenwidth,int mScreenHeight) {
         super(context);
         stickerId = 0;
         init();
+        this.mScreenwidth = mScreenwidth;
+        this.mScreenHeight = mScreenHeight;
+        setBitmap(getTextBitmap());
     }
 
-    public TextStickerView(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-        stickerId = 0;
-        init();
-    }
+
 
     private void init() {
 
@@ -142,7 +135,7 @@ public class TextStickerView extends ImageView {
 
         mFontTextDefault = getContext().getString(R.string.double_click_input_text);
         mFontText = mFontTextDefault;
-        setBitmap(getTextBitmap());
+
 
     }
 
@@ -152,6 +145,7 @@ public class TextStickerView extends ImageView {
         int padding = DensityUtils.dip2px(getContext(), 8);
         textView.setLayoutParams(new ViewGroup.LayoutParams(ViewPager.LayoutParams.WRAP_CONTENT,ViewPager.LayoutParams.WRAP_CONTENT));
         textView.setTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, mFontSize, dm));
+        textView.setMaxWidth((int) (mScreenwidth*0.75));
         textView.setPadding(padding,padding,padding,padding);
         textView.setDrawingCacheEnabled(true);
         textView.setTextColor(mFontColor);
@@ -159,6 +153,8 @@ public class TextStickerView extends ImageView {
         textView.layout(0, 0, textView.getMeasuredWidth(), textView.getMeasuredHeight());
         Bitmap bitmap = textView.getDrawingCache();
         return bitmap;
+
+
 
     }
 
@@ -231,10 +227,10 @@ public class TextStickerView extends ImageView {
         int w = mBitmap.getWidth();
         int h = mBitmap.getHeight();
         oringinWidth = w;
-        float initScale = (MIN_SCALE + MAX_SCALE) / 2;
-        matrix.postScale(initScale, initScale, w / 2, h / 2);
+//        float initScale = (MIN_SCALE + MAX_SCALE) / 2;
+//        matrix.postScale(initScale, initScale, w / 2, h / 2);
         //Y坐标为 （顶部操作栏+正方形图）/2
-        matrix.postTranslate(mScreenwidth / 2 - w / 2, (mScreenwidth) / 2 - h / 2);
+        matrix.postTranslate(mScreenwidth / 2 - w / 2, (mScreenHeight) / 2 - h / 2-100);
         invalidate();
     }
 

@@ -136,7 +136,7 @@ public class TextStickerFragment extends TuImageResultFragment implements View.O
     //添加气泡
     private void addTextSticker() {
 
-        final TextStickerView textStickerView = new TextStickerView(getContext());
+        final TextStickerView textStickerView = new TextStickerView(getContext(),imageWrapView.getWidth(),imageWrapView.getHeight());
         textStickerView.setOperationListener(new TextStickerView.OperationListener() {
             @Override
             public void onDeleteClick() {

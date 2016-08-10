@@ -47,4 +47,6 @@
     <string name="color_lib_title">Choose color</string>
     <string name="color_lib_ok">ok</string>
     <string name="color_lib_cancel">cancel</string>
+
+    <string name="double_click_input_text">Please said something</string>
 </resources>

@@ -67,7 +67,7 @@ public class StickerFragment extends TuEditStickerFragment
         }
 
 
-        if(autoBorder){
+//        if(autoBorder){
 //            Toast.makeText(getActivity(),"自动加载相框", Toast.LENGTH_SHORT).show();
             try {
                 StickerCategory category = StickerLocalPackage.shared().getCategories().get(0);
@@ -76,7 +76,7 @@ public class StickerFragment extends TuEditStickerFragment
                 e.printStackTrace();
             }
 
-        }
+//        }
 
     }
 
