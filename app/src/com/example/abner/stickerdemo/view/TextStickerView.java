@@ -103,7 +103,7 @@ public class TextStickerView extends ImageView {
     private int mFontColor = Color.WHITE;
     private String mFontText;
     private String mFontTextDefault;
-    private int mFontSize = 18;
+    private int mFontSize = 14;
 
 
     public TextStickerView(Context context,int mScreenwidth,int mScreenHeight) {
