@@ -9,13 +9,12 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PointF;
 import android.graphics.Rect;
+import android.os.CountDownTimer;
 import android.support.v4.view.MotionEventCompat;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
-import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -290,9 +289,30 @@ public class TextStickerView extends ImageView {
     }
 
 
-    private long preClicktime;
 
-    private final long doubleClickTimeLimit = 200;
+
+
+    CountDownTimer keyboardTimer = new CountDownTimer(200,200) {
+        @Override
+        public void onTick(long millisUntilFinished) {
+
+        }
+
+        @Override
+        public void onFinish() {
+            if (isInEdit && operationListener != null) {
+                operationListener.onClick(TextStickerView.this);
+            }
+        }
+    };
+
+
+
+    private final long clickTimeLimit = 200;
+    private long preClicktime;
+    private float tabX,tabY;
+
+    private boolean canShowKeyboard;
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
@@ -300,6 +320,13 @@ public class TextStickerView extends ImageView {
         boolean handled = true;
         switch (action) {
             case MotionEvent.ACTION_DOWN:
+
+                preClicktime = System.currentTimeMillis();
+                tabX = getX();
+                tabY = getY();
+                canShowKeyboard = false;
+
+                keyboardTimer.cancel();
                 if (isInButton(event, dst_delete)) {
                     if (operationListener != null) {
                         operationListener.onDeleteClick();
@@ -322,19 +349,14 @@ public class TextStickerView extends ImageView {
                     if (operationListener != null) {
                         operationListener.onTop(this);
                     }
+
                 } else if (isInBitmap(event)) {
                     isInSide = true;
                     lastX = event.getX(0);
                     lastY = event.getY(0);
 
-                    long currentTime = System.currentTimeMillis();
-                    Log.d(TAG, (currentTime - preClicktime) + "");
-                    if (currentTime - preClicktime > doubleClickTimeLimit) {
-                        preClicktime = currentTime;
-                    } else {
-                        if (isInEdit && operationListener != null) {
-                            operationListener.onClick(this);
-                        }
+                    if(isInEdit){
+                        canShowKeyboard = true;
                     }
 
                 } else {
@@ -408,9 +430,20 @@ public class TextStickerView extends ImageView {
                 break;
             case MotionEvent.ACTION_CANCEL:
             case MotionEvent.ACTION_UP:
+
+                boolean clicktime = (System.currentTimeMillis() - preClicktime) < clickTimeLimit;
+                boolean move = ((getX()-tabX) <200) && ((getY() - tabY) < 200);
+
+                if(canShowKeyboard && clicktime && move){
+                    keyboardTimer.cancel();
+                    keyboardTimer.start();
+                }
+
+
                 isInResize = false;
                 isInSide = false;
                 isPointerDown = false;
+
                 break;
 
         }

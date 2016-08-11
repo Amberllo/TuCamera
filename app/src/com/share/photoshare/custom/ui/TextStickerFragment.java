@@ -99,44 +99,47 @@ public class TextStickerFragment extends TuImageResultFragment implements View.O
     @Override
     protected void viewDidLoad(ViewGroup viewGroup) {
 
+        int width,height;
+
         Bitmap bitmap = getImage();
-
-
-
         if(getImage()!=null && imageView!=null){
             imageView.setImageBitmap(bitmap);
 
+
+            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) imageView.getLayoutParams();
+            RelativeLayout.LayoutParams paramsLayout = (RelativeLayout.LayoutParams) imageWrapView.getLayoutParams();
+
             if(bitmap.getWidth()<bitmap.getHeight()){
                 int resizeWidth = imageView.getHeight() * bitmap.getWidth() / bitmap.getHeight();
-                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) imageView.getLayoutParams();
                 params.width = resizeWidth ;
-
-                RelativeLayout.LayoutParams paramsLayout = (RelativeLayout.LayoutParams) imageWrapView.getLayoutParams();
                 paramsLayout.width = resizeWidth;
 
-                imageView.setLayoutParams(params);
-                imageWrapView.setLayoutParams(paramsLayout);
+                height = imageView.getHeight();
+                width = resizeWidth;
 
             }else{
                 int resizeHeight = imageView.getWidth() * bitmap.getHeight() / bitmap.getWidth();
-                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) imageView.getLayoutParams();
                 params.height= resizeHeight;
-
-                RelativeLayout.LayoutParams paramsLayout = (RelativeLayout.LayoutParams) imageWrapView.getLayoutParams();
                 paramsLayout.height = resizeHeight;
 
-                imageView.setLayoutParams(params);
-                imageWrapView.setLayoutParams(paramsLayout);
+                height = resizeHeight;
+                width = imageView.getWidth();
+
             }
 
+            imageView.setLayoutParams(params);
+            imageWrapView.setLayoutParams(paramsLayout);
+
+            addTextSticker(width,height);
         }
+
     }
 
 
     //添加气泡
-    private void addTextSticker() {
+    private void addTextSticker(int width,int height) {
 
-        final TextStickerView textStickerView = new TextStickerView(getContext(),imageWrapView.getWidth(),imageWrapView.getHeight());
+        final TextStickerView textStickerView = new TextStickerView(getContext(),width,height);
         textStickerView.setOperationListener(new TextStickerView.OperationListener() {
             @Override
             public void onDeleteClick() {
@@ -254,7 +257,7 @@ public class TextStickerFragment extends TuImageResultFragment implements View.O
         }else if(v == colorButton){
             showColorPicker();
         }else if(v == lsq_fontButton){
-            addTextSticker();
+            addTextSticker(imageWrapView.getWidth(),imageWrapView.getHeight());
         }
     }
 
