@@ -17,6 +17,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -361,8 +362,11 @@ public class TextStickerView extends ImageView {
 
                 } else {
                     handled = false;
-
                     this.isInEdit = false;
+
+                    InputMethodManager inputmanger = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    inputmanger.hideSoftInputFromWindow(getWindowToken(), 0);
+
                     invalidate();
 
                 }
