@@ -193,6 +193,8 @@ public class TextStickerFragment extends TuImageResultFragment implements View.O
                 bottomBar.setVisibility(View.VISIBLE);
                 InputMethodManager inputmanger = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                 inputmanger.hideSoftInputFromWindow(imageWrapView.getWindowToken(), 0);
+
+                stickerView.setInEdit(false);
             }
         });
 
