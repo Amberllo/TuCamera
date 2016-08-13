@@ -17,20 +17,20 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.abner.stickerdemo.model.StickerPropertyModel;
 import com.example.abner.stickerdemo.utils.DensityUtils;
 import com.share.photoshare.R;
+import com.share.photoshare.custom.KeyBoardUtils;
 
 
 /**
  * 表情贴纸
  */
 public class TextStickerView extends ImageView {
-    private static final String TAG = "StickerView";
+    private static final String TAG = "TextStickerView";
 
     private Bitmap deleteBitmap;
     private Bitmap flipVBitmap;
@@ -364,9 +364,8 @@ public class TextStickerView extends ImageView {
                     handled = false;
                     this.isInEdit = false;
 
-                    InputMethodManager inputmanger = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-                    inputmanger.hideSoftInputFromWindow(getWindowToken(), 0);
-
+                    System.out.println("------------ onTouchEvent close Keyboard ------------");
+                    KeyBoardUtils.hide(this);
                     invalidate();
 
                 }

@@ -9,7 +9,6 @@
  */
 package com.share.photoshare.custom.ui;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -17,7 +16,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import com.example.abner.stickerdemo.utils.FileUtils;
@@ -182,8 +180,6 @@ public class TextStickerFragment extends TuImageResultFragment implements View.O
             @Override
             public void onShow(DialogInterface dialog) {
                 bottomBar.setVisibility(View.INVISIBLE);
-                InputMethodManager inputmanger = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-                inputmanger.showSoftInputFromInputMethod(imageWrapView.getWindowToken(), 0);
             }
         });
 
@@ -191,9 +187,8 @@ public class TextStickerFragment extends TuImageResultFragment implements View.O
             @Override
             public void onDismiss(DialogInterface dialog) {
                 bottomBar.setVisibility(View.VISIBLE);
-                InputMethodManager inputmanger = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-                inputmanger.hideSoftInputFromWindow(imageWrapView.getWindowToken(), 0);
 
+//                System.out.println("------------ dialogDismissListener close Keyboard ------------");
                 stickerView.setInEdit(false);
             }
         });

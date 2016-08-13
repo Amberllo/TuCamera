@@ -9,14 +9,12 @@ import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.example.abner.stickerdemo.utils.CommonUtils;
 import com.share.photoshare.R;
+import com.share.photoshare.custom.KeyBoardUtils;
 
 /**
  * Created by Abner on 15/6/12.
@@ -120,22 +118,22 @@ public class TextStickerInputDialog extends Dialog {
     @Override
     public void show() {
         super.show();
+
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                InputMethodManager m = (InputMethodManager) et_textSticker_input.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-                m.toggleSoftInput(0, InputMethodManager.SHOW_FORCED);
+               KeyBoardUtils.show(et_textSticker_input);
             }
-        }, 500);
+        }, 100);
+
 
     }
 
     @Override
     public void dismiss() {
         super.dismiss();
-        InputMethodManager m = (InputMethodManager) et_textSticker_input.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-        m.hideSoftInputFromWindow(et_textSticker_input.getWindowToken(), 0);
+        KeyBoardUtils.hide(et_textSticker_input);
     }
 
     public void setOnTextChangeCallback(OnTextChangeCallback onTextChangeCallback) {
@@ -162,12 +160,10 @@ public class TextStickerInputDialog extends Dialog {
     }
 
     private void done() {
-//        if (Integer.valueOf(tv_show_count.getText().toString()) < 0) {
-//            Toast.makeText(mContext, mContext.getString(R.string.over_text_limit), Toast.LENGTH_SHORT).show();
-//            return;
-//        }
-        InputMethodManager inputmanger = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-        inputmanger.showSoftInputFromInputMethod(root_bubble.getWindowToken(), 0);
+
+        System.out.println("------------ dialog onDone close Keyboard ------------");
+
+        KeyBoardUtils.hide(root_bubble);
 
         dismiss();
         if (mCompleteCallBack != null) {
