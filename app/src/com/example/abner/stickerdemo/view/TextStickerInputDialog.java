@@ -162,10 +162,13 @@ public class TextStickerInputDialog extends Dialog {
     }
 
     private void done() {
-        if (Integer.valueOf(tv_show_count.getText().toString()) < 0) {
-            Toast.makeText(mContext, mContext.getString(R.string.over_text_limit), Toast.LENGTH_SHORT).show();
-            return;
-        }
+//        if (Integer.valueOf(tv_show_count.getText().toString()) < 0) {
+//            Toast.makeText(mContext, mContext.getString(R.string.over_text_limit), Toast.LENGTH_SHORT).show();
+//            return;
+//        }
+        InputMethodManager inputmanger = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputmanger.showSoftInputFromInputMethod(root_bubble.getWindowToken(), 0);
+
         dismiss();
         if (mCompleteCallBack != null) {
             String str;
