@@ -41,6 +41,10 @@ import java.util.List;
 public class StickerFragment extends TuEditStickerFragment
 {
 
+
+    int boradWidth = 0;
+    int boradHeight = 0;
+
     private TuEditStickerFragmentDelegate delegate;
 
     public static int getLayoutViewId(){
@@ -66,18 +70,14 @@ public class StickerFragment extends TuEditStickerFragment
             this.getStickerBarView().loadCategories(this.getCategories());
         }
 
-
-//        if(autoBorder){
-//            Toast.makeText(getActivity(),"自动加载相框", Toast.LENGTH_SHORT).show();
-            try {
-                StickerCategory category = StickerLocalPackage.shared().getCategories().get(0);
-                appendStickerItem(category.datas.get(0).stickers.get(0));
-            }catch (Exception e){
-                e.printStackTrace();
-            }
-
-//        }
-
+        try {
+            StickerCategory category = StickerLocalPackage.shared().getCategories().get(0);
+            StickerData stickerData = category.datas.get(0).stickers.get(0);
+            fixBorder(stickerData);
+            appendStickerItem(stickerData);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -101,13 +101,28 @@ public class StickerFragment extends TuEditStickerFragment
             }
 
         return k;
-
-
+        
     }
 
     @Override
+    public void onStickerBarViewSelected(StickerBarView stickerBarView, StickerData stickerData) {
+        fixBorder(stickerData);
+        appendStickerItem(stickerData);
+    }
+
+    private void fixBorder(StickerData stickerData){
+        if(stickerData.categoryId == 3){
+            if(boradWidth == 0  && boradHeight == 0){
+                boradWidth = stickerData.width;
+                boradHeight = stickerData.height;
+            }
+            stickerData.width = boradWidth * 2;
+            stickerData.height = boradHeight * 2;
+        }
+    }
+
     public StickerView getStickerView() {
-        StickerView view =  super.getStickerView();
+        StickerView view =  this.getViewById("lsq_stickerView");
         view.setDelegate(new StickerView.StickerViewDelegate() {
             @Override
             public boolean canAppendSticker(StickerView stickerView, StickerData stickerData) {
@@ -117,8 +132,6 @@ public class StickerFragment extends TuEditStickerFragment
                     rect = getCutRegionView().getRegionRect();
                 }
                 List<StickerResult> stickers = getStickerView().getResults(rect);
-
-
                 if(stickerData.categoryId == 3){
                     //判断是否只能加载一次相框
                     for(StickerResult result:stickers){
@@ -131,6 +144,8 @@ public class StickerFragment extends TuEditStickerFragment
                 return true;
             }
         });
+
+
         return view;
     }
 
@@ -157,12 +172,6 @@ public class StickerFragment extends TuEditStickerFragment
                     delegate.onTuEditStickerFragmentEdited(this,result);
                 }
                 handleBackButton();
-//                this.hubStatus(TuSdkContext.getString("lsq_edit_processing"));
-//                (new Thread(new Runnable() {
-//                    public void run() {
-//                        StickerFragment.this.asyncEditWithResult(var1);
-//                    }
-//                })).start();
             } else {
                 this.handleBackButton();
             }
