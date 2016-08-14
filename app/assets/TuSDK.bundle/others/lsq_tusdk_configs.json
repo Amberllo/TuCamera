@@ -49,10 +49,11 @@
         }
     ],
     "stickerCategories":[
-      {
-        "id":3,
-        "name":"\u76f8\u6846"
-      },
+
+        {
+          "id":3,
+          "name":"\u76f8\u6846"
+        },
         {
             "id":1,
             "name":"\u8d34\u7eb8"
@@ -65,51 +66,36 @@
     ],
     "stickerGroups":[
         {
-            "file":"lsq_sticker_1_1084.gsce",
-            "name":"\u513f\u7ae5\u8282",
-            "stickers":[
-                {
-                    "id":8226
-                },
-                {
-                    "id":8227
-                },
-                {
-                    "id":8228
-                },
-                {
-                    "id":8229
-                },
-                {
-                    "id":8230
-                },
-                {
-                    "id":8231
-                },
-                {
-                    "id":8232
-                },
-                {
-                    "id":8233
-                }
-            ]
-        },
-        {
             "file":"lsq_sticker_3_1110.gsce",
             "name":"\u76f8\u6846",
             "stickers":[
-              {
-                "id":8654
-              },
                 {
-                    "id":8573
+                  "id":8796
                 },
                 {
-                    "id":8574
+                    "id":8654
+                },
+                {
+                    "id":8655
                 }
 
             ]
+        },
+        {
+            "file":"lsq_sticker_1_1141.gsce",
+            "name":"\u8d34\u7eb8\u8868\u60c5",
+            "stickers":[
+                {
+                    "id":8797
+                }
+//                {
+//                    "id":8798
+//                },
+//                {
+//                    "id":8799
+//                }
+            ]
         }
     ],
-    "master":"epmyneAKsbwNzzD+KYBhEiXP6xrFahnPVd76dUdE6iAk5e\/H\/V6Dj0UWHNpk6pFp0990LMXkLZ5hfXYnCnFl\/HvXcX556iEdWJ0RD6y2gc0Bsh\/BhAnYC2Bdvx8OFRQOz+n7qoRw7S1FrszNLjXHoJ3nPoe9iIdc+qXzOnP7X96owi7C4bVl+\/ZqQRiVoFdskQnw9R92waEhvYecqL92RIoNPVP5OOUvSi0SrOcySKPlIShuiwp6vbYIabCaTtI7dOXGWO+d4zW2seOvdRBVl8Cq+tAbAKsEd+sbXF4Nkg2DZfcqhXwV151h2x\/eWOSGmcnn\/Xhei91GwUJexfdrXkcoMNmgvjFk+qDJ6TKjNTBP4gAIt4pwQYlbtTv3VI5pW9CZMHEnyuqRcMM8YMvehSnqvqWmRCe6m7svj05oBbTXs3az4krD+73ejxY3odie3HcLE3njO5fQPIvqaLbtwCDjLzyhEXBQTs3u\/xtq6B+R6gXwDmd7X9NHu6q43NIB22KW8T5RxL6QixKKdOaIXOLeeWRWcnlXwh77pG0PHCasMfb1qohUyPDCiIDCBGkpvfQh3edaa6IhQ3VuinGwFe97nwor0mk6xvYFQ7sgWKLzp9ZHTdtlq0OPZWifMPRuM5opMpKdt+QuWX4GZcVZz2EkOD0cr\/96I0px9hCbWxGGgx\/TsbSgy4JXqqO5TQI4FgFf76uxL6jmvzEo+9ShJkQzXSPgbPzzUW+QjobdoQMroZLPVh8QDbpEto5qoiPW6041185531"
+    "master":"IO1z1WlvBLHACRCzDbQ6bJa4mzqr1i0Wta8nGhLKH82aPVdAY2qRv4YnXolM7vb7peGQeEq\/azLw3+1FAAt+c1WTqYOPI6kiDIJyad7z\/DC\/Fvpd6v7zchvKdZowh14ccZ6IQrXEr28kR6OmwhR2aLbA1SIQJRgVtbq0CPiu0N0ppCrMyN6rg3bzuAOGHnBfaEZP4pWhm5om+26LiL5oH33V1rZr6ZYiZgXTS\/5H7Z845tKTwFZQi2WvqROYz0mB0FkZdKEDj+Wy3ssuIpbqa3NCZjczmwvjgs6\/EC5N\/kCmBLFptDM1+D02D7ux3h6EtlQ8CwyK6ExpTxbzvpjlJoWd6LSMj9wCmhlI6rmZiT2EyACbLCldh573F2M5KDCBIPJ0tE64m8v+TklYy3sdFfEjyNeTNMdBD6qP7Mp4bXkCgK+QbCHweZoYM8VsI0cnGkJfzAfi945bMVj3TIVrEQztbWs3\/1e7DfuQ6SB4FMoambOvsUBM5gBJMp98bfsKqRVPurDTWLBi5IKDpg2RBTKtJAvI0HihzpuhazFaeVkzjdKOTFatrgb0aTBa9Qxod6znP1X1AWqALOjoXHes3TOWYQAX42QJ5J+yY+X+CFIQABYQxw+LKBD7XqfObU1IsKquxfH+7H9tU4ArGwInQGz4GjV2L4HJsKD0bHmUYuD2Ftn6lVO2uLLYKT6ABxj0natbpVLMG0id2mJiJIgJHyibYlfC8NRv25\/scbw1a88i\/+ypp+TOOjMfUEdcRi7H5717478239"
 }
