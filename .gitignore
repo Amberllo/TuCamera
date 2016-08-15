@@ -32,3 +32,5 @@ proguard/
 /*.iml
 /ColorPickerLibrary/ColorPickerLibrary.iml
 /.idea
+/UmengLibrary/UmengLibrary.iml
+/TuSDK/TuSDK.iml

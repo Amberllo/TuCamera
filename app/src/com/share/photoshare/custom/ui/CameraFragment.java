@@ -12,6 +12,7 @@ package com.share.photoshare.custom.ui;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.lasque.tusdk.core.TuSdk;
 import org.lasque.tusdk.core.view.TuSdkImageView;
 import org.lasque.tusdk.impl.components.camera.TuCameraFragment;
 import com.share.photoshare.R;
@@ -51,4 +52,16 @@ public class CameraFragment extends TuCameraFragment
         super.onDetach();
         System.exit(0);
     }
+
+
+    @Override
+    public void hubSuccess(String var1) {
+//        TuSdk.messageHub().showSuccess(this.getActivity(), var1);
+    }
+
+    @Override
+    public void hubSuccess(int var1) {
+//        TuSdk.messageHub().showSuccess(this.getActivity(), var1);
+    }
+
 }
