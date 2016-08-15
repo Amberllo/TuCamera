@@ -1,6 +1,53 @@
 {
     "filterGroups":[
         {
+            "file":"lsq_filter_Food_3.gfilter",
+            "name":"lsq_filter_group_Food",
+            "default_filter_id":32,
+            "filters":[
+                {
+                    "id":31,
+                    "name":"lsq_filter_Abao",
+                    "color":"#18BC9C",
+                    "args":{
+                        "mixied":0.7
+                    }
+                },
+                {
+                    "id":32,
+                    "name":"lsq_filter_Thick",
+                    "color":"#18BC9C",
+                    "args":{
+                        "mixied":0.65
+                    }
+                },
+                {
+                    "id":33,
+                    "name":"lsq_filter_Vintage",
+                    "color":"#18BC9C",
+                    "args":{
+                        "mixied":0.7
+                    }
+                },
+                {
+                    "id":34,
+                    "name":"lsq_filter_Nostalgic",
+                    "color":"#18BC9C",
+                    "args":{
+                        "mixied":0.65
+                    }
+                },
+                {
+                    "id":35,
+                    "name":"lsq_filter_Forest",
+                    "color":"#18BC9C",
+                    "args":{
+                        "mixied":0.45
+                    }
+                }
+            ]
+        },
+        {
             "file":"lsq_filter_Enhance_4.gfilter",
             "name":"lsq_filter_group_Enhance",
             "default_filter_id":42,
@@ -46,18 +93,87 @@
                     }
                 }
             ]
+        },
+        {
+            "file":"lsq_filter_Beauty_6.gfilter",
+            "name":"lsq_filter_group_Beauty",
+            "default_filter_id":65,
+            "filters":[
+                {
+                    "id":61,
+                    "name":"lsq_filter_SkinNature",
+                    "color":"#E9807E",
+                    "args":{
+                        "smoothing":0.3
+                    }
+                },
+                {
+                    "id":62,
+                    "name":"lsq_filter_SkinPink",
+                    "color":"#E9807E",
+                    "args":{
+                        "smoothing":0.5,
+                        "mixied":0.3
+                    }
+                },
+                {
+                    "id":63,
+                    "name":"lsq_filter_SkinJelly",
+                    "color":"#E9807E",
+                    "args":{
+                        "smoothing":0.6,
+                        "mixied":0.4
+                    }
+                },
+                {
+                    "id":64,
+                    "name":"lsq_filter_SkinNoir",
+                    "color":"#E9807E",
+                    "args":{
+                        "smoothing":0.5,
+                        "mixied":1
+                    }
+                },
+                {
+                    "id":65,
+                    "name":"lsq_filter_SkinRuddy",
+                    "color":"#E9807E",
+                    "args":{
+                        "smoothing":0.45,
+                        "mixied":0.25
+                    }
+                },
+                {
+                    "id":66,
+                    "name":"lsq_filter_SkinSugar",
+                    "color":"#E9807E",
+                    "args":{
+                        "smoothing":0.6,
+                        "mixied":0.3
+                    }
+                },
+                {
+                    "id":67,
+                    "name":"lsq_filter_SkinPowder",
+                    "color":"#E9807E",
+                    "args":{
+                        "smoothing":0.45,
+                        "mixied":0.4
+                    }
+                }
+            ]
         }
     ],
     "stickerCategories":[
-
         {
-          "id":3,
-          "name":"\u76f8\u6846"
+            "id":3,
+            "name":"\u76f8\u6846"
         },
         {
             "id":1,
             "name":"\u8d34\u7eb8"
         }
+
     ],
     "stickerGroups":[
         {
@@ -65,7 +181,7 @@
             "name":"\u76f8\u6846",
             "stickers":[
                 {
-                  "id":8796
+                    "id":8801
                 }
             ]
         },
@@ -74,18 +190,16 @@
             "name":"\u8d34\u7eb8\u8868\u60c5",
             "stickers":[
                 {
-                  "id":8797
+                    "id":8797
                 },
                 {
-                  "id":8798
+                    "id":8798
                 },
                 {
-                  "id":8799
+                    "id":8799
                 }
-
-
             ]
         }
     ],
-    "master":"IO1z1WlvBLHACRCzDbQ6bJa4mzqr1i0Wta8nGhLKH82aPVdAY2qRv4YnXolM7vb7peGQeEq\/azLw3+1FAAt+c1WTqYOPI6kiDIJyad7z\/DC\/Fvpd6v7zchvKdZowh14ccZ6IQrXEr28kR6OmwhR2aLbA1SIQJRgVtbq0CPiu0N0ppCrMyN6rg3bzuAOGHnBfaEZP4pWhm5om+26LiL5oH33V1rZr6ZYiZgXTS\/5H7Z845tKTwFZQi2WvqROYz0mB0FkZdKEDj+Wy3ssuIpbqa3NCZjczmwvjgs6\/EC5N\/kCmBLFptDM1+D02D7ux3h6EtlQ8CwyK6ExpTxbzvpjlJoWd6LSMj9wCmhlI6rmZiT2EyACbLCldh573F2M5KDCBIPJ0tE64m8v+TklYy3sdFfEjyNeTNMdBD6qP7Mp4bXkCgK+QbCHweZoYM8VsI0cnGkJfzAfi945bMVj3TIVrEQztbWs3\/1e7DfuQ6SB4FMoambOvsUBM5gBJMp98bfsKqRVPurDTWLBi5IKDpg2RBTKtJAvI0HihzpuhazFaeVkzjdKOTFatrgb0aTBa9Qxod6znP1X1AWqALOjoXHes3TOWYQAX42QJ5J+yY+X+CFIQABYQxw+LKBD7XqfObU1IsKquxfH+7H9tU4ArGwInQGz4GjV2L4HJsKD0bHmUYuD2Ftn6lVO2uLLYKT6ABxj0natbpVLMG0id2mJiJIgJHyibYlfC8NRv25\/scbw1a88i\/+ypp+TOOjMfUEdcRi7H5717478239"
+    "master":"V2jqzMNlL1915fleCeJcy9kjaNIO6GSOwkvI7PkaTLb3Mtft\/YShueGeq5zs8b1HyZ\/l1PzEnuUmCi3LemKGtFFxw2+3IHzmPLEBipkl7Fx1Ue5yZILLibT22YXjnBxU\/Z6+Up56oojveKljl6vatpsXPr52EfK2YQg5e7\/b+mb9d1W1WFziOfdOzslc6pCSccorzjgBa4TUBuLsIt+0hk8C27s0BQPj5pgfvjm1EzWBq6wUTYPMhD3eDVjUUrDIZxS28mcXa1Phay\/EuUYl29Rg5owRRxHlVZqT064CG\/k6RdvcputWBD3jPlxTx+2q3O2ywnky0lJk2ofbQ86j+rHSddH+dPU6WyZb2cYmw3Xus3ygSTUZbygJckN0SjWrALBT8BQBdssgibwCtPC1XUWfZcnVTlRNiH2CU8l\/5kmiV+Lqvw7Ojit2yEGWhfHdAy3hAH6a5BrjhUwNKXDANVVcEIWSivsQpWYWnMDqTkFVl6bDCajcJ0DEw+71lywJme3k8LY+F84hbShjFb14eHGYXUKwYqXxLwC7LJfVxLs5midNsOl8KpqAV4v8ha9NxnJxRru0ecFm7ku6DZb3lj5NnRAEPjF+4T8da7CidAE6X9S30dEWCsfpBp4TiBOouabC8F69hVl\/b74Pc2cttWJMS8ZZSpPNAi\/O9i6IZFsJyhmrEJpM9yDibH0U0CW39DTMA\/FT9tHfKWabz2qCE0Kzo0f6jQZtQnfcgAeNaWWZWOGnacoCtecXSVdOM9uWYKaRUhJl\/ntbnam4oshtXsCMaUTIJEn\/k8eCKQ+Jg67fFckbQn\/vcQybaU6Wr2LqeYzQiRULXE+T\/k3xnWfQyBj8tRVpML6AJMRXF8rEIrE=8A7E63A02D"
 }
