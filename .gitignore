@@ -34,3 +34,8 @@ proguard/
 /.idea
 /UmengLibrary/UmengLibrary.iml
 /TuSDK/TuSDK.iml
+/tusdk-for-android-demo.iml
+/TuSDK-for-Android-demo-2.4.8.iml
+/gradlew
+/gradlew.bat
+/ColorPickerLibrary/library.iml
