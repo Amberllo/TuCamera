@@ -115,12 +115,14 @@
 
 
             <org.lasque.tusdk.core.view.TuSdkImageView
+                android:id="@+id/lsq_squareButton"
                 android:layout_weight="1"
                 android:layout_width="33dp"
                 android:layout_height="33dp"
                 android:src="@drawable/img_square" />
 
             <org.lasque.tusdk.core.view.TuSdkImageView
+                android:id="@+id/lsq_switchButton1"
                 android:layout_weight="1"
                 android:layout_width="33dp"
                 android:layout_height="33dp"

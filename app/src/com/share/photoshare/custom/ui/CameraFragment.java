@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 
 import org.lasque.tusdk.core.TuSdk;
 import org.lasque.tusdk.core.view.TuSdkImageView;
+import org.lasque.tusdk.core.view.TuSdkViewHelper;
 import org.lasque.tusdk.impl.components.camera.TuCameraFragment;
 import com.share.photoshare.R;
 import com.share.photoshare.custom.suite.AlbumEditMultipleComponent;
@@ -38,10 +39,27 @@ public class CameraFragment extends TuCameraFragment
     {
         super.loadView(view);
         TuSdkImageView albumButton = (TuSdkImageView)view.findViewById(R.id.lsq_albumPosterView);
-        albumButton.setOnClickListener(new View.OnClickListener() {
+        albumButton.setOnClickListener(new TuSdkViewHelper.OnSafeClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onSafeClick(View view) {
                 new AlbumEditMultipleComponent().showSample(getActivity());
+            }
+        });
+
+        TuSdkImageView switchButton = (TuSdkImageView)view.findViewById(R.id.lsq_switchButton1);
+        switchButton.setOnClickListener(new TuSdkViewHelper.OnSafeClickListener() {
+            @Override
+            public void onSafeClick(View view) {
+                handleSwitchButton();
+            }
+        });
+
+
+        TuSdkImageView squareButton = (TuSdkImageView)view.findViewById(R.id.lsq_squareButton);
+        squareButton.setOnClickListener(new TuSdkViewHelper.OnSafeClickListener() {
+            @Override
+            public void onSafeClick(View view) {
+
             }
         });
 
