@@ -10,7 +10,9 @@
     
     <color name="demo_entry_list">#cc4429</color>
     <color name="demo_entry_list_focused">#B2cc4429</color>
-    
+
+    <color name="green_common">#61ded3</color>
+
     <!-- flash -->
     <color name="demo_flash_normal">#fff</color>
     <color name="demo_flash_selected">#ff5534</color>

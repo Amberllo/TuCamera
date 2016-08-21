@@ -69,26 +69,27 @@
     <RelativeLayout
         android:id="@+id/lsq_bottomBar"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="100dp"
         android:layout_alignParentBottom="true"
-        android:background="@color/lsq_background_camera_bar_alpha" >
+        android:background="@color/green_common" >
 
         <org.lasque.tusdk.core.view.TuSdkImageView
+            android:layout_centerVertical="true"
+            android:background="@drawable/img_album"
             android:id="@+id/lsq_albumPosterView"
             android:layout_width="44dp"
             android:layout_height="44dp"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginRight="40dp"
+            android:layout_marginLeft="30dp"
             android:scaleType="centerCrop" />
 
         <org.lasque.tusdk.core.view.widget.button.TuSdkImageButton
             android:id="@+id/lsq_captureButton"
-            android:layout_width="120dp"
-            android:layout_height="60dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:layout_centerInParent="true"
-            android:background="@drawable/lsq_style_default_camera_button_capture"
-            android:scaleType="matrix" />
+            android:src="@drawable/img_capture"/>
+
+
 
         <org.lasque.tusdk.core.view.widget.button.TuSdkImageButton
             android:id="@+id/lsq_filterButton"
@@ -99,6 +100,33 @@
             android:layout_alignParentBottom="true"
             android:scaleType="center"
             android:src="@drawable/lsq_style_default_camera_bg_filter" />
+
+
+        <LinearLayout
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/lsq_captureButton"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:gravity="center"
+            android:layout_height="match_parent">
+
+
+            <org.lasque.tusdk.core.view.TuSdkImageView
+                android:layout_weight="1"
+                android:layout_width="33dp"
+                android:layout_height="33dp"
+                android:src="@drawable/img_square" />
+
+            <org.lasque.tusdk.core.view.TuSdkImageView
+                android:layout_weight="1"
+                android:layout_width="33dp"
+                android:layout_height="33dp"
+                android:src="@drawable/img_switch" />
+
+        </LinearLayout>
 
     </RelativeLayout>
 
