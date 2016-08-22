@@ -11,6 +11,8 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.abner.stickerdemo.utils.FileUtils;
+import com.share.photoshare.custom.suite.SkinComponent;
+import com.share.photoshare.custom.suite.SkinComponentOption;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.UMShareListener;
@@ -27,6 +29,7 @@ import org.lasque.tusdk.core.view.TuSdkImageView;
 import org.lasque.tusdk.core.view.TuSdkViewHelper;
 import org.lasque.tusdk.core.view.widget.button.TuSdkTextButton;
 import org.lasque.tusdk.impl.components.edit.TuEditMultipleFragment;
+import org.lasque.tusdk.impl.components.filter.TuEditSkinFragment;
 import org.lasque.tusdk.modules.components.ComponentActType;
 import org.lasque.tusdk.modules.components.edit.TuEditActionType;
 import com.share.photoshare.R;
@@ -155,8 +158,35 @@ public class EditMultipleFragment extends TuEditMultipleFragment {
 
         @Override
         public void onSafeClick(View view) {
+
+            onSkin();
         }
     };
+
+    private void onSkin() {
+
+        SkinComponent component = new SkinComponent(getActivity()) {
+            @Override
+            public void onTuEditSkinResult(TuSdkResult result) {
+                setImage(result.image);
+                setTempFilePath(result.imageFile);
+                setDisplayImage(result.image);
+                appendHistory(result.imageFile);
+            }
+        };
+        SkinComponentOption option = new SkinComponentOption();
+        component.setOption(option)
+                .setImage(getImage())
+                // 设置系统照片
+                .setImageSqlInfo(getImageSqlInfo())
+                // 设置临时文件
+                .setTempFilePath(getTempFilePath())
+                // 在组件执行完成后自动关闭组件
+                .setAutoDismissWhenCompleted(true)
+                // 开启组件
+                .showComponent();
+
+    }
 
     View.OnClickListener saveOnClickListener = new TuSdkViewHelper.OnSafeClickListener(){
 
