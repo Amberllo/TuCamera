@@ -21,28 +21,37 @@
     <LinearLayout
         android:id="@+id/lsq_actions_wrapview2"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="100dp"
         android:orientation="horizontal"
         android:layout_alignParentBottom="true"
-        android:background="@color/lsq_background_editor_bottom_bar">
+        android:gravity="center_vertical"
+        android:background="@color/green_common">
 
-        <org.lasque.tusdk.core.view.widget.button.TuSdkTextButton
-            android:layout_weight="1"
+        <org.lasque.tusdk.core.view.TuSdkImageView
+            android:id="@+id/lsq_stickerButton"
+            android:src="@drawable/img_sticker"
+            android:padding="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+
+        <org.lasque.tusdk.core.view.TuSdkImageView
             android:id="@+id/lsq_filterButton"
-            style="@style/lsq_edit_entryOptionButton"
+            android:src="@drawable/img_filter"
+            android:padding="5dp"
             android:layout_width="match_parent"
-            android:drawableTop="@drawable/lsq_style_default_edit_icon_filter"
-            android:text="@string/lsq_edit_entry_filter" />
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
 
-        <org.lasque.tusdk.core.view.widget.button.TuSdkTextButton
-            android:layout_weight="1"
-            android:id="@+id/lsq_skinButton"
-            style="@style/lsq_edit_entryOptionButton"
+        <org.lasque.tusdk.core.view.TuSdkImageView
+            android:id="@+id/lsq_fontButton"
+            android:src="@drawable/img_textsticker"
+            android:padding="5dp"
             android:layout_width="match_parent"
-            android:drawableTop="@drawable/lsq_style_default_edit_icon_skin"
-            android:text="@string/lsq_edit_skin_title" />
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
 
-        <ImageView
+        <org.lasque.tusdk.core.view.TuSdkImageView
             android:id="@+id/lsq_shareButton"
             android:padding="5dp"
             android:src="@drawable/btn_shareaction"
@@ -50,21 +59,16 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-        <org.lasque.tusdk.core.view.widget.button.TuSdkTextButton
-            android:layout_weight="1"
-            android:id="@+id/lsq_stickerButton"
-            style="@style/lsq_edit_entryOptionButton"
+        <org.lasque.tusdk.core.view.TuSdkImageView
+            android:id="@+id/lsq_saveButton"
+            android:src="@drawable/img_save"
+            android:padding="5dp"
             android:layout_width="match_parent"
-            android:drawableTop="@drawable/lsq_style_default_edit_icon_sticker"
-            android:text="@string/lsq_edit_entry_sticker" />
+            android:layout_height="match_parent"
+            android:layout_weight="1"
 
-        <org.lasque.tusdk.core.view.widget.button.TuSdkTextButton
-            android:layout_weight="1"
-            android:id="@+id/lsq_fontButton"
-            style="@style/lsq_edit_entryOptionButton"
-            android:layout_width="match_parent"
-            android:drawableTop="@drawable/lsq_style_default_edit_icon_smudge"
-            android:text="@string/lsq_edit_entry_smudge" />
+            />
+
 
 
     </LinearLayout>
@@ -94,6 +98,7 @@
         android:background="@drawable/lsq_style_default_edit_button_confirm_bg" />
 
     <LinearLayout
+        android:visibility="gone"
         android:id="@+id/lsq_stepwrap"
         android:layout_width="match_parent"
         android:layout_height="49dp"

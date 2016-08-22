@@ -23,6 +23,7 @@ import org.lasque.tusdk.core.TuSdkContext;
 import org.lasque.tusdk.core.TuSdkResult;
 import org.lasque.tusdk.core.secret.StatisticsManger;
 import org.lasque.tusdk.core.utils.image.BitmapHelper;
+import org.lasque.tusdk.core.view.TuSdkImageView;
 import org.lasque.tusdk.core.view.TuSdkViewHelper;
 import org.lasque.tusdk.core.view.widget.button.TuSdkTextButton;
 import org.lasque.tusdk.impl.components.edit.TuEditMultipleFragment;
@@ -43,11 +44,12 @@ import java.io.File;
  */
 public class EditMultipleFragment extends TuEditMultipleFragment {
 
-    TuSdkTextButton filterButton;
-    TuSdkTextButton skinButton;
-    ImageView shareButton;
-    TuSdkTextButton fontButton;
-    TuSdkTextButton stickerButton;
+    TuSdkImageView filterButton;
+//    TuSdkImageView skinButton;
+    TuSdkImageView shareButton;
+    TuSdkImageView fontButton;
+    TuSdkImageView stickerButton;
+    TuSdkImageView saveButton;
     @Override
     protected void loadView(ViewGroup view)
     {
@@ -59,9 +61,11 @@ public class EditMultipleFragment extends TuEditMultipleFragment {
         this.showView(this.getStepwrap(), !this.isDisableStepsSave());
         this.getStepPrevButton();
         this.getStepNextButton();
-        this.getAutoAdjustButton();
-        this.getCancelButton();
-        this.getDoneButton();
+        this.getAutoAdjustButton().setVisibility(View.GONE);
+        this.getCancelButton().setVisibility(View.GONE);
+        this.getDoneButton().setVisibility(View.GONE);
+
+        getStepwrap().setVisibility(View.GONE);
 
         LinearLayout actionTypeLayout;
         if((actionTypeLayout = this.getActionsWrap()) != null) {
@@ -71,26 +75,24 @@ public class EditMultipleFragment extends TuEditMultipleFragment {
 
         LinearLayout actionTypeLayout2 = (LinearLayout)view.findViewById(R.id.lsq_actions_wrapview2);
 
-        filterButton = (TuSdkTextButton)actionTypeLayout2.findViewById(R.id.lsq_filterButton);
-        skinButton = (TuSdkTextButton)actionTypeLayout2.findViewById(R.id.lsq_skinButton);
-        shareButton = (ImageView) actionTypeLayout2.findViewById(R.id.lsq_shareButton);
-        fontButton = (TuSdkTextButton)actionTypeLayout2.findViewById(R.id.lsq_fontButton);
-        stickerButton = (TuSdkTextButton)actionTypeLayout2.findViewById(R.id.lsq_stickerButton);
+        filterButton = (TuSdkImageView)actionTypeLayout2.findViewById(R.id.lsq_filterButton);
+//        skinButton = (TuSdkImageView)actionTypeLayout2.findViewById(R.id.lsq_skinButton);
+        shareButton = (TuSdkImageView) actionTypeLayout2.findViewById(R.id.lsq_shareButton);
+        fontButton = (TuSdkImageView)actionTypeLayout2.findViewById(R.id.lsq_fontButton);
+        stickerButton = (TuSdkImageView)actionTypeLayout2.findViewById(R.id.lsq_stickerButton);
+        saveButton = (TuSdkImageView)actionTypeLayout2.findViewById(R.id.lsq_saveButton);
 
 
         filterButton.setTag(TuEditActionType.TypeFilter);
         filterButton.setOnClickListener(mButtonClickListener);
 
-        skinButton.setTag(TuEditActionType.TypeSkin);
-        skinButton.setOnClickListener(mButtonClickListener);
+//        skinButton.setTag(TuEditActionType.TypeSkin);
+//        skinButton.setOnClickListener(mButtonClickListener);
 
         shareButton.setOnClickListener(shareOnClickListener);
-
         fontButton.setOnClickListener(fontOnClickListener);
-
-//        stickerButton.setTag(TuEditActionType.TypeSticker);
         stickerButton.setOnClickListener(stickerOnClickListener);
-
+        saveButton.setOnClickListener(saveOnClickListener);
         this.refreshStepStates();
     }
 
@@ -141,14 +143,21 @@ public class EditMultipleFragment extends TuEditMultipleFragment {
 
     View.OnClickListener stickerOnClickListener = new TuSdkViewHelper.OnSafeClickListener(){
 
-
-
-
         @Override
         public void onSafeClick(View view) {
             onSticker(false);
         }
     };
+
+    View.OnClickListener saveOnClickListener = new TuSdkViewHelper.OnSafeClickListener(){
+
+        @Override
+        public void onSafeClick(View view) {
+            handleCompleteButton();
+        }
+    };
+
+
 
     View.OnClickListener shareOnClickListener = new TuSdkViewHelper.OnSafeClickListener(){
 

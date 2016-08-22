@@ -63,6 +63,14 @@ public class CameraFragment extends TuCameraFragment
             }
         });
 
+        TuSdkImageView flashButton = (TuSdkImageView)view.findViewById(R.id.lsq_flashButton1);
+        flashButton.setOnClickListener(new TuSdkViewHelper.OnSafeClickListener() {
+            @Override
+            public void onSafeClick(View view) {
+                handleFlashButton();
+            }
+        });
+
     }
 
     @Override

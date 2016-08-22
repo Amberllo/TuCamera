@@ -11,6 +11,7 @@
     </RelativeLayout>
 
     <LinearLayout
+        android:visibility="gone"
         android:id="@+id/lsq_configBar"
         android:layout_width="match_parent"
         android:layout_height="44dp"
@@ -132,6 +133,16 @@
 
     </RelativeLayout>
 
+
+    <org.lasque.tusdk.core.view.TuSdkImageView
+        android:layout_marginTop="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_alignParentRight="true"
+        android:id="@+id/lsq_flashButton1"
+        android:layout_width="33dp"
+        android:layout_height="33dp"
+        android:src="@drawable/img_flash_open" />
+
     <RelativeLayout
         android:id="@+id/lsq_flashView"
         android:layout_width="match_parent"
@@ -142,8 +153,8 @@
             android:layout_width="90dp"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="41dp"
-            android:layout_marginTop="63dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="85dp"
             android:background="@drawable/lsq_style_default_camera_bg_pop"
             android:orientation="vertical"
             android:paddingTop="2dp" >
