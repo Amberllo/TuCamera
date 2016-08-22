@@ -24,13 +24,16 @@ import com.umeng.soexample.model.Defaultcontent;
 import org.lasque.tusdk.core.TuSdkContext;
 import org.lasque.tusdk.core.TuSdkResult;
 import org.lasque.tusdk.core.secret.StatisticsManger;
+import org.lasque.tusdk.core.utils.TLog;
 import org.lasque.tusdk.core.utils.image.BitmapHelper;
 import org.lasque.tusdk.core.view.TuSdkImageView;
 import org.lasque.tusdk.core.view.TuSdkViewHelper;
 import org.lasque.tusdk.core.view.widget.button.TuSdkTextButton;
+import org.lasque.tusdk.impl.activity.TuFragment;
 import org.lasque.tusdk.impl.components.edit.TuEditMultipleFragment;
 import org.lasque.tusdk.impl.components.filter.TuEditSkinFragment;
 import org.lasque.tusdk.modules.components.ComponentActType;
+import org.lasque.tusdk.modules.components.TuSdkComponent;
 import org.lasque.tusdk.modules.components.edit.TuEditActionType;
 import com.share.photoshare.R;
 import com.share.photoshare.custom.BitmapUtils;
@@ -85,8 +88,14 @@ public class EditMultipleFragment extends TuEditMultipleFragment {
         stickerButton = (TuSdkImageView)actionTypeLayout2.findViewById(R.id.lsq_stickerButton);
         saveButton = (TuSdkImageView)actionTypeLayout2.findViewById(R.id.lsq_saveButton);
 
-        filterButton.setOnClickListener(filterOnClickListener);
+
+        filterButton.setTag(TuEditActionType.TypeFilter);
+        filterButton.setOnClickListener(mButtonClickListener);
+
+        skinButton.setTag(TuEditActionType.TypeSkin);
         skinButton.setOnClickListener(skinOnClickListener);
+
+
         shareButton.setOnClickListener(shareOnClickListener);
         fontButton.setOnClickListener(fontOnClickListener);
         stickerButton.setOnClickListener(stickerOnClickListener);
@@ -97,8 +106,11 @@ public class EditMultipleFragment extends TuEditMultipleFragment {
     @Override
     protected void viewDidLoad(ViewGroup viewGroup) {
         super.viewDidLoad(viewGroup);
-        onSticker(true);
+//        onSticker(true);
+        handleAction(TuEditActionType.TypeCuter);
     }
+
+
 
     View.OnClickListener fontOnClickListener = new TuSdkViewHelper.OnSafeClickListener(){
 
@@ -154,39 +166,35 @@ public class EditMultipleFragment extends TuEditMultipleFragment {
         }
     };
 
+
     View.OnClickListener skinOnClickListener = new TuSdkViewHelper.OnSafeClickListener(){
 
         @Override
         public void onSafeClick(View view) {
-
-            onSkin();
+            SkinComponent component = new SkinComponent(getActivity()) {
+                @Override
+                public void onTuEditSkinResult(TuSdkResult result) {
+                    setImage(result.image);
+                    setTempFilePath(result.imageFile);
+                    setDisplayImage(result.image);
+                    appendHistory(result.imageFile);
+                }
+            };
+            SkinComponentOption option = new SkinComponentOption();
+            component.setOption(option)
+                    .setImage(getImage())
+                    // 设置系统照片
+                    .setImageSqlInfo(getImageSqlInfo())
+                    // 设置临时文件
+                    .setTempFilePath(getTempFilePath())
+                    // 在组件执行完成后自动关闭组件
+                    .setAutoDismissWhenCompleted(true)
+                    // 开启组件
+                    .showComponent();
         }
     };
 
-    private void onSkin() {
 
-        SkinComponent component = new SkinComponent(getActivity()) {
-            @Override
-            public void onTuEditSkinResult(TuSdkResult result) {
-                setImage(result.image);
-                setTempFilePath(result.imageFile);
-                setDisplayImage(result.image);
-                appendHistory(result.imageFile);
-            }
-        };
-        SkinComponentOption option = new SkinComponentOption();
-        component.setOption(option)
-                .setImage(getImage())
-                // 设置系统照片
-                .setImageSqlInfo(getImageSqlInfo())
-                // 设置临时文件
-                .setTempFilePath(getTempFilePath())
-                // 在组件执行完成后自动关闭组件
-                .setAutoDismissWhenCompleted(true)
-                // 开启组件
-                .showComponent();
-
-    }
 
     View.OnClickListener saveOnClickListener = new TuSdkViewHelper.OnSafeClickListener(){
 
@@ -276,7 +284,7 @@ public class EditMultipleFragment extends TuEditMultipleFragment {
     }
 
 
-    //    private UMShareListener umShareListener = new UMShareListener() {
+//    private UMShareListener umShareListener = new UMShareListener() {
 //        @Override
 //        public void onResult(SHARE_MEDIA platform) {
 //            Log.d("plat","platform"+platform);

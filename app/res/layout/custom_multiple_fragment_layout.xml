@@ -31,15 +31,15 @@
         <org.lasque.tusdk.core.view.TuSdkImageView
             android:id="@+id/lsq_filterButton"
             android:src="@drawable/img_filter"
-            android:padding="15dp"
+            android:padding="20dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1" />
 
         <org.lasque.tusdk.core.view.TuSdkImageView
             android:id="@+id/lsq_skinButton"
-            android:src="@drawable/img_filter"
-            android:padding="15dp"
+            android:src="@drawable/lsq_style_default_edit_icon_skin"
+            android:padding="20dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1" />
@@ -52,21 +52,27 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
+
+
         <org.lasque.tusdk.core.view.TuSdkImageView
+            android:id="@+id/lsq_stickerButton"
+            android:src="@drawable/img_sticker"
+            android:padding="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+
+
+        <org.lasque.tusdk.core.view.TuSdkImageView
+
             android:id="@+id/lsq_fontButton"
             android:src="@drawable/img_textsticker"
             android:padding="15dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1" />
+            android:layout_weight="1"
 
-        <org.lasque.tusdk.core.view.TuSdkImageView
-            android:id="@+id/lsq_stickerButton"
-            android:src="@drawable/img_sticker"
-            android:padding="15dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"/>
+        />
 
         <org.lasque.tusdk.core.view.TuSdkImageView
             android:visibility="gone"

@@ -9,6 +9,7 @@ import org.lasque.tusdk.impl.TuAnimType;
 import org.lasque.tusdk.impl.activity.TuFilterResultFragment;
 import org.lasque.tusdk.impl.activity.TuFragment;
 import org.lasque.tusdk.impl.components.TuEditMultipleComponent;
+import org.lasque.tusdk.impl.components.TuEditMultipleComponentOption;
 import org.lasque.tusdk.impl.components.filter.TuEditFilterFragment;
 import org.lasque.tusdk.impl.components.filter.TuEditSkinFragment;
 import org.lasque.tusdk.impl.components.sticker.TuEditStickerFragment;
@@ -60,6 +61,7 @@ public abstract class SkinComponent extends TuEditMultipleComponent{
     @Override
     public void onTuFilterResultFragmentEdited(TuFilterResultFragment tuFilterResultFragment, TuSdkResult tuSdkResult) {
         onTuEditSkinResult(tuSdkResult);
+
     }
 
     public abstract void onTuEditSkinResult(TuSdkResult result);

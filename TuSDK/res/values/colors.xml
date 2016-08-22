@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+
+    <color name="amber_green_common">#61ded3</color>
+    <color name="amber_green_common2">#28bbb0</color>
+
+    <color name="amber_white_common">#f5f5f5</color>
+    <color name="amber_gray_common">#999999</color>
+    <color name="amber_black_common">#333333</color>
+
     <!-- color -->
     <color name="lsq_color_white">#ffffff</color>
     <color name="lsq_color_black">#000000</color>

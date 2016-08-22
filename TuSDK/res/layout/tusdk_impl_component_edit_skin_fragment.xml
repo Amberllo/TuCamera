@@ -25,7 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="49dp"
         android:layout_alignParentBottom="true"
-        android:background="@color/lsq_background_editor_bottom_bar">
+        android:background="@color/amber_green_common">
 
         <org.lasque.tusdk.core.view.widget.button.TuSdkImageButton
             android:id="@+id/lsq_cancelButton"

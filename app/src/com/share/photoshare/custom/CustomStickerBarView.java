@@ -6,6 +6,8 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 
+import com.share.photoshare.R;
+
 import org.lasque.tusdk.core.TuSdkContext;
 import org.lasque.tusdk.core.view.widget.button.TuSdkTextButton;
 import org.lasque.tusdk.impl.components.widget.sticker.StickerBarView;
@@ -31,10 +33,15 @@ public class CustomStickerBarView extends StickerBarView {
 
     protected View buildCateButton(StickerCategory category, int tag, LayoutParams layoutParams) {
 
-        View button = super.buildCateButton(category,tag,layoutParams);
+        TuSdkTextButton button = (TuSdkTextButton) super.buildCateButton(category,tag,layoutParams);
         if(category.name.equals("lsq_sticker_cate_all")){
             button.setVisibility(View.GONE);
         }
+
+        int[] var5 = new int[]{TuSdkContext.getColor(R.color.black_common), TuSdkContext.getColor(R.color.gray_common)};
+        int[][] var6 = new int[][]{{16842913}, new int[0]};
+        ColorStateList var7 = new ColorStateList(var6, var5);
+        button.setTextColor(var7);
         return button;
     }
 

@@ -2,7 +2,7 @@
 <org.lasque.tusdk.impl.components.widget.filter.ParameterConfigView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/lsq_background_option_bar"
+    android:background="@color/amber_green_common2"
     android:orientation="vertical" >
 
     <org.lasque.tusdk.core.view.TuSdkLinearLayout
