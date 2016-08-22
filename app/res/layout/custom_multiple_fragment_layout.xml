@@ -21,32 +21,25 @@
     <LinearLayout
         android:id="@+id/lsq_actions_wrapview2"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="80dp"
         android:orientation="horizontal"
         android:layout_alignParentBottom="true"
         android:gravity="center_vertical"
         android:background="@color/green_common">
 
-        <org.lasque.tusdk.core.view.TuSdkImageView
-            android:id="@+id/lsq_stickerButton"
-            android:src="@drawable/img_sticker"
-            android:padding="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"/>
 
         <org.lasque.tusdk.core.view.TuSdkImageView
             android:id="@+id/lsq_filterButton"
             android:src="@drawable/img_filter"
-            android:padding="5dp"
+            android:padding="15dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1" />
 
         <org.lasque.tusdk.core.view.TuSdkImageView
-            android:id="@+id/lsq_fontButton"
-            android:src="@drawable/img_textsticker"
-            android:padding="5dp"
+            android:id="@+id/lsq_skinButton"
+            android:src="@drawable/img_filter"
+            android:padding="15dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1" />
@@ -60,9 +53,26 @@
             android:layout_height="match_parent" />
 
         <org.lasque.tusdk.core.view.TuSdkImageView
+            android:id="@+id/lsq_fontButton"
+            android:src="@drawable/img_textsticker"
+            android:padding="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <org.lasque.tusdk.core.view.TuSdkImageView
+            android:id="@+id/lsq_stickerButton"
+            android:src="@drawable/img_sticker"
+            android:padding="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+
+        <org.lasque.tusdk.core.view.TuSdkImageView
+            android:visibility="gone"
             android:id="@+id/lsq_saveButton"
             android:src="@drawable/img_save"
-            android:padding="5dp"
+            android:padding="15dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"

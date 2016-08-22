@@ -39,7 +39,7 @@
         android:layout_width="match_parent"
         android:layout_height="49dp"
         android:layout_alignParentBottom="true"
-        android:background="@color/lsq_background_editor_bottom_bar">
+        android:background="@color/green_common">
 
         <org.lasque.tusdk.core.view.widget.button.TuSdkImageButton
             android:visibility="gone"
@@ -74,7 +74,7 @@
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:layout_alignParentBottom="true"
-        android:background="@color/lsq_background_editor_bottom_bar" >
+        android:background="@color/green_common2" >
 
         <org.lasque.tusdk.core.view.widget.button.TuSdkImageButton
             android:layout_weight="1"
@@ -91,7 +91,7 @@
             android:layout_weight="1"
 
             android:layout_width="match_parent"
-            android:src="@drawable/btn_add"
+            android:src="@drawable/img_textsticker"
             android:layout_height="match_parent"/>
 
         <com.share.photoshare.custom.CustomColorImageView
@@ -117,7 +117,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
-        android:layout_above="@+id/lsq_param_config_view"
+        android:layout_above="@+id/lsq_config_bottomBar"
         android:background="@color/lsq_background_editor">
 
 

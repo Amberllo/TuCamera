@@ -45,7 +45,7 @@ import java.io.File;
 public class EditMultipleFragment extends TuEditMultipleFragment {
 
     TuSdkImageView filterButton;
-//    TuSdkImageView skinButton;
+    TuSdkImageView skinButton;
     TuSdkImageView shareButton;
     TuSdkImageView fontButton;
     TuSdkImageView stickerButton;
@@ -62,8 +62,8 @@ public class EditMultipleFragment extends TuEditMultipleFragment {
         this.getStepPrevButton();
         this.getStepNextButton();
         this.getAutoAdjustButton().setVisibility(View.GONE);
-        this.getCancelButton().setVisibility(View.GONE);
-        this.getDoneButton().setVisibility(View.GONE);
+        this.getCancelButton();
+        this.getDoneButton();
 
         getStepwrap().setVisibility(View.GONE);
 
@@ -76,19 +76,14 @@ public class EditMultipleFragment extends TuEditMultipleFragment {
         LinearLayout actionTypeLayout2 = (LinearLayout)view.findViewById(R.id.lsq_actions_wrapview2);
 
         filterButton = (TuSdkImageView)actionTypeLayout2.findViewById(R.id.lsq_filterButton);
-//        skinButton = (TuSdkImageView)actionTypeLayout2.findViewById(R.id.lsq_skinButton);
+        skinButton = (TuSdkImageView)actionTypeLayout2.findViewById(R.id.lsq_skinButton);
         shareButton = (TuSdkImageView) actionTypeLayout2.findViewById(R.id.lsq_shareButton);
         fontButton = (TuSdkImageView)actionTypeLayout2.findViewById(R.id.lsq_fontButton);
         stickerButton = (TuSdkImageView)actionTypeLayout2.findViewById(R.id.lsq_stickerButton);
         saveButton = (TuSdkImageView)actionTypeLayout2.findViewById(R.id.lsq_saveButton);
 
-
-        filterButton.setTag(TuEditActionType.TypeFilter);
-        filterButton.setOnClickListener(mButtonClickListener);
-
-//        skinButton.setTag(TuEditActionType.TypeSkin);
-//        skinButton.setOnClickListener(mButtonClickListener);
-
+        filterButton.setOnClickListener(filterOnClickListener);
+        skinButton.setOnClickListener(skinOnClickListener);
         shareButton.setOnClickListener(shareOnClickListener);
         fontButton.setOnClickListener(fontOnClickListener);
         stickerButton.setOnClickListener(stickerOnClickListener);
@@ -146,6 +141,20 @@ public class EditMultipleFragment extends TuEditMultipleFragment {
         @Override
         public void onSafeClick(View view) {
             onSticker(false);
+        }
+    };
+
+    View.OnClickListener filterOnClickListener = new TuSdkViewHelper.OnSafeClickListener(){
+
+        @Override
+        public void onSafeClick(View view) {
+        }
+    };
+
+    View.OnClickListener skinOnClickListener = new TuSdkViewHelper.OnSafeClickListener(){
+
+        @Override
+        public void onSafeClick(View view) {
         }
     };
 

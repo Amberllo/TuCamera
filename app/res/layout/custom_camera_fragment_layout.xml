@@ -11,15 +11,13 @@
     </RelativeLayout>
 
     <LinearLayout
-        android:visibility="gone"
         android:id="@+id/lsq_configBar"
         android:layout_width="match_parent"
         android:layout_height="44dp"
         android:orientation="horizontal"
         android:layout_gravity="center_vertical"
         android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:background="@drawable/tusdk_component_camera_configbar_bg" >
+        android:paddingRight="16dp">
 
         <org.lasque.tusdk.core.view.widget.button.TuSdkImageButton
             android:layout_weight="1"
@@ -70,7 +68,7 @@
     <RelativeLayout
         android:id="@+id/lsq_bottomBar"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="80dp"
         android:layout_alignParentBottom="true"
         android:background="@color/green_common" >
 
@@ -78,21 +76,23 @@
             android:layout_centerVertical="true"
             android:background="@drawable/img_album"
             android:id="@+id/lsq_albumPosterView"
-            android:layout_width="44dp"
-            android:layout_height="44dp"
-            android:layout_marginLeft="30dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginRight="30dp"
+            android:layout_alignParentRight="true"
             android:scaleType="centerCrop" />
 
         <org.lasque.tusdk.core.view.widget.button.TuSdkImageButton
             android:id="@+id/lsq_captureButton"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
             android:layout_centerInParent="true"
             android:src="@drawable/img_capture"/>
 
 
 
         <org.lasque.tusdk.core.view.widget.button.TuSdkImageButton
+            android:visibility="gone"
             android:id="@+id/lsq_filterButton"
             android:layout_width="44dp"
             android:layout_height="44dp"
@@ -104,6 +104,7 @@
 
 
         <LinearLayout
+            android:visibility="gone"
             android:layout_marginRight="10dp"
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@id/lsq_captureButton"
@@ -135,6 +136,7 @@
 
 
     <org.lasque.tusdk.core.view.TuSdkImageView
+        android:visibility="gone"
         android:layout_marginTop="40dp"
         android:layout_marginRight="40dp"
         android:layout_alignParentRight="true"

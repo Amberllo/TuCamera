@@ -12,6 +12,8 @@
     <color name="demo_entry_list_focused">#B2cc4429</color>
 
     <color name="green_common">#61ded3</color>
+    <color name="green_common2">#28bbb0</color>
+
 
     <!-- flash -->
     <color name="demo_flash_normal">#fff</color>
