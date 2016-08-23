@@ -16,8 +16,10 @@ import android.widget.Toast;
 
 import com.example.abner.stickerdemo.utils.FileUtils;
 
+import org.lasque.tusdk.core.TuSdkContext;
 import org.lasque.tusdk.core.TuSdkResult;
 import org.lasque.tusdk.core.secret.StatisticsManger;
+import org.lasque.tusdk.core.view.widget.TuMaskRegionView;
 import org.lasque.tusdk.impl.components.sticker.TuEditStickerFragment;
 import org.lasque.tusdk.impl.components.widget.sticker.StickerBarView;
 import org.lasque.tusdk.impl.components.widget.sticker.StickerView;
@@ -183,6 +185,20 @@ public class StickerFragment extends TuEditStickerFragment
         this.autoBorder = autoBorder;
     }
 
+
+    public TuMaskRegionView getCutRegionView() {
+        TuMaskRegionView regionView = super.getCutRegionView();
+        regionView.setEdgeMaskColor(TuSdkContext.getColor(R.color.gray_common2));
+//        if(this.j == null) {
+//            this.j = (TuMaskRegionView)this.getViewById("lsq_cutRegionView");
+//            if(this.j != null) {
+//                this.j.setEdgeMaskColor(TuSdkContext.getColor("lsq_background_editor"));
+//                this.j.setEdgeSideColor(-2130706433);
+//            }
+//        }
+
+        return regionView;
+    }
 
 
 }
