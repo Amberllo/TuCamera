@@ -2,14 +2,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/lsq_background_editor" >
+    android:background="@color/amber_gray_common2" >
     
     <RelativeLayout
         android:id="@+id/lsq_imageWrapView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="129dp"
-        android:background="@color/lsq_background_editor" >
+        android:background="@color/amber_gray_common2" >
     </RelativeLayout>
 
    <RelativeLayout

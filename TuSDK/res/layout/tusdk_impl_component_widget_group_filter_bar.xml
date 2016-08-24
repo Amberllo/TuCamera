@@ -2,7 +2,7 @@
 <org.lasque.tusdk.impl.components.widget.filter.GroupFilterBar xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/amber_green_common2" >
+    android:background="@color/amber_green_common" >
 
     <org.lasque.tusdk.modules.view.widget.filter.GroupFilterTableView
         android:id="@+id/lsq_group_list_view"

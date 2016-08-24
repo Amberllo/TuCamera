@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/lsq_param_config_view"
-        android:background="@color/lsq_background_editor"
+        android:background="@color/amber_gray_common2"
         >
     </RelativeLayout>
 
