@@ -75,9 +75,9 @@ public class TextStickerFragment extends TuImageResultFragment implements View.O
         imageView = (ImageView)viewGroup.findViewById(R.id.lsq_imageView);
         imageWrapView = (RelativeLayout)viewGroup.findViewById(R.id.lsq_imageWrapView);
 
-        cancelButton = (TuSdkImageButton)viewGroup.findViewById(R.id.lsq_configCancelButton);
+        cancelButton = (TuSdkImageButton)viewGroup.findViewById(R.id.lsq_cancelButton);
         cancelButton.setOnClickListener(this);
-        okButton = (TuSdkImageButton)viewGroup.findViewById(R.id.lsq_configCompleteButton);
+        okButton = (TuSdkImageButton)viewGroup.findViewById(R.id.lsq_doneButton);
         okButton.setOnClickListener(this);
 
         lsq_fontButton = (TuSdkImageButton)viewGroup.findViewById(R.id.lsq_fontButton);
@@ -93,6 +93,8 @@ public class TextStickerFragment extends TuImageResultFragment implements View.O
                 ((TextStickerView) bubbleTextView).setFontText(str);
             }
         });
+
+
 
     }
 

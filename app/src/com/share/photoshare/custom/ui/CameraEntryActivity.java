@@ -58,4 +58,16 @@ public class CameraEntryActivity extends TuFragmentActivity
         super.onCreate(bundle);
         new CameraAndEditorComponent().showSample(this);
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        System.out.println("应用置于后台!!");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        System.out.println("应用恢复!!");
+    }
 }

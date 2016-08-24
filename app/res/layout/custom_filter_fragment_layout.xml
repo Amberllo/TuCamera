@@ -2,31 +2,23 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray_common2" >
-
+    android:background="@color/amber_gray_common2" >
+    
     <RelativeLayout
         android:id="@+id/lsq_imageWrapView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/lsq_param_config_view"
-        android:background="@color/gray_common2"
-        >
+        android:layout_marginBottom="80dp"
+        android:background="@color/amber_gray_common2" >
     </RelativeLayout>
 
-    <include
-        android:id="@+id/lsq_param_config_view"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:layout_alignParentBottom="true"
-        layout="@layout/custom_parameter_config_view" />
-
-    <RelativeLayout
-        android:visibility="gone"
+   <RelativeLayout
+       android:visibility="gone"
         android:id="@+id/lsq_bottomBar"
         android:layout_width="match_parent"
         android:layout_height="49dp"
         android:layout_alignParentBottom="true"
-        android:background="@color/green_common">
+        android:background="@color/amber_green_common" >
 
         <org.lasque.tusdk.core.view.widget.button.TuSdkImageButton
             android:id="@+id/lsq_cancelButton"
@@ -39,6 +31,7 @@
             android:scaleType="center"
             android:src="@drawable/lsq_style_default_edit_button_cancel" />
 
+
         <org.lasque.tusdk.core.view.widget.button.TuSdkImageButton
             android:id="@+id/lsq_completeButton"
             android:layout_width="44dp"
@@ -50,6 +43,13 @@
             android:scaleType="center"
             android:src="@drawable/lsq_style_default_edit_button_completed" />
     </RelativeLayout>
+
+    <include
+        android:id="@+id/lsq_filter_bar"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        layout="@layout/custom_filter_bar_view" />
 
     <org.lasque.tusdk.core.view.widget.button.TuSdkImageButton
         android:id="@+id/lsq_cancelButton1"

@@ -4,7 +4,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/green_common2"
+    android:background="@color/green_common"
     android:orientation="vertical" >
 
     <org.lasque.tusdk.core.view.TuSdkLinearLayout

@@ -30,10 +30,11 @@
         android:id="@+id/lsq_sticker_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/lsq_bar_bottomBar"
+        android:layout_alignParentBottom="true"
         layout="@layout/custom_sticker_sticker_bar" />
 
     <LinearLayout
+        android:visibility="gone"
         android:id="@+id/lsq_bar_bottomBar"
         android:layout_width="match_parent"
         android:layout_height="49dp"
@@ -81,6 +82,23 @@
         <!--android:layout_height="wrap_content"-->
         <!--android:textColor="@color/red_alpha_95"-->
         <!--android:textSize="24sp"/>-->
+
+    <org.lasque.tusdk.core.view.widget.button.TuSdkImageButton
+        android:id="@+id/lsq_cancelButton"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:scaleType="centerInside"
+        android:background="@drawable/lsq_style_default_edit_button_cancel_bg" />
+
+    <org.lasque.tusdk.core.view.widget.button.TuSdkImageButton
+        android:id="@+id/lsq_doneButton"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:scaleType="centerInside"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:background="@drawable/lsq_style_default_edit_button_confirm_bg" />
 
 
 </RelativeLayout>

@@ -20,6 +20,7 @@ import org.lasque.tusdk.core.TuSdkContext;
 import org.lasque.tusdk.core.TuSdkResult;
 import org.lasque.tusdk.core.secret.StatisticsManger;
 import org.lasque.tusdk.core.view.widget.TuMaskRegionView;
+import org.lasque.tusdk.core.view.widget.button.TuSdkImageButton;
 import org.lasque.tusdk.impl.components.sticker.TuEditStickerFragment;
 import org.lasque.tusdk.impl.components.widget.sticker.StickerBarView;
 import org.lasque.tusdk.impl.components.widget.sticker.StickerView;
@@ -81,6 +82,28 @@ public class StickerFragment extends TuEditStickerFragment
             e.printStackTrace();
         }
     }
+
+    @Override
+    public TuSdkImageButton getCompleteButton() {
+
+        TuSdkImageButton button = this.getViewById(R.id.lsq_doneButton);
+        if(button != null) {
+            button.setOnClickListener(this.mButtonClickListener);
+        }
+        return button;
+    }
+
+
+    @Override
+    public TuSdkImageButton getCancelButton() {
+        TuSdkImageButton button = this.getViewById(R.id.lsq_cancelButton);
+        if(button != null) {
+            button.setOnClickListener(this.mButtonClickListener);
+        }
+        return button;
+    }
+
+
 
     @Override
     public void setDelegate(TuEditStickerFragmentDelegate delegate) {
@@ -189,14 +212,6 @@ public class StickerFragment extends TuEditStickerFragment
     public TuMaskRegionView getCutRegionView() {
         TuMaskRegionView regionView = super.getCutRegionView();
         regionView.setEdgeMaskColor(TuSdkContext.getColor(R.color.gray_common2));
-//        if(this.j == null) {
-//            this.j = (TuMaskRegionView)this.getViewById("lsq_cutRegionView");
-//            if(this.j != null) {
-//                this.j.setEdgeMaskColor(TuSdkContext.getColor("lsq_background_editor"));
-//                this.j.setEdgeSideColor(-2130706433);
-//            }
-//        }
-
         return regionView;
     }
 

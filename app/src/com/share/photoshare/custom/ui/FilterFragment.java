@@ -7,15 +7,14 @@ import com.share.photoshare.R;
 import org.lasque.tusdk.core.TuSdkContext;
 import org.lasque.tusdk.core.seles.tusdk.FilterImageViewInterface;
 import org.lasque.tusdk.core.view.widget.button.TuSdkImageButton;
-import org.lasque.tusdk.impl.components.filter.TuEditSkinFragment;
-
+import org.lasque.tusdk.impl.components.filter.TuEditFilterFragment;
 /**
- * Created by apple on 16/8/22.
+ * Created by Amberllo on 16/8/22.
  */
-public class SkinFragment extends TuEditSkinFragment{
+public class FilterFragment extends TuEditFilterFragment{
 
     public static int getLayoutViewId(){
-        return R.layout.custom_skin_fragment_layout;
+        return R.layout.custom_filter_fragment_layout;
     }
 
     @Override
@@ -25,19 +24,14 @@ public class SkinFragment extends TuEditSkinFragment{
 
 
     @Override
-    public TuFilterResultFragmentDelegate getDelegate() {
-        TuFilterResultFragmentDelegate  delegate = super.getDelegate();
-        return delegate;
-    }
-
-    @Override
     protected void handleCompleteButton() {
         super.handleCompleteButton();
         handleBackButton();
     }
 
-    protected void loadView(ViewGroup var1) {
-        super.loadView(var1);
+    @Override
+    protected void loadView(ViewGroup viewGroup) {
+        super.loadView(viewGroup);
         ((FilterImageViewInterface)this.getImageView()).setImageBackgroundColor(TuSdkContext.getColor(R.color.gray_common2));
     }
 
@@ -60,4 +54,5 @@ public class SkinFragment extends TuEditSkinFragment{
         }
         return button;
     }
+
 }

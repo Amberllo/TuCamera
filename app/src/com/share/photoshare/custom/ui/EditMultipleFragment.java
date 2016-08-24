@@ -11,6 +11,8 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.abner.stickerdemo.utils.FileUtils;
+import com.share.photoshare.custom.suite.CuterComponent;
+import com.share.photoshare.custom.suite.FilterComponent;
 import com.share.photoshare.custom.suite.SkinComponent;
 import com.share.photoshare.custom.suite.SkinComponentOption;
 import com.umeng.socialize.ShareAction;
@@ -46,7 +48,7 @@ import java.io.File;
 
 
 /**
- * Created by LYL on 2016/7/19.
+ * Created by Amberllo on 2016/7/19.
  */
 public class EditMultipleFragment extends TuEditMultipleFragment {
 
@@ -89,13 +91,8 @@ public class EditMultipleFragment extends TuEditMultipleFragment {
         saveButton = (TuSdkImageView)actionTypeLayout2.findViewById(R.id.lsq_saveButton);
 
 
-        filterButton.setTag(TuEditActionType.TypeFilter);
-        filterButton.setOnClickListener(mButtonClickListener);
-
-        skinButton.setTag(TuEditActionType.TypeSkin);
+        filterButton.setOnClickListener(filterOnClickListener);
         skinButton.setOnClickListener(skinOnClickListener);
-
-
         shareButton.setOnClickListener(shareOnClickListener);
         fontButton.setOnClickListener(fontOnClickListener);
         stickerButton.setOnClickListener(stickerOnClickListener);
@@ -106,8 +103,9 @@ public class EditMultipleFragment extends TuEditMultipleFragment {
     @Override
     protected void viewDidLoad(ViewGroup viewGroup) {
         super.viewDidLoad(viewGroup);
+        onCuter();
 //        onSticker(true);
-        handleAction(TuEditActionType.TypeCuter);
+//        handleAction(TuEditActionType.TypeCuter);
     }
 
 
@@ -122,19 +120,7 @@ public class EditMultipleFragment extends TuEditMultipleFragment {
             option.setDelegate(new TextStickerComponentOption.TextStickerDelegate() {
                 @Override
                 public void onTextStickerResult(final TuSdkResult result) {
-//                    notifyProcessing(result);
-
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            setImage(result.image);
-                            setTempFilePath(result.imageFile);
-                            setDisplayImage(result.image);
-                            appendHistory(result.imageFile);
-
-
-                        }
-                    });
+                    setResult(result);
                 }
             });
             component.setOption(option)
@@ -163,6 +149,23 @@ public class EditMultipleFragment extends TuEditMultipleFragment {
 
         @Override
         public void onSafeClick(View view) {
+
+            FilterComponent component = new FilterComponent(getActivity()) {
+                @Override
+                public void onTuEditFilterResult(TuSdkResult result) {
+                    setResult(result);
+                }
+            };
+            component.setImage(getImage())
+                    // 设置系统照片
+                    .setImageSqlInfo(getImageSqlInfo())
+                    // 设置临时文件
+                    .setTempFilePath(getTempFilePath())
+                    // 在组件执行完成后自动关闭组件
+                    .setAutoDismissWhenCompleted(true)
+                    // 开启组件
+                    .showComponent();
+
         }
     };
 
@@ -174,10 +177,7 @@ public class EditMultipleFragment extends TuEditMultipleFragment {
             SkinComponent component = new SkinComponent(getActivity()) {
                 @Override
                 public void onTuEditSkinResult(TuSdkResult result) {
-                    setImage(result.image);
-                    setTempFilePath(result.imageFile);
-                    setDisplayImage(result.image);
-                    appendHistory(result.imageFile);
+                    setResult(result);
                 }
             };
             SkinComponentOption option = new SkinComponentOption();
@@ -211,16 +211,6 @@ public class EditMultipleFragment extends TuEditMultipleFragment {
         @Override
         public void onSafeClick(View view) {
             shareSingleImage();
-//            Toast.makeText(getContext(),"分享功能!",Toast.LENGTH_SHORT).show();
-//            new ShareAction(getActivity()).setDisplayList(SHARE_MEDIA.SINA,SHARE_MEDIA.QQ,SHARE_MEDIA.QZONE,SHARE_MEDIA.WEIXIN,SHARE_MEDIA.WEIXIN_CIRCLE,SHARE_MEDIA.WEIXIN_FAVORITE)
-//            new ShareAction(getActivity()).setDisplayList(SHARE_MEDIA.QQ)
-//                    .withTitle(Defaultcontent.title)
-//                    .withText(Defaultcontent.text+"——来自友盟分享面板")
-//                    .withMedia(new UMImage(getActivity(),"http://dev.umeng.com/images/tab2_1.png"))
-//                    .withTargetUrl("https://wsq.umeng.com/")
-//                    .setCallback(umShareListener)
-//                    .open();
-
 
         }
     };
@@ -241,14 +231,29 @@ public class EditMultipleFragment extends TuEditMultipleFragment {
 
     }
 
-    public void onSticker(boolean autoBorder){
+    private void onCuter(){
+        CuterComponent component = new CuterComponent(getActivity()) {
+            @Override
+            public void onTuEditCuterResult(TuSdkResult result) {
+                setResult(result);
+            }
+        };
+        component.setImage(getImage())
+                // 设置系统照片
+                .setImageSqlInfo(getImageSqlInfo())
+                // 设置临时文件
+                .setTempFilePath(getTempFilePath())
+                // 在组件执行完成后自动关闭组件
+                .setAutoDismissWhenCompleted(true)
+                // 开启组件
+                .showComponent();
+    }
+
+    private void onSticker(boolean autoBorder){
         StickerComponent component = new StickerComponent(getActivity()) {
             @Override
             public void onTuEditStickerResult(TuSdkResult result) {
-                setImage(result.image);
-                setTempFilePath(result.imageFile);
-                setDisplayImage(result.image);
-                appendHistory(result.imageFile);
+                setResult(result);
             }
         };
         StickerComponentOption option = new StickerComponentOption();
@@ -283,39 +288,17 @@ public class EditMultipleFragment extends TuEditMultipleFragment {
         return null;
     }
 
+    private void setResult(final TuSdkResult result){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                setImage(result.image);
+                setTempFilePath(result.imageFile);
+                setDisplayImage(result.image);
+                appendHistory(result.imageFile);
+            }
+        });
 
-//    private UMShareListener umShareListener = new UMShareListener() {
-//        @Override
-//        public void onResult(SHARE_MEDIA platform) {
-//            Log.d("plat","platform"+platform);
-//            if(platform.name().equals("WEIXIN_FAVORITE")){
-//                Toast.makeText(getActivity(),platform + " 收藏成功啦",Toast.LENGTH_SHORT).show();
-//            }else{
-//                Toast.makeText(getActivity(), platform + " 分享成功啦", Toast.LENGTH_SHORT).show();
-//            }
-//        }
-//
-//        @Override
-//        public void onError(SHARE_MEDIA platform, Throwable t) {
-//            Toast.makeText(getActivity(),platform + " 分享失败啦", Toast.LENGTH_SHORT).show();
-//            if(t!=null){
-//                Log.d("throw","throw:"+t.getMessage());
-//            }
-//        }
-//
-//        @Override
-//        public void onCancel(SHARE_MEDIA platform) {
-//            Toast.makeText(getActivity(),platform + " 分享取消了", Toast.LENGTH_SHORT).show();
-//        }
-//    };
-//
-//
-//    @Override
-//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        /** attention to this below ,must add this**/
-//        UMShareAPI.get(getActivity()).onActivityResult(requestCode, resultCode, data);
-//        Log.d("result","onActivityResult");
-//    }
+    }
 
 }

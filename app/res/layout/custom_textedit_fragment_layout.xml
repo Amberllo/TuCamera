@@ -6,47 +6,6 @@
 
 
 
-    <!--<include-->
-        <!---->
-        <!--android:id="@+id/lsq_param_config_view"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="80dp"-->
-        <!--android:layout_above="@+id/lsq_bottomBar"-->
-        <!--layout="@layout/tusdk_impl_component_widget_parameter_config_view" />-->
-
-
-    <RelativeLayout
-        android:visibility="gone"
-        android:id="@+id/lsq_bottomBar"
-        android:layout_width="match_parent"
-        android:layout_height="49dp"
-        android:layout_alignParentBottom="true"
-        android:background="@color/green_common">
-
-        <org.lasque.tusdk.core.view.widget.button.TuSdkImageButton
-            android:visibility="gone"
-            android:id="@+id/lsq_cancelButton"
-            android:layout_width="44dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginLeft="16dp"
-            android:layout_marginStart="16dp"
-            android:scaleType="center"
-            android:src="@drawable/lsq_style_default_edit_button_cancel" />
-
-        <org.lasque.tusdk.core.view.widget.button.TuSdkImageButton
-            android:visibility="gone"
-            android:id="@+id/lsq_completeButton"
-            android:layout_width="44dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginRight="16dp"
-            android:layout_marginEnd="16dp"
-            android:scaleType="center"
-            android:src="@drawable/lsq_style_default_edit_button_completed" />
-    </RelativeLayout>
 
 
     <LinearLayout
@@ -59,6 +18,7 @@
         android:background="@color/green_common2" >
 
         <org.lasque.tusdk.core.view.widget.button.TuSdkImageButton
+            android:visibility="invisible"
             android:layout_weight="1"
             android:id="@+id/lsq_configCancelButton"
             android:layout_width="match_parent"
@@ -85,6 +45,7 @@
             android:layout_height="match_parent"/>
 
         <org.lasque.tusdk.core.view.widget.button.TuSdkImageButton
+            android:visibility="invisible"
             android:layout_weight="1"
             android:id="@+id/lsq_configCompleteButton"
             android:layout_width="match_parent"
@@ -118,5 +79,22 @@
 
         </RelativeLayout>
     </RelativeLayout>
+
+    <org.lasque.tusdk.core.view.widget.button.TuSdkImageButton
+        android:id="@+id/lsq_cancelButton"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:scaleType="centerInside"
+        android:background="@drawable/lsq_style_default_edit_button_cancel_bg" />
+
+    <org.lasque.tusdk.core.view.widget.button.TuSdkImageButton
+        android:id="@+id/lsq_doneButton"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:scaleType="centerInside"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:background="@drawable/lsq_style_default_edit_button_confirm_bg" />
 
 </RelativeLayout>
