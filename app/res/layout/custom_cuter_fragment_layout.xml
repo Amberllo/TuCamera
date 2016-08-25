@@ -69,21 +69,22 @@
                 android:drawableTop="@drawable/lsq_style_default_ratio_9_16"
                 android:text="@string/lsq_edit_cuter_ratio_9_16" />
 
-            <org.lasque.tusdk.core.view.widget.button.TuSdkImageButton
+            <org.lasque.tusdk.core.view.widget.button.TuSdkTextButton
                 android:id="@+id/lsq_trunButton1"
                 android:layout_width="70dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:scaleType="center"
-                android:src="@drawable/lsq_style_default_edit_button_trun_left" />
+                android:drawableTop="@drawable/lsq_style_default_edit_button_trun_left"
+                style="@style/lsq_edit_entryOptionButton"
+                />
 
-            <org.lasque.tusdk.core.view.widget.button.TuSdkImageButton
+
+
+            <org.lasque.tusdk.core.view.widget.button.TuSdkTextButton
                 android:id="@+id/lsq_mirrorButton1"
                 android:layout_width="70dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:scaleType="center"
-                android:src="@drawable/lsq_style_default_edit_button_horizontal_mirror" />
+                android:drawableTop="@drawable/lsq_style_default_edit_button_horizontal_mirror"
+                style="@style/lsq_edit_entryOptionButton"/>
 
         </LinearLayout>
     </HorizontalScrollView>

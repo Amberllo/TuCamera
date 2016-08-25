@@ -43,17 +43,16 @@ public class CuterFragment extends TuEditCuterFragment{
     protected void loadView(ViewGroup viewGroup) {
         super.loadView(viewGroup);
 
-        TuSdkImageButton complete = this.getViewById(R.id.lsq_doneButton1);
-        TuSdkImageButton cancel = this.getViewById(R.id.lsq_cancelButton1);
 
-        complete.setOnClickListener(new TuSdkViewHelper.OnSafeClickListener() {
+
+        this.getViewById(R.id.lsq_doneButton1).setOnClickListener(new TuSdkViewHelper.OnSafeClickListener() {
             @Override
             public void onSafeClick(View view) {
                 handleCompleteButton();
             }
         });
 
-        cancel.setOnClickListener(new TuSdkViewHelper.OnSafeClickListener() {
+        this.getViewById(R.id.lsq_cancelButton1).setOnClickListener(new TuSdkViewHelper.OnSafeClickListener() {
             @Override
             public void onSafeClick(View view) {
                 handleBackButton();
@@ -63,8 +62,7 @@ public class CuterFragment extends TuEditCuterFragment{
         LinearLayout optBar = getOptionBar();
         for(int i=0;i<optBar.getChildCount();i++){
             if(optBar.getChildAt(i).getId() == R.id.lsq_trunButton1){
-                TuSdkImageButton trunButton = (TuSdkImageButton) optBar.getChildAt(i);
-                trunButton.setOnClickListener(new TuSdkViewHelper.OnSafeClickListener() {
+                optBar.getChildAt(i).setOnClickListener(new TuSdkViewHelper.OnSafeClickListener() {
                     @Override
                     public void onSafeClick(View view) {
                         handleTrunButton();
@@ -72,8 +70,7 @@ public class CuterFragment extends TuEditCuterFragment{
                 });
             }
             if(optBar.getChildAt(i).getId() == R.id.lsq_mirrorButton1){
-                TuSdkImageButton mirrorButton = (TuSdkImageButton) optBar.getChildAt(i);
-                mirrorButton.setOnClickListener(new TuSdkViewHelper.OnSafeClickListener() {
+                optBar.getChildAt(i).setOnClickListener(new TuSdkViewHelper.OnSafeClickListener() {
                     @Override
                     public void onSafeClick(View view) {
                         handleMirrorButton();

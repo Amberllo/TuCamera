@@ -10,6 +10,8 @@
 package com.share.photoshare.custom.ui;
 
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.widget.Toast;
 
 import org.lasque.tusdk.core.TuSdk;
 import org.lasque.tusdk.core.secret.StatisticsManger;
@@ -62,12 +64,30 @@ public class CameraEntryActivity extends TuFragmentActivity
     @Override
     protected void onPause() {
         super.onPause();
-        System.out.println("应用置于后台!!");
+//        Toast.makeText(this,"应用置于后台!!",Toast.LENGTH_SHORT).show();
+//        timer.cancel();
+//        timer.start();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        System.out.println("应用恢复!!");
+//        Toast.makeText(this,"应用恢复!!",Toast.LENGTH_SHORT).show();
+//        timer.cancel();
     }
+
+//    CountDownTimer timer = new CountDownTimer(1000,5*1000) {
+//        @Override
+//        public void onTick(long millisUntilFinished) {
+//
+//        }
+//
+//        @Override
+//        public void onFinish() {
+//            Toast.makeText(CameraEntryActivity.this,"应用关闭了!!",Toast.LENGTH_SHORT).show();
+//            System.exit(0);
+//
+//        }
+//    };
+
 }

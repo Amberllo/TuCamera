@@ -32,14 +32,14 @@ public class TextStickerInputDialog extends Dialog {
     private View root_bubble;
 
     public TextStickerInputDialog(Context context) {
-        super(context, android.R.style.Theme_Translucent_NoTitleBar);
+        super(context, R.style.textsticker_dialog);
         mContext = context;
         defaultStr = context.getString(R.string.double_click_input_text);
         initView();
     }
 
     public TextStickerInputDialog(Context context, TextStickerView view) {
-        super(context, android.R.style.Theme_Translucent_NoTitleBar);
+        super(context, R.style.textsticker_dialog);
         mContext = context;
         defaultStr = context.getString(R.string.double_click_input_text);
         textStickerView = view;
