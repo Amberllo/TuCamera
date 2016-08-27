@@ -32,13 +32,6 @@ public class CuterFragment extends TuEditCuterFragment{
         super.setRootViewLayoutId(getLayoutViewId());
     }
 
-
-    @Override
-    protected void handleCompleteButton() {
-        super.handleCompleteButton();
-        handleBackButton();
-    }
-
     @Override
     protected void loadView(ViewGroup viewGroup) {
         super.loadView(viewGroup);

@@ -88,19 +88,12 @@ public abstract class FilterComponent extends TuEditMultipleComponent{
 
     public abstract void onTuEditFilterResult(TuSdkResult result);
 
-    @Override
-    public void onTuEditFilterFragmentEdited(TuEditFilterFragment tuEditFilterFragment, TuSdkResult tuSdkResult) {
-        onTuEditFilterResult(tuSdkResult);
-    }
+
 
     @Override
     public boolean onTuEditFilterFragmentEditedAsync(TuEditFilterFragment tuEditFilterFragment,final TuSdkResult tuSdkResult) {
-        activity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                onTuEditFilterResult(tuSdkResult);
-            }
-        });
+        onTuEditFilterResult(tuSdkResult);
+        tuEditFilterFragment.dismissActivityWithAnim();
         return super.onTuEditFilterFragmentEditedAsync(tuEditFilterFragment, tuSdkResult);
     }
 }

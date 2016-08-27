@@ -25,6 +25,8 @@ import com.flask.colorpicker.ColorPickerView;
 import com.flask.colorpicker.OnColorSelectedListener;
 import com.flask.colorpicker.builder.ColorPickerClickListener;
 import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
+
+import org.lasque.tusdk.core.TuSdkContext;
 import org.lasque.tusdk.core.TuSdkResult;
 import org.lasque.tusdk.core.view.widget.button.TuSdkImageButton;
 import org.lasque.tusdk.impl.activity.TuImageResultFragment;
@@ -237,7 +239,7 @@ public class TextStickerFragment extends TuImageResultFragment implements View.O
             final TuSdkResult result = generateBitmap();
 
             if(result.image!= null) {
-//                this.hubStatus(TuSdkContext.getString("lsq_edit_processing"));
+                this.hubStatus(TuSdkContext.getString("lsq_edit_processing"));
                 (new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -268,10 +270,6 @@ public class TextStickerFragment extends TuImageResultFragment implements View.O
 
     protected void asyncEditWithResult(TuSdkResult result) {
         this.loadOrginImage(result);
-//        if(result.stickers != null) {
-//            result.image = StickerFactory.megerStickers(result.image, result.stickers);
-//            result.stickers = null;
-//        }
         this.asyncProcessingIfNeedSave(result);
     }
 

@@ -84,17 +84,8 @@ public abstract class CuterComponent extends TuEditMultipleComponent{
     @Override
     public boolean onTuEditCuterFragmentEditedAsync(TuEditCuterFragment tuEditCuterFragment, TuSdkResult tuSdkResult) {
         onTuEditCuterResult(tuSdkResult);
+        tuEditCuterFragment.dismissActivityWithAnim();
         return super.onTuEditCuterFragmentEditedAsync(tuEditCuterFragment, tuSdkResult);
     }
 
-    @Override
-    public void onTuEditCuterFragmentEdited(TuEditCuterFragment tuEditCuterFragment,final TuSdkResult tuSdkResult) {
-        activity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                onTuEditCuterResult(tuSdkResult);
-            }
-        });
-        super.onTuEditCuterFragmentEdited(tuEditCuterFragment, tuSdkResult);
-    }
 }

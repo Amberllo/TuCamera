@@ -174,34 +174,34 @@ public class StickerFragment extends TuEditStickerFragment
         return view;
     }
 
-    @Override
-    protected void handleCompleteButton() {
-
-        if(this.getStickerView() == null) {
-            this.handleBackButton();
-        } else {
-            final TuSdkResult result = new TuSdkResult();
-            Rect rect = null;
-            if(this.getCutRegionView() != null) {
-                rect = this.getCutRegionView().getRegionRect();
-            }
-            this.loadOrginImage(result);
-            result.stickers = this.getStickerView().getResults(rect);
-            if(result.stickers != null && result.stickers.size() != 0) {
-
-                result.image = StickerFactory.megerStickers(result.image, result.stickers);
-                result.imageFile = new File(FileUtils.saveBitmapToLocal(result.image,getContext()));
-                result.stickers = null;
-
-                if(delegate!=null){
-                    delegate.onTuEditStickerFragmentEdited(this,result);
-                }
-                handleBackButton();
-            } else {
-                this.handleBackButton();
-            }
-        }
-    }
+//    @Override
+//    protected void handleCompleteButton() {
+//
+//        if(this.getStickerView() == null) {
+//            this.handleBackButton();
+//        } else {
+//            final TuSdkResult result = new TuSdkResult();
+//            Rect rect = null;
+//            if(this.getCutRegionView() != null) {
+//                rect = this.getCutRegionView().getRegionRect();
+//            }
+//            this.loadOrginImage(result);
+//            result.stickers = this.getStickerView().getResults(rect);
+//            if(result.stickers != null && result.stickers.size() != 0) {
+//
+//                result.image = StickerFactory.megerStickers(result.image, result.stickers);
+//                result.imageFile = new File(FileUtils.saveBitmapToLocal(result.image,getContext()));
+//                result.stickers = null;
+//
+//                if(delegate!=null){
+//                    delegate.onTuEditStickerFragmentEdited(this,result);
+//                }
+//                handleBackButton();
+//            } else {
+//                this.handleBackButton();
+//            }
+//        }
+//    }
 
     boolean autoBorder;
     public void setAutoBorder(boolean autoBorder) {

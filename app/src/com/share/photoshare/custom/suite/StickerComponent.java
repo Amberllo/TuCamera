@@ -62,6 +62,7 @@ public abstract class StickerComponent extends TuEditMultipleComponent{
     @Override
     public boolean onTuEditStickerFragmentEditedAsync(TuEditStickerFragment tuEditStickerFragment, TuSdkResult tuSdkResult) {
         onTuEditStickerResult(tuSdkResult);
+        tuEditStickerFragment.dismissActivityWithAnim();
         return super.onTuEditStickerFragmentEditedAsync(tuEditStickerFragment, tuSdkResult);
     }
 

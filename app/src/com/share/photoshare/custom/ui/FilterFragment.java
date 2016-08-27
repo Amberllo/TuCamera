@@ -24,12 +24,6 @@ public class FilterFragment extends TuEditFilterFragment{
 
 
     @Override
-    protected void handleCompleteButton() {
-        super.handleCompleteButton();
-        handleBackButton();
-    }
-
-    @Override
     protected void loadView(ViewGroup viewGroup) {
         super.loadView(viewGroup);
         ((FilterImageViewInterface)this.getImageView()).setImageBackgroundColor(TuSdkContext.getColor(R.color.gray_common2));

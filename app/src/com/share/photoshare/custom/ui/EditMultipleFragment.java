@@ -3,6 +3,7 @@ package com.share.photoshare.custom.ui;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -273,10 +274,18 @@ public class EditMultipleFragment extends TuEditMultipleFragment {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                if(result.image==null)return;
+                File imageFile = result.imageFile;
+                if(result.imageFile==null){
+                    imageFile= new File(FileUtils.saveBitmapToLocal(result.image,getContext()));
+                }
                 setImage(result.image);
-                setTempFilePath(result.imageFile);
+                setTempFilePath(imageFile);
                 setDisplayImage(result.image);
-                appendHistory(result.imageFile);
+                appendHistory(imageFile);
+
+
+
             }
         });
 

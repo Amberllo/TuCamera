@@ -194,4 +194,5 @@ public class CameraAndEditorComponent extends SampleBase implements TuCameraFrag
 	{
 		TLog.d("onComponentError: fragment - %s, result - %s, error - %s", fragment, result, error);
 	}
+
 }
