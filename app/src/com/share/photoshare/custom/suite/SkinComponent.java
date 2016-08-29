@@ -59,10 +59,11 @@ public abstract class SkinComponent extends TuEditMultipleComponent{
     }
 
     @Override
-    public boolean onTuFilterResultFragmentEditedAsync(TuFilterResultFragment tuFilterResultFragment, TuSdkResult tuSdkResult) {
+    public boolean onTuFilterResultFragmentEditedAsync(TuFilterResultFragment fragment, TuSdkResult tuSdkResult) {
+        fragment.hubDismissRightNow();
+        fragment.dismissActivityWithAnim();
         onTuEditSkinResult(tuSdkResult);
-        tuFilterResultFragment.dismissActivityWithAnim();
-        return super.onTuFilterResultFragmentEditedAsync(tuFilterResultFragment, tuSdkResult);
+        return super.onTuFilterResultFragmentEditedAsync(fragment, tuSdkResult);
     }
 
     public abstract void onTuEditSkinResult(TuSdkResult result);

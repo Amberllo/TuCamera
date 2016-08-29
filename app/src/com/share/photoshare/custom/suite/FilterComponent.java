@@ -93,6 +93,7 @@ public abstract class FilterComponent extends TuEditMultipleComponent{
     @Override
     public boolean onTuEditFilterFragmentEditedAsync(TuEditFilterFragment tuEditFilterFragment,final TuSdkResult tuSdkResult) {
         onTuEditFilterResult(tuSdkResult);
+        tuEditFilterFragment.hubDismissRightNow();
         tuEditFilterFragment.dismissActivityWithAnim();
         return super.onTuEditFilterFragmentEditedAsync(tuEditFilterFragment, tuSdkResult);
     }

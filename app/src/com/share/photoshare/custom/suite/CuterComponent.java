@@ -6,6 +6,7 @@ import com.share.photoshare.custom.ui.CuterFragment;
 import com.share.photoshare.custom.ui.FilterFragment;
 
 import org.lasque.tusdk.core.TuSdkResult;
+import org.lasque.tusdk.core.view.widget.TuSdkNavigatorBar;
 import org.lasque.tusdk.impl.TuAnimType;
 import org.lasque.tusdk.impl.components.TuEditMultipleComponent;
 import org.lasque.tusdk.impl.components.edit.TuEditCuterFragment;
@@ -82,10 +83,11 @@ public abstract class CuterComponent extends TuEditMultipleComponent{
     public abstract void onTuEditCuterResult(TuSdkResult result);
 
     @Override
-    public boolean onTuEditCuterFragmentEditedAsync(TuEditCuterFragment tuEditCuterFragment, TuSdkResult tuSdkResult) {
+    public boolean onTuEditCuterFragmentEditedAsync(TuEditCuterFragment fragment, TuSdkResult tuSdkResult) {
+        fragment.hubDismissRightNow();
+        fragment.dismissActivityWithAnim();
         onTuEditCuterResult(tuSdkResult);
-        tuEditCuterFragment.dismissActivityWithAnim();
-        return super.onTuEditCuterFragmentEditedAsync(tuEditCuterFragment, tuSdkResult);
+        return super.onTuEditCuterFragmentEditedAsync(fragment, tuSdkResult);
     }
 
 }

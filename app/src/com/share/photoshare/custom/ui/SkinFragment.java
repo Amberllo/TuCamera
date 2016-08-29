@@ -30,12 +30,6 @@ public class SkinFragment extends TuEditSkinFragment{
         return delegate;
     }
 
-    @Override
-    protected void handleCompleteButton() {
-        super.handleCompleteButton();
-        handleBackButton();
-    }
-
     protected void loadView(ViewGroup var1) {
         super.loadView(var1);
         ((FilterImageViewInterface)this.getImageView()).setImageBackgroundColor(TuSdkContext.getColor(R.color.gray_common2));
