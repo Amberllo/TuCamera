@@ -85,7 +85,9 @@ public class AlbumEditMultipleComponent extends SampleBase
             }
         };
 
-        TuEditMultipleComponent component = TuSdkGeeV1.editMultipleCommponent(lastFragment, delegate);
+//        TuEditMultipleComponent component = TuSdkGeeV1.editMultipleCommponent(lastFragment, delegate);
+        TuEditMultipleComponent component = new CustomEditMultipleComponent(lastFragment);
+        component.setDelegate(delegate);
         component.componentOption().editMultipleOption().setComponentClazz(EditMultipleFragment.class);
         component.componentOption().editMultipleOption().setSaveToAlbum(true);
 

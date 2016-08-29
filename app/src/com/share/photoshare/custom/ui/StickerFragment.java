@@ -48,8 +48,6 @@ public class StickerFragment extends TuEditStickerFragment
     int boradWidth = 0;
     int boradHeight = 0;
 
-    private TuEditStickerFragmentDelegate delegate;
-
     public static int getLayoutViewId(){
         return R.layout.custom_sticker_fragment_layout;
     }
@@ -103,32 +101,6 @@ public class StickerFragment extends TuEditStickerFragment
         return button;
     }
 
-
-
-    @Override
-    public void setDelegate(TuEditStickerFragmentDelegate delegate) {
-        super.setDelegate(delegate);
-        this.delegate = delegate;
-    }
-
-    @Override
-    public StickerBarView getStickerBarView() {
-
-
-        CustomStickerBarView k = this.getViewById("lsq_sticker_bar");
-            if( k != null) {
-                k.setGridLayoutId(this.getGridLayoutId());
-                k.setGridWidth(this.getGridWidth());
-                k.setGridPadding(this.getGridPadding());
-                k.setGridHeight(this.getGridHeight());
-                k.setDelegate(this);
-
-            }
-
-        return k;
-
-    }
-
     @Override
     public void onStickerBarViewSelected(StickerBarView stickerBarView, StickerData stickerData) {
         fixBorder(stickerData);
@@ -173,35 +145,6 @@ public class StickerFragment extends TuEditStickerFragment
 
         return view;
     }
-
-//    @Override
-//    protected void handleCompleteButton() {
-//
-//        if(this.getStickerView() == null) {
-//            this.handleBackButton();
-//        } else {
-//            final TuSdkResult result = new TuSdkResult();
-//            Rect rect = null;
-//            if(this.getCutRegionView() != null) {
-//                rect = this.getCutRegionView().getRegionRect();
-//            }
-//            this.loadOrginImage(result);
-//            result.stickers = this.getStickerView().getResults(rect);
-//            if(result.stickers != null && result.stickers.size() != 0) {
-//
-//                result.image = StickerFactory.megerStickers(result.image, result.stickers);
-//                result.imageFile = new File(FileUtils.saveBitmapToLocal(result.image,getContext()));
-//                result.stickers = null;
-//
-//                if(delegate!=null){
-//                    delegate.onTuEditStickerFragmentEdited(this,result);
-//                }
-//                handleBackButton();
-//            } else {
-//                this.handleBackButton();
-//            }
-//        }
-//    }
 
     boolean autoBorder;
     public void setAutoBorder(boolean autoBorder) {

@@ -7,6 +7,7 @@ import android.os.CountDownTimer;
 import android.os.PersistableBundle;
 import android.view.KeyEvent;
 
+import com.share.photoshare.DemoEntryActivity;
 import com.share.photoshare.R;
 
 /**
@@ -23,6 +24,7 @@ public class StartActivity extends Activity{
         public void onFinish() {
             finish();
             startActivity(new Intent(StartActivity.this,CameraEntryActivity.class));
+//            startActivity(new Intent(StartActivity.this,DemoEntryActivity.class));
         }
     };
 

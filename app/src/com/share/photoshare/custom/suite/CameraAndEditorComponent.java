@@ -142,8 +142,9 @@ public class CameraAndEditorComponent extends SampleBase implements TuCameraFrag
 				// 默认输出为 Bitmap  -> result.image
 			}
 		};
-				
-		TuEditMultipleComponent component = TuSdkGeeV1.editMultipleCommponent(fragment, delegate);
+
+        TuEditMultipleComponent component = new CustomEditMultipleComponent(fragment);
+        component.setDelegate(delegate);
 		component.componentOption().editMultipleOption().setComponentClazz(EditMultipleFragment.class);
         component.componentOption().editMultipleOption().setSaveToAlbum(true);
 

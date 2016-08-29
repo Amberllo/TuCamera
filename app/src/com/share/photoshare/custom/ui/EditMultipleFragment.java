@@ -3,15 +3,11 @@ package com.share.photoshare.custom.ui;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import com.example.abner.stickerdemo.utils.FileUtils;
-import com.share.photoshare.custom.suite.CuterComponent;
-import com.share.photoshare.custom.suite.FilterComponent;
-import com.share.photoshare.custom.suite.SkinComponent;
-import com.share.photoshare.custom.suite.SkinComponentOption;
+
 import org.lasque.tusdk.core.TuSdkResult;
 import org.lasque.tusdk.core.secret.StatisticsManger;
 import org.lasque.tusdk.core.utils.image.BitmapHelper;
@@ -19,10 +15,10 @@ import org.lasque.tusdk.core.view.TuSdkImageView;
 import org.lasque.tusdk.core.view.TuSdkViewHelper;
 import org.lasque.tusdk.impl.components.edit.TuEditMultipleFragment;
 import org.lasque.tusdk.modules.components.ComponentActType;
+import org.lasque.tusdk.modules.components.edit.TuEditActionType;
+
 import com.share.photoshare.R;
 import com.share.photoshare.custom.BitmapUtils;
-import com.share.photoshare.custom.suite.StickerComponent;
-import com.share.photoshare.custom.suite.StickerComponentOption;
 import com.share.photoshare.custom.suite.TextStickerComponent;
 import com.share.photoshare.custom.suite.TextStickerComponentOption;
 
@@ -86,8 +82,6 @@ public class EditMultipleFragment extends TuEditMultipleFragment {
     protected void viewDidLoad(ViewGroup viewGroup) {
         super.viewDidLoad(viewGroup);
         onCuter();
-//        onSticker(true);
-//        handleAction(TuEditActionType.TypeCuter);
     }
 
 
@@ -96,34 +90,16 @@ public class EditMultipleFragment extends TuEditMultipleFragment {
 
         @Override
         public void onSafeClick(View view) {
-
-            TextStickerComponent component = new TextStickerComponent(getActivity());
-            TextStickerComponentOption option = new TextStickerComponentOption();
-            option.setDelegate(new TextStickerComponentOption.TextStickerDelegate() {
-                @Override
-                public void onTextStickerResult(final TuSdkResult result) {
-                    setResult(result);
-                }
-            });
-            component.setOption(option)
-                    .setImage(getImage())
-                    // 设置系统照片
-                    .setImageSqlInfo(getImageSqlInfo())
-                    // 设置临时文件
-                    .setTempFilePath(getTempFilePath())
-                    // 在组件执行完成后自动关闭组件
-                    .setAutoDismissWhenCompleted(true)
-                    // 开启组件
-                    .showComponent();
-
+            handleAction(TuEditActionType.TypeUnknow);
         }
     };
+
 
     View.OnClickListener stickerOnClickListener = new TuSdkViewHelper.OnSafeClickListener(){
 
         @Override
         public void onSafeClick(View view) {
-            onSticker(false);
+            onSticker();
         }
     };
 
@@ -132,21 +108,7 @@ public class EditMultipleFragment extends TuEditMultipleFragment {
         @Override
         public void onSafeClick(View view) {
 
-            FilterComponent component = new FilterComponent(getActivity()) {
-                @Override
-                public void onTuEditFilterResult(TuSdkResult result) {
-                    setResult(result);
-                }
-            };
-            component.setImage(getImage())
-                    // 设置系统照片
-                    .setImageSqlInfo(getImageSqlInfo())
-                    // 设置临时文件
-                    .setTempFilePath(getTempFilePath())
-                    // 在组件执行完成后自动关闭组件
-                    .setAutoDismissWhenCompleted(true)
-                    // 开启组件
-                    .showComponent();
+            handleAction(TuEditActionType.TypeFilter);
 
         }
     };
@@ -156,23 +118,7 @@ public class EditMultipleFragment extends TuEditMultipleFragment {
 
         @Override
         public void onSafeClick(View view) {
-            SkinComponent component = new SkinComponent(getActivity()) {
-                @Override
-                public void onTuEditSkinResult(TuSdkResult result) {
-                    setResult(result);
-                }
-            };
-            SkinComponentOption option = new SkinComponentOption();
-            component.setOption(option)
-                    .setImage(getImage())
-                    // 设置系统照片
-                    .setImageSqlInfo(getImageSqlInfo())
-                    // 设置临时文件
-                    .setTempFilePath(getTempFilePath())
-                    // 在组件执行完成后自动关闭组件
-                    .setAutoDismissWhenCompleted(true)
-                    // 开启组件
-                    .showComponent();
+            handleAction(TuEditActionType.TypeSkin);
         }
     };
 
@@ -214,42 +160,12 @@ public class EditMultipleFragment extends TuEditMultipleFragment {
     }
 
     private void onCuter(){
-        CuterComponent component = new CuterComponent(getActivity()) {
-            @Override
-            public void onTuEditCuterResult(TuSdkResult result) {
-                setResult(result);
-            }
-        };
-        component.setImage(getImage())
-                // 设置系统照片
-                .setImageSqlInfo(getImageSqlInfo())
-                // 设置临时文件
-                .setTempFilePath(getTempFilePath())
-                // 在组件执行完成后自动关闭组件
-                .setAutoDismissWhenCompleted(true)
-                // 开启组件
-                .showComponent();
+        handleAction(TuEditActionType.TypeCuter);
+
     }
 
-    private void onSticker(boolean autoBorder){
-        StickerComponent component = new StickerComponent(getActivity()) {
-            @Override
-            public void onTuEditStickerResult(TuSdkResult result) {
-                setResult(result);
-            }
-        };
-        StickerComponentOption option = new StickerComponentOption();
-        component.setAutoBorder(autoBorder);
-        component.setOption(option)
-                .setImage(getImage())
-                // 设置系统照片
-                .setImageSqlInfo(getImageSqlInfo())
-                // 设置临时文件
-                .setTempFilePath(getTempFilePath())
-                // 在组件执行完成后自动关闭组件
-                .setAutoDismissWhenCompleted(true)
-                // 开启组件
-                .showComponent();
+    private void onSticker(){
+        handleAction(TuEditActionType.TypeSticker);
     }
 
     public void setDefaultBorder(){
@@ -270,25 +186,6 @@ public class EditMultipleFragment extends TuEditMultipleFragment {
         return null;
     }
 
-    private void setResult(final TuSdkResult result){
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                if(result.image==null)return;
-                File imageFile = result.imageFile;
-                if(result.imageFile==null){
-                    imageFile= new File(FileUtils.saveBitmapToLocal(result.image,getContext()));
-                }
-                setImage(result.image);
-                setTempFilePath(imageFile);
-                setDisplayImage(result.image);
-                appendHistory(imageFile);
 
-
-
-            }
-        });
-
-    }
 
 }

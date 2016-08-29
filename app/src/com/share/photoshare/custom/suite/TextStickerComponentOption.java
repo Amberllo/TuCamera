@@ -2,6 +2,8 @@ package com.share.photoshare.custom.suite;
 
 import org.lasque.tusdk.core.TuSdkResult;
 import org.lasque.tusdk.impl.activity.TuImageResultOption;
+import org.lasque.tusdk.impl.components.edit.TuEditCuterFragment;
+
 import com.share.photoshare.R;
 import com.share.photoshare.custom.ui.TextStickerFragment;
 
@@ -37,7 +39,8 @@ public class TextStickerComponentOption extends TuImageResultOption {
     }
 
     public interface TextStickerDelegate{
-        void onTextStickerResult(TuSdkResult result);
+        void onTextStickerResult(TextStickerFragment fragment,TuSdkResult result);
+        boolean onTextStickerResultAsync(TextStickerFragment fragment,TuSdkResult result);
     }
 
 }

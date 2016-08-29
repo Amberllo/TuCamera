@@ -214,16 +214,6 @@ public class TextStickerFragment extends TuImageResultFragment implements View.O
         this.navigatorBarBackAction(null);
     }
 
-    @Override
-    protected void notifyProcessing(TuSdkResult tuSdkResult) {
-
-    }
-
-    @Override
-    protected boolean asyncNotifyProcessing(TuSdkResult tuSdkResult) {
-        return false;
-    }
-
     public void setDelegate(TextStickerComponentOption.TextStickerDelegate delegate) {
         this.delegate = delegate;
     }
@@ -246,8 +236,7 @@ public class TextStickerFragment extends TuImageResultFragment implements View.O
                         TextStickerFragment.this.asyncEditWithResult(result);
                     }
                 })).start();
-                if(delegate!=null)delegate.onTextStickerResult(result);
-                handleBackButton();
+
 
             } else {
                 this.handleBackButton();
@@ -271,6 +260,20 @@ public class TextStickerFragment extends TuImageResultFragment implements View.O
     protected void asyncEditWithResult(TuSdkResult result) {
         this.loadOrginImage(result);
         this.asyncProcessingIfNeedSave(result);
+    }
+
+    @Override
+    protected void notifyProcessing(TuSdkResult var1) {
+        if(!this.showResultPreview(var1)) {
+            if(this.delegate != null) {
+                this.delegate.onTextStickerResult(this, var1);
+            }
+        }
+    }
+
+    @Override
+    protected boolean asyncNotifyProcessing(TuSdkResult tuSdkResult) {
+        return this.delegate == null?false:this.delegate.onTextStickerResultAsync(this, tuSdkResult);
     }
 
 
