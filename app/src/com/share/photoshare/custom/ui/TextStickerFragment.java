@@ -233,7 +233,10 @@ public class TextStickerFragment extends TuImageResultFragment implements View.O
                 (new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        TextStickerFragment.this.asyncEditWithResult(result);
+
+//                        loadOrginImage(result);
+                        asyncProcessingIfNeedSave(result);
+
                     }
                 })).start();
 
@@ -257,12 +260,7 @@ public class TextStickerFragment extends TuImageResultFragment implements View.O
         }
     }
 
-    protected void asyncEditWithResult(TuSdkResult result) {
-        this.loadOrginImage(result);
-        this.asyncProcessingIfNeedSave(result);
-    }
-
-    @Override
+     @Override
     protected void notifyProcessing(TuSdkResult var1) {
         if(!this.showResultPreview(var1)) {
             if(this.delegate != null) {

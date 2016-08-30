@@ -7,6 +7,7 @@ import com.share.photoshare.custom.ui.StickerFragment;
 import com.share.photoshare.custom.ui.TextStickerFragment;
 
 import org.lasque.tusdk.core.TuSdkResult;
+import org.lasque.tusdk.core.utils.image.BitmapHelper;
 import org.lasque.tusdk.impl.activity.TuFragment;
 import org.lasque.tusdk.impl.components.TuEditMultipleComponent;
 import org.lasque.tusdk.impl.components.edit.TuEditCuterFragment;
@@ -60,8 +61,9 @@ public class CustomEditMultipleComponent extends TuEditMultipleComponent impleme
         (fragment = option.fragment()).setDelegate(this);
         this.handleAction(tuEditMultipleFragment, fragment);
     }
-
+    TuEditMultipleFragment tuEditMultipleFragment;
     protected void handleTextStickerButton(TuEditMultipleFragment tuEditMultipleFragment){
+        this.tuEditMultipleFragment = tuEditMultipleFragment;
         TextStickerFragment fragment;
         TextStickerComponentOption option = new TextStickerComponentOption();
         (fragment = option.fragment()).setDelegate(this);
@@ -83,9 +85,21 @@ public class CustomEditMultipleComponent extends TuEditMultipleComponent impleme
     }
 
     @Override
-    public boolean onTextStickerResultAsync(TextStickerFragment fragment, TuSdkResult result) {
+    public boolean onTextStickerResultAsync(TextStickerFragment fragment, final TuSdkResult result) {
         this.onActionEdited(fragment, result);
+        if((result.image = BitmapHelper.imageResize(result.image, this.tuEditMultipleFragment.getImageDisplaySize(), true)) != null) {
+            this.tuEditMultipleFragment.runOnUiThread(new Runnable() {
+                public void run() {
+                    tuEditMultipleFragment.setDisplayImage(result.image);
+                }
+            });
+        }
         return false;
+    }
+
+    @Override
+    public boolean onTuEditStickerFragmentEditedAsync(TuEditStickerFragment tuEditStickerFragment, TuSdkResult tuSdkResult) {
+        return super.onTuEditStickerFragmentEditedAsync(tuEditStickerFragment, tuSdkResult);
     }
 
     @Override
@@ -102,4 +116,6 @@ public class CustomEditMultipleComponent extends TuEditMultipleComponent impleme
         }
 
     }
+
+
 }
