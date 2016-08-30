@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.PersistableBundle;
 import android.view.KeyEvent;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.share.photoshare.DemoEntryActivity;
 import com.share.photoshare.R;
@@ -31,6 +33,10 @@ public class StartActivity extends Activity{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        requestWindowFeature(Window.FEATURE_NO_TITLE);//隐藏标题栏
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);//隐藏状态栏
+
         setContentView(R.layout.custom_start);
         timer.cancel();
         timer.start();
