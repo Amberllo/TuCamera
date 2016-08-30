@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/lsq_background_camera" >
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/lsq_background_camera" >
 
     <RelativeLayout
         android:id="@+id/lsq_cameraView"
@@ -26,33 +26,33 @@
             android:layout_height="44dp"
             android:scaleType="center"
             android:src="@drawable/lsq_style_default_camera_button_close" />
-		
-        <View 
-            android:layout_width="0dp" 
+
+        <View
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1" />
-        
+
         <org.lasque.tusdk.core.view.widget.button.TuSdkImageButton
             android:id="@+id/lsq_ratioButton"
             android:layout_width="44dp"
             android:layout_height="44dp"
             android:scaleType="center"
             android:src="@drawable/lsq_style_default_camera_ratio_orgin" />
-  
-        <View 
-            android:layout_width="0dp" 
+
+        <View
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1" />
-        
+
         <org.lasque.tusdk.core.view.widget.button.TuSdkImageButton
             android:id="@+id/lsq_guideLineButton"
             android:layout_width="44dp"
             android:layout_height="44dp"
             android:scaleType="center"
             android:src="@drawable/lsq_style_default_camera_guideline" />
-		
-        <View 
-            android:layout_width="0dp" 
+
+        <View
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1" />
 
@@ -62,12 +62,12 @@
             android:layout_height="44dp"
             android:scaleType="center"
             android:src="@drawable/lsq_style_default_camera_flash_auto" />
-		
-        <View 
-            android:layout_width="0dp" 
+
+        <View
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1" />
-        
+
         <org.lasque.tusdk.core.view.widget.button.TuSdkImageButton
             android:id="@+id/lsq_switchButton"
             android:layout_width="44dp"
@@ -76,21 +76,21 @@
             android:src="@drawable/lsq_style_default_camera_button_switch" />
     </LinearLayout>
 
-   <RelativeLayout
+    <RelativeLayout
         android:id="@+id/lsq_bottomBar"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
         android:background="@drawable/tusdk_component_camera_bottombar_bg" >
-        
+
         <org.lasque.tusdk.core.view.TuSdkImageView
-	        android:id="@+id/lsq_albumPosterView"
-	        android:layout_width="44dp"
-	        android:layout_height="44dp"
-	        android:layout_alignParentLeft="true"
-	        android:layout_alignParentBottom="true"
-	        android:layout_marginLeft="40dp"
-	        android:scaleType="centerCrop" />
+            android:id="@+id/lsq_albumPosterView"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="40dp"
+            android:scaleType="centerCrop" />
 
         <org.lasque.tusdk.core.view.widget.button.TuSdkImageButton
             android:id="@+id/lsq_captureButton"
@@ -109,7 +109,7 @@
             android:layout_alignParentBottom="true"
             android:scaleType="center"
             android:src="@drawable/lsq_style_default_camera_bg_filter" />
-        
+
     </RelativeLayout>
 
     <RelativeLayout

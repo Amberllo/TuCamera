@@ -21,6 +21,7 @@ import org.lasque.tusdk.impl.activity.TuFragmentActivity;
 import org.lasque.tusdk.modules.components.ComponentActType;
 import com.share.photoshare.R;
 import com.share.photoshare.custom.suite.CameraAndEditorComponent;
+import com.share.photoshare.examples.feature.CameraAndEditorSample;
 
 /**
  * @author Clear
@@ -28,66 +29,12 @@ import com.share.photoshare.custom.suite.CameraAndEditorComponent;
 public class CameraEntryActivity extends TuFragmentActivity
 {
 
-	/**
-	 * 初始化视图
-	 */
-	@Override
-	protected void initView()
-	{
-		super.initView();
-		// sdk统计代码，请不要加入您的应用
-		StatisticsManger.appendComponent(ComponentActType.sdkComponent);
-
-		// 异步方式初始化滤镜管理器 (注意：如果需要一开启应用马上执行SDK组件，需要做该检测，否则可以忽略检测)
-		// 需要等待滤镜管理器初始化完成，才能使用所有功能
-//		TuSdk.messageHub().setStatus(this, R.string.lsq_initing);
-		TuSdk.checkFilterManager(mFilterManagerDelegate);
-	}
-
-	/** 滤镜管理器委托 */
-	private FilterManagerDelegate mFilterManagerDelegate = new FilterManagerDelegate()
-	{
-		@Override
-		public void onFilterManagerInited(FilterManager manager)
-		{
-//			TuSdk.messageHub().showSuccess(CameraEntryActivity.this, R.string.lsq_inited);
-		}
-	};
-
-
     @Override
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
         new CameraAndEditorComponent().showSample(this);
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-//        Toast.makeText(this,"应用置于后台!!",Toast.LENGTH_SHORT).show();
-//        timer.cancel();
-//        timer.start();
-    }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-//        Toast.makeText(this,"应用恢复!!",Toast.LENGTH_SHORT).show();
-//        timer.cancel();
-    }
-
-//    CountDownTimer timer = new CountDownTimer(1000,5*1000) {
-//        @Override
-//        public void onTick(long millisUntilFinished) {
-//
-//        }
-//
-//        @Override
-//        public void onFinish() {
-//            Toast.makeText(CameraEntryActivity.this,"应用关闭了!!",Toast.LENGTH_SHORT).show();
-//            System.exit(0);
-//
-//        }
-//    };
 
 }

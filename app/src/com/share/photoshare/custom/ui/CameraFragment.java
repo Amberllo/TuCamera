@@ -29,9 +29,14 @@ public class CameraFragment extends TuCameraFragment
     /**
      * 布局ID
      */
-    public static int getLayoutId()
-    {
+
+    public static int getLayoutViewId(){
         return R.layout.custom_camera_fragment_layout;
+    }
+
+    @Override
+    public void setRootViewLayoutId(int i) {
+        super.setRootViewLayoutId(getLayoutViewId());
     }
 
     @Override

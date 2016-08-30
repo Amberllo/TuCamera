@@ -4,7 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.PorterDuff;
-import android.support.annotation.DimenRes;
+//import android.support.annotation.DimenRes;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -129,7 +129,7 @@ public abstract class AbsCustomSlider extends View {
 		return true;
 	}
 
-	protected int getDimension(@DimenRes int id) {
+	protected int getDimension(int id) {
 		return getResources().getDimensionPixelSize(id);
 	}
 

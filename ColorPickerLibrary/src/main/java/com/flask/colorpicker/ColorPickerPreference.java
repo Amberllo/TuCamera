@@ -8,7 +8,7 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.preference.Preference;
-import android.support.annotation.NonNull;
+//import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
@@ -82,7 +82,7 @@ public class ColorPickerPreference extends Preference {
 
 
 	@Override
-	protected void onBindView(@NonNull View view) {
+	protected void onBindView(View view) {
 		super.onBindView(view);
 
 		Resources res = view.getContext().getResources();

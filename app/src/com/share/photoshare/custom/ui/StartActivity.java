@@ -1,22 +1,17 @@
 package com.share.photoshare.custom.ui;
 
-import android.app.Activity;
-import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.os.PersistableBundle;
-import android.view.KeyEvent;
-import android.view.Window;
-import android.view.WindowManager;
-
-import com.share.photoshare.DemoEntryActivity;
 import com.share.photoshare.R;
+import com.share.photoshare.custom.suite.CameraAndEditorComponent;
+import org.lasque.tusdk.impl.activity.TuFragmentActivity;
 
 /**
  * Created by LYL on 2016/8/10.
  */
-public class StartActivity extends Activity{
-    CountDownTimer timer = new CountDownTimer(1500,1500) {
+public class StartActivity extends TuFragmentActivity {
+    CountDownTimer timer = new CountDownTimer(1000,1000) {
         @Override
         public void onTick(long millisUntilFinished) {
 
@@ -24,22 +19,24 @@ public class StartActivity extends Activity{
 
         @Override
         public void onFinish() {
-            finish();
-            startActivity(new Intent(StartActivity.this,CameraEntryActivity.class));
-//            startActivity(new Intent(StartActivity.this,DemoEntryActivity.class));
+            new CameraAndEditorComponent().showSample(StartActivity.this);
         }
     };
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        requestWindowFeature(Window.FEATURE_NO_TITLE);//隐藏标题栏
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);//隐藏状态栏
-
-        setContentView(R.layout.custom_start);
         timer.cancel();
         timer.start();
+    }
+
+    /** 初始化控制器 */
+    @Override
+    protected void initActivity()
+    {
+        super.initActivity();
+        this.setRootView(R.layout.custom_start, 0);
+//        this.setTheme(setTheme(););
     }
 
 
@@ -49,14 +46,4 @@ public class StartActivity extends Activity{
         timer.cancel();
     }
 
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if(keyCode == KeyEvent.KEYCODE_BACK) { //监控/拦截/屏蔽返回键
-            return false;
-        } else if(keyCode == KeyEvent.KEYCODE_MENU) {
-            return false;
-        }
-        return super.onKeyDown(keyCode, event);
-    }
 }

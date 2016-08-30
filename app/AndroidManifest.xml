@@ -46,14 +46,10 @@
         android:icon="@drawable/ic_icon"
         android:label="@string/app_name"
         android:largeHeap="true"
-        android:theme="@style/Theme.AppCompat.NoActionBar">
-
-        <meta-data
-            android:name="UMENG_APPKEY"
-            android:value="57978b79e0f55a3f74002cda" >
-        </meta-data>
+        android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
 
         <activity
+            android:theme="@style/AppTheme"
             android:name=".custom.ui.StartActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/app_name"

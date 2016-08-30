@@ -105,9 +105,6 @@ public class CameraAndEditorComponent extends SampleBase implements TuCameraFrag
         // 控制器类型
         option.setComponentClazz(CameraFragment.class);
 
-        // 设置根视图布局资源ID
-        option.setRootViewLayoutId(CameraFragment.getLayoutId());
-
         TuCameraFragment fragment = option.fragment();
         fragment.setDelegate(this);
         return fragment;
