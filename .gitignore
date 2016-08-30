@@ -39,3 +39,4 @@ proguard/
 /gradlew
 /gradlew.bat
 /ColorPickerLibrary/library.iml
+/app/app.iml
