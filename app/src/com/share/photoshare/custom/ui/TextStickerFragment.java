@@ -88,7 +88,7 @@ public class TextStickerFragment extends TuImageResultFragment implements View.O
         colorButton = (CustomColorImageView) viewGroup.findViewById(R.id.lsq_colorButton);
         colorButton.setOnClickListener(this);
 
-        mTextStickerInputDialog = new TextStickerInputDialog(getContext());
+        mTextStickerInputDialog = new TextStickerInputDialog(getActivity());
         mTextStickerInputDialog.setCompleteCallBack(new TextStickerInputDialog.CompleteCallBack() {
             @Override
             public void onComplete(View bubbleTextView, String str) {
@@ -143,7 +143,7 @@ public class TextStickerFragment extends TuImageResultFragment implements View.O
     //添加气泡
     private void addTextSticker(int width,int height) {
 
-        final TextStickerView textStickerView = new TextStickerView(getContext(),width,height);
+        final TextStickerView textStickerView = new TextStickerView(getActivity(),width,height);
         textStickerView.setOperationListener(new TextStickerView.OperationListener() {
             @Override
             public void onDeleteClick() {

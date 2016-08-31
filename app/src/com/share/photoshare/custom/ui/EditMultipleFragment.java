@@ -148,7 +148,7 @@ public class EditMultipleFragment extends TuEditMultipleFragment {
     public void shareSingleImage() {
         Bitmap bitmap = shareOnComplete();
         if(bitmap!=null){
-            String file = FileUtils.saveShareBitmapToLocal(bitmap,getContext());
+            String file = FileUtils.saveShareBitmapToLocal(bitmap,getActivity());
             Uri imageUri = Uri.fromFile(new File(file));
             Intent shareIntent = new Intent();
             shareIntent.setAction(Intent.ACTION_SEND);
@@ -170,8 +170,8 @@ public class EditMultipleFragment extends TuEditMultipleFragment {
 
     public void setDefaultBorder(){
 
-        Bitmap composedBitmap = BitmapUtils.getBordorBitmap(getContext(),getImage());
-        String filepath = FileUtils.saveBitmapToLocal(composedBitmap,getContext());
+        Bitmap composedBitmap = BitmapUtils.getBordorBitmap(getActivity(),getImage());
+        String filepath = FileUtils.saveBitmapToLocal(composedBitmap,getActivity());
         setTempFilePath(new File(filepath));
         setDisplayImage(composedBitmap);
         appendHistory(new File(filepath));
