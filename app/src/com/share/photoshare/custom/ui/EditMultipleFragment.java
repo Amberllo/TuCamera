@@ -19,9 +19,6 @@ import org.lasque.tusdk.modules.components.edit.TuEditActionType;
 
 import com.share.photoshare.R;
 import com.share.photoshare.custom.BitmapUtils;
-import com.share.photoshare.custom.suite.TextStickerComponent;
-import com.share.photoshare.custom.suite.TextStickerComponentOption;
-
 import java.io.File;
 
 
@@ -35,7 +32,7 @@ public class EditMultipleFragment extends TuEditMultipleFragment {
     TuSdkImageView shareButton;
     TuSdkImageView fontButton;
     TuSdkImageView stickerButton;
-    TuSdkImageView saveButton;
+
     @Override
     protected void loadView(ViewGroup view)
     {
@@ -66,7 +63,6 @@ public class EditMultipleFragment extends TuEditMultipleFragment {
         shareButton = (TuSdkImageView) actionTypeLayout2.findViewById(R.id.lsq_shareButton);
         fontButton = (TuSdkImageView)actionTypeLayout2.findViewById(R.id.lsq_fontButton);
         stickerButton = (TuSdkImageView)actionTypeLayout2.findViewById(R.id.lsq_stickerButton);
-        saveButton = (TuSdkImageView)actionTypeLayout2.findViewById(R.id.lsq_saveButton);
 
 
         filterButton.setOnClickListener(filterOnClickListener);
@@ -74,7 +70,6 @@ public class EditMultipleFragment extends TuEditMultipleFragment {
         shareButton.setOnClickListener(shareOnClickListener);
         fontButton.setOnClickListener(fontOnClickListener);
         stickerButton.setOnClickListener(stickerOnClickListener);
-        saveButton.setOnClickListener(saveOnClickListener);
         this.refreshStepStates();
     }
 
@@ -122,17 +117,11 @@ public class EditMultipleFragment extends TuEditMultipleFragment {
         }
     };
 
-
-
-    View.OnClickListener saveOnClickListener = new TuSdkViewHelper.OnSafeClickListener(){
-
-        @Override
-        public void onSafeClick(View view) {
-            handleCompleteButton();
-        }
-    };
-
-
+    @Override
+    protected void handleCompleteButton() {
+        System.out.println("handleCompleteButton");
+        super.handleCompleteButton();
+    }
 
     View.OnClickListener shareOnClickListener = new TuSdkViewHelper.OnSafeClickListener(){
 
@@ -186,6 +175,8 @@ public class EditMultipleFragment extends TuEditMultipleFragment {
         return null;
     }
 
-
-
+    @Override
+    protected void backUIThreadNotifyProcessing(TuSdkResult tuSdkResult) {
+        super.backUIThreadNotifyProcessing(tuSdkResult);
+    }
 }

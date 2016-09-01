@@ -118,4 +118,19 @@ public class CustomEditMultipleComponent extends TuEditMultipleComponent impleme
     }
 
 
+    @Override
+    protected void notifyResult(TuSdkResult tuSdkResult, Error error, TuFragment tuFragment) {
+//        super.notifyResult(tuSdkResult, error, tuFragment);
+
+
+        if(this.isAutoDismissWhenCompleted() && tuFragment != null) {
+            tuFragment.dismissActivityWithAnim();
+        }
+
+        if(this.getDelegate() != null) {
+            this.getDelegate().onComponentFinished(tuSdkResult, error, tuFragment);
+        }
+
+
+    }
 }

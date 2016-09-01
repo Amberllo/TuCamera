@@ -10,18 +10,10 @@
 package com.share.photoshare.custom.ui;
 
 import android.os.Bundle;
-import android.os.CountDownTimer;
-import android.widget.Toast;
-
-import org.lasque.tusdk.core.TuSdk;
-import org.lasque.tusdk.core.secret.StatisticsManger;
-import org.lasque.tusdk.core.seles.tusdk.FilterManager;
-import org.lasque.tusdk.core.seles.tusdk.FilterManager.FilterManagerDelegate;
+import android.view.View;
 import org.lasque.tusdk.impl.activity.TuFragmentActivity;
-import org.lasque.tusdk.modules.components.ComponentActType;
 import com.share.photoshare.R;
 import com.share.photoshare.custom.suite.CameraAndEditorComponent;
-import com.share.photoshare.examples.feature.CameraAndEditorSample;
 
 /**
  * @author Clear
@@ -32,9 +24,26 @@ public class CameraEntryActivity extends TuFragmentActivity
     @Override
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
+        root = getViewById(R.id.lsq_camera_activity_layout);
+
         new CameraAndEditorComponent().showSample(this);
     }
 
+    View root;
+    @Override
+    protected void initActivity() {
+        super.initActivity();
+        this.setRootView(R.layout.custom_activity_home,0);
 
+    }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+    }
 }

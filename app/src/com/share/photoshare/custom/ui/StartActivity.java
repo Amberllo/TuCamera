@@ -1,5 +1,7 @@
 package com.share.photoshare.custom.ui;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -7,13 +9,11 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.share.photoshare.R;
-import com.share.photoshare.custom.suite.CameraAndEditorComponent;
-import org.lasque.tusdk.impl.activity.TuFragmentActivity;
 
 /**
  * Created by LYL on 2016/8/10.
  */
-public class StartActivity extends TuFragmentActivity {
+public class StartActivity extends Activity {
     Handler handler = new Handler();
     CountDownTimer timer = new CountDownTimer(1000,2000) {
         @Override
@@ -23,30 +23,29 @@ public class StartActivity extends TuFragmentActivity {
 
         @Override
         public void onFinish() {
-            new CameraAndEditorComponent().showSample(StartActivity.this);
+
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     imageView.setVisibility(View.GONE);
+                    finish();
                 }
             },2000);
+
+            Intent i = new Intent(StartActivity.this,CameraEntryActivity.class);
+            i.putExtra("wantFullScreen",true);
+            startActivity(i);
+
         }
     };
     ImageView imageView;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        imageView = getViewById(R.id.lsq_welcome_image);
+        setContentView(R.layout.custom_start);
+        imageView = (ImageView) findViewById(R.id.lsq_welcome_image);
         timer.cancel();
         timer.start();
-    }
-
-    /** 初始化控制器 */
-    @Override
-    protected void initActivity()
-    {
-        super.initActivity();
-        this.setRootView(R.layout.custom_start, 0);
     }
 
 

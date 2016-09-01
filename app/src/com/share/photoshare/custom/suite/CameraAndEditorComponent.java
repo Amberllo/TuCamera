@@ -53,7 +53,20 @@ public class CameraAndEditorComponent extends SampleBase implements TuCameraFrag
         if (CameraHelper.showAlertIfNotSupportCamera(activity)) return;
 		TuCameraFragment fragment = getFragment();
 		// see-http://tusdk.com/docs/android/api/org/lasque/tusdk/impl/components/base/TuSdkHelperComponent.html
-		this.componentHelper = new TuSdkHelperComponent(activity);
+		this.componentHelper = new TuSdkHelperComponent(activity){
+
+            @Override
+            public void onComponentError(TuFragment tuFragment, TuSdkResult tuSdkResult, Error error) {
+//                super.onComponentError(tuFragment, tuSdkResult, error);
+                System.out.println("camera onComponentError");
+            }
+        };
+        this.componentHelper.setDelegate(new TuSdkComponentDelegate() {
+            @Override
+            public void onComponentFinished(TuSdkResult tuSdkResult, Error error, TuFragment tuFragment) {
+                System.out.println("camera onComponentFinished");
+            }
+        });
 		// 开启相机
 		this.componentHelper.presentModalNavigationActivity(fragment, true);
 
@@ -192,5 +205,6 @@ public class CameraAndEditorComponent extends SampleBase implements TuCameraFrag
 	{
 		TLog.d("onComponentError: fragment - %s, result - %s, error - %s", fragment, result, error);
 	}
+
 
 }
