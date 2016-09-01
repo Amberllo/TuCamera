@@ -14,10 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.abner.stickerdemo.utils.FileUtils;
-
 import org.lasque.tusdk.core.TuSdkContext;
-import org.lasque.tusdk.core.TuSdkResult;
 import org.lasque.tusdk.core.secret.StatisticsManger;
 import org.lasque.tusdk.core.view.widget.TuMaskRegionView;
 import org.lasque.tusdk.core.view.widget.button.TuSdkImageButton;
@@ -27,14 +24,10 @@ import org.lasque.tusdk.impl.components.widget.sticker.StickerView;
 import org.lasque.tusdk.modules.components.ComponentActType;
 import org.lasque.tusdk.modules.view.widget.sticker.StickerCategory;
 import org.lasque.tusdk.modules.view.widget.sticker.StickerData;
-import org.lasque.tusdk.modules.view.widget.sticker.StickerFactory;
 import org.lasque.tusdk.modules.view.widget.sticker.StickerLocalPackage;
 import org.lasque.tusdk.modules.view.widget.sticker.StickerResult;
 
 import com.share.photoshare.R;
-import com.share.photoshare.custom.CustomStickerBarView;
-
-import java.io.File;
 import java.util.List;
 
 /**

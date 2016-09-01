@@ -1,6 +1,5 @@
 package com.share.photoshare.custom.ui;
 
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -48,8 +47,6 @@ public class StartActivity extends TuFragmentActivity {
     {
         super.initActivity();
         this.setRootView(R.layout.custom_start, 0);
-
-//        this.setTheme(setTheme(););
     }
 
 

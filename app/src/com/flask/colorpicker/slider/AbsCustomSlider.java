@@ -4,12 +4,12 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.PorterDuff;
-//import android.support.annotation.DimenRes;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.flask.colorpicker.R;
+import com.share.photoshare.R;
+
 
 public abstract class AbsCustomSlider extends View {
 	protected Bitmap bitmap;
