@@ -18,14 +18,14 @@
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:layout_above="@+id/lsq_bottomBar"
-        layout="@layout/tusdk_impl_component_widget_parameter_config_view" />
+        layout="@layout/custom_component_widget_parameter_config_view" />
 
     <HorizontalScrollView
         android:id="@+id/lsq_option_wrap"
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:layout_above="@+id/lsq_bottomBar"
-        android:background="@color/lsq_background_option_bar" >
+        android:background="@color/green_common" >
 
         <LinearLayout
             android:id="@+id/lsq_actions_wrapview"
@@ -40,7 +40,7 @@
     <RelativeLayout
         android:id="@+id/lsq_bottomBar"
         android:layout_width="match_parent"
-        android:layout_height="49dp"
+        android:layout_height="0dp"
         android:layout_alignParentBottom="true"
         android:background="@color/lsq_background_editor_bottom_bar">
 
@@ -96,5 +96,22 @@
             android:scaleType="center"
             android:src="@drawable/lsq_style_default_edit_button_completed" />
     </RelativeLayout>
+
+    <org.lasque.tusdk.core.view.widget.button.TuSdkImageButton
+        android:id="@+id/lsq_cancelButton1"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:scaleType="centerInside"
+        android:background="@drawable/lsq_style_default_edit_button_cancel_bg" />
+
+    <org.lasque.tusdk.core.view.widget.button.TuSdkImageButton
+        android:id="@+id/lsq_doneButton1"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:scaleType="centerInside"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:background="@drawable/lsq_style_default_edit_button_confirm_bg" />
 
 </RelativeLayout>

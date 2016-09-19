@@ -1,5 +1,6 @@
 package com.share.photoshare.custom.ui;
 
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.share.photoshare.R;
@@ -22,36 +23,34 @@ public class SkinFragment extends TuEditSkinFragment{
     public void setRootViewLayoutId(int i) {
         super.setRootViewLayoutId(getLayoutViewId());
     }
+
 //
-//
-//    @Override
-//    public TuFilterResultFragmentDelegate getDelegate() {
-//        TuFilterResultFragmentDelegate  delegate = super.getDelegate();
-//        return delegate;
-//    }
-//
-//    protected void loadView(ViewGroup var1) {
-//        super.loadView(var1);
-//        ((FilterImageViewInterface)this.getImageView()).setImageBackgroundColor(TuSdkContext.getColor(R.color.gray_common2));
-//    }
-//
-//    @Override
-//    public TuSdkImageButton getCompleteButton() {
-//
-//        TuSdkImageButton button = this.getViewById(R.id.lsq_doneButton);
-//        if(button != null) {
-//            button.setOnClickListener(this.mButtonClickListener);
-//        }
-//        return button;
-//    }
-//
-//
-//    @Override
-//    public TuSdkImageButton getCancelButton() {
-//        TuSdkImageButton button = this.getViewById(R.id.lsq_cancelButton1);
-//        if(button != null) {
-//            button.setOnClickListener(this.mButtonClickListener);
-//        }
-//        return button;
-//    }
+    protected void loadView(ViewGroup var1) {
+        super.loadView(var1);
+        (this.getImageView()).setImageBackgroundColor(TuSdkContext.getColor(R.color.gray_common2));
+//        View bottomBar = this.getViewById("lsq_bottomBar");
+//        if(bottomBar!=null)bottomBar.setVisibility(View.GONE);
+
+    }
+
+
+    @Override
+    public TuSdkImageButton getCompleteButton() {
+
+        TuSdkImageButton button = this.getViewById(R.id.lsq_doneButton1);
+        if(button != null) {
+            button.setOnClickListener(this.mButtonClickListener);
+        }
+        return button;
+    }
+
+
+    @Override
+    public TuSdkImageButton getCancelButton() {
+        TuSdkImageButton button = this.getViewById(R.id.lsq_cancelButton1);
+        if(button != null) {
+            button.setOnClickListener(this.mButtonClickListener);
+        }
+        return button;
+    }
 }

@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:layout_above="@+id/lsq_bar_bottomBar"
-        layout="@layout/tusdk_impl_component_widget_parameter_config_view" />
+        layout="@layout/custom_component_widget_parameter_config_view" />
 
     <include
         android:id="@+id/lsq_group_filter_bar"
