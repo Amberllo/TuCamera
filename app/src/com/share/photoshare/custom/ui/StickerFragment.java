@@ -9,7 +9,9 @@
  */
 package com.share.photoshare.custom.ui;
 
+import android.graphics.Bitmap;
 import android.graphics.Rect;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -28,6 +30,8 @@ import org.lasque.tusdk.modules.view.widget.sticker.StickerLocalPackage;
 import org.lasque.tusdk.modules.view.widget.sticker.StickerResult;
 
 import com.share.photoshare.R;
+import com.share.photoshare.custom.FastBlurUtil;
+
 import java.util.List;
 
 /**
@@ -40,6 +44,8 @@ public class StickerFragment extends TuEditStickerFragment
 
     int boradWidth = 0;
     int boradHeight = 0;
+
+    Bitmap originBitmap;
 
     public static int getLayoutViewId(){
         return R.layout.custom_sticker_fragment_layout;
@@ -64,14 +70,18 @@ public class StickerFragment extends TuEditStickerFragment
             this.getStickerBarView().loadCategories(this.getCategories());
         }
 
+        originBitmap = getImage();
         try {
             StickerCategory category = StickerLocalPackage.shared().getCategories().get(0);
             StickerData stickerData = category.datas.get(0).stickers.get(0);
+
             fixBorder(stickerData);
             appendStickerItem(stickerData);
         }catch (Exception e){
             e.printStackTrace();
         }
+
+
     }
 
     @Override
@@ -97,6 +107,13 @@ public class StickerFragment extends TuEditStickerFragment
     @Override
     public void onStickerBarViewSelected(StickerBarView stickerBarView, StickerData stickerData) {
         fixBorder(stickerData);
+
+//        if(stickerData.categoryId == 3){
+//            getImageView().setImageBitmap(blurImage(originBitmap,8));
+//        }else{
+//            getImageView().setImageBitmap(originBitmap);
+//        }
+
         appendStickerItem(stickerData);
     }
 
@@ -151,5 +168,19 @@ public class StickerFragment extends TuEditStickerFragment
         return regionView;
     }
 
+    private Bitmap blurImage(Bitmap originBitmap, int scale){
+        if(scale== 0){
+            return originBitmap;
+        }
 
+        long start = System.currentTimeMillis();
+        int scaleRatio = 10;
+        Bitmap scaledBitmap = Bitmap.createScaledBitmap(originBitmap,
+                originBitmap.getWidth() / scaleRatio,
+                originBitmap.getHeight() / scaleRatio,
+                false);
+        Bitmap blurBitmap = FastBlurUtil.doBlur(scaledBitmap, scale, true);
+        Log.i("blurtime"," scale = "+scale +" " + String.valueOf(System.currentTimeMillis() - start));
+        return blurBitmap ;
+    }
 }
