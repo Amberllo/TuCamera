@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="lsq_sdk_name">美颜相机</string>
+    <string name="lsq_sdk_name">TuSDK 塗圖</string>
     <string name="lsq_exit_info">再按一次將退出應用</string>
-    <string name="lsq_text"></string>
+    <string name="lsq_text">TuSDK 塗圖</string>
     <string name="lsq_reset">重置</string>
     <string name="lsq_initing">正在初始化</string>
     <string name="lsq_inited">初始化完成</string>
@@ -65,6 +65,8 @@
     <string name="lsq_album_broken_msg">該照片文件已經被損壞</string>
     <string name="lsq_album_empty_selection_msg">請至少選擇一張照片</string>
     <string name="lsq_album_max_selection_msg">最多選擇 %d 張照片</string>
+    <string name="lsq_album_multi_preview_select">選擇</string>
+	<string name="lsq_album_multi_preview_done">完成</string>
 
     <!-- save -->
     <string name="lsq_save_saveToTemp">正在處理&#8230;</string>
@@ -85,6 +87,9 @@
     <string name="lsq_edit_filter_processing">正在處理&#8230;</string>
     <string name="lsq_edit_processing">正在處理&#8230;</string>
     <string name="lsq_edit_process_error">發生錯誤，請確認設備已聯網</string>
+    <string name="lsq_edit_process_error_no_face">未檢測到人臉</string>
+    <string name="lsq_edit_process_error_multi_face">檢測到多張人臉</string>
+    <string name="lsq_edit_process_error_no_face_access">人臉檢測請求失敗</string>
     <string name="lsq_edit_step_prev">撤銷</string>
     <string name="lsq_edit_step_next">重做</string>
     <string name="lsq_edit_auto_adjust">自動校色</string>
@@ -92,19 +97,21 @@
     <string name="lsq_edit_entry_filter">濾鏡</string>
     <string name="lsq_edit_entry_cuter">裁切</string>
     <string name="lsq_edit_entry_sticker">貼紙</string>
-    <string name="lsq_edit_entry_font">文字</string>
     <string name="lsq_edit_entry_smudge">涂抹</string>
-     <string name="lsq_edit_entry_smudge_filter">模糊</string>
+    <string name="lsq_edit_entry_smudge_filter">模糊</string>
     <string name="lsq_edit_cuter_ratio_orgin">原始</string>
     <string name="lsq_edit_cuter_ratio_1_1">1:1</string>
     <string name="lsq_edit_cuter_ratio_2_3">2:3</string>
     <string name="lsq_edit_cuter_ratio_3_4">3:4</string>
     <string name="lsq_edit_cuter_ratio_9_16">9:16</string>
+    <string name="lsq_edit_cuter_ratio_3_2">3:2</string>
+    <string name="lsq_edit_cuter_ratio_4_3">4:3</string>
+    <string name="lsq_edit_cuter_ratio_16_9">16:9</string>
     <string name="lsq_edit_title">編輯</string>
     <string name="lsq_edit_multiple_title">編輯</string>
     <string name="lsq_edit_skin_title">美顏</string>
     <string name="lsq_edit_holy_light">聖光</string>
-    <string name="lsq_edit_entry_fontsticker">字體</string>
+
     <!-- sticker -->
     <string name="lsq_sticker_title">貼紙</string>
     <string name="lsq_sticker_cate_default">貼紙</string>
@@ -210,6 +217,9 @@
     <string name="lsq_filter_set_blurSize">強度</string>
     <string name="lsq_filter_set_blurWeight">權重</string>
     <string name="lsq_filter_set_skinColorThreshold">膚色</string>
+	<string name="lsq_filter_set_eyeSize">大眼</string>
+    <string name="lsq_filter_set_chinSize">瘦臉</string>
+    <string name="lsq_filter_set_retouchSize">一鍵美顏</string>
     <string name="lsq_filter_set_skinColorThresholdQuadraticMixture">矩陣</string>
     <string name="lsq_filter_set_distanceNormalizationFactor">邊緣</string>
     <string name="lsq_filter_set_blurSigma">西格瑪</string>

@@ -3,10 +3,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
 	android:shape="oval">
 
-    <!--<size-->
-        <!--android:width="32dp"-->
-        <!--android:height="32dp" />-->
-
 	<solid android:color="#2ec5fe"/>
 	
 	<!-- android:radius 弧形的半径 -->
