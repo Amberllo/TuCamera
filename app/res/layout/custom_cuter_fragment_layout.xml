@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/lsq_optionBar_root"
-        android:background="@color/amber_gray_common2"
+        android:background="@color/gray_common2"
         android:clipChildren="false"
         android:clipToPadding="false" >
     </RelativeLayout>
@@ -31,7 +31,7 @@
             android:layout_height="80dp"
 
             android:gravity="center"
-            android:background="@color/amber_green_common2"
+            android:background="@color/green_common2"
             android:orientation="horizontal" >
 
             <org.lasque.tusdk.core.view.widget.button.TuSdkTextButton
@@ -96,7 +96,7 @@
         android:layout_width="match_parent"
         android:layout_height="49dp"
         android:layout_alignParentBottom="true"
-        android:background="@color/amber_green_common"
+        android:background="@color/green_common2"
         android:orientation="horizontal" >
 
         <org.lasque.tusdk.core.view.widget.button.TuSdkImageButton

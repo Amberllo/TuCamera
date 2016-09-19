@@ -2,14 +2,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/amber_gray_common2" >
+    android:background="@color/green_common2" >
     
     <RelativeLayout
         android:id="@+id/lsq_imageWrapView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="80dp"
-        android:background="@color/amber_gray_common2" >
+        android:background="@color/green_common2" >
     </RelativeLayout>
 
    <RelativeLayout
@@ -18,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="49dp"
         android:layout_alignParentBottom="true"
-        android:background="@color/amber_green_common" >
+        android:background="@color/green_common2" >
 
         <org.lasque.tusdk.core.view.widget.button.TuSdkImageButton
             android:id="@+id/lsq_cancelButton"
