@@ -31,6 +31,8 @@ import org.lasque.tusdk.modules.view.widget.sticker.StickerResult;
 
 import com.share.photoshare.R;
 import com.share.photoshare.custom.FastBlurUtil;
+import com.share.photoshare.custom.suite.PosterComponent;
+import com.share.photoshare.custom.suite.PosterComponentOption;
 
 import java.util.List;
 
@@ -107,14 +109,19 @@ public class StickerFragment extends TuEditStickerFragment
     @Override
     public void onStickerBarViewSelected(StickerBarView stickerBarView, StickerData stickerData) {
         fixBorder(stickerData);
-
+        appendStickerItem(stickerData);
         if(stickerData.categoryId == 3){
 //            getImageView().setImageBitmap(blurImage(originBitmap,8));
 //        }else{
 //            getImageView().setImageBitmap(originBitmap);
-            Toast.makeText(getActivity(),"海报功能",Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getActivity(),"海报功能",Toast.LENGTH_SHORT).show();
+
+//            new PosterComponent(getActivity())
+//                    .setOption(new PosterComponentOption())
+//                    .showComponent();
+
         }else{
-            appendStickerItem(stickerData);
+//            appendStickerItem(stickerData);
         }
 
 

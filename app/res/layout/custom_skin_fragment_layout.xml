@@ -38,16 +38,6 @@
 
     </HorizontalScrollView>
 
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:id="@+id/lsq_actions_wrapview1"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:layout_above="@+id/lsq_bottomBar"
-        android:background="@color/green_common"  >
-    </LinearLayout>
-
     <RelativeLayout
         android:id="@+id/lsq_bottomBar"
         android:layout_width="match_parent"
