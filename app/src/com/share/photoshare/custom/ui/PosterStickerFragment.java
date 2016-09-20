@@ -16,6 +16,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.share.photoshare.R;
+import com.share.photoshare.custom.FastBlurUtil;
+
 import org.lasque.tusdk.core.TuSdkContext;
 import org.lasque.tusdk.core.secret.StatisticsManger;
 import org.lasque.tusdk.core.view.widget.TuMaskRegionView;
@@ -29,16 +32,13 @@ import org.lasque.tusdk.modules.view.widget.sticker.StickerData;
 import org.lasque.tusdk.modules.view.widget.sticker.StickerLocalPackage;
 import org.lasque.tusdk.modules.view.widget.sticker.StickerResult;
 
-import com.share.photoshare.R;
-import com.share.photoshare.custom.FastBlurUtil;
-
 import java.util.List;
 
 /**
  * @author Amberllo
  * 帖子编辑页面
  */
-public class StickerFragment extends TuEditStickerFragment
+public class PosterStickerFragment extends TuEditStickerFragment
 {
 
 
@@ -108,16 +108,13 @@ public class StickerFragment extends TuEditStickerFragment
     public void onStickerBarViewSelected(StickerBarView stickerBarView, StickerData stickerData) {
         fixBorder(stickerData);
 
-        if(stickerData.categoryId == 3){
+//        if(stickerData.categoryId == 3){
 //            getImageView().setImageBitmap(blurImage(originBitmap,8));
 //        }else{
 //            getImageView().setImageBitmap(originBitmap);
-            Toast.makeText(getActivity(),"海报功能",Toast.LENGTH_SHORT).show();
-        }else{
-            appendStickerItem(stickerData);
-        }
+//        }
 
-
+        appendStickerItem(stickerData);
     }
 
     private void fixBorder(StickerData stickerData){
