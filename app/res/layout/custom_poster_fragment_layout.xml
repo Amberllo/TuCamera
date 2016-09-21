@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/gray_common2" >
+
+
+
+
+
+    <LinearLayout
+
+        android:gravity="center"
+        android:id="@+id/lsq_config_bottomBar"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/green_common2" >
+
+        <!--<org.lasque.tusdk.core.view.widget.button.TuSdkImageButton-->
+            <!--android:visibility="invisible"-->
+            <!--android:layout_weight="1"-->
+            <!--android:id="@+id/lsq_configCancelButton"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:scaleType="center"-->
+            <!--android:src="@drawable/lsq_style_default_edit_button_cancel" />-->
+
+
+        <!--<org.lasque.tusdk.core.view.widget.button.TuSdkImageButton-->
+            <!--android:padding="15dp"-->
+            <!--android:id="@+id/lsq_fontButton"-->
+            <!--android:layout_weight="1"-->
+
+            <!--android:layout_width="match_parent"-->
+            <!--android:src="@drawable/img_textsticker"-->
+            <!--android:layout_height="match_parent"/>-->
+
+        <!--<com.share.photoshare.custom.CustomColorImageView-->
+
+            <!--android:layout_weight="1"-->
+            <!--android:id="@+id/lsq_colorButton"-->
+            <!--android:layout_width="match_parent"-->
+
+            <!--android:layout_height="match_parent"/>-->
+
+        <!--<org.lasque.tusdk.core.view.widget.button.TuSdkImageButton-->
+            <!--android:visibility="invisible"-->
+            <!--android:layout_weight="1"-->
+            <!--android:id="@+id/lsq_configCompleteButton"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:scaleType="center"-->
+            <!--android:src="@drawable/lsq_style_default_edit_button_completed" />-->
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:layout_centerHorizontal="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_above="@+id/lsq_config_bottomBar">
+
+
+        <RelativeLayout
+            android:id="@+id/lsq_imageWrapView"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_centerInParent="true"
+                android:id="@+id/lsq_imageView"
+                android:scaleType="fitCenter"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <org.lasque.tusdk.core.view.widget.button.TuSdkImageButton
+        android:id="@+id/lsq_cancelButton"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:scaleType="centerInside"
+        android:background="@drawable/lsq_style_default_edit_button_cancel_bg" />
+
+    <org.lasque.tusdk.core.view.widget.button.TuSdkImageButton
+        android:id="@+id/lsq_doneButton"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:scaleType="centerInside"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:background="@drawable/lsq_style_default_edit_button_confirm_bg" />
+
+</RelativeLayout>

@@ -28,8 +28,9 @@ public class PosterComponentOption extends TuImageResultOption {
 
     PosterDelegate delegate;
 
-    public void setDelegate(PosterDelegate delegate){
+    public PosterComponentOption setDelegate(PosterDelegate delegate){
         this.delegate = delegate;
+        return this;
     }
 
 

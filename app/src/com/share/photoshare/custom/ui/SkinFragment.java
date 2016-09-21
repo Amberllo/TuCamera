@@ -10,12 +10,11 @@ import com.share.photoshare.R;
 
 import org.lasque.tusdk.core.TuSdkContext;
 import org.lasque.tusdk.core.seles.SelesParameters;
-import org.lasque.tusdk.core.seles.tusdk.FilterImageViewInterface;
+
 import org.lasque.tusdk.core.view.widget.button.TuSdkImageButton;
 import org.lasque.tusdk.core.view.widget.button.TuSdkTextButton;
 import org.lasque.tusdk.impl.components.filter.TuEditSkinFragment;
 
-import java.util.Iterator;
 import java.util.List;
 
 /**

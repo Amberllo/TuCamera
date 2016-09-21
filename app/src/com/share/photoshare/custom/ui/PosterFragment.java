@@ -11,30 +11,24 @@ package com.share.photoshare.custom.ui;
 
 import android.graphics.Bitmap;
 import android.graphics.Rect;
+import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.example.abner.stickerdemo.view.StickerView;
+import com.example.abner.stickerdemo.view.TextStickerView;
 import com.share.photoshare.R;
 import com.share.photoshare.custom.FastBlurUtil;
+import com.share.photoshare.custom.suite.PosterComponentOption;
 
-import org.lasque.tusdk.core.TuSdkContext;
 import org.lasque.tusdk.core.TuSdkResult;
-import org.lasque.tusdk.core.secret.StatisticsManger;
-import org.lasque.tusdk.core.view.widget.TuMaskRegionView;
-import org.lasque.tusdk.core.view.widget.button.TuSdkImageButton;
 import org.lasque.tusdk.impl.activity.TuImageResultFragment;
-import org.lasque.tusdk.impl.components.sticker.TuEditStickerFragment;
-import org.lasque.tusdk.impl.components.widget.sticker.StickerBarView;
-import org.lasque.tusdk.impl.components.widget.sticker.StickerView;
-import org.lasque.tusdk.modules.components.ComponentActType;
-import org.lasque.tusdk.modules.view.widget.sticker.StickerCategory;
 import org.lasque.tusdk.modules.view.widget.sticker.StickerData;
-import org.lasque.tusdk.modules.view.widget.sticker.StickerLocalPackage;
-import org.lasque.tusdk.modules.view.widget.sticker.StickerResult;
-
-import java.util.List;
 
 /**
  * @author Amberllo
@@ -44,13 +38,16 @@ public class PosterFragment extends TuImageResultFragment
 {
 
 
-    int boradWidth = 0;
-    int boradHeight = 0;
-
-    Bitmap originBitmap;
+    private View bottomBar;
+    private ImageView imageView;
+    private RelativeLayout imageWrapView;
+    private StickerData stickerData;
+    private StickerView stickerView;
+    //当前处于编辑状态的气泡
+    private StickerView mCurrentEditTextView;
 
     public static int getLayoutViewId(){
-        return R.layout.custom_sticker_fragment_layout;
+        return R.layout.custom_poster_fragment_layout;
     }
 
     @Override
@@ -58,30 +55,19 @@ public class PosterFragment extends TuImageResultFragment
         super.setRootViewLayoutId(getLayoutViewId());
     }
 
+    public View onCreateView(LayoutInflater inflater, ViewGroup viewGroup, Bundle saveInstance) {
+        if(this.getRootViewLayoutId() == 0) {
+            this.setRootViewLayoutId(getLayoutViewId());
+        }
+        return super.onCreateView(inflater, viewGroup, saveInstance);
+    }
+
     @Override
     protected void loadView(ViewGroup viewGroup) {
-//        StatisticsManger.appendComponent(ComponentActType.editStickerFragment);
-//        this.getImageView();
-//        this.getStickerView();
-//        this.getCutRegionView();
-//        this.getCancelButton();
-//        this.getCompleteButton();
-//        this.getListButton().setVisibility(View.GONE);
-//        this.getOnlineButton();
-//        if(this.getStickerBarView() != null) {
-//            this.getStickerBarView().loadCategories(this.getCategories());
-//        }
-//
-//        originBitmap = getImage();
-//        try {
-//            StickerCategory category = StickerLocalPackage.shared().getCategories().get(0);
-//            StickerData stickerData = category.datas.get(0).stickers.get(0);
-//
-//            fixBorder(stickerData);
-//            appendStickerItem(stickerData);
-//        }catch (Exception e){
-//            e.printStackTrace();
-//        }
+
+        bottomBar = viewGroup.findViewById(R.id.lsq_config_bottomBar);
+        imageView = (ImageView)viewGroup.findViewById(R.id.lsq_imageView);
+        imageWrapView = (RelativeLayout) viewGroup.findViewById(R.id.lsq_imageWrapView);
 
 
     }
@@ -89,19 +75,103 @@ public class PosterFragment extends TuImageResultFragment
     @Override
     protected void viewDidLoad(ViewGroup viewGroup) {
 
+        int width,height;
+
+        Bitmap bitmap = getImage();
+
+        if(getImage()!=null && imageView!=null){
+            imageView.setImageBitmap(blurImage(bitmap,5));
+
+            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) imageView.getLayoutParams();
+            RelativeLayout.LayoutParams paramsLayout = (RelativeLayout.LayoutParams) imageWrapView.getLayoutParams();
+
+            if(bitmap.getWidth()<bitmap.getHeight()){
+                int resizeWidth = imageView.getHeight() * bitmap.getWidth() / bitmap.getHeight();
+                params.width = resizeWidth ;
+                paramsLayout.width = resizeWidth;
+
+                height = imageView.getHeight();
+                width = resizeWidth;
+
+            }else{
+                int resizeHeight = imageView.getWidth() * bitmap.getHeight() / bitmap.getWidth();
+                params.height= resizeHeight;
+                paramsLayout.height = resizeHeight;
+
+                height = resizeHeight;
+                width = imageView.getWidth();
+
+            }
+
+            imageView.setLayoutParams(params);
+            imageWrapView.setLayoutParams(paramsLayout);
+
+//            addSticker();
+        }
+
     }
 
-    private void fixBorder(StickerData stickerData){
-        if(stickerData.categoryId == 3){
-            if(boradWidth == 0  && boradHeight == 0){
-                boradWidth = stickerData.width;
-                boradHeight = stickerData.height;
+    //添加气泡
+    private void addSticker() {
+
+        stickerView = new StickerView(getContext());
+        stickerView.setBitmap(stickerData.getImage());
+        stickerView.setOperationListener(new StickerView.OperationListener() {
+            @Override
+            public void onDeleteClick() {
+//                mViews.remove(textStickerView);
+//                imageWrapView.removeView(textStickerView);
+
+
             }
-            stickerData.width = boradWidth * 2;
-            stickerData.height = boradHeight * 2;
+
+            @Override
+            public void onEdit(StickerView stickerView) {
+                setCurrentEdit(stickerView);
+            }
+
+            @Override
+            public void onTop(StickerView stickerView) {
+
+            }
+
+//            @Override
+//            public void onClick(TextStickerView stickerView) {
+//            }
+//
+//            @Override
+//            public void onTop(TextStickerView stickerView) {
+////                int position = mViews.indexOf(stickerView);
+////                if (position == mViews.size() - 1) {
+////                    return;
+////                }
+////                TextStickerView textView = (TextStickerView) mViews.remove(position);
+////                mViews.add(mViews.size(), textView);
+//            }
+        });
+        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
+        imageWrapView.addView(stickerView, lp);
+        setCurrentEdit(stickerView);
+    }
+
+    private void fixBorder(){
+        if(stickerData.categoryId == 3){
+
+
         }
     }
 
+    /**
+     * 设置当前处于编辑模式的气泡
+     */
+    private void setCurrentEdit(StickerView stickerView) {
+
+        if (mCurrentEditTextView != null) {
+            mCurrentEditTextView.setInEdit(false);
+        }
+        mCurrentEditTextView = stickerView;
+        mCurrentEditTextView.setInEdit(true);
+    }
 
     private Bitmap blurImage(Bitmap originBitmap, int scale){
         if(scale== 0){
@@ -121,11 +191,22 @@ public class PosterFragment extends TuImageResultFragment
 
     @Override
     protected void notifyProcessing(TuSdkResult tuSdkResult) {
-
+        if(this.delegate != null)delegate.onPosterResult(this, tuSdkResult);
     }
 
     @Override
     protected boolean asyncNotifyProcessing(TuSdkResult tuSdkResult) {
-        return false;
+        return this.delegate == null?false:this.delegate.onPosterResultAsync(this, tuSdkResult);
+    }
+
+    public void setStickerData(StickerData stickerData) {
+        this.stickerData = stickerData;
+//        stickerData.width = boradWidth * 2;
+//        stickerData.height = boradHeight * 2;
+    }
+
+    PosterComponentOption.PosterDelegate delegate;
+    public void setDelegate(PosterComponentOption.PosterDelegate delegate) {
+        this.delegate = delegate;
     }
 }

@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import org.lasque.tusdk.core.TuSdkContext;
+import org.lasque.tusdk.core.TuSdkResult;
 import org.lasque.tusdk.core.secret.StatisticsManger;
 import org.lasque.tusdk.core.view.widget.TuMaskRegionView;
 import org.lasque.tusdk.core.view.widget.button.TuSdkImageButton;
@@ -109,19 +110,33 @@ public class StickerFragment extends TuEditStickerFragment
     @Override
     public void onStickerBarViewSelected(StickerBarView stickerBarView, StickerData stickerData) {
         fixBorder(stickerData);
-        appendStickerItem(stickerData);
+//        appendStickerItem(stickerData);
         if(stickerData.categoryId == 3){
-//            getImageView().setImageBitmap(blurImage(originBitmap,8));
-//        }else{
-//            getImageView().setImageBitmap(originBitmap);
-//            Toast.makeText(getActivity(),"海报功能",Toast.LENGTH_SHORT).show();
 
-//            new PosterComponent(getActivity())
-//                    .setOption(new PosterComponentOption())
-//                    .showComponent();
+            PosterComponentOption option = new PosterComponentOption()
+                    .setDelegate(new PosterComponentOption.PosterDelegate() {
+                        @Override
+                        public void onPosterResult(PosterFragment fragment, TuSdkResult result) {
+
+                        }
+
+                        @Override
+                        public boolean onPosterResultAsync(PosterFragment fragment, TuSdkResult result) {
+                            return false;
+                        }
+                    });
+
+
+            new PosterComponent(getActivity())
+                    .setStickerData(stickerData)
+                    .setOption(option)
+                    .setImage(getImage())
+                    .setTempFilePath(getTempFilePath())
+                    .setImageSqlInfo(getImageSqlInfo())
+                    .showComponent();
 
         }else{
-//            appendStickerItem(stickerData);
+            appendStickerItem(stickerData);
         }
 
 
