@@ -12,6 +12,7 @@ import org.lasque.tusdk.core.TuSdkContext;
 import org.lasque.tusdk.core.view.widget.button.TuSdkTextButton;
 import org.lasque.tusdk.impl.components.widget.sticker.StickerBarView;
 import org.lasque.tusdk.modules.view.widget.sticker.StickerCategory;
+import org.lasque.tusdk.modules.view.widget.sticker.StickerData;
 import org.lasque.tusdk.modules.view.widget.sticker.StickerLocalPackage;
 
 import java.util.Iterator;
@@ -29,6 +30,11 @@ public class CustomStickerBarView extends StickerBarView {
     public void loadCategories(List<StickerCategory> list) {
         super.loadCategories(list);
         this.selectCateIndex(1);
+//        List<StickerCategory> categories = StickerLocalPackage.shared().getCategories();
+//        StickerData stickerData = StickerLocalPackage.shared().getSticker(9184);
+//        StickerLocalPackage.shared().loadStickerItem(stickerData);
+//        System.out.println(stickerData.getImage()==null);
+
     }
 
     protected View buildCateButton(StickerCategory category, int tag, LayoutParams layoutParams) {

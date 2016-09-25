@@ -10,14 +10,16 @@
 package com.mixcolours.photoshare.custom.ui;
 
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Rect;
-import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import org.lasque.tusdk.core.TuSdkContext;
+import org.lasque.tusdk.core.TuSdkResult;
 import org.lasque.tusdk.core.secret.StatisticsManger;
 import org.lasque.tusdk.core.view.widget.TuMaskRegionView;
 import org.lasque.tusdk.core.view.widget.button.TuSdkImageButton;
@@ -32,10 +34,16 @@ import org.lasque.tusdk.modules.view.widget.sticker.StickerItemViewInterface;
 import org.lasque.tusdk.modules.view.widget.sticker.StickerLocalPackage;
 import org.lasque.tusdk.modules.view.widget.sticker.StickerResult;
 
+import com.example.abner.stickerdemo.utils.FileUtils;
+import com.example.abner.stickerdemo.view.BoraderStickerView;
 import com.mixcolours.photoshare.R;
 import com.mixcolours.photoshare.custom.FastBlurUtil;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * @author Amberllo
@@ -50,6 +58,8 @@ public class StickerFragment extends TuEditStickerFragment
     int boradHeight = 0;
 
     Bitmap originBitmap;
+    BoraderStickerView mCurrentBoraderView;
+    List<View> mViews = new ArrayList<View>();
 
     public static int getLayoutViewId(){
         return R.layout.custom_sticker_fragment_layout;
@@ -80,14 +90,12 @@ public class StickerFragment extends TuEditStickerFragment
             StickerData stickerData = category.datas.get(0).stickers.get(0);
 
             fixBorder(stickerData);
-            appendStickerItem(stickerData);
-
-//            poster(stickerData);
+            StickerLocalPackage.shared().loadStickerItem(stickerData);
+            addBoraderSticker(stickerData.getImage());
 
         }catch (Exception e){
             e.printStackTrace();
         }
-
 
     }
 
@@ -113,77 +121,101 @@ public class StickerFragment extends TuEditStickerFragment
 
     @Override
     public void onStickerBarViewSelected(StickerBarView stickerBarView, StickerData stickerData) {
-        System.out.println(getStickerView().getChildCount());
-        fixBorder(stickerData);
-        appendStickerItem(stickerData);
+
+        StickerLocalPackage.shared().loadStickerItem(stickerData);
         if(stickerData.categoryId == BoardCategoryId){
+            fixBorder(stickerData);
+            addBoraderSticker(stickerData.getImage());
 
-            getImageView().setImageBitmap(blurImage(originBitmap));
+        }else{
+            appendStickerItem(stickerData);
+            setStickerButtonDelegate();
+        }
 
+    }
 
-
-
-            new CountDownTimer(1000,1000){
-
-                @Override
-                public void onTick(long millisUntilFinished) {
-
-                }
-
-                @Override
-                public void onFinish() {
-                    StickerView stickerView = getStickerView();
-                    StickerItemView itemView = (StickerItemView) stickerView.getChildAt(stickerView.getChildCount()-1);
-                    if(itemView==null)return;
+    private void setStickerButtonDelegate(){
+        if (mCurrentBoraderView != null) {
+            mCurrentBoraderView.setInEdit(false);
+        }
+        final Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                StickerView stickerView = getStickerView();
+                StickerItemView itemView = (StickerItemView) stickerView.getChildAt(stickerView.getChildCount()-1);
+                if(itemView!=null){
                     final StickerItemViewInterface.StickerItemViewDelegate delegate = itemView.getDelegate();
                     itemView.setDelegate(new StickerItemViewInterface.StickerItemViewDelegate() {
                         @Override
                         public void onStickerItemViewClose(StickerItemViewInterface stickerItemViewInterface) {
                             delegate.onStickerItemViewClose(stickerItemViewInterface);
-                            getImageView().setImageBitmap(originBitmap);
                         }
 
                         @Override
                         public void onStickerItemViewSelected(StickerItemViewInterface stickerItemViewInterface) {
                             delegate.onStickerItemViewSelected(stickerItemViewInterface);
+                            if(mCurrentBoraderView!=null)
+                            mCurrentBoraderView.setInEdit(false);
+
                         }
                     });
+                    timer.cancel();
                 }
-            }.start();
+            }
+        },200);
 
-
-        }
-//        else{
-//            appendStickerItem(stickerData);
-//        }
 
 
     }
 
 
-//    private void poster(StickerData stickerData){
-//        PosterComponentOption option = new PosterComponentOption()
-//                .setDelegate(new PosterComponentOption.PosterDelegate() {
-//                    @Override
-//                    public void onPosterResult(PosterFragment fragment, TuSdkResult result) {
-//
-//                    }
-//
-//                    @Override
-//                    public boolean onPosterResultAsync(PosterFragment fragment, TuSdkResult result) {
-//                        return false;
-//                    }
-//                });
-//
-//
-//        new PosterComponent(getActivity())
-//                .setStickerData(stickerData)
-//                .setOption(option)
-//                .setImage(getImage())
-//                .setTempFilePath(getTempFilePath())
-//                .setImageSqlInfo(getImageSqlInfo())
-//                .showComponent();
-//    }
+    //添加气泡
+    private void addBoraderSticker(Bitmap bitmap) {
+
+        final BoraderStickerView boraderStickerView = new BoraderStickerView(getActivity());
+        boraderStickerView.setBitmap(bitmap);
+        boraderStickerView.setOperationListener(new BoraderStickerView.OperationListener() {
+            @Override
+            public void onDeleteClick() {
+                mViews.remove(boraderStickerView);
+                getStickerView().removeView(boraderStickerView);
+
+            }
+
+            @Override
+            public void onEdit(BoraderStickerView stickerView) {
+                setCurrentEdit(stickerView);
+            }
+
+            @Override
+            public void onTop(BoraderStickerView stickerView) {
+                int position = mViews.indexOf(stickerView);
+                if (position == mViews.size() - 1) {
+                    return;
+                }
+                BoraderStickerView textView = (BoraderStickerView) mViews.remove(position);
+                mViews.add(mViews.size(), textView);
+            }
+        });
+        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
+        getStickerView().addView(boraderStickerView, lp);
+        mViews.add(boraderStickerView);
+        setCurrentEdit(boraderStickerView);
+    }
+
+
+    /**
+     * 设置当前处于编辑模式的气泡
+     */
+    private void setCurrentEdit(BoraderStickerView stickerView) {
+        if (mCurrentBoraderView != null) {
+            mCurrentBoraderView.setInEdit(false);
+        }
+        mCurrentBoraderView = stickerView;
+        mCurrentBoraderView.setInEdit(true);
+        getStickerView().cancelAllStickerSelected();
+    }
 
     private void fixBorder(StickerData stickerData){
         if(stickerData.categoryId == BoardCategoryId){
@@ -198,37 +230,6 @@ public class StickerFragment extends TuEditStickerFragment
 
     public StickerView getStickerView() {
         StickerView view =  this.getViewById("lsq_stickerView");
-        view.onStickerItemViewClose(new StickerItemViewInterface() {
-            @Override
-            public void setSelected(boolean b) {
-
-            }
-
-            @Override
-            public void setSticker(StickerData stickerData) {
-
-            }
-
-            @Override
-            public void setStroke(int i, int i1) {
-
-            }
-
-            @Override
-            public void setParentFrame(Rect rect) {
-
-            }
-
-            @Override
-            public void setDelegate(StickerItemViewDelegate stickerItemViewDelegate) {
-
-            }
-
-            @Override
-            public StickerResult getResult(Rect rect) {
-                return null;
-            }
-        });
         view.setDelegate(new StickerView.StickerViewDelegate() {
             @Override
             public boolean canAppendSticker(StickerView stickerView, StickerData stickerData) {
@@ -255,12 +256,6 @@ public class StickerFragment extends TuEditStickerFragment
         return view;
     }
 
-    boolean autoBorder;
-    public void setAutoBorder(boolean autoBorder) {
-        this.autoBorder = autoBorder;
-    }
-
-
     public TuMaskRegionView getCutRegionView() {
         TuMaskRegionView regionView = super.getCutRegionView();
         regionView.setEdgeMaskColor(TuSdkContext.getColor(R.color.gray_common2));
@@ -280,4 +275,61 @@ public class StickerFragment extends TuEditStickerFragment
         Log.i("blurtime"," scale = "+scale +" " + String.valueOf(System.currentTimeMillis() - start));
         return blurBitmap ;
     }
+
+    private TuSdkResult generateBitmap() {
+
+        Bitmap bitmap = Bitmap.createBitmap(getStickerView().getWidth(),
+                getStickerView().getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        getStickerView().draw(canvas);
+
+        String imagePath = FileUtils.saveBitmapToLocal(bitmap, getActivity());
+        TuSdkResult result = new TuSdkResult();
+
+        result.image = bitmap;
+        result.imageFile = new File(imagePath);
+        return result;
+
+    }
+
+    @Override
+    protected void handleCompleteButton() {
+//        super.handleCompleteButton();
+        if(this.getStickerView() == null) {
+            this.handleBackButton();
+        } else {
+            TuSdkResult result = new TuSdkResult();
+            Rect rect = null;
+            if(this.getCutRegionView() != null) {
+                rect = this.getCutRegionView().getRegionRect();
+            }
+
+            result.stickers = this.getStickerView().getResults(rect);
+
+
+            if(result.stickers != null && result.stickers.size() != 0) {
+//                this.hubStatus(TuSdkContext.getString("lsq_edit_processing"));
+//                (new Thread(new Runnable() {
+//                    public void run() {
+//                        asyncEditWithResult(result);
+//                    }
+//                })).start();
+
+//                ImageView imageView = getViewById(R.id.lsq_resultImage);
+//                imageView.setVisibility(View.VISIBLE);
+//                this.loadOrginImage(result);
+//                Bitmap bitmap = StickerFactory.megerStickers(result.image, result.stickers);
+
+
+//                getStickerView().cancelAllStickerSelected();
+//                if(mCurrentBoraderView !=null) mCurrentBoraderView.setInEdit(false);
+//                result = generateBitmap();
+//                imageView.setImageBitmap(result.image);
+
+            } else {
+                this.handleBackButton();
+            }
+        }
+    }
+
 }
