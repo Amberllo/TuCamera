@@ -36,7 +36,7 @@
             android:src="@drawable/img_textsticker"
             android:layout_height="match_parent"/>
 
-        <com.share.photoshare.custom.CustomColorImageView
+        <com.mixcolours.photoshare.CustomColorImageView
 
             android:layout_weight="1"
             android:id="@+id/lsq_colorButton"

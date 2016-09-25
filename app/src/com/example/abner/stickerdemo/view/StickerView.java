@@ -18,7 +18,7 @@ import android.widget.ImageView;
 
 import com.example.abner.stickerdemo.model.StickerPropertyModel;
 
-import com.share.photoshare.R;
+import com.mixcolours.photoshare.R;
 
 
 /**

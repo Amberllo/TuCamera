@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--<org.lasque.tusdk.impl.components.widget.filter.ParameterConfigView-->
-<com.share.photoshare.custom.CustomParameterConfigView
+<com.mixcolours.photoshare.custom.CustomParameterConfigView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -80,4 +80,4 @@
 
     </RelativeLayout>
 
-</com.share.photoshare.custom.CustomParameterConfigView>
+</com.mixcolours.photoshare.custom.CustomParameterConfigView>

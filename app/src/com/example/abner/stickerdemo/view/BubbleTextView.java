@@ -27,8 +27,8 @@ import android.widget.TextView;
 import com.example.abner.stickerdemo.model.BubblePropertyModel;
 import com.example.abner.stickerdemo.utils.DensityUtils;
 
-import com.share.photoshare.R;
-import com.share.photoshare.custom.BitmapUtils;
+import com.mixcolours.photoshare.R;
+import com.mixcolours.photoshare.custom.BitmapUtils;
 
 
 /**

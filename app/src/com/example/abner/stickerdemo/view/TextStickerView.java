@@ -22,8 +22,8 @@ import android.widget.TextView;
 
 import com.example.abner.stickerdemo.model.StickerPropertyModel;
 import com.example.abner.stickerdemo.utils.DensityUtils;
-import com.share.photoshare.R;
-import com.share.photoshare.custom.KeyBoardUtils;
+import com.mixcolours.photoshare.R;
+import com.mixcolours.photoshare.custom.KeyBoardUtils;
 
 
 /**

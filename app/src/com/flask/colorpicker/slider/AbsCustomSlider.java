@@ -8,7 +8,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.share.photoshare.R;
+import com.mixcolours.photoshare.R;
 
 
 public abstract class AbsCustomSlider extends View {

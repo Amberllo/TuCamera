@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.share.photoshare"
+    package="com.mixcolours.photoshare"
     android:versionCode="20160711"
     android:versionName="2.4.8" xmlns:tools="http://schemas.android.com/tools">
 

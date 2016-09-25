@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.share.photoshare.view.DemoListHeader xmlns:android="http://schemas.android.com/apk/res/android"
+<com.mixcolours.photoshare.view.DemoListHeader xmlns:android="http://schemas.android.com/apk/res/android"
                                           android:layout_width="match_parent"
                                           android:layout_height="40dp"
                                           android:background="@color/lsq_background_default_header"
@@ -15,4 +15,4 @@
         android:textColor="@color/lsq_color_white"
         android:textSize="14sp" />
 
-</com.share.photoshare.view.DemoListHeader>
+</com.mixcolours.photoshare.view.DemoListHeader>

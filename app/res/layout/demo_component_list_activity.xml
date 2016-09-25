@@ -7,10 +7,10 @@
         android:id="@+id/lsq_navigatorBar"
         layout="@layout/tusdk_view_widget_navigator" />
 
-    <com.share.photoshare.view.DemoListView
+    <com.mixcolours.photoshare.view.DemoListView
         android:id="@+id/lsq_listView"
         style="@style/lsq_listSplitView"
         android:layout_below="@+id/lsq_navigatorBar" >
-    </com.share.photoshare.view.DemoListView>
+    </com.mixcolours.photoshare.view.DemoListView>
 
 </RelativeLayout>

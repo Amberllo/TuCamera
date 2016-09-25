@@ -16,7 +16,7 @@ import android.widget.ImageView;
 
 import com.flask.colorpicker.builder.ColorPickerClickListener;
 import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
-import com.share.photoshare.R;
+import com.mixcolours.photoshare.R;
 
 public class ColorPickerPreference extends Preference {
 

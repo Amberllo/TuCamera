@@ -17,7 +17,7 @@ import android.widget.Toast;
 
 import com.example.abner.stickerdemo.utils.CommonUtils;
 
-import com.share.photoshare.R;
+import com.mixcolours.photoshare.R;
 
 /**
  * Created by Abner on 15/6/12.

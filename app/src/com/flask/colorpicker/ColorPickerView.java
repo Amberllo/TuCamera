@@ -23,7 +23,7 @@ import com.flask.colorpicker.renderer.ColorWheelRenderOption;
 import com.flask.colorpicker.renderer.ColorWheelRenderer;
 import com.flask.colorpicker.slider.AlphaSlider;
 import com.flask.colorpicker.slider.LightnessSlider;
-import com.share.photoshare.R;
+import com.mixcolours.photoshare.R;
 
 import java.util.ArrayList;
 

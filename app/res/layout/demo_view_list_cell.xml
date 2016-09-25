@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.share.photoshare.view.DemoListCell xmlns:android="http://schemas.android.com/apk/res/android"
+<com.mixcolours.photoshare.view.DemoListCell xmlns:android="http://schemas.android.com/apk/res/android"
                                         android:layout_width="match_parent"
                                         android:layout_height="50dp" >
 
@@ -15,4 +15,4 @@
         android:textColor="@color/lsq_color_black"
         android:textSize="15sp" />
 
-</com.share.photoshare.view.DemoListCell>
+</com.mixcolours.photoshare.view.DemoListCell>

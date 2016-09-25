@@ -19,7 +19,7 @@ import com.flask.colorpicker.OnColorSelectedListener;
 import com.flask.colorpicker.renderer.ColorWheelRenderer;
 import com.flask.colorpicker.slider.AlphaSlider;
 import com.flask.colorpicker.slider.LightnessSlider;
-import com.share.photoshare.R;
+import com.mixcolours.photoshare.R;
 
 public class ColorPickerDialogBuilder {
 	private AlertDialog.Builder builder;

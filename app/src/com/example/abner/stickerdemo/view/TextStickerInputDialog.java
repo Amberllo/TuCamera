@@ -13,8 +13,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.abner.stickerdemo.utils.CommonUtils;
-import com.share.photoshare.R;
-import com.share.photoshare.custom.KeyBoardUtils;
+import com.mixcolours.photoshare.R;
+import com.mixcolours.photoshare.custom.KeyBoardUtils;
 
 /**
  * Created by Abner on 15/6/12.
