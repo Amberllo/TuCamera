@@ -9,6 +9,9 @@ import android.graphics.Matrix;
 
 import com.mixcolours.photoshare.R;
 
+import java.io.IOException;
+import java.io.InputStream;
+
 /**
  * Created by LYL on 2016/7/27.
  */
@@ -63,6 +66,17 @@ public class BitmapUtils {
     public static int px2dip(Context context, float pxValue) {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (pxValue / scale + 0.5f);
+    }
+
+    public static Bitmap getStickerFromAccess(Context context,long stickerId){
+        try {
+            InputStream inputStream = context.getAssets().open("Borader/"+stickerId+".png");
+            return BitmapFactory.decodeStream(inputStream);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+
     }
 
 }

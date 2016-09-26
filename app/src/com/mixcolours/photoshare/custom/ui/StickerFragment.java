@@ -90,9 +90,8 @@ public class StickerFragment extends TuEditStickerFragment
             StickerCategory category = StickerLocalPackage.shared().getCategories().get(0);
             StickerData stickerData = category.datas.get(0).stickers.get(0);
 
-            fixBorder(stickerData);
-            StickerLocalPackage.shared().loadStickerItem(stickerData);
-            addBoraderSticker(stickerData.getImage());
+            Bitmap bitmap = BitmapUtils.getStickerFromAccess(getContext(),stickerData.stickerId);
+            addBoraderSticker(bitmap);
 
         }catch (Exception e){
             e.printStackTrace();
@@ -132,8 +131,8 @@ public class StickerFragment extends TuEditStickerFragment
                 return;
             }
 
-            fixBorder(stickerData);
-            addBoraderSticker(stickerData.getImage());
+            Bitmap bitmap = BitmapUtils.getStickerFromAccess(getContext(),stickerData.stickerId);
+            addBoraderSticker(bitmap);
 
         }else{
             appendStickerItem(stickerData);
@@ -188,6 +187,7 @@ public class StickerFragment extends TuEditStickerFragment
             public void onDeleteClick() {
                 mViews.remove(boraderStickerView);
                 getStickerView().removeView(boraderStickerView);
+                getImageView().setImageBitmap(blurImage(originBitmap));
 
             }
 
@@ -199,21 +199,19 @@ public class StickerFragment extends TuEditStickerFragment
             @Override
             public void onFull(BoraderStickerView stickerView) {
 
-//                System.out.println("imageView width ="+getImageView().getWidth()+" height = "+ getImageView().getHeight());
-//                System.out.println("image width ="+getImage().getWidth()+" height = "+ getImage().getHeight());
                 float scale = 1.0f;
                 if(getImage().getWidth() > getImage().getHeight()){
                     //横图
-                    scale = ((float)originBitmap.getHeight() /(float)stickerBitmap.getHeight());
+                    scale = ((float)getImageView().getHeight() /(float)stickerBitmap.getHeight());
                 }else{
                     //竖图
-                    scale = ((float)originBitmap.getWidth() /(float)stickerBitmap.getWidth());
+                    scale = ((float)getImageView().getWidth() /(float)stickerBitmap.getWidth());
                 }
-                Bitmap scaleStickerBitmap = BitmapUtils.resize(stickerBitmap,scale);
+                Bitmap fullScreen = BitmapUtils.resize(stickerBitmap,scale);
+                Bitmap posterBitmap = BitmapUtils.combineBoraderBitmap(originBitmap,fullScreen);
+                getImageView().setImageBitmap(posterBitmap);
+//                getStickerView().setVisibility(View.GONE);
 
-                Bitmap posterBitmap = BitmapUtils.combineBoraderBitmap(originBitmap,scaleStickerBitmap);
-                mCurrentBoraderView.setBitmap(posterBitmap);
-                mCurrentBoraderView.setInEdit(false);
             }
 
             @Override
