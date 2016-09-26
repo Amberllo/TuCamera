@@ -63,7 +63,6 @@ public class TuApplication extends TuSdkApplication
 	     *
 	     *  @param appkey 应用秘钥 (请前往 http://tusdk.com 申请秘钥)
 	     */
-//		this.initPreLoader(this.getApplicationContext(), "5042d831a2116fbe-04-ewdjn1");
         this.initPreLoader(this.getApplicationContext(), "90332d115bf8df36-02-7lryp1");
 
 		

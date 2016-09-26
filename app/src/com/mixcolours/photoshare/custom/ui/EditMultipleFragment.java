@@ -18,7 +18,6 @@ import org.lasque.tusdk.modules.components.ComponentActType;
 import org.lasque.tusdk.modules.components.edit.TuEditActionType;
 
 import com.mixcolours.photoshare.R;
-import com.mixcolours.photoshare.custom.BitmapUtils;
 import java.io.File;
 
 
@@ -157,14 +156,6 @@ public class EditMultipleFragment extends TuEditMultipleFragment {
         handleAction(TuEditActionType.TypeSticker);
     }
 
-    public void setDefaultBorder(){
-
-        Bitmap composedBitmap = BitmapUtils.getBordorBitmap(getActivity(),getImage());
-        String filepath = FileUtils.saveBitmapToLocal(composedBitmap,getActivity());
-        setTempFilePath(new File(filepath));
-        setDisplayImage(composedBitmap);
-        appendHistory(new File(filepath));
-    }
 
     private Bitmap shareOnComplete(){
         final TuSdkResult tuSdkResult;

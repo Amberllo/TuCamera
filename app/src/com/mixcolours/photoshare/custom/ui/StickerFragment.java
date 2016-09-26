@@ -12,6 +12,7 @@ package com.mixcolours.photoshare.custom.ui;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
+import android.graphics.drawable.BitmapDrawable;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,11 +33,11 @@ import org.lasque.tusdk.modules.view.widget.sticker.StickerCategory;
 import org.lasque.tusdk.modules.view.widget.sticker.StickerData;
 import org.lasque.tusdk.modules.view.widget.sticker.StickerItemViewInterface;
 import org.lasque.tusdk.modules.view.widget.sticker.StickerLocalPackage;
-import org.lasque.tusdk.modules.view.widget.sticker.StickerResult;
 
 import com.example.abner.stickerdemo.utils.FileUtils;
 import com.example.abner.stickerdemo.view.BoraderStickerView;
 import com.mixcolours.photoshare.R;
+import com.mixcolours.photoshare.custom.BitmapUtils;
 import com.mixcolours.photoshare.custom.FastBlurUtil;
 
 import java.io.File;
@@ -52,14 +53,14 @@ import java.util.TimerTask;
 public class StickerFragment extends TuEditStickerFragment
 {
 
-
+    boolean isBlur = false;
     private static final int BoardCategoryId = 2;
     int boradWidth = 0;
     int boradHeight = 0;
 
     Bitmap originBitmap;
     BoraderStickerView mCurrentBoraderView;
-    List<View> mViews = new ArrayList<View>();
+    List<View> mViews = new ArrayList<>();
 
     public static int getLayoutViewId(){
         return R.layout.custom_sticker_fragment_layout;
@@ -124,6 +125,13 @@ public class StickerFragment extends TuEditStickerFragment
 
         StickerLocalPackage.shared().loadStickerItem(stickerData);
         if(stickerData.categoryId == BoardCategoryId){
+
+            if(mViews.size()!=0){
+                //判断是否只能加载一次相框
+                Toast.makeText(getActivity(),"相框只能加载一次",Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             fixBorder(stickerData);
             addBoraderSticker(stickerData.getImage());
 
@@ -171,10 +179,10 @@ public class StickerFragment extends TuEditStickerFragment
 
 
     //添加气泡
-    private void addBoraderSticker(Bitmap bitmap) {
+    private void addBoraderSticker(final Bitmap stickerBitmap) {
 
         final BoraderStickerView boraderStickerView = new BoraderStickerView(getActivity());
-        boraderStickerView.setBitmap(bitmap);
+        boraderStickerView.setBitmap(stickerBitmap);
         boraderStickerView.setOperationListener(new BoraderStickerView.OperationListener() {
             @Override
             public void onDeleteClick() {
@@ -189,13 +197,37 @@ public class StickerFragment extends TuEditStickerFragment
             }
 
             @Override
-            public void onTop(BoraderStickerView stickerView) {
-                int position = mViews.indexOf(stickerView);
-                if (position == mViews.size() - 1) {
-                    return;
+            public void onFull(BoraderStickerView stickerView) {
+
+//                System.out.println("imageView width ="+getImageView().getWidth()+" height = "+ getImageView().getHeight());
+//                System.out.println("image width ="+getImage().getWidth()+" height = "+ getImage().getHeight());
+                float scale = 1.0f;
+                if(getImage().getWidth() > getImage().getHeight()){
+                    //横图
+                    scale = ((float)originBitmap.getHeight() /(float)stickerBitmap.getHeight());
+                }else{
+                    //竖图
+                    scale = ((float)originBitmap.getWidth() /(float)stickerBitmap.getWidth());
                 }
-                BoraderStickerView textView = (BoraderStickerView) mViews.remove(position);
-                mViews.add(mViews.size(), textView);
+                Bitmap scaleStickerBitmap = BitmapUtils.resize(stickerBitmap,scale);
+
+                Bitmap posterBitmap = BitmapUtils.combineBoraderBitmap(originBitmap,scaleStickerBitmap);
+                mCurrentBoraderView.setBitmap(posterBitmap);
+                mCurrentBoraderView.setInEdit(false);
+            }
+
+            @Override
+            public void onBlur(BoraderStickerView stickerView) {
+                if(isBlur){
+                    getImageView().setImageBitmap(originBitmap);
+                    boraderStickerView.setBitmap(stickerBitmap);
+                    isBlur = false;
+                }else{
+                    getImageView().setImageBitmap(blurImage(originBitmap));
+                    Bitmap posterBitmap = BitmapUtils.combineBoraderBitmap(originBitmap,stickerBitmap);
+                    boraderStickerView.setBitmap(posterBitmap);
+                    isBlur = true;
+                }
             }
         });
         RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
@@ -234,20 +266,14 @@ public class StickerFragment extends TuEditStickerFragment
             @Override
             public boolean canAppendSticker(StickerView stickerView, StickerData stickerData) {
 
-                Rect rect = null;
-                if(getCutRegionView() != null) {
-                    rect = getCutRegionView().getRegionRect();
-                }
-                List<StickerResult> stickers = getStickerView().getResults(rect);
-                if(stickerData.categoryId == BoardCategoryId){
+                if(stickerData.categoryId == BoardCategoryId && mViews.size()!=0){
+
                     //判断是否只能加载一次相框
-                    for(StickerResult result:stickers){
-                        if(result.item.categoryId == BoardCategoryId){
-                            Toast.makeText(getActivity(),"相框只能加载一次",Toast.LENGTH_SHORT).show();
-                            return false;
-                        }
-                    }
+                    Toast.makeText(getActivity(),"相框只能加载一次",Toast.LENGTH_SHORT).show();
+                    return false;
+
                 }
+
                 return true;
             }
         });

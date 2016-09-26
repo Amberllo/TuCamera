@@ -117,11 +117,11 @@ public class BoraderStickerView extends ImageView {
         dst_flipV = new Rect();
         dst_top = new Rect();
         localPaint = new Paint();
-        localPaint.setColor(getResources().getColor(R.color.red_e73a3d));
+        localPaint.setColor(getResources().getColor(R.color.white));
         localPaint.setAntiAlias(true);
         localPaint.setDither(true);
         localPaint.setStyle(Paint.Style.STROKE);
-        localPaint.setStrokeWidth(2.0f);
+        localPaint.setStrokeWidth(3.5f);
         dm = getResources().getDisplayMetrics();
         mScreenwidth = dm.widthPixels;
         mScreenHeight = dm.heightPixels;
@@ -147,20 +147,24 @@ public class BoraderStickerView extends ImageView {
             canvas.save();
             canvas.drawBitmap(mBitmap, matrix, null);
             //删除在右上角
-            dst_delete.left = (int) (f3 - deleteBitmapWidth / 2);
-            dst_delete.right = (int) (f3 + deleteBitmapWidth / 2);
-            dst_delete.top = (int) (f4 - deleteBitmapHeight / 2);
-            dst_delete.bottom = (int) (f4 + deleteBitmapHeight / 2);
+            dst_delete.left = (int) (f1 - deleteBitmapWidth / 2);
+            dst_delete.right = (int) (f1 + deleteBitmapWidth / 2);
+            dst_delete.top = (int) (f2 - deleteBitmapHeight / 2);
+            dst_delete.bottom = (int) (f2 + deleteBitmapHeight / 2);
+
+
+            //垂直镜像在左上角
+            dst_top.left = (int) (f3 - flipVBitmapWidth / 2);
+            dst_top.right = (int) (f3 + flipVBitmapWidth / 2);
+            dst_top.top = (int) (f4 - flipVBitmapHeight / 2);
+            dst_top.bottom = (int) (f4 + flipVBitmapHeight / 2);
+
             //拉伸等操作在右下角
             dst_resize.left = (int) (f7 - resizeBitmapWidth / 2);
             dst_resize.right = (int) (f7 + resizeBitmapWidth / 2);
             dst_resize.top = (int) (f8 - resizeBitmapHeight / 2);
             dst_resize.bottom = (int) (f8 + resizeBitmapHeight / 2);
-            //垂直镜像在左上角
-            dst_top.left = (int) (f1 - flipVBitmapWidth / 2);
-            dst_top.right = (int) (f1 + flipVBitmapWidth / 2);
-            dst_top.top = (int) (f2 - flipVBitmapHeight / 2);
-            dst_top.bottom = (int) (f2 + flipVBitmapHeight / 2);
+
             //水平镜像在左下角
             dst_flipV.left = (int) (f5 - topBitmapWidth / 2);
             dst_flipV.right = (int) (f5 + topBitmapWidth / 2);
@@ -240,9 +244,9 @@ public class BoraderStickerView extends ImageView {
         }
 
         topBitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.icon_top_enable);
-        deleteBitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.icon_delete);
+        deleteBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.circle_orange_48);
         flipVBitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.icon_flip);
-        resizeBitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.icon_resize);
+        resizeBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.circle_blue_48);
 
         deleteBitmapWidth = (int) (deleteBitmap.getWidth() * BITMAP_SCALE);
         deleteBitmapHeight = (int) (deleteBitmap.getHeight() * BITMAP_SCALE);
@@ -274,16 +278,22 @@ public class BoraderStickerView extends ImageView {
                     lastLength = diagonalLength(event);
                 } else if (isInButton(event, dst_flipV)) {
                     //水平镜像
-                    PointF localPointF = new PointF();
-                    midDiagonalPoint(localPointF);
-                    matrix.postScale(-1.0F, 1.0F, localPointF.x, localPointF.y);
-                    isHorizonMirror = !isHorizonMirror;
-                    invalidate();
+//                    PointF localPointF = new PointF();
+//                    midDiagonalPoint(localPointF);
+//                    matrix.postScale(-1.0F, 1.0F, localPointF.x, localPointF.y);
+//                    isHorizonMirror = !isHorizonMirror;
+//                    invalidate();
+
+
+                    if (operationListener != null) {
+                        operationListener.onBlur(this);
+                    }
+
                 } else if (isInButton(event, dst_top)) {
                     //置顶
                     bringToFront();
                     if (operationListener != null) {
-                        operationListener.onTop(this);
+                        operationListener.onFull(this);
                     }
                 } else if (isInBitmap(event)) {
                     isInSide = true;
@@ -597,7 +607,11 @@ public class BoraderStickerView extends ImageView {
 
         void onEdit(BoraderStickerView stickerView);
 
-        void onTop(BoraderStickerView stickerView);
+//        void onTop(BoraderStickerView stickerView);
+
+        void onFull(BoraderStickerView stickerView);
+
+        void onBlur(BoraderStickerView stickerView);
     }
 
     public void setOperationListener(OperationListener operationListener) {
