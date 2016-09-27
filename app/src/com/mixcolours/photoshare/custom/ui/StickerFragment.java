@@ -287,10 +287,27 @@ public class StickerFragment extends TuEditStickerFragment
 
 
 
-        RelativeLayout warpper = getViewById(R.id.lsq_stickerView_warpper);
-        Bitmap bitmap = Bitmap.createBitmap(warpper.getWidth(),warpper.getHeight(), Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(bitmap);
-        warpper.draw(canvas);
+
+
+        RelativeLayout warpper = getStickerView();
+        Bitmap stickerBitmap = Bitmap.createBitmap(warpper.getWidth(),warpper.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas1 = new Canvas(stickerBitmap);
+        warpper.draw(canvas1);
+
+        Bitmap imageBitmap = Bitmap.createBitmap(getImageView().getWidth(),getImageView().getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas2 = new Canvas(imageBitmap);
+        getImageView().draw(canvas2);
+
+
+        Bitmap bitmap = Bitmap.createBitmap(getImageView().getWidth(),getImageView().getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas cv = new Canvas(bitmap);
+        cv.drawBitmap(imageBitmap, 0 , 0, null);
+        if(warpper.getVisibility() == View.VISIBLE){
+            cv.drawBitmap(stickerBitmap, 0, 0, null);
+        }
+        cv.save(Canvas.ALL_SAVE_FLAG);
+        cv.restore();
+
 
         String imagePath = FileUtils.saveBitmapToLocal(bitmap, getActivity());
         TuSdkResult result = new TuSdkResult();
