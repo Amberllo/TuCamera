@@ -10,6 +10,7 @@ import com.mixcolours.photoshare.R;
 
 import org.lasque.tusdk.core.TuSdkContext;
 import org.lasque.tusdk.core.view.widget.button.TuSdkTextButton;
+import org.lasque.tusdk.impl.components.widget.sticker.StickerBarTableView;
 import org.lasque.tusdk.impl.components.widget.sticker.StickerBarView;
 import org.lasque.tusdk.modules.view.widget.sticker.StickerCategory;
 import org.lasque.tusdk.modules.view.widget.sticker.StickerData;
@@ -24,17 +25,13 @@ import java.util.List;
 public class CustomStickerBarView extends StickerBarView {
     public CustomStickerBarView(Context context, AttributeSet attributeSet) {
         super(context, attributeSet);
+
     }
 
     @Override
     public void loadCategories(List<StickerCategory> list) {
         super.loadCategories(list);
         this.selectCateIndex(1);
-//        List<StickerCategory> categories = StickerLocalPackage.shared().getCategories();
-//        StickerData stickerData = StickerLocalPackage.shared().getSticker(9184);
-//        StickerLocalPackage.shared().loadStickerItem(stickerData);
-//        System.out.println(stickerData.getImage()==null);
-
     }
 
     protected View buildCateButton(StickerCategory category, int tag, LayoutParams layoutParams) {
@@ -52,5 +49,10 @@ public class CustomStickerBarView extends StickerBarView {
     }
 
 
-
+    @Override
+    public StickerBarTableView getTableView() {
+        StickerBarTableView tableView = super.getTableView();
+        tableView.setCellPadding(10);
+        return tableView;
+    }
 }

@@ -6,27 +6,47 @@
     android:background="@color/gray_common2" >
 
 
-
-
-    <ImageView
-        android:id="@+id/lsq_imageView"
+    <RelativeLayout
+        android:id="@+id/lsq_stickerView_root"
+        android:layout_centerHorizontal="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/lsq_sticker_bar"
-        android:background="@color/gray_common2"
-        android:scaleType="fitCenter" />
+        android:layout_alignParentTop="true"
+        android:layout_above="@+id/lsq_sticker_bar">
 
-    <org.lasque.tusdk.impl.components.widget.sticker.StickerView
-        android:id="@+id/lsq_stickerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/lsq_sticker_bar" />
+        <RelativeLayout
 
-    <org.lasque.tusdk.core.view.widget.TuMaskRegionView
-        android:id="@+id/lsq_cutRegionView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/lsq_sticker_bar"/>
+            android:id="@+id/lsq_stickerView_warpper"
+            android:layout_centerHorizontal="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true">
+
+            <ImageView
+                android:layout_centerInParent="true"
+                android:id="@+id/lsq_imageView"
+                android:scaleType="fitCenter"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <org.lasque.tusdk.impl.components.widget.sticker.StickerView
+                android:id="@+id/lsq_stickerView"
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <org.lasque.tusdk.core.view.widget.TuMaskRegionView
+                android:visibility="gone"
+                android:id="@+id/lsq_cutRegionView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            </RelativeLayout>
+    </RelativeLayout>
+
+
+
+
 
     <include
         android:id="@+id/lsq_sticker_bar"

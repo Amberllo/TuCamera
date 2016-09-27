@@ -39,6 +39,7 @@
     </HorizontalScrollView>
 
     <RelativeLayout
+
         android:id="@+id/lsq_bottomBar"
         android:layout_width="match_parent"
         android:layout_height="49dp"
@@ -69,6 +70,7 @@
     </RelativeLayout>
 
     <RelativeLayout
+
         android:id="@+id/lsq_config_bottomBar"
         android:layout_width="match_parent"
         android:layout_height="49dp"
