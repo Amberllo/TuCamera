@@ -201,32 +201,14 @@ public class StickerFragment extends TuEditStickerFragment
             public void onFull(BoraderStickerView stickerView) {
 
                 Bitmap posterBitmap = BitmapUtils.combineBoraderBitmap(originBitmap,stickerBitmap);
-
-
-
-                //原始图片宽高
-                int maxWidth,maxHeight;
-                if(getImage().getWidth()<getImage().getHeight()){
-                    //竖图
-                    maxHeight = getImageView().getHeight();
-                    maxWidth = getImageView().getHeight() * getImage().getWidth() / getImage().getHeight();;
-
-                }else{
-                    //横图
-                    maxHeight = getImageView().getWidth() * getImage().getHeight() / getImage().getWidth();
-                    maxWidth = getImageView().getWidth();
-
-                }
-
-
                 float scale = 1.0f;
                 //调整相框大小
                 if(posterBitmap.getWidth() > posterBitmap.getHeight()){
                     //横相框
-                    scale = (float)maxWidth / (float)posterBitmap.getWidth();
+                    scale = (float)getImageView().getWidth() / (float)posterBitmap.getWidth();
                 }else{
                     //竖相框
-                    scale = (float)maxHeight / (float)posterBitmap.getHeight();
+                    scale = (float)getImageView().getHeight() / (float)posterBitmap.getHeight();
                 }
                 Bitmap fullScreen = BitmapUtils.resize(posterBitmap,scale);
                 getImageView().setImageBitmap(fullScreen);
@@ -381,9 +363,6 @@ public class StickerFragment extends TuEditStickerFragment
 
     private void refixView(Bitmap bitmap){
         ImageView imageView = getImageView();
-
-        TuSdkSize sdkSize = TuSdkSize.create(bitmap);
-
         StickerView imageWrapView = getStickerView();
         int height;
         int width;

@@ -28,22 +28,27 @@ public class BitmapUtils {
         if(source==null || boraderBitmap==null)return null;
         int maxWidth = boraderBitmap.getWidth();
         int maxHeight = boraderBitmap.getHeight();
+        float rateBorader = (float)maxWidth / (float)maxHeight;
+
+
+        int sourceWidth = source.getWidth();
+        int sourceHeight = source.getHeight();
+        float rateSource = (float)sourceWidth / (float)sourceHeight;
 
         //画布
         Bitmap composedBitmap = Bitmap.createBitmap(maxWidth, maxHeight, Bitmap.Config.ARGB_8888);
 
         float scale = 1.0f;
-        if(source.getWidth() > source.getHeight()){
-            //横图
+
+        if(rateSource > rateBorader ){
+            //原图宽高比大,y方向拉伸,
             scale = ((float)boraderBitmap.getHeight()) / ((float)source.getHeight());
-        }else{
-            //竖图
+        }else if(rateSource < rateBorader){
             scale = ((float)boraderBitmap.getWidth())/((float)source.getWidth());
         }
 
         Bitmap resizeBitmap = resize(source,scale);
         Canvas cv = new Canvas(composedBitmap);
-
         if(resizeBitmap.getWidth() == maxWidth ){
             //计算高度漂移
             cv.drawBitmap(resizeBitmap, 0,  ((float)(maxHeight - resizeBitmap.getHeight()))/2, null);
