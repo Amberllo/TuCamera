@@ -14,9 +14,13 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.example.abner.stickerdemo.model.StickerPropertyModel;
+import com.example.abner.stickerdemo.utils.DensityUtils;
 import com.mixcolours.photoshare.R;
+
+import org.lasque.tusdk.core.view.widget.button.TuSdkImageButton;
 
 
 /**
@@ -26,24 +30,24 @@ public class BoraderStickerView extends ImageView {
     private static final String TAG = "StickerView";
 
     private Bitmap deleteBitmap;
-    private Bitmap flipVBitmap;
-    private Bitmap topBitmap;
+    private Bitmap blurBitmap;
+    private Bitmap fullBitmap;
     private Bitmap resizeBitmap;
     private Bitmap mBitmap;
     private Rect dst_delete;
     private Rect dst_resize;
-    private Rect dst_flipV;
-    private Rect dst_top;
+    private Rect dst_blur;
+    private Rect dst_full;
     private int deleteBitmapWidth;
     private int deleteBitmapHeight;
     private int resizeBitmapWidth;
     private int resizeBitmapHeight;
-    //水平镜像
-    private int flipVBitmapWidth;
-    private int flipVBitmapHeight;
-    //置顶
-    private int topBitmapWidth;
-    private int topBitmapHeight;
+    //虚化
+    private int blurBitmapWidth;
+    private int blurBitmapHeight;
+    //全屏
+    private int fullBitmapWidth;
+    private int fullBitmapHeight;
     private Paint localPaint;
     private int mScreenwidth, mScreenHeight;
     private static final float BITMAP_SCALE = 0.7f;
@@ -114,8 +118,8 @@ public class BoraderStickerView extends ImageView {
 
         dst_delete = new Rect();
         dst_resize = new Rect();
-        dst_flipV = new Rect();
-        dst_top = new Rect();
+        dst_blur = new Rect();
+        dst_full = new Rect();
         localPaint = new Paint();
         localPaint.setColor(getResources().getColor(R.color.white));
         localPaint.setAntiAlias(true);
@@ -146,18 +150,18 @@ public class BoraderStickerView extends ImageView {
 
             canvas.save();
             canvas.drawBitmap(mBitmap, matrix, null);
-            //删除在右上角
+            //删除在左上角
             dst_delete.left = (int) (f1 - deleteBitmapWidth / 2);
             dst_delete.right = (int) (f1 + deleteBitmapWidth / 2);
             dst_delete.top = (int) (f2 - deleteBitmapHeight / 2);
             dst_delete.bottom = (int) (f2 + deleteBitmapHeight / 2);
 
 
-            //垂直镜像在左上角
-            dst_top.left = (int) (f3 - flipVBitmapWidth / 2);
-            dst_top.right = (int) (f3 + flipVBitmapWidth / 2);
-            dst_top.top = (int) (f4 - flipVBitmapHeight / 2);
-            dst_top.bottom = (int) (f4 + flipVBitmapHeight / 2);
+            //全屏在右上角
+            dst_full.left = (int) (f3 - fullBitmapWidth / 2);
+            dst_full.right = (int) (f3 + fullBitmapWidth / 2);
+            dst_full.top = (int) (f4 - fullBitmapHeight / 2);
+            dst_full.bottom = (int) (f4 + fullBitmapHeight / 2);
 
             //拉伸等操作在右下角
             dst_resize.left = (int) (f7 - resizeBitmapWidth / 2);
@@ -165,11 +169,11 @@ public class BoraderStickerView extends ImageView {
             dst_resize.top = (int) (f8 - resizeBitmapHeight / 2);
             dst_resize.bottom = (int) (f8 + resizeBitmapHeight / 2);
 
-            //水平镜像在左下角
-            dst_flipV.left = (int) (f5 - topBitmapWidth / 2);
-            dst_flipV.right = (int) (f5 + topBitmapWidth / 2);
-            dst_flipV.top = (int) (f6 - topBitmapHeight / 2);
-            dst_flipV.bottom = (int) (f6 + topBitmapHeight / 2);
+            //虚化在左下角
+            dst_blur.left = (int) (f5 - blurBitmapWidth / 2);
+            dst_blur.right = (int) (f5 + blurBitmapWidth / 2);
+            dst_blur.top = (int) (f6 - blurBitmapHeight / 2);
+            dst_blur.bottom = (int) (f6 + blurBitmapHeight / 2);
             if (isInEdit) {
 
                 canvas.drawLine(f1, f2, f3, f4, localPaint);
@@ -179,8 +183,8 @@ public class BoraderStickerView extends ImageView {
 
                 canvas.drawBitmap(deleteBitmap, null, dst_delete, null);
                 canvas.drawBitmap(resizeBitmap, null, dst_resize, null);
-                canvas.drawBitmap(flipVBitmap, null, dst_flipV, null);
-                canvas.drawBitmap(topBitmap, null, dst_top, null);
+                canvas.drawBitmap(blurBitmap, null, dst_blur, null);
+                canvas.drawBitmap(fullBitmap, null, dst_full, null);
             }
 
             canvas.restore();
@@ -203,7 +207,7 @@ public class BoraderStickerView extends ImageView {
         float initScale = (MIN_SCALE + MAX_SCALE) / 2;
         matrix.postScale(initScale, initScale, w / 2, h / 2);
         //Y坐标为 （顶部操作栏+正方形图）/2
-        matrix.postTranslate(mScreenwidth / 2 - w / 2 - topBitmapWidth / 2 , (mScreenHeight) / 2 - h / 2);
+        matrix.postTranslate(mScreenwidth / 2 - w / 2 - blurBitmapWidth / 2 , (mScreenHeight) / 2 - h / 2);
         invalidate();
     }
 
@@ -247,22 +251,22 @@ public class BoraderStickerView extends ImageView {
             }
         }
 
-        topBitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.icon_top_enable);
-        deleteBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.circle_orange_48);
-        flipVBitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.icon_flip);
-        resizeBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.circle_blue_48);
+        fullBitmap = createButtonBitmap(R.drawable.tusdk_button_edit_sticker_rotate, R.drawable.lsq_style_default_edit_drag_full);
+        deleteBitmap = createButtonBitmap(R.drawable.tusdk_button_edit_sticker_remove, R.drawable.lsq_style_default_edit_drag_cancel);
+        blurBitmap = createButtonBitmap(R.drawable.tusdk_button_edit_sticker_rotate, R.drawable.lsq_style_default_edit_drag_blur);
+        resizeBitmap = createButtonBitmap(R.drawable.tusdk_button_edit_sticker_rotate,R.drawable.lsq_style_default_edit_drag_rotate_scale);
 
-        deleteBitmapWidth = (int) (deleteBitmap.getWidth() * BITMAP_SCALE);
-        deleteBitmapHeight = (int) (deleteBitmap.getHeight() * BITMAP_SCALE);
+        deleteBitmapWidth = deleteBitmap.getWidth();
+        deleteBitmapHeight = deleteBitmap.getHeight();
 
-        resizeBitmapWidth = (int) (resizeBitmap.getWidth() * BITMAP_SCALE);
-        resizeBitmapHeight = (int) (resizeBitmap.getHeight() * BITMAP_SCALE);
+        resizeBitmapWidth = resizeBitmap.getWidth();
+        resizeBitmapHeight = resizeBitmap.getHeight();
 
-        flipVBitmapWidth = (int) (flipVBitmap.getWidth() * BITMAP_SCALE);
-        flipVBitmapHeight = (int) (flipVBitmap.getHeight() * BITMAP_SCALE);
+        blurBitmapWidth = blurBitmap.getWidth();
+        blurBitmapHeight = blurBitmap.getHeight();
 
-        topBitmapWidth = (int) (topBitmap.getWidth() * BITMAP_SCALE);
-        topBitmapHeight = (int) (topBitmap.getHeight() * BITMAP_SCALE);
+        fullBitmapWidth = fullBitmap.getWidth();
+        fullBitmapHeight = fullBitmap.getHeight();
     }
 
     @Override
@@ -280,7 +284,7 @@ public class BoraderStickerView extends ImageView {
                     lastRotateDegree = rotationToStartPoint(event);
                     midPointToStartPoint(event);
                     lastLength = diagonalLength(event);
-                } else if (isInButton(event, dst_flipV)) {
+                } else if (isInButton(event, dst_blur)) {
                     //水平镜像
 //                    PointF localPointF = new PointF();
 //                    midDiagonalPoint(localPointF);
@@ -293,7 +297,7 @@ public class BoraderStickerView extends ImageView {
                         operationListener.onBlur(this);
                     }
 
-                } else if (isInButton(event, dst_top)) {
+                } else if (isInButton(event, dst_full)) {
                     //置顶
                     bringToFront();
                     if (operationListener != null) {
@@ -330,7 +334,7 @@ public class BoraderStickerView extends ImageView {
                         //缩放缓慢
                         scale = (scale - 1) * pointerZoomCoeff + 1;
                     }
-                    float scaleTemp = (scale * Math.abs(dst_flipV.left - dst_resize.left)) / oringinWidth;
+                    float scaleTemp = (scale * Math.abs(dst_blur.left - dst_resize.left)) / oringinWidth;
                     if (((scaleTemp <= MIN_SCALE)) && scale < 1 ||
                             (scaleTemp >= MAX_SCALE) && scale > 1) {
                         scale = 1;
@@ -626,4 +630,34 @@ public class BoraderStickerView extends ImageView {
         this.isInEdit = isInEdit;
         invalidate();
     }
+
+
+    private Bitmap createButtonBitmap(int background,int drawable){
+        int length = DensityUtils.dip2px(getContext(),32);
+        int padding = DensityUtils.dip2px(getContext(),3);
+        TuSdkImageButton button = new TuSdkImageButton(getContext());
+
+        button.setLayoutParams(new RelativeLayout.LayoutParams(length,length));
+        button.setBackgroundResource(background);
+        button.setImageResource(drawable);
+        button.setPadding(padding,padding,padding,padding);
+        button.setDrawingCacheEnabled(true);
+        button.setScaleType(ScaleType.CENTER);
+        button.measure(MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED), MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
+        button.layout(0, 0, button.getMeasuredWidth(), button.getMeasuredHeight());
+
+        Bitmap composedBitmap = Bitmap.createBitmap(length, length, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(composedBitmap);
+        button.draw(canvas);
+        return composedBitmap;
+    }
+
+//    <org.lasque.tusdk.core.view.widget.button.TuSdkImageButton
+//    android:id="@+id/lsq_sticker_cancelButton"
+//    android:layout_width="32dp"
+//    android:layout_height="32dp"
+//    android:scaleType="center"
+//    android:src="@drawable/lsq_style_default_edit_drag_cancel"
+//    android:background="@drawable/tusdk_button_edit_sticker_remove" />
+
 }

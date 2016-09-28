@@ -18,12 +18,15 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.abner.stickerdemo.model.StickerPropertyModel;
 import com.example.abner.stickerdemo.utils.DensityUtils;
 import com.mixcolours.photoshare.R;
 import com.mixcolours.photoshare.custom.KeyBoardUtils;
+
+import org.lasque.tusdk.core.view.widget.button.TuSdkImageButton;
 
 
 /**
@@ -188,16 +191,7 @@ public class TextStickerView extends ImageView {
             dst_resize.top = (int) (f8 - resizeBitmapHeight / 2);
             dst_resize.bottom = (int) (f8 + resizeBitmapHeight / 2);
 
-//            //垂直镜像在左上角
-//            dst_top.left = (int) (f1 - flipVBitmapWidth / 2);
-//            dst_top.right = (int) (f1 + flipVBitmapWidth / 2);
-//            dst_top.top = (int) (f2 - flipVBitmapHeight / 2);
-//            dst_top.bottom = (int) (f2 + flipVBitmapHeight / 2);
-//            //水平镜像在左下角
-//            dst_flipV.left = (int) (f5 - topBitmapWidth / 2);
-//            dst_flipV.right = (int) (f5 + topBitmapWidth / 2);
-//            dst_flipV.top = (int) (f6 - topBitmapHeight / 2);
-//            dst_flipV.bottom = (int) (f6 + topBitmapHeight / 2);
+
             if (isInEdit) {
 
                 canvas.drawLine(f1, f2, f3, f4, localPaint);
@@ -207,8 +201,7 @@ public class TextStickerView extends ImageView {
 
                 canvas.drawBitmap(deleteBitmap, null, dst_delete, null);
                 canvas.drawBitmap(resizeBitmap, null, dst_resize, null);
-//                canvas.drawBitmap(flipVBitmap, null, dst_flipV, null);
-//                canvas.drawBitmap(topBitmap, null, dst_top, null);
+
             }
 
             canvas.restore();
@@ -272,15 +265,15 @@ public class TextStickerView extends ImageView {
         }
 
         topBitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.icon_top_enable);
-        deleteBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.circle_orange_48);
         flipVBitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.icon_flip);
-        resizeBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.circle_blue_48);
+        deleteBitmap = createButtonBitmap(R.drawable.tusdk_button_edit_sticker_remove, R.drawable.lsq_style_default_edit_drag_cancel);
+        resizeBitmap = createButtonBitmap(R.drawable.tusdk_button_edit_sticker_rotate,R.drawable.lsq_style_default_edit_drag_rotate_scale);
 
-        deleteBitmapWidth = (int) (deleteBitmap.getWidth() * BITMAP_SCALE);
-        deleteBitmapHeight = (int) (deleteBitmap.getHeight() * BITMAP_SCALE);
+        deleteBitmapWidth = (int) (deleteBitmap.getWidth());
+        deleteBitmapHeight = (int) (deleteBitmap.getHeight());
 
-        resizeBitmapWidth = (int) (resizeBitmap.getWidth() * BITMAP_SCALE);
-        resizeBitmapHeight = (int) (resizeBitmap.getHeight() * BITMAP_SCALE);
+        resizeBitmapWidth = (int) (resizeBitmap.getWidth());
+        resizeBitmapHeight = (int) (resizeBitmap.getHeight());
 
         flipVBitmapWidth = (int) (flipVBitmap.getWidth() * BITMAP_SCALE);
         flipVBitmapHeight = (int) (flipVBitmap.getHeight() * BITMAP_SCALE);
@@ -723,6 +716,26 @@ public class TextStickerView extends ImageView {
         this.mFontColor = fontColor;
         mBitmap = getTextBitmap();
         invalidate();
+    }
+
+    private Bitmap createButtonBitmap(int background,int drawable){
+        int length = DensityUtils.dip2px(getContext(),32);
+        int padding = DensityUtils.dip2px(getContext(),3);
+        TuSdkImageButton button = new TuSdkImageButton(getContext());
+
+        button.setLayoutParams(new RelativeLayout.LayoutParams(length,length));
+        button.setBackgroundResource(background);
+        button.setImageResource(drawable);
+        button.setPadding(padding,padding,padding,padding);
+        button.setDrawingCacheEnabled(true);
+        button.setScaleType(ScaleType.CENTER);
+        button.measure(MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED), MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
+        button.layout(0, 0, button.getMeasuredWidth(), button.getMeasuredHeight());
+
+        Bitmap composedBitmap = Bitmap.createBitmap(length, length, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(composedBitmap);
+        button.draw(canvas);
+        return composedBitmap;
     }
 
 }
