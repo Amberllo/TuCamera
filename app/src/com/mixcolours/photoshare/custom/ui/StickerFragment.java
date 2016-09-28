@@ -24,8 +24,6 @@ import android.widget.Toast;
 import org.lasque.tusdk.core.TuSdkContext;
 import org.lasque.tusdk.core.TuSdkResult;
 import org.lasque.tusdk.core.secret.StatisticsManger;
-//import org.lasque.tusdk.core.struct.TuSdkSize;
-import org.lasque.tusdk.core.struct.TuSdkSize;
 import org.lasque.tusdk.core.view.widget.TuMaskRegionView;
 import org.lasque.tusdk.core.view.widget.button.TuSdkImageButton;
 import org.lasque.tusdk.impl.components.sticker.TuEditStickerFragment;
@@ -223,12 +221,12 @@ public class StickerFragment extends TuEditStickerFragment
             public void onBlur(BoraderStickerView stickerView) {
                 if(isBlur){
                     getImageView().setImageBitmap(originBitmap);
-                    boraderStickerView.setBitmap(stickerBitmap);
+                    boraderStickerView.blur(stickerBitmap);
                     isBlur = false;
                 }else{
                     getImageView().setImageBitmap(blurImage(originBitmap));
                     Bitmap posterBitmap = BitmapUtils.combineBoraderBitmap(originBitmap,stickerBitmap);
-                    boraderStickerView.setBitmap(posterBitmap);
+                    boraderStickerView.blur(posterBitmap);
                     isBlur = true;
                 }
             }
@@ -404,7 +402,6 @@ public class StickerFragment extends TuEditStickerFragment
         imageView.setLayoutParams(params);
         imageWrapView.setLayoutParams(paramsLayout);
     }
-
 
     @Override
     public StickerBarView getStickerBarView() {

@@ -203,10 +203,14 @@ public class BoraderStickerView extends ImageView {
         float initScale = (MIN_SCALE + MAX_SCALE) / 2;
         matrix.postScale(initScale, initScale, w / 2, h / 2);
         //Y坐标为 （顶部操作栏+正方形图）/2
-        matrix.postTranslate(mScreenwidth / 2 - w / 2, (mScreenwidth) / 2 - h / 2);
+        matrix.postTranslate(mScreenwidth / 2 - w / 2 - topBitmapWidth / 2 , (mScreenHeight) / 2 - h / 2);
         invalidate();
     }
 
+    public void blur(Bitmap bitmap){
+        this.mBitmap = bitmap;
+        invalidate();
+    }
 
     private void setDiagonalLength() {
         halfDiagonalLength = Math.hypot(mBitmap.getWidth(), mBitmap.getHeight()) / 2;
