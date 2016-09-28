@@ -102,8 +102,10 @@ public class BoraderStickerView extends ImageView {
         init();
     }
 
-    public BoraderStickerView(Context context) {
+    public BoraderStickerView(Context context,int mScreenwidth,int mScreenHeight) {
         super(context);
+        this.mScreenHeight = mScreenHeight;
+        this.mScreenwidth = mScreenwidth;
         stickerId = 0;
         init();
     }
@@ -126,9 +128,12 @@ public class BoraderStickerView extends ImageView {
         localPaint.setDither(true);
         localPaint.setStyle(Paint.Style.STROKE);
         localPaint.setStrokeWidth(3.5f);
-        dm = getResources().getDisplayMetrics();
-        mScreenwidth = dm.widthPixels;
-        mScreenHeight = dm.heightPixels;
+
+        if(mScreenwidth ==0 && mScreenHeight == 0){
+            dm = getResources().getDisplayMetrics();
+            mScreenwidth = dm.widthPixels;
+            mScreenHeight = dm.heightPixels;
+        }
 
     }
 
@@ -207,11 +212,11 @@ public class BoraderStickerView extends ImageView {
         float initScale = (MIN_SCALE + MAX_SCALE) / 2;
         matrix.postScale(initScale, initScale, w / 2, h / 2);
         //Y坐标为 （顶部操作栏+正方形图）/2
-        matrix.postTranslate(mScreenwidth / 2 - w / 2 - blurBitmapWidth / 2 , (mScreenHeight) / 2 - h / 2);
+        matrix.postTranslate(mScreenwidth / 2 - w / 2 , (mScreenHeight) / 2 - h / 2);
         invalidate();
     }
 
-    public void blur(Bitmap bitmap){
+    public void resetBitmap(Bitmap bitmap){
         this.mBitmap = bitmap;
         invalidate();
     }

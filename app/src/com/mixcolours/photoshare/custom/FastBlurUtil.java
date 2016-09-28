@@ -19,7 +19,7 @@ public class FastBlurUtil {
         // http://www.kayenko.com
         // ported april 5th, 2012
 
-        // This is a compromise between Gaussian Blur and Box blur
+        // This is a compromise between Gaussian Blur and Box resetBitmap
         // It creates much better looking blurs than Box Blur, but is
         // 7x faster than my Gaussian Blur implementation.
         //

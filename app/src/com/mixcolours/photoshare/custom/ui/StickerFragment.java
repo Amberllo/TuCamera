@@ -19,11 +19,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import org.lasque.tusdk.core.TuSdkContext;
 import org.lasque.tusdk.core.TuSdkResult;
 import org.lasque.tusdk.core.secret.StatisticsManger;
+import org.lasque.tusdk.core.struct.TuSdkSize;
 import org.lasque.tusdk.core.view.widget.TuMaskRegionView;
 import org.lasque.tusdk.core.view.widget.button.TuSdkImageButton;
 import org.lasque.tusdk.impl.components.sticker.TuEditStickerFragment;
@@ -125,15 +125,17 @@ public class StickerFragment extends TuEditStickerFragment
 
         StickerLocalPackage.shared().loadStickerItem(stickerData);
         if(stickerData.categoryId == BoardCategoryId){
-
+            Bitmap bitmap = BitmapUtils.getStickerFromAccess(getContext(),stickerData.stickerId);
             if(mViews.size()!=0){
                 //判断是否只能加载一次相框
-                Toast.makeText(getActivity(),"相框只能加载一次",Toast.LENGTH_SHORT).show();
-                return;
+//                Toast.makeText(getActivity(),"相框只能加载一次",Toast.LENGTH_SHORT).show();
+                mCurrentBoraderView.resetBitmap(bitmap);
+            }else{
+                addBoraderSticker(bitmap);
             }
 
-            Bitmap bitmap = BitmapUtils.getStickerFromAccess(getContext(),stickerData.stickerId);
-            addBoraderSticker(bitmap);
+
+
 
         }else{
             appendStickerItem(stickerData);
@@ -180,8 +182,8 @@ public class StickerFragment extends TuEditStickerFragment
 
     //添加气泡
     private void addBoraderSticker(final Bitmap stickerBitmap) {
-
-        final BoraderStickerView boraderStickerView = new BoraderStickerView(getActivity());
+        TuSdkSize sdkSize = getImageWH(getImage());
+        final BoraderStickerView boraderStickerView = new BoraderStickerView(getActivity(),sdkSize.width,sdkSize.height);
         boraderStickerView.setBitmap(stickerBitmap);
         boraderStickerView.setOperationListener(new BoraderStickerView.OperationListener() {
             @Override
@@ -221,12 +223,12 @@ public class StickerFragment extends TuEditStickerFragment
             public void onBlur(BoraderStickerView stickerView) {
                 if(isBlur){
                     getImageView().setImageBitmap(originBitmap);
-                    boraderStickerView.blur(stickerBitmap);
+                    boraderStickerView.resetBitmap(stickerBitmap);
                     isBlur = false;
                 }else{
                     getImageView().setImageBitmap(blurImage(originBitmap));
                     Bitmap posterBitmap = BitmapUtils.combineBoraderBitmap(originBitmap,stickerBitmap);
-                    boraderStickerView.blur(posterBitmap);
+                    boraderStickerView.resetBitmap(posterBitmap);
                     isBlur = true;
                 }
             }
@@ -377,21 +379,14 @@ public class StickerFragment extends TuEditStickerFragment
     private void refixView(Bitmap bitmap){
         ImageView imageView = getImageView();
         StickerView imageWrapView = getStickerView();
-        int height;
-        int width;
 
         RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) imageView.getLayoutParams();
         RelativeLayout.LayoutParams paramsLayout = (RelativeLayout.LayoutParams) imageWrapView.getLayoutParams();
 
-        if(bitmap.getWidth()<bitmap.getHeight()){
-            width = imageView.getHeight() * bitmap.getWidth() / bitmap.getHeight();
-            height = imageView.getHeight();
+        TuSdkSize sdkSize = getImageWH(bitmap);
 
-        }else{
-            height = imageView.getWidth() * bitmap.getHeight() / bitmap.getWidth();;
-            width = imageView.getWidth();
-
-        }
+        int height = sdkSize.height;
+        int width = sdkSize.width;
 
         params.height= height;
         paramsLayout.height = height;
@@ -408,4 +403,30 @@ public class StickerFragment extends TuEditStickerFragment
         CustomStickerBarView stickerBarView = (CustomStickerBarView) super.getStickerBarView();
         return stickerBarView;
     }
+
+    private TuSdkSize getImageWH(Bitmap bitmap){
+
+        ImageView imageView = getImageView();
+        int width,height;
+        if(getImage()!=null && imageView!=null){
+            imageView.setImageBitmap(bitmap);
+
+            if(bitmap.getWidth()<bitmap.getHeight()){
+                int resizeWidth = imageView.getHeight() * bitmap.getWidth() / bitmap.getHeight();
+                height = imageView.getHeight();
+                width = resizeWidth;
+
+            }else{
+                int resizeHeight = imageView.getWidth() * bitmap.getHeight() / bitmap.getWidth();
+                height = resizeHeight;
+                width = imageView.getWidth();
+
+            }
+            return TuSdkSize.create(width,height);
+        }else{
+            return null;
+        }
+
+    }
+
 }

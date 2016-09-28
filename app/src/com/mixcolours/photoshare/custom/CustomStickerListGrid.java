@@ -7,14 +7,10 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.mixcolours.photoshare.R;
-import com.nostra13.universalimageloader.core.ImageLoader;
-
 import org.lasque.tusdk.core.view.TuSdkImageView;
 import org.lasque.tusdk.impl.components.widget.sticker.StickerListGrid;
 import org.lasque.tusdk.modules.view.widget.sticker.StickerData;
 import org.lasque.tusdk.modules.view.widget.sticker.StickerLocalPackage;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by apple on 16/9/28.
