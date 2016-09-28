@@ -25,7 +25,6 @@ public class CustomStickerBarTableView extends StickerBarTableView {
     @Override
     protected void onViewCreated(StickerListGrid stickerListGrid, ViewGroup viewGroup, int i) {
         super.onViewCreated(stickerListGrid, viewGroup, i);
-        stickerListGrid.setInnerWarpSpaceDP(10);
 
     }
 }

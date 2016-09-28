@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<org.lasque.tusdk.impl.components.widget.sticker.StickerListGrid xmlns:android="http://schemas.android.com/apk/res/android"
+<com.mixcolours.photoshare.custom.CustomStickerListGrid xmlns:android="http://schemas.android.com/apk/res/android"
 
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
@@ -15,14 +15,20 @@
         <!--android:padding="5dp"-->
         <!--android:background="#6ed5e5"-->
             <org.lasque.tusdk.core.view.TuSdkImageView
-
-                android:layout_weight="1"
-
+                android:visibility="gone"
                 android:id="@+id/lsq_posterView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop" />
+        
+            <com.mixcolours.photoshare.custom.CircleImageView
+                android:visibility="gone"
+                android:id="@+id/lsq_circlePosterView"
+                android:background="@color/blue_semi_transparent"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop" />
 
     </RelativeLayout>
 
-</org.lasque.tusdk.impl.components.widget.sticker.StickerListGrid>
+</com.mixcolours.photoshare.custom.CustomStickerListGrid>
