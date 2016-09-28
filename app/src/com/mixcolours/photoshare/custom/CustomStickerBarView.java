@@ -48,11 +48,8 @@ public class CustomStickerBarView extends StickerBarView {
         return button;
     }
 
-
     @Override
     public StickerBarTableView getTableView() {
-        StickerBarTableView tableView = super.getTableView();
-        tableView.setCellPadding(10);
-        return tableView;
+        return super.getTableView();
     }
 }

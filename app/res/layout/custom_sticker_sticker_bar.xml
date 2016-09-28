@@ -40,11 +40,10 @@
         android:layout_width="match_parent"
         android:layout_height="55dp" >
 
-        <org.lasque.tusdk.impl.components.widget.sticker.StickerBarTableView
+        <com.mixcolours.photoshare.custom.CustomStickerBarTableView
             android:id="@+id/lsq_sticker_table_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
-        </org.lasque.tusdk.impl.components.widget.sticker.StickerBarTableView>
+            android:layout_height="match_parent" />
 
         <TextView
             android:id="@+id/lsq_sticker_empty"

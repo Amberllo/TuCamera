@@ -42,6 +42,7 @@ import com.example.abner.stickerdemo.utils.FileUtils;
 import com.example.abner.stickerdemo.view.BoraderStickerView;
 import com.mixcolours.photoshare.R;
 import com.mixcolours.photoshare.custom.BitmapUtils;
+import com.mixcolours.photoshare.custom.CustomStickerBarView;
 import com.mixcolours.photoshare.custom.FastBlurUtil;
 
 import java.io.File;
@@ -89,6 +90,7 @@ public class StickerFragment extends TuEditStickerFragment
         if(this.getStickerBarView() != null) {
             this.getStickerBarView().loadCategories(this.getCategories());
         }
+
 
         originBitmap = getImage();
         this.getViewById(R.id.lsq_stickerView_root).setOnTouchListener(new View.OnTouchListener() {
@@ -285,10 +287,6 @@ public class StickerFragment extends TuEditStickerFragment
 
     private TuSdkResult generateBitmap() {
 
-
-
-
-
         RelativeLayout warpper = getStickerView();
         Bitmap stickerBitmap = Bitmap.createBitmap(warpper.getWidth(),warpper.getHeight(), Bitmap.Config.ARGB_8888);
         Canvas canvas1 = new Canvas(stickerBitmap);
@@ -388,26 +386,29 @@ public class StickerFragment extends TuEditStickerFragment
         RelativeLayout.LayoutParams paramsLayout = (RelativeLayout.LayoutParams) imageWrapView.getLayoutParams();
 
         if(bitmap.getWidth()<bitmap.getHeight()){
-            int resizeWidth = imageView.getHeight() * bitmap.getWidth() / bitmap.getHeight();
-            params.width = resizeWidth ;
-            paramsLayout.width = resizeWidth;
-
+            width = imageView.getHeight() * bitmap.getWidth() / bitmap.getHeight();
             height = imageView.getHeight();
-            width = resizeWidth;
 
         }else{
-            int resizeHeight = imageView.getWidth() * bitmap.getHeight() / bitmap.getWidth();
-            params.height= resizeHeight;
-            paramsLayout.height = resizeHeight;
-
-            height = resizeHeight;
+            height = imageView.getWidth() * bitmap.getHeight() / bitmap.getWidth();;
             width = imageView.getWidth();
 
         }
+
+        params.height= height;
+        paramsLayout.height = height;
+
+        params.width = width ;
+        paramsLayout.width = width;
 
         imageView.setLayoutParams(params);
         imageWrapView.setLayoutParams(paramsLayout);
     }
 
 
+    @Override
+    public StickerBarView getStickerBarView() {
+        CustomStickerBarView stickerBarView = (CustomStickerBarView) super.getStickerBarView();
+        return stickerBarView;
+    }
 }
