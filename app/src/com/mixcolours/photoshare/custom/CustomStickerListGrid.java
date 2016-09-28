@@ -4,8 +4,10 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.mixcolours.photoshare.R;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.lasque.tusdk.core.view.TuSdkImageView;
 import org.lasque.tusdk.impl.components.widget.sticker.StickerListGrid;
@@ -19,7 +21,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 public class CustomStickerListGrid extends StickerListGrid {
 
-    private CircleImageView circleImageView;
+    private ImageView circleImageView;
 
     public CustomStickerListGrid(Context var1) {
         super(var1);
@@ -40,13 +42,15 @@ public class CustomStickerListGrid extends StickerListGrid {
         if(imageView != null) {
             imageView.setCornerRadius(0);
         }
-        super.getPosterView().setVisibility(View.GONE);
+        if(super.getPosterView()!=null){
+            super.getPosterView().setVisibility(View.GONE);
+        }
     }
 
 
 
 
-    protected CircleImageView getCircleImageView(){
+    protected ImageView getCircleImageView(){
         if(this.circleImageView==null){
             circleImageView = getViewById(R.id.lsq_circlePosterView);
         }
@@ -56,7 +60,10 @@ public class CustomStickerListGrid extends StickerListGrid {
     @Override
     protected void bindModel() {
         super.bindModel();
-        StickerLocalPackage.shared().loadThumb((StickerData)this.getModel(), this.getCircleImageView());
+
+        StickerData stickerData = this.getModel();
+        StickerLocalPackage.shared().loadStickerItem(stickerData);
+        circleImageView.setImageBitmap(stickerData.getImage());
     }
 
     @Override

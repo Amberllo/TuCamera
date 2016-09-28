@@ -33,14 +33,25 @@
                 <!--android:layout_height="match_parent"-->
                 <!--android:scaleType="fitCenter" />-->
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            app:civ_border_width="2dp"
-            app:civ_border_color="#FF000000"
-            android:padding="10dp"
+
+
+        <ImageView
+            android:layout_margin="3dp"
+            android:background="@drawable/bg_circle_green"
+            android:padding="5dp"
             android:id="@+id/lsq_circlePosterView"
+            android:scaleType="fitCenter"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="fitCenter"  />
+            android:layout_height="match_parent" />
+
+        <!--<de.hdodenhof.circleimageview.CircleImageView-->
+            <!--app:civ_border_width="2dp"-->
+            <!--app:civ_border_color="#FF000000"-->
+            <!---->
+            <!--android:id="@+id/lsq_circlePosterView"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:scaleType="fitCenter"  />-->
 
     </RelativeLayout>
 
