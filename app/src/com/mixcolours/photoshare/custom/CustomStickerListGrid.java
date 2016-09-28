@@ -1,6 +1,7 @@
 package com.mixcolours.photoshare.custom;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -8,6 +9,10 @@ import com.mixcolours.photoshare.R;
 
 import org.lasque.tusdk.core.view.TuSdkImageView;
 import org.lasque.tusdk.impl.components.widget.sticker.StickerListGrid;
+import org.lasque.tusdk.modules.view.widget.sticker.StickerData;
+import org.lasque.tusdk.modules.view.widget.sticker.StickerLocalPackage;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by apple on 16/9/28.
@@ -35,11 +40,11 @@ public class CustomStickerListGrid extends StickerListGrid {
         if(imageView != null) {
             imageView.setCornerRadius(0);
         }
-
-//        super.getPosterView().setVisibility(View.GONE);
+        super.getPosterView().setVisibility(View.GONE);
     }
 
-    o'n
+
+
 
     protected CircleImageView getCircleImageView(){
         if(this.circleImageView==null){
@@ -48,4 +53,19 @@ public class CustomStickerListGrid extends StickerListGrid {
         return this.circleImageView;
     }
 
+    @Override
+    protected void bindModel() {
+        super.bindModel();
+        StickerLocalPackage.shared().loadThumb((StickerData)this.getModel(), this.getCircleImageView());
+    }
+
+    @Override
+    public void viewNeedRest() {
+        super.viewNeedRest();
+
+        StickerLocalPackage.shared().cancelLoadImage(this.getCircleImageView());
+        if(this.getCircleImageView() != null) {
+            this.getCircleImageView().setImageBitmap((Bitmap)null);
+        }
+    }
 }

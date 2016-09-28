@@ -27,4 +27,6 @@ public class CustomStickerBarTableView extends StickerBarTableView {
         super.onViewCreated(stickerListGrid, viewGroup, i);
 
     }
+
+
 }

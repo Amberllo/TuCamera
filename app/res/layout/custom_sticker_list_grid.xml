@@ -2,7 +2,8 @@
 <com.mixcolours.photoshare.custom.CustomStickerListGrid xmlns:android="http://schemas.android.com/apk/res/android"
 
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <RelativeLayout
 
@@ -21,13 +22,25 @@
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop" />
         
-            <com.mixcolours.photoshare.custom.CircleImageView
-                android:visibility="gone"
-                android:id="@+id/lsq_circlePosterView"
-                android:background="@color/blue_semi_transparent"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop" />
+            <!--<com.mixcolours.photoshare.custom.CircleImageView-->
+
+                <!--app:civ_fill_color="#6ed5d5"-->
+                <!--app:civ_border_color="@color/black"-->
+                <!--app:civ_border_width="1dp"-->
+                <!--android:padding="10dp"-->
+                <!--android:id="@+id/lsq_circlePosterView"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:scaleType="fitCenter" />-->
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            app:civ_border_width="2dp"
+            app:civ_border_color="#FF000000"
+            android:padding="10dp"
+            android:id="@+id/lsq_circlePosterView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitCenter"  />
 
     </RelativeLayout>
 
