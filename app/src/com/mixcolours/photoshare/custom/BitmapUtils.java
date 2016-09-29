@@ -28,22 +28,33 @@ public class BitmapUtils {
         if(source==null || boraderBitmap==null)return null;
         int maxWidth = boraderBitmap.getWidth();
         int maxHeight = boraderBitmap.getHeight();
-        float rateBorader = (float)maxWidth / (float)maxHeight;
 
+        //画布
+        Bitmap composedBitmap = Bitmap.createBitmap(maxWidth, maxHeight, Bitmap.Config.ARGB_8888);
+        Bitmap resizeBitmap = cropBitmapCenter(source,maxWidth,maxHeight);
+        Canvas cv = new Canvas(composedBitmap);
+        cv.drawBitmap(resizeBitmap, 0 , 0, null);
+        cv.drawBitmap(boraderBitmap, 0, 0, null);
+        cv.save(Canvas.ALL_SAVE_FLAG);
+        cv.restore();
+        return composedBitmap;
+    }
+
+    public static Bitmap cropBitmapCenter(Bitmap source,int maxWidth,int maxHeight){
+
+        float rateBorader = (float)maxWidth / (float)maxHeight;
 
         int sourceWidth = source.getWidth();
         int sourceHeight = source.getHeight();
         float rateSource = (float)sourceWidth / (float)sourceHeight;
-
         //画布
         Bitmap composedBitmap = Bitmap.createBitmap(maxWidth, maxHeight, Bitmap.Config.ARGB_8888);
-
         float scale = 1.0f;
         if(rateSource > rateBorader ){
             //原图宽高比大,y方向拉伸,
-            scale = ((float)boraderBitmap.getHeight()) / ((float)source.getHeight());
+            scale = ((float)maxHeight) / ((float)source.getHeight());
         }else if(rateSource < rateBorader){
-            scale = ((float)boraderBitmap.getWidth())/((float)source.getWidth());
+            scale = ((float)maxWidth)/((float)source.getWidth());
         }
 
         Bitmap resizeBitmap = resize(source,scale);
@@ -51,16 +62,15 @@ public class BitmapUtils {
         if(resizeBitmap.getWidth() == maxWidth ){
             //计算高度漂移
             cv.drawBitmap(resizeBitmap, 0,  ((float)(maxHeight - resizeBitmap.getHeight()))/2, null);
-            cv.drawBitmap(boraderBitmap, 0,0, null);
         }else{
             //计算宽度漂移
             cv.drawBitmap(resizeBitmap, ((float)(maxWidth - resizeBitmap.getWidth()))/2 , 0, null);
-            cv.drawBitmap(boraderBitmap, 0, 0, null);
         }
         cv.save(Canvas.ALL_SAVE_FLAG);
         cv.restore();
         return composedBitmap;
     }
+
 
     public static int dip2px(Context context, float dpValue) {
         final float scale = context.getResources().getDisplayMetrics().density;

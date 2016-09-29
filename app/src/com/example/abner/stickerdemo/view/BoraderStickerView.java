@@ -33,6 +33,8 @@ public class BoraderStickerView extends ImageView {
     private Bitmap blurBitmap;
     private Bitmap fullBitmap;
     private Bitmap resizeBitmap;
+
+    private Bitmap mStickerBitmap;
     private Bitmap mBitmap;
     private Rect dst_delete;
     private Rect dst_resize;
@@ -202,8 +204,10 @@ public class BoraderStickerView extends ImageView {
     }
 
     public void setBitmap(Bitmap bitmap) {
+
         matrix.reset();
         mBitmap = bitmap;
+        mStickerBitmap = bitmap;
         setDiagonalLength();
         initBitmaps();
         int w = mBitmap.getWidth();
@@ -216,13 +220,15 @@ public class BoraderStickerView extends ImageView {
         invalidate();
     }
 
-    public void resetBitmap(Bitmap bitmap){
+    public void resetStickerBitmap(Bitmap bitmap){
+        this.mStickerBitmap = bitmap;
         this.mBitmap = bitmap;
         invalidate();
     }
 
-    public Bitmap getBitmap(){
-        return this.mBitmap;
+    public void resetBitmap(Bitmap bitmap){
+        this.mBitmap = bitmap;
+        invalidate();
     }
 
     private void setDiagonalLength() {
@@ -619,6 +625,10 @@ public class BoraderStickerView extends ImageView {
         }
     }
 
+    public Bitmap getStickerBitmap() {
+        return this.mStickerBitmap;
+    }
+
     public interface OperationListener {
         void onDeleteClick();
 
@@ -660,13 +670,5 @@ public class BoraderStickerView extends ImageView {
         button.draw(canvas);
         return composedBitmap;
     }
-
-//    <org.lasque.tusdk.core.view.widget.button.TuSdkImageButton
-//    android:id="@+id/lsq_sticker_cancelButton"
-//    android:layout_width="32dp"
-//    android:layout_height="32dp"
-//    android:scaleType="center"
-//    android:src="@drawable/lsq_style_default_edit_drag_cancel"
-//    android:background="@drawable/tusdk_button_edit_sticker_remove" />
 
 }

@@ -129,7 +129,7 @@ public class StickerFragment extends TuEditStickerFragment
             if(mViews.size()!=0){
                 //判断是否只能加载一次相框
 //                Toast.makeText(getActivity(),"相框只能加载一次",Toast.LENGTH_SHORT).show();
-                mCurrentBoraderView.resetBitmap(isBlur?BitmapUtils.combineBoraderBitmap(originBitmap,bitmap):bitmap);
+                mCurrentBoraderView.resetStickerBitmap(isBlur?BitmapUtils.combineBoraderBitmap(originBitmap,bitmap):bitmap);
                 if(isFull)full(bitmap);
             }else{
                 addBoraderSticker(bitmap);
@@ -183,7 +183,7 @@ public class StickerFragment extends TuEditStickerFragment
 
     //添加气泡
     private void addBoraderSticker(final Bitmap stickerBitmap) {
-        TuSdkSize sdkSize = getFullScreenWH();
+        TuSdkSize sdkSize = getImageWH(originBitmap);
         final BoraderStickerView boraderStickerView = new BoraderStickerView(getActivity(),sdkSize.width,sdkSize.height);
         boraderStickerView.setBitmap(stickerBitmap);
         boraderStickerView.setOperationListener(new BoraderStickerView.OperationListener() {
@@ -203,18 +203,19 @@ public class StickerFragment extends TuEditStickerFragment
             @Override
             public void onFull(BoraderStickerView stickerView) {
 
-                full(stickerView.getBitmap());
+                full(stickerView.getStickerBitmap());
             }
 
             @Override
             public void onBlur(BoraderStickerView stickerView) {
+                Bitmap stickerBitmap = stickerView.getStickerBitmap();
                 if(isBlur){
                     getImageView().setImageBitmap(originBitmap);
-                    stickerView.resetBitmap(stickerView.getBitmap());
+                    stickerView.resetBitmap(stickerBitmap);
                     isBlur = false;
                 }else{
                     getImageView().setImageBitmap(blurImage(originBitmap));
-                    Bitmap posterBitmap = BitmapUtils.combineBoraderBitmap(originBitmap,stickerView.getBitmap());
+                    Bitmap posterBitmap = BitmapUtils.combineBoraderBitmap(originBitmap,stickerBitmap);
                     stickerView.resetBitmap(posterBitmap);
                     isBlur = true;
                 }
@@ -265,24 +266,41 @@ public class StickerFragment extends TuEditStickerFragment
         Bitmap fullBorader = BitmapUtils.resize(stickerBitmap,scale);
         refixView(fullBorader.getWidth(),fullBorader.getHeight());
         getFullImageView().setImageBitmap(fullBorader);
-//        Bitmap posterBitmap = BitmapUtils.combineBoraderBitmap(originBitmap,fullBorader);
-        mCurrentBoraderView.setInEdit(false);
 
-//        getStickerView().setVisibility(View.GONE);
+        Bitmap posterBitmap = BitmapUtils.combineBoraderBitmap(originBitmap,fullBorader);
+        getImageView().setImageBitmap(posterBitmap);
+
+        if(mCurrentBoraderView!=null){
+            mCurrentBoraderView.setInEdit(false);
+            mCurrentBoraderView.setVisibility(View.GONE);
+        }
+
+
+        getStickerView().setVisibility(View.GONE);
         getFullImageView().setVisibility(View.VISIBLE);
         isFull  =  true;
     }
     private TuSdkResult generateBitmap() {
 
-        RelativeLayout stickerView = getStickerView();
-        Bitmap stickerBitmap = Bitmap.createBitmap(stickerView.getWidth(), stickerView.getHeight(), Bitmap.Config.ARGB_8888);
-        Canvas canvas1 = new Canvas(stickerBitmap);
-        stickerView.draw(canvas1);
+        Bitmap fullBitmap = null;
+        Bitmap stickerBitmap = null;
 
-        ImageView fullImageView = getFullImageView();
-        Bitmap fullBitmap = Bitmap.createBitmap(fullImageView.getWidth(), fullImageView.getHeight(), Bitmap.Config.ARGB_8888);
-        Canvas canvasFull = new Canvas(fullBitmap);
-        stickerView.draw(canvasFull);
+        if(getStickerView().getVisibility() == View.VISIBLE) {
+            RelativeLayout stickerView = getStickerView();
+            stickerBitmap = Bitmap.createBitmap(stickerView.getWidth(), stickerView.getHeight(), Bitmap.Config.ARGB_8888);
+            Canvas canvas1 = new Canvas(stickerBitmap);
+            stickerView.draw(canvas1);
+        }
+
+
+        if(isFull){
+            StickerView stickerView = getStickerView();
+            ImageView fullImageView = getFullImageView();
+            fullBitmap = Bitmap.createBitmap(fullImageView.getWidth(), fullImageView.getHeight(), Bitmap.Config.ARGB_8888);
+            Canvas canvasFull = new Canvas(fullBitmap);
+            stickerView.draw(canvasFull);
+        }
+
 
         Bitmap imageBitmap = Bitmap.createBitmap(getImageView().getWidth(),getImageView().getHeight(), Bitmap.Config.ARGB_8888);
         Canvas canvasOrigin = new Canvas(imageBitmap);
@@ -292,13 +310,8 @@ public class StickerFragment extends TuEditStickerFragment
         Bitmap bitmap = Bitmap.createBitmap(getImageView().getWidth(),getImageView().getHeight(), Bitmap.Config.ARGB_8888);
         Canvas cv = new Canvas(bitmap);
         cv.drawBitmap(imageBitmap, 0 , 0, null);
-        if(stickerView.getVisibility() == View.VISIBLE){
-            cv.drawBitmap(stickerBitmap, 0, 0, null);
-        }
-        if(fullImageView.getVisibility() == View.VISIBLE){
-            cv.drawBitmap(fullBitmap, 0, 0, null);
-        }
-
+        if(stickerBitmap!=null)cv.drawBitmap(stickerBitmap, 0, 0, null);
+        if(fullBitmap!=null)cv.drawBitmap(fullBitmap, 0, 0, null);
         cv.save(Canvas.ALL_SAVE_FLAG);
         cv.restore();
 
