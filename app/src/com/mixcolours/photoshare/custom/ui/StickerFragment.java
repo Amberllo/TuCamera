@@ -57,10 +57,8 @@ public class StickerFragment extends TuEditStickerFragment
 {
 
     boolean isBlur = false;
+    boolean isFull = false;
     private static final int BoardCategoryId = 2;
-//    int boradWidth = 0;
-//    int boradHeight = 0;
-
     Bitmap originBitmap;
     BoraderStickerView mCurrentBoraderView;
     List<View> mViews = new ArrayList<>();
@@ -129,7 +127,8 @@ public class StickerFragment extends TuEditStickerFragment
             if(mViews.size()!=0){
                 //判断是否只能加载一次相框
 //                Toast.makeText(getActivity(),"相框只能加载一次",Toast.LENGTH_SHORT).show();
-                mCurrentBoraderView.resetBitmap(bitmap);
+                mCurrentBoraderView.resetBitmap(isBlur?BitmapUtils.combineBoraderBitmap(originBitmap,bitmap):bitmap);
+                if(isFull)full(originBitmap,bitmap);
             }else{
                 addBoraderSticker(bitmap);
             }
@@ -202,21 +201,7 @@ public class StickerFragment extends TuEditStickerFragment
             @Override
             public void onFull(BoraderStickerView stickerView) {
 
-                Bitmap posterBitmap = BitmapUtils.combineBoraderBitmap(originBitmap,stickerBitmap);
-                float scale = 1.0f;
-                //调整相框大小
-                if(posterBitmap.getWidth() > posterBitmap.getHeight()){
-                    //横相框
-                    scale = (float)getImageView().getWidth() / (float)posterBitmap.getWidth();
-                }else{
-                    //竖相框
-                    scale = (float)getImageView().getHeight() / (float)posterBitmap.getHeight();
-                }
-                Bitmap fullScreen = BitmapUtils.resize(posterBitmap,scale);
-                getImageView().setImageBitmap(fullScreen);
-                refixView(fullScreen);
-                mCurrentBoraderView.setInEdit(false);
-                getStickerView().setVisibility(View.GONE);
+                full(originBitmap,stickerBitmap);
             }
 
             @Override
@@ -252,19 +237,6 @@ public class StickerFragment extends TuEditStickerFragment
         getStickerView().cancelAllStickerSelected();
     }
 
-//    private void fixBorder(StickerData stickerData){
-//        if(stickerData.categoryId == BoardCategoryId){
-//            if(boradWidth == 0  && boradHeight == 0){
-//                boradWidth = stickerData.width;
-//                boradHeight = stickerData.height;
-//            }
-//            stickerData.width = boradWidth * 2;
-//            stickerData.height = boradHeight * 2;
-//        }
-//    }
-
-
-
     public TuMaskRegionView getCutRegionView() {
         TuMaskRegionView regionView = super.getCutRegionView();
         regionView.setEdgeMaskColor(TuSdkContext.getColor(R.color.gray_common2));
@@ -285,6 +257,24 @@ public class StickerFragment extends TuEditStickerFragment
         return blurBitmap ;
     }
 
+    private void full(Bitmap originBitmap,Bitmap stickerBitmap){
+        Bitmap posterBitmap = BitmapUtils.combineBoraderBitmap(originBitmap,stickerBitmap);
+        float scale = 1.0f;
+        //调整相框大小
+        if(posterBitmap.getWidth() > posterBitmap.getHeight()){
+            //横相框
+            scale = (float)getImageView().getWidth() / (float)posterBitmap.getWidth();
+        }else{
+            //竖相框
+            scale = (float)getImageView().getHeight() / (float)posterBitmap.getHeight();
+        }
+        Bitmap fullScreen = BitmapUtils.resize(posterBitmap,scale);
+        getImageView().setImageBitmap(fullScreen);
+        refixView(fullScreen);
+        mCurrentBoraderView.setInEdit(false);
+        getStickerView().setVisibility(View.GONE);
+        isFull  =  true;
+    }
     private TuSdkResult generateBitmap() {
 
         RelativeLayout warpper = getStickerView();
