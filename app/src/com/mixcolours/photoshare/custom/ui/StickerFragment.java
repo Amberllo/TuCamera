@@ -43,6 +43,7 @@ import com.mixcolours.photoshare.R;
 import com.mixcolours.photoshare.custom.BitmapUtils;
 import com.mixcolours.photoshare.custom.CustomStickerBarView;
 import com.mixcolours.photoshare.custom.FastBlurUtil;
+import com.mixcolours.photoshare.photoview.PhotoView;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -215,6 +216,7 @@ public class StickerFragment extends TuEditStickerFragment
                     isBlur = false;
                 }else{
                     getImageView().setImageBitmap(blurImage(originBitmap));
+
                     Bitmap posterBitmap = BitmapUtils.combineBoraderBitmap(originBitmap,stickerBitmap);
                     stickerView.resetBitmap(posterBitmap);
                     isBlur = true;
@@ -267,15 +269,15 @@ public class StickerFragment extends TuEditStickerFragment
         refixView(fullBorader.getWidth(),fullBorader.getHeight());
         getFullImageView().setImageBitmap(fullBorader);
 
-        Bitmap posterBitmap = BitmapUtils.combineBoraderBitmap(originBitmap,fullBorader);
-        getImageView().setImageBitmap(posterBitmap);
+        Bitmap cropBitmap = BitmapUtils.cropBitmapCenter(originBitmap,fullBorader.getWidth(),fullBorader.getHeight());
+        getImageView().setImageBitmap(cropBitmap);
 
         if(mCurrentBoraderView!=null){
             mCurrentBoraderView.setInEdit(false);
             mCurrentBoraderView.setVisibility(View.GONE);
         }
 
-
+        ((PhotoView)getImageView()).enable();
         getStickerView().setVisibility(View.GONE);
         getFullImageView().setVisibility(View.VISIBLE);
         isFull  =  true;
@@ -294,11 +296,10 @@ public class StickerFragment extends TuEditStickerFragment
 
 
         if(isFull){
-            StickerView stickerView = getStickerView();
             ImageView fullImageView = getFullImageView();
             fullBitmap = Bitmap.createBitmap(fullImageView.getWidth(), fullImageView.getHeight(), Bitmap.Config.ARGB_8888);
             Canvas canvasFull = new Canvas(fullBitmap);
-            stickerView.draw(canvasFull);
+            fullImageView.draw(canvasFull);
         }
 
 

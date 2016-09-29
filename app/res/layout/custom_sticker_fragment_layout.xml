@@ -22,7 +22,7 @@
             android:layout_height="match_parent"
             android:layout_alignParentTop="true">
 
-            <ImageView
+            <com.mixcolours.photoshare.photoview.PhotoView
                 android:layout_centerInParent="true"
                 android:id="@+id/lsq_imageView"
                 android:scaleType="fitCenter"
