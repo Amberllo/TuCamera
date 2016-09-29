@@ -11,6 +11,7 @@ package com.mixcolours.photoshare.custom.ui;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.graphics.Rect;
 
 import android.util.DisplayMetrics;
@@ -307,6 +308,8 @@ public class StickerFragment extends TuEditStickerFragment
         Canvas canvasOrigin = new Canvas(imageBitmap);
         getImageView().draw(canvasOrigin);
 
+        Paint paint = new Paint();
+        paint.setAlpha(0);
 
         Bitmap bitmap = Bitmap.createBitmap(getImageView().getWidth(),getImageView().getHeight(), Bitmap.Config.ARGB_8888);
         Canvas cv = new Canvas(bitmap);
