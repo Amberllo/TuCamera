@@ -39,7 +39,6 @@ public class BitmapUtils {
         Bitmap composedBitmap = Bitmap.createBitmap(maxWidth, maxHeight, Bitmap.Config.ARGB_8888);
 
         float scale = 1.0f;
-
         if(rateSource > rateBorader ){
             //原图宽高比大,y方向拉伸,
             scale = ((float)boraderBitmap.getHeight()) / ((float)source.getHeight());

@@ -221,6 +221,10 @@ public class BoraderStickerView extends ImageView {
         invalidate();
     }
 
+    public Bitmap getBitmap(){
+        return this.mBitmap;
+    }
+
     private void setDiagonalLength() {
         halfDiagonalLength = Math.hypot(mBitmap.getWidth(), mBitmap.getHeight()) / 2;
     }

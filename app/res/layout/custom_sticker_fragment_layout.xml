@@ -29,6 +29,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
+            <ImageView
+                android:id="@+id/lsq_fullImageView"
+                android:layout_centerInParent="true"
+                android:visibility="gone"
+                android:scaleType="fitCenter"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
             <org.lasque.tusdk.impl.components.widget.sticker.StickerView
                 android:id="@+id/lsq_stickerView"
                 android:layout_centerInParent="true"
