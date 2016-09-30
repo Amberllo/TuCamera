@@ -7,6 +7,7 @@ import android.graphics.PointF;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
@@ -607,7 +608,7 @@ public class PhotoView extends ImageView {
             mDetector.onTouchEvent(event);
             mRotateDetector.onTouchEvent(event);
             mScaleDetector.onTouchEvent(event);
-            if (Action == MotionEvent.ACTION_UP || Action == MotionEvent.ACTION_CANCEL) onUp(event);
+//            if (Action == MotionEvent.ACTION_UP || Action == MotionEvent.ACTION_CANCEL) onUp(event);
 
 
             return true;
@@ -887,7 +888,7 @@ public class PhotoView extends ImageView {
             mTranslate.withFling(vx, vy);
 
 
-            onUp(e2);
+//            onUp(e2);
             mTranslate.start();
             return super.onFling(e1, e2, velocityX, velocityY);
         }
@@ -898,14 +899,18 @@ public class PhotoView extends ImageView {
             if (mTranslate.isRuning) {
                 mTranslate.stop();
             }
-
+            Log.i("Scroll","distanceX ="+ distanceX + " " + "distanceY ="+ distanceY);
+            Log.i("Scroll","ImgRect left ="+ mImgRect.left + " " + "ImgRect right ="+ mImgRect.right);
+            Log.i("Scroll","mWidgetRect left ="+ mWidgetRect.left + " " + "mWidgetRect right ="+ mWidgetRect.right);
 
             if (canScrollHorizontallySelf(distanceX)) {
-                if (distanceX < 0 && mImgRect.left - distanceX > mWidgetRect.left)
-                    distanceX = mImgRect.left;
-                if (distanceX > 0 && mImgRect.right - distanceX < mWidgetRect.right)
-                    distanceX = mImgRect.right - mWidgetRect.right;
-
+//                if (distanceX < 0 && mImgRect.left - distanceX > mWidgetRect.left)
+//                    distanceX = mImgRect.left;
+//                if (distanceX > 0 && mImgRect.right - distanceX < mWidgetRect.right)
+//                    distanceX = mImgRect.right - mWidgetRect.right;
+//
+//
+//                mAnimaMatrix.postTranslate(-distanceX, 0);
 
                 mAnimaMatrix.postTranslate(-distanceX, 0);
                 mTranslateX -= distanceX;
@@ -926,10 +931,10 @@ public class PhotoView extends ImageView {
 
 
             if (canScrollVerticallySelf(distanceY)) {
-                if (distanceY < 0 && mImgRect.top - distanceY > mWidgetRect.top)
-                    distanceY = mImgRect.top;
-                if (distanceY > 0 && mImgRect.bottom - distanceY < mWidgetRect.bottom)
-                    distanceY = mImgRect.bottom - mWidgetRect.bottom;
+//                if (distanceY < 0 && mImgRect.top - distanceY > mWidgetRect.top)
+//                    distanceY = mImgRect.top;
+//                if (distanceY > 0 && mImgRect.bottom - distanceY < mWidgetRect.bottom)
+//                    distanceY = mImgRect.bottom - mWidgetRect.bottom;
 
 
                 mAnimaMatrix.postTranslate(0, -distanceY);
@@ -1017,21 +1022,21 @@ public class PhotoView extends ImageView {
 
 
     public boolean canScrollHorizontallySelf(float direction) {
-        if (mImgRect.width() <= mWidgetRect.width()) return false;
-        if (direction < 0 && Math.round(mImgRect.left) - direction >= mWidgetRect.left)
-            return false;
-        if (direction > 0 && Math.round(mImgRect.right) - direction <= mWidgetRect.right)
-            return false;
+//        if (mImgRect.width() <= mWidgetRect.width()) return false;
+//        if (direction < 0 && Math.round(mImgRect.left) - direction >= mWidgetRect.left)
+//            return false;
+//        if (direction > 0 && Math.round(mImgRect.right) - direction <= mWidgetRect.right)
+//            return false;
         return true;
     }
 
 
     public boolean canScrollVerticallySelf(float direction) {
-        if (mImgRect.height() <= mWidgetRect.height()) return false;
-        if (direction < 0 && Math.round(mImgRect.top) - direction >= mWidgetRect.top)
-            return false;
-        if (direction > 0 && Math.round(mImgRect.bottom) - direction <= mWidgetRect.bottom)
-            return false;
+//        if (mImgRect.height() <= mWidgetRect.height()) return false;
+//        if (direction < 0 && Math.round(mImgRect.top) - direction >= mWidgetRect.top)
+//            return false;
+//        if (direction > 0 && Math.round(mImgRect.bottom) - direction <= mWidgetRect.bottom)
+//            return false;
         return true;
     }
 
