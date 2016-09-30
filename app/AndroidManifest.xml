@@ -64,6 +64,7 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".custom.ui.PhotoViewActivity"></activity>
         <activity
             android:name=".custom.ui.CameraEntryActivity"
             android:theme="@android:style/Theme.Translucent"

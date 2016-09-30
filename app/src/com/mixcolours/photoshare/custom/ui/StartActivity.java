@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 
 import com.mixcolours.photoshare.R;
@@ -15,7 +17,7 @@ import com.mixcolours.photoshare.R;
  */
 public class StartActivity extends Activity {
     Handler handler = new Handler();
-    CountDownTimer timer = new CountDownTimer(1000,2000) {
+    CountDownTimer timer = new CountDownTimer(1000,1000) {
         @Override
         public void onTick(long millisUntilFinished) {
 
@@ -42,6 +44,9 @@ public class StartActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        requestWindowFeature(Window.FEATURE_NO_TITLE); //设置无标题
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.custom_start);
         imageView = (ImageView) findViewById(R.id.lsq_welcome_image);
         timer.cancel();
