@@ -622,34 +622,34 @@ public class PhotoView extends ImageView {
         if (mTranslate.isRuning) return;
 
 
-//        if (canRotate || mDegrees % 90 != 0) {
-//            float toDegrees = (int) (mDegrees / 90) * 90;
-//            float remainder = mDegrees % 90;
-//
-//
-//            if (remainder > 45)
-//                toDegrees += 90;
-//            else if (remainder < -45)
-//                toDegrees -= 90;
-//
-//
-//            mTranslate.withRotate((int) mDegrees, (int) toDegrees);
-//
-//
-//            mDegrees = toDegrees;
-//        }
+        if (canRotate || mDegrees % 90 != 0) {
+            float toDegrees = (int) (mDegrees / 90) * 90;
+            float remainder = mDegrees % 90;
+
+
+            if (remainder > 45)
+                toDegrees += 90;
+            else if (remainder < -45)
+                toDegrees -= 90;
+
+
+            mTranslate.withRotate((int) mDegrees, (int) toDegrees);
+
+
+            mDegrees = toDegrees;
+        }
 
 
         float scale = mScale;
 
 
-//        if (mScale < 1) {
-//            scale = 1;
-//            mTranslate.withScale(mScale, 1);
-//        } else if (mScale > MAX_SCALE) {
-//            scale = MAX_SCALE;
-//            mTranslate.withScale(mScale, MAX_SCALE);
-//        }
+        if (mScale < 1) {
+            scale = 1;
+            mTranslate.withScale(mScale, 1);
+        } else if (mScale > MAX_SCALE) {
+            scale = MAX_SCALE;
+            mTranslate.withScale(mScale, MAX_SCALE);
+        }
 
 
         float cx = mImgRect.left + mImgRect.width() / 2;
