@@ -44,13 +44,6 @@
             android:src="@drawable/lsq_style_default_edit_button_completed" />
     </RelativeLayout>
 
-    <include
-        android:id="@+id/lsq_filter_bar"
-        android:layout_alignParentBottom="true"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        layout="@layout/custom_filter_bar_view" />
-
     <org.lasque.tusdk.core.view.widget.button.TuSdkImageButton
         android:id="@+id/lsq_cancelButton1"
         android:layout_width="70dp"
@@ -67,5 +60,14 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:background="@drawable/lsq_style_default_edit_button_confirm_bg" />
+
+    <include
+        android:id="@+id/lsq_filter_bar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        layout="@layout/custom_filter_bar_view"
+        android:layout_below="@+id/lsq_bottomBar"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

@@ -23,7 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:layout_alignParentBottom="true"
-        layout="@layout/tusdk_impl_component_widget_group_filter_bar" />
+        layout="@layout/custom_filter_group_filter_bar" />
 
     <LinearLayout
         android:visibility="gone"
