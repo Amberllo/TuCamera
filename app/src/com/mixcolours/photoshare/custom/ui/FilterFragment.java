@@ -54,25 +54,4 @@ public class FilterFragment extends TuEditFilterFragment{
         return button;
     }
 
-
-
-    @Override
-    public void hubError(int i) {
-//        super.hubError(i);
-    }
-
-    @Override
-    public void hubError(String s) {
-//        super.hubError(s);
-    }
-
-    @Override
-    public void hubSuccess(String var1) {
-//        TuSdk.messageHub().showSuccess(this.getActivity(), var1);
-    }
-
-    @Override
-    public void hubSuccess(int var1) {
-//        TuSdk.messageHub().showSuccess(this.getActivity(), var1);
-    }
 }
