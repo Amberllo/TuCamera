@@ -13,6 +13,7 @@ import org.lasque.tusdk.core.secret.StatisticsManger;
 import org.lasque.tusdk.core.utils.image.BitmapHelper;
 import org.lasque.tusdk.core.view.TuSdkImageView;
 import org.lasque.tusdk.core.view.TuSdkViewHelper;
+import org.lasque.tusdk.core.view.widget.button.TuSdkTextButton;
 import org.lasque.tusdk.impl.components.edit.TuEditMultipleFragment;
 import org.lasque.tusdk.modules.components.ComponentActType;
 import org.lasque.tusdk.modules.components.edit.TuEditActionType;
@@ -27,7 +28,7 @@ import java.io.File;
 public class EditMultipleFragment extends TuEditMultipleFragment {
 
     TuSdkImageView filterButton;
-    TuSdkImageView skinButton;
+    TuSdkTextButton skinButton;
     TuSdkImageView shareButton;
     TuSdkImageView fontButton;
     TuSdkImageView stickerButton;
@@ -58,7 +59,7 @@ public class EditMultipleFragment extends TuEditMultipleFragment {
         LinearLayout actionTypeLayout2 = (LinearLayout)view.findViewById(R.id.lsq_actions_wrapview2);
 
         filterButton = (TuSdkImageView)actionTypeLayout2.findViewById(R.id.lsq_filterButton);
-        skinButton = (TuSdkImageView)actionTypeLayout2.findViewById(R.id.lsq_skinButton);
+        skinButton = (TuSdkTextButton)actionTypeLayout2.findViewById(R.id.lsq_skinButton);
         shareButton = (TuSdkImageView) actionTypeLayout2.findViewById(R.id.lsq_shareButton);
         fontButton = (TuSdkImageView)actionTypeLayout2.findViewById(R.id.lsq_fontButton);
         stickerButton = (TuSdkImageView)actionTypeLayout2.findViewById(R.id.lsq_stickerButton);

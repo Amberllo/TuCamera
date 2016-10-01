@@ -18,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="49dp"
         android:layout_alignParentBottom="true"
-        android:background="@color/green_common2" >
+        android:background="@color/green_common" >
 
         <org.lasque.tusdk.core.view.widget.button.TuSdkImageButton
             android:id="@+id/lsq_cancelButton"

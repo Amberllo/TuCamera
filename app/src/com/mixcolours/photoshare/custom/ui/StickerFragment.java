@@ -250,7 +250,7 @@ public class StickerFragment extends TuEditStickerFragment
 
 
     private Bitmap blurImage(Bitmap originBitmap){
-        int scale = 5;
+        int scale = 2;
 
         long start = System.currentTimeMillis();
         int scaleRatio = 10;

@@ -70,7 +70,18 @@ public class SkinFragment extends TuEditSkinFragment{
         return button;
     }
 
-//    @Override
+    @Override
+    public void hubError(int i) {
+        hubDismissRightNow();
+//        super.hubError(i);
+    }
+
+    @Override
+    public void hubError(String s) {
+        hubDismissRightNow();
+//        super.hubError(s);
+    }
+    //    @Override
 //    protected void buildActionButtons() {
 //        LinearLayout var1;
 //        if((var1 = this.getActionsWrap()) != null) {
@@ -134,5 +145,6 @@ public class SkinFragment extends TuEditSkinFragment{
 //            return button;
 //        }
 //    }
+
 
 }
