@@ -9,16 +9,20 @@
  */
 package com.mixcolours.photoshare.custom.ui;
 
+import android.annotation.TargetApi;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 
+import android.graphics.drawable.BitmapDrawable;
+import android.os.Build;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
@@ -262,24 +266,37 @@ public class StickerFragment extends TuEditStickerFragment
     private void full(Bitmap stickerBitmap){
 
         TuSdkSize fullWH = getFullScreenWH();
+        float ratioSticker = (float)stickerBitmap.getWidth()/ (float)stickerBitmap.getHeight();
+        float ratioFull = (float)fullWH.width / (float)fullWH.height;
+
         //1.将相框放大至全屏
-        float scale = (stickerBitmap.getWidth() > stickerBitmap.getHeight())?
+        float scale = ratioSticker  > ratioFull ?
                 (float)fullWH.width / (float)stickerBitmap.getWidth():
                (float)fullWH.height / (float)stickerBitmap.getHeight();
-        Bitmap fullBorader = BitmapUtils.resize(stickerBitmap,scale);
-        refixView(fullBorader.getWidth(),fullBorader.getHeight());
-        getFullImageView().setImageBitmap(fullBorader);
+        final Bitmap fullBorader = BitmapUtils.resize(stickerBitmap,scale);
+        refixView(fullBorader.getWidth(), fullBorader.getHeight(), new ViewTreeObserver.OnGlobalLayoutListener() {
+            @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+            @Override
+            public void onGlobalLayout() {
+                getFullImageView().setImageBitmap(fullBorader);
 
-        Bitmap cropBitmap = BitmapUtils.cropBitmapCenter(originBitmap,fullBorader.getWidth(),fullBorader.getHeight());
-        getImageView().setImageBitmap(cropBitmap);
+                Bitmap cropBitmap = BitmapUtils.cropBitmapCenter(originBitmap,fullBorader.getWidth(),fullBorader.getHeight());
+                getImageView().setImageBitmap(cropBitmap);
+                getImageView().getViewTreeObserver().removeOnGlobalLayoutListener(this);
+            }
+        });
+
+
+
 
         if(mCurrentBoraderView!=null){
             mCurrentBoraderView.setInEdit(false);
             mCurrentBoraderView.setVisibility(View.GONE);
         }
+        if(getImageView() instanceof PhotoView){
+            ((PhotoView)getImageView()).enable();
+        }
 
-        ((PhotoView)getImageView()).enable();
-        getStickerView().setVisibility(View.GONE);
         getFullImageView().setVisibility(View.VISIBLE);
         isFull  =  true;
     }
@@ -307,9 +324,6 @@ public class StickerFragment extends TuEditStickerFragment
         Bitmap imageBitmap = Bitmap.createBitmap(getImageView().getWidth(),getImageView().getHeight(), Bitmap.Config.ARGB_8888);
         Canvas canvasOrigin = new Canvas(imageBitmap);
         getImageView().draw(canvasOrigin);
-
-        Paint paint = new Paint();
-        paint.setAlpha(0);
 
         Bitmap bitmap = Bitmap.createBitmap(getImageView().getWidth(),getImageView().getHeight(), Bitmap.Config.ARGB_8888);
         Canvas cv = new Canvas(bitmap);
@@ -396,20 +410,28 @@ public class StickerFragment extends TuEditStickerFragment
     protected void viewDidLoad(ViewGroup viewGroup) {
         super.viewDidLoad(viewGroup);
         TuSdkSize size = getImageWH(getImage());
-        refixView(size.width,size.height);
-        try {
-            StickerCategory category = StickerLocalPackage.shared().getCategories().get(0);
-            StickerData stickerData = category.datas.get(0).stickers.get(0);
+        refixView(size.width, size.height, new ViewTreeObserver.OnGlobalLayoutListener() {
+            @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+            @Override
+            public void onGlobalLayout() {
+                try {
+                    StickerCategory category = StickerLocalPackage.shared().getCategories().get(0);
+                    StickerData stickerData = category.datas.get(0).stickers.get(0);
 
-            Bitmap bitmap = BitmapUtils.getStickerFromAccess(getContext(),stickerData.stickerId);
-            addBoraderSticker(bitmap);
+                    Bitmap bitmap = BitmapUtils.getStickerFromAccess(getContext(),stickerData.stickerId);
+                    addBoraderSticker(bitmap);
 
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                getImageView().getViewTreeObserver() .removeOnGlobalLayoutListener(this);
+            }
+        });
+
+
     }
 
-    private void refixView(int width,int height){
+    private void refixView(int width,int height,ViewTreeObserver.OnGlobalLayoutListener listener){
         ImageView imageView = getImageView();
         StickerView imageWrapView = getStickerView();
         ImageView imageFullView = getFullImageView();
@@ -425,10 +447,11 @@ public class StickerFragment extends TuEditStickerFragment
         params.height= height;
         paramsLayout.height = height;
         paramsFull.height = height;
-
         imageView.setLayoutParams(params);
         imageWrapView.setLayoutParams(paramsLayout);
         imageFullView.setLayoutParams(paramsFull);
+
+        imageView.getViewTreeObserver().addOnGlobalLayoutListener(listener);
     }
 
 
