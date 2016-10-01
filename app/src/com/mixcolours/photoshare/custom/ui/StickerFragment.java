@@ -279,9 +279,9 @@ public class StickerFragment extends TuEditStickerFragment
             @Override
             public void onGlobalLayout() {
                 getFullImageView().setImageBitmap(fullBorader);
-
-                Bitmap cropBitmap = BitmapUtils.cropBitmapCenter(originBitmap,fullBorader.getWidth(),fullBorader.getHeight());
-                getImageView().setImageBitmap(cropBitmap);
+                ((PhotoView)getImageView()).setScaleType(ImageView.ScaleType.CENTER_CROP);
+//                Bitmap cropBitmap = BitmapUtils.cropBitmapCenter(originBitmap,fullBorader.getWidth(),fullBorader.getHeight());
+//                getImageView().setImageBitmap(cropBitmap);
                 getImageView().getViewTreeObserver().removeOnGlobalLayoutListener(this);
             }
         });

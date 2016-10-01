@@ -72,14 +72,12 @@ public class SkinFragment extends TuEditSkinFragment{
 
     @Override
     public void hubError(int i) {
-        hubDismissRightNow();
-//        super.hubError(i);
+        hubDismiss();
     }
 
     @Override
     public void hubError(String s) {
-        hubDismissRightNow();
-//        super.hubError(s);
+        hubDismiss();
     }
     //    @Override
 //    protected void buildActionButtons() {
