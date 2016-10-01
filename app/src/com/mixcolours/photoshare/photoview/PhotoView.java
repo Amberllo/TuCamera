@@ -7,7 +7,6 @@ import android.graphics.PointF;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
@@ -899,18 +898,14 @@ public class PhotoView extends ImageView {
             if (mTranslate.isRuning) {
                 mTranslate.stop();
             }
-            Log.i("Scroll","distanceX ="+ distanceX + " " + "distanceY ="+ distanceY);
-            Log.i("Scroll","ImgRect left ="+ mImgRect.left + " " + "ImgRect right ="+ mImgRect.right);
-            Log.i("Scroll","mWidgetRect left ="+ mWidgetRect.left + " " + "mWidgetRect right ="+ mWidgetRect.right);
+
 
             if (canScrollHorizontallySelf(distanceX)) {
 //                if (distanceX < 0 && mImgRect.left - distanceX > mWidgetRect.left)
 //                    distanceX = mImgRect.left;
 //                if (distanceX > 0 && mImgRect.right - distanceX < mWidgetRect.right)
 //                    distanceX = mImgRect.right - mWidgetRect.right;
-//
-//
-//                mAnimaMatrix.postTranslate(-distanceX, 0);
+
 
                 mAnimaMatrix.postTranslate(-distanceX, 0);
                 mTranslateX -= distanceX;
