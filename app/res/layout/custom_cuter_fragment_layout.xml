@@ -25,7 +25,7 @@
             android:layout_height="80dp"
 
             android:gravity="center"
-            android:background="@color/green_common2"
+            android:background="@color/green_common"
             android:orientation="horizontal" >
 
             <org.lasque.tusdk.core.view.widget.button.TuSdkTextButton
