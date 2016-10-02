@@ -12,7 +12,26 @@ package com.mixcolours.photoshare;
 import android.content.Context;
 import android.support.multidex.MultiDex;
 
+import com.mixcolours.photoshare.custom.CustomImageDownloader;
+import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiskCache;
+import com.nostra13.universalimageloader.cache.disc.naming.HashCodeFileNameGenerator;
+import com.nostra13.universalimageloader.cache.memory.impl.LargestLimitedMemoryCache;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+import com.nostra13.universalimageloader.core.decode.BaseImageDecoder;
+import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
+import com.nostra13.universalimageloader.core.download.ImageDownloader;
+import com.nostra13.universalimageloader.core.process.BitmapProcessor;
+import com.nostra13.universalimageloader.utils.StorageUtils;
+
 import org.lasque.tusdk.core.TuSdkApplication;
+import org.lasque.tusdk.core.TuSdkContext;
+import org.lasque.tusdk.core.struct.TuSdkSize;
+import org.lasque.tusdk.core.utils.hardware.HardwareHelper;
+
+import java.io.File;
 
 /**
  * 应用对象
@@ -63,6 +82,34 @@ public class TuApplication extends TuSdkApplication
 	     *
 	     *  @param appkey 应用秘钥 (请前往 http://tusdk.com 申请秘钥)
 	     */
+
+		TuSdkContext.init(this);
+		TuSdkSize var1 = TuSdkContext.getScreenSize();
+
+		File var2 = StorageUtils.getCacheDirectory(this);
+		File var3;
+		if(!(var3 = new File(var2, "imageCache")).exists() && !var3.mkdirs()) {
+			var3 = var2;
+		}
+
+		int var5 = Math.min((int)(HardwareHelper.appMemoryBit() / 8L), 1703936);
+		ImageLoaderConfiguration var4 = (new ImageLoaderConfiguration.Builder(this))
+				.memoryCacheExtraOptions(var1.width, var1.height)
+				.diskCacheExtraOptions(var1.width, var1.height, (BitmapProcessor)null)
+				.threadPoolSize(2)
+				.threadPriority(4)
+				.tasksProcessingOrder(QueueProcessingType.FIFO)
+				.denyCacheImageMultipleSizesInMemory()
+				.memoryCache(new LargestLimitedMemoryCache(var5))
+				.memoryCacheSize(var5)
+				.memoryCacheSizePercentage(13)
+				.diskCache(new UnlimitedDiskCache(var3)).diskCacheSize(209715200)
+				.diskCacheFileNameGenerator(new HashCodeFileNameGenerator()).imageDownloader(new CustomImageDownloader(this))
+				.imageDecoder(new BaseImageDecoder(false))
+				.defaultDisplayImageOptions(DisplayImageOptions.createSimple())
+				.build();
+		ImageLoader.getInstance().init(var4);
+
         this.initPreLoader(this.getApplicationContext(), "90332d115bf8df36-02-7lryp1");
 
 		
@@ -79,6 +126,9 @@ public class TuApplication extends TuSdkApplication
 		// TuSdk.init(this.getApplicationContext(), "12aa4847a3a9ce68-04-ewdjn1");
 		// 需要指定开发模式 需要与lsq_tusdk_configs.json中masters.key匹配， 如果找不到devType将默认读取master字段
 		// TuSdk.init(this.getApplicationContext(), "12aa4847a3a9ce68-04-ewdjn1", "debug");
+
+
+
 	}
 
     @Override
