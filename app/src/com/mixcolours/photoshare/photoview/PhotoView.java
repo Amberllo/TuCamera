@@ -853,37 +853,37 @@ public class PhotoView extends ImageView {
             float vy = velocityY;
 
 
-            if (Math.round(mImgRect.left) >= mWidgetRect.left || Math.round(mImgRect.right) <= mWidgetRect.right) {
-                vx = 0;
-            }
+//            if (Math.round(mImgRect.left) >= mWidgetRect.left || Math.round(mImgRect.right) <= mWidgetRect.right) {
+//                vx = 0;
+//            }
+//
+//
+//            if (Math.round(mImgRect.top) >= mWidgetRect.top || Math.round(mImgRect.bottom) <= mWidgetRect.bottom) {
+//                vy = 0;
+//            }
 
 
-            if (Math.round(mImgRect.top) >= mWidgetRect.top || Math.round(mImgRect.bottom) <= mWidgetRect.bottom) {
-                vy = 0;
-            }
+//            if (canRotate || mDegrees % 90 != 0) {
+//                float toDegrees = (int) (mDegrees / 90) * 90;
+//                float remainder = mDegrees % 90;
+//
+//
+//                if (remainder > 45)
+//                    toDegrees += 90;
+//                else if (remainder < -45)
+//                    toDegrees -= 90;
+//
+//
+//                mTranslate.withRotate((int) mDegrees, (int) toDegrees);
+//
+//
+//                mDegrees = toDegrees;
+//
+//
+//            }
 
 
-            if (canRotate || mDegrees % 90 != 0) {
-                float toDegrees = (int) (mDegrees / 90) * 90;
-                float remainder = mDegrees % 90;
-
-
-                if (remainder > 45)
-                    toDegrees += 90;
-                else if (remainder < -45)
-                    toDegrees -= 90;
-
-
-                mTranslate.withRotate((int) mDegrees, (int) toDegrees);
-
-
-                mDegrees = toDegrees;
-
-
-            }
-
-
-            doTranslateReset(mImgRect);
+//            doTranslateReset(mImgRect);
             mTranslate.withFling(vx, vy);
 
 

@@ -14,12 +14,6 @@
         android:clipToPadding="false" >
     </RelativeLayout>
 
-    <org.lasque.tusdk.core.view.widget.TuMaskRegionView
-        android:id="@+id/lsq_cutRegionView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/lsq_optionBar_root" />
-
     <HorizontalScrollView
         android:layout_alignParentBottom="true"
         android:id="@+id/lsq_optionBar_root"
@@ -96,7 +90,7 @@
         android:layout_width="match_parent"
         android:layout_height="49dp"
         android:layout_alignParentBottom="true"
-        android:background="@color/green_common2"
+        android:background="@color/green_common"
         android:orientation="horizontal" >
 
         <org.lasque.tusdk.core.view.widget.button.TuSdkImageButton
@@ -148,5 +142,13 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:background="@drawable/lsq_style_default_edit_button_confirm_bg" />
+
+    <org.lasque.tusdk.core.view.widget.TuMaskRegionView
+        android:id="@+id/lsq_cutRegionView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/lsq_bottomBar"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

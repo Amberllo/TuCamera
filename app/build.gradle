@@ -20,7 +20,19 @@ android {
         versionName "1.0"
         multiDexEnabled true
     }
-
+//    signingConfigs {
+//        release {
+//            keyAlias 'stone'
+//            keyPassword 'mypwd'
+//            storeFile file('/Users/stone/Documents/project_AS/myapplication/stone.keystore')
+//            storePassword 'mypwd'
+//        }
+//    }
+//    buildTypes {
+//        release {
+//            signingConfig signingConfigs.release
+//        }
+//    }
     sourceSets {
         main {
             manifest.srcFile 'AndroidManifest.xml'

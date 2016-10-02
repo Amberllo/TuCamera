@@ -414,16 +414,16 @@ public class StickerFragment extends TuEditStickerFragment
             @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
             @Override
             public void onGlobalLayout() {
-                try {
-                    StickerCategory category = StickerLocalPackage.shared().getCategories().get(0);
-                    StickerData stickerData = category.datas.get(0).stickers.get(0);
-
-                    Bitmap bitmap = BitmapUtils.getStickerFromAccess(getContext(),stickerData.stickerId);
-                    addBoraderSticker(bitmap);
-
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
+//                try {
+//                    StickerCategory category = StickerLocalPackage.shared().getCategories().get(0);
+//                    StickerData stickerData = category.datas.get(0).stickers.get(0);
+//
+//                    Bitmap bitmap = BitmapUtils.getStickerFromAccess(getContext(),stickerData.stickerId);
+//                    addBoraderSticker(bitmap);
+//
+//                }catch (Exception e){
+//                    e.printStackTrace();
+//                }
                 getImageView().getViewTreeObserver() .removeOnGlobalLayoutListener(this);
             }
         });
