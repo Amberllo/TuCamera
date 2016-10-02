@@ -97,11 +97,11 @@ public class StickerFragment extends TuEditStickerFragment
 
 
         originBitmap = getImage();
-        this.getViewById(R.id.lsq_stickerView_root).setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if(mCurrentBoraderView!=null)mCurrentBoraderView.setInEdit(false);
-                return false;
+                this.getViewById(R.id.lsq_stickerView_root).setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        if(mCurrentBoraderView!=null)mCurrentBoraderView.setInEdit(false);
+                        return false;
             }
         });
     }
@@ -132,6 +132,12 @@ public class StickerFragment extends TuEditStickerFragment
         StickerLocalPackage.shared().loadStickerItem(stickerData);
         if(stickerData.categoryId == BoardCategoryId){
             Bitmap bitmap = BitmapUtils.getStickerFromAccess(getContext(),stickerData.stickerId);
+            TuSdkSize sdkSize = getImageWH(getImage());
+            if(sdkSize.width > sdkSize.height && bitmap.getHeight() * 0.8 > sdkSize.height ){
+                bitmap = BitmapUtils.resize(bitmap,(sdkSize.height * 0.8f) / bitmap.getHeight());
+            }else if(sdkSize.width < sdkSize.height && bitmap.getWidth() * 0.8 > sdkSize.width ){
+                bitmap = BitmapUtils.resize(bitmap,(sdkSize.width * 0.8f) / bitmap.getWidth());
+            }
             if(mViews.size()!=0){
                 //判断是否只能加载一次相框
 //                Toast.makeText(getActivity(),"相框只能加载一次",Toast.LENGTH_SHORT).show();
@@ -208,7 +214,9 @@ public class StickerFragment extends TuEditStickerFragment
 
             @Override
             public void onFull(BoraderStickerView stickerView) {
-
+                if(isBlur){
+                    getImageView().setImageBitmap(originBitmap);
+                }
                 full(stickerView.getStickerBitmap());
             }
 

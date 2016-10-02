@@ -80,7 +80,7 @@ public class BoraderStickerView extends ImageView {
      */
     private boolean isInEdit = true;
 
-    private float MIN_SCALE = 0.5f;
+    private float MIN_SCALE = 0.2f;
 
     private float MAX_SCALE = 1.2f;
 
@@ -222,12 +222,19 @@ public class BoraderStickerView extends ImageView {
 
     public void resetStickerBitmap(Bitmap bitmap){
         this.mStickerBitmap = bitmap;
-        this.mBitmap = bitmap;
-        invalidate();
+        resetBitmap(bitmap);
     }
 
     public void resetBitmap(Bitmap bitmap){
         this.mBitmap = bitmap;
+        setDiagonalLength();
+
+        int w = mBitmap.getWidth();
+        int h = mBitmap.getHeight();
+        oringinWidth = w;
+//        float initScale = (MIN_SCALE + MAX_SCALE) / 2;
+//        matrix.postScale(initScale, initScale, w / 2, h / 2);
+
         invalidate();
     }
 
@@ -236,35 +243,35 @@ public class BoraderStickerView extends ImageView {
     }
 
     private void initBitmaps() {
-        //当图片的宽比高大时 按照宽计算 缩放大小根据图片的大小而改变 最小为图片的1/8 最大为屏幕宽
-        if (mBitmap.getWidth() >= mBitmap.getHeight()) {
-            float minWidth = mScreenwidth / 8;
-            if (mBitmap.getWidth() < minWidth) {
-                MIN_SCALE = 1f;
-            } else {
-                MIN_SCALE = 1.0f * minWidth / mBitmap.getWidth();
-            }
-
-            if (mBitmap.getWidth() > mScreenwidth) {
-                MAX_SCALE = 1;
-            } else {
-                MAX_SCALE = 1.0f * mScreenwidth / mBitmap.getWidth();
-            }
-        } else {
-            //当图片高比宽大时，按照图片的高计算
-            float minHeight = mScreenwidth / 8;
-            if (mBitmap.getHeight() < minHeight) {
-                MIN_SCALE = 1f;
-            } else {
-                MIN_SCALE = 1.0f * minHeight / mBitmap.getHeight();
-            }
-
-            if (mBitmap.getHeight() > mScreenwidth) {
-                MAX_SCALE = 1;
-            } else {
-                MAX_SCALE = 1.0f * mScreenwidth / mBitmap.getHeight();
-            }
-        }
+//        //当图片的宽比高大时 按照宽计算 缩放大小根据图片的大小而改变 最小为图片的1/8 最大为屏幕宽
+//        if (mBitmap.getWidth() >= mBitmap.getHeight()) {
+//            float minWidth = mScreenwidth / 8;
+//            if (mBitmap.getWidth() < minWidth) {
+//                MIN_SCALE = 1f;
+//            } else {
+//                MIN_SCALE = 1.0f * minWidth / mBitmap.getWidth();
+//            }
+//
+//            if (mBitmap.getWidth() > mScreenwidth) {
+//                MAX_SCALE = 1;
+//            } else {
+//                MAX_SCALE = 1.0f * mScreenwidth / mBitmap.getWidth();
+//            }
+//        } else {
+//            //当图片高比宽大时，按照图片的高计算
+//            float minHeight = mScreenwidth / 8;
+//            if (mBitmap.getHeight() < minHeight) {
+//                MIN_SCALE = 1f;
+//            } else {
+//                MIN_SCALE = 1.0f * minHeight / mBitmap.getHeight();
+//            }
+//
+//            if (mBitmap.getHeight() > mScreenwidth) {
+//                MAX_SCALE = 1;
+//            } else {
+//                MAX_SCALE = 1.0f * mScreenwidth / mBitmap.getHeight();
+//            }
+//        }
 
         fullBitmap = createButtonBitmap(R.drawable.tusdk_button_edit_sticker_rotate, R.drawable.lsq_style_default_edit_drag_full);
         deleteBitmap = createButtonBitmap(R.drawable.tusdk_button_edit_sticker_remove, R.drawable.lsq_style_default_edit_drag_cancel);

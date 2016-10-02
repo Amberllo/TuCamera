@@ -8,6 +8,7 @@ import android.widget.ImageView;
 
 import com.mixcolours.photoshare.R;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.squareup.picasso.Picasso;
 
 import org.lasque.tusdk.core.view.TuSdkImageView;
 import org.lasque.tusdk.impl.components.widget.sticker.StickerListGrid;
@@ -61,14 +62,12 @@ public class CustomStickerListGrid extends StickerListGrid {
 
         StickerData stickerData = this.getModel();
         if(stickerData.categoryId == 2){
-            ImageLoader.getInstance().displayImage(CustomImageDownloader.CustomScheme.Sticker.wrap(""+stickerData.stickerId),circleImageView);
+            Picasso.with(getContext()).load("file:///android_asset/Borader/"+stickerData.stickerId+".png").into(circleImageView);
         }else{
             StickerLocalPackage.shared().loadStickerItem(stickerData);
             circleImageView.setImageBitmap(stickerData.getImage());
         }
 
-//        StickerLocalPackage.shared().loadStickerItem(stickerData);
-//        circleImageView.setImageBitmap(stickerData.getImage());
     }
 
     @Override
