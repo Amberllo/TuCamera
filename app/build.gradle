@@ -3,10 +3,8 @@ apply plugin: 'com.android.application'
 dependencies {
     compile fileTree(dir: 'libs', include: '*.jar')
     compile project(':TuSDK')
-//    compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'com.android.support:appcompat-v7:23.4.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
-//    compile 'com.wingjay:blurimageviewlib:2.0.1'
 }
 
 android {
@@ -21,19 +19,17 @@ android {
         versionName "1.0"
         multiDexEnabled true
     }
-//    signingConfigs {
-//        release {
-//            keyAlias 'stone'
-//            keyPassword 'mypwd'
-//            storeFile file('/Users/stone/Documents/project_AS/myapplication/stone.keystore')
-//            storePassword 'mypwd'
-//        }
-//    }
-//    buildTypes {
-//        release {
-//            signingConfig signingConfigs.release
-//        }
-//    }
+    signingConfigs {
+        debug {
+            storeFile file('./keystore/debug.keystore')
+        }
+        releaseConfig {
+            keyAlias 'android'
+            keyPassword 'xw123456'
+            storeFile file('./keystore/android.keystore')
+            storePassword 'xw123456'
+        }
+    }
     sourceSets {
         main {
             manifest.srcFile 'AndroidManifest.xml'
@@ -57,6 +53,26 @@ android {
         // by a similar customization.
         debug.setRoot('build-types/debug')
         release.setRoot('build-types/release')
+    }
+
+    buildTypes {
+        debug {
+
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            multiDexEnabled false
+            signingConfig signingConfigs.releaseConfig
+
+        }
+    }
+
+    lintOptions {
+        checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
     }
 }
 
