@@ -49,7 +49,7 @@
         android:theme="@style/Theme.AppCompat.NoActionBar"
     >
         <!--android:theme="@android:style/Theme.NoTitleBar.Fullscreen"-->
-
+        <meta-data android:name="channel" android:value="360"/>
         <activity
             android:theme="@style/AppTheme"
             android:name=".custom.ui.StartActivity"
