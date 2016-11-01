@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
+import android.util.Log;
 
 import com.mixcolours.photoshare.R;
 
@@ -93,4 +94,18 @@ public class BitmapUtils {
 
     }
 
+
+    public static Bitmap blurImage(Bitmap originBitmap){
+        int scale = 2;
+
+        long start = System.currentTimeMillis();
+        int scaleRatio = 10;
+        Bitmap scaledBitmap = Bitmap.createScaledBitmap(originBitmap,
+                originBitmap.getWidth() / scaleRatio,
+                originBitmap.getHeight() / scaleRatio,
+                false);
+        Bitmap blurBitmap = FastBlurUtil.doBlur(scaledBitmap, scale, true);
+        Log.i("blurtime"," scale = "+scale +" " + String.valueOf(System.currentTimeMillis() - start));
+        return blurBitmap ;
+    }
 }

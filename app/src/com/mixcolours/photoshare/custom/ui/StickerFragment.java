@@ -136,17 +136,19 @@ public class StickerFragment extends TuEditStickerFragment
             }else if(sdkSize.width < sdkSize.height && bitmap.getWidth() * 0.8 > sdkSize.width ){
                 bitmap = BitmapUtils.resize(bitmap,(sdkSize.width * 0.8f) / bitmap.getWidth());
             }
+
             if(mViews.size()!=0){
                 //判断是否只能加载一次相框
 //                Toast.makeText(getActivity(),"相框只能加载一次",Toast.LENGTH_SHORT).show();
+                mCurrentBoraderView.setVisibility(View.VISIBLE);
                 mCurrentBoraderView.resetStickerBitmap(isBlur?BitmapUtils.combineBoraderBitmap(originBitmap,bitmap):bitmap);
-                if(isFull)full(bitmap);
+//                if(isFull)full(bitmap);
+                if(isFull || isBlur){
+                    getImageView().setImageBitmap(originBitmap);
+                }
             }else{
                 addBoraderSticker(bitmap);
             }
-
-
-
 
         }else{
             appendStickerItem(stickerData);
@@ -195,6 +197,7 @@ public class StickerFragment extends TuEditStickerFragment
     private void addBoraderSticker(final Bitmap stickerBitmap) {
         TuSdkSize sdkSize = getImageWH(originBitmap);
         final BoraderStickerView boraderStickerView = new BoraderStickerView(getActivity(),sdkSize.width,sdkSize.height);
+        boraderStickerView.setVisibility(View.VISIBLE);
         boraderStickerView.setBitmap(stickerBitmap);
         boraderStickerView.setOperationListener(new BoraderStickerView.OperationListener() {
             @Override
@@ -222,14 +225,17 @@ public class StickerFragment extends TuEditStickerFragment
             public void onBlur(BoraderStickerView stickerView) {
                 Bitmap stickerBitmap = stickerView.getStickerBitmap();
                 if(isBlur){
-                    getImageView().setImageBitmap(originBitmap);
-                    stickerView.resetBitmap(stickerBitmap);
-                    isBlur = false;
+//                    getImageView().setImageBitmap(originBitmap);
+//                    stickerView.resetBitmap(stickerBitmap);
+//                    isBlur = false;
                 }else{
-                    getImageView().setImageBitmap(blurImage(originBitmap));
+                    getImageView().setImageBitmap(BitmapUtils.blurImage(originBitmap));
 
                     Bitmap posterBitmap = BitmapUtils.combineBoraderBitmap(originBitmap,stickerBitmap);
                     stickerView.resetBitmap(posterBitmap);
+                    stickerView.setVisibility(View.GONE);
+
+
                     isBlur = true;
                 }
             }
@@ -253,19 +259,7 @@ public class StickerFragment extends TuEditStickerFragment
         getStickerView().cancelAllStickerSelected();
     }
 
-    private Bitmap blurImage(Bitmap originBitmap){
-        int scale = 2;
 
-        long start = System.currentTimeMillis();
-        int scaleRatio = 10;
-        Bitmap scaledBitmap = Bitmap.createScaledBitmap(originBitmap,
-                originBitmap.getWidth() / scaleRatio,
-                originBitmap.getHeight() / scaleRatio,
-                false);
-        Bitmap blurBitmap = FastBlurUtil.doBlur(scaledBitmap, scale, true);
-        Log.i("blurtime"," scale = "+scale +" " + String.valueOf(System.currentTimeMillis() - start));
-        return blurBitmap ;
-    }
 
     private void full(Bitmap stickerBitmap){
 
