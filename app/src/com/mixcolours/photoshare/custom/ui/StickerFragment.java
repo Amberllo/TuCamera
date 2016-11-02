@@ -12,13 +12,10 @@ package com.mixcolours.photoshare.custom.ui;
 import android.annotation.TargetApi;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Paint;
 import android.graphics.Rect;
 
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,7 +34,6 @@ import org.lasque.tusdk.impl.components.widget.sticker.StickerBarView;
 import org.lasque.tusdk.impl.components.widget.sticker.StickerItemView;
 import org.lasque.tusdk.impl.components.widget.sticker.StickerView;
 import org.lasque.tusdk.modules.components.ComponentActType;
-import org.lasque.tusdk.modules.view.widget.sticker.StickerCategory;
 import org.lasque.tusdk.modules.view.widget.sticker.StickerData;
 import org.lasque.tusdk.modules.view.widget.sticker.StickerItemViewInterface;
 import org.lasque.tusdk.modules.view.widget.sticker.StickerLocalPackage;
@@ -47,7 +43,6 @@ import com.example.abner.stickerdemo.view.BoraderStickerView;
 import com.mixcolours.photoshare.R;
 import com.mixcolours.photoshare.custom.BitmapUtils;
 import com.mixcolours.photoshare.custom.CustomStickerBarView;
-import com.mixcolours.photoshare.custom.FastBlurUtil;
 import com.mixcolours.photoshare.photoview.PhotoView;
 
 import java.io.File;
@@ -104,6 +99,7 @@ public class StickerFragment extends TuEditStickerFragment
         });
     }
 
+
     @Override
     public TuSdkImageButton getCompleteButton() {
 
@@ -114,7 +110,6 @@ public class StickerFragment extends TuEditStickerFragment
         return button;
     }
 
-
     @Override
     public TuSdkImageButton getCancelButton() {
         TuSdkImageButton button = this.getViewById(R.id.lsq_cancelButton);
@@ -122,6 +117,12 @@ public class StickerFragment extends TuEditStickerFragment
             button.setOnClickListener(this.mButtonClickListener);
         }
         return button;
+    }
+
+    public View getBlurImageLayout(){
+        View blurlayout = this.getViewById(R.id.lsq_blurlayout);
+
+        return blurlayout;
     }
 
     @Override
@@ -137,18 +138,41 @@ public class StickerFragment extends TuEditStickerFragment
                 bitmap = BitmapUtils.resize(bitmap,(sdkSize.width * 0.8f) / bitmap.getWidth());
             }
 
-            if(mViews.size()!=0){
-                //判断是否只能加载一次相框
-//                Toast.makeText(getActivity(),"相框只能加载一次",Toast.LENGTH_SHORT).show();
-                mCurrentBoraderView.setVisibility(View.VISIBLE);
-                mCurrentBoraderView.resetStickerBitmap(isBlur?BitmapUtils.combineBoraderBitmap(originBitmap,bitmap):bitmap);
-//                if(isFull)full(bitmap);
-                if(isFull || isBlur){
-                    getImageView().setImageBitmap(originBitmap);
-                }
-            }else{
-                addBoraderSticker(bitmap);
+
+            if(mViews.size()!=0 && mCurrentBoraderView!=null){
+                //选择相框，重新
+                mViews.remove(mCurrentBoraderView);
+                getStickerView().removeView(mCurrentBoraderView);
             }
+            if(isBlur){
+                getBlurImageLayout().setVisibility(View.GONE);
+                getImageView().setImageBitmap(originBitmap);
+                isBlur = false;
+            }
+
+            if(isFull){
+
+                getFullImageView().setVisibility(View.GONE);
+                if(getImageView() instanceof PhotoView){
+                    ((PhotoView)getImageView()).disenable();
+                }
+                TuSdkSize size = getImageWH(originBitmap);
+                refixView(size.width, size.height, new ViewTreeObserver.OnGlobalLayoutListener() {
+                    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+                    @Override
+                    public void onGlobalLayout() {
+                        getImageView().setImageBitmap(originBitmap);
+                        (getImageView()).setScaleType(ImageView.ScaleType.CENTER_CROP);
+                        getImageView().getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                    }
+                });
+
+                isFull = false;
+            }
+
+
+            addBoraderSticker(bitmap);
+
 
         }else{
             appendStickerItem(stickerData);
