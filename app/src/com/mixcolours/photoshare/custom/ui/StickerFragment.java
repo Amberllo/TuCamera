@@ -65,6 +65,10 @@ public class StickerFragment extends TuEditStickerFragment
     ImageView fullImageView;
     BoraderStickerView mCurrentBoraderView;
     List<View> mViews = new ArrayList<>();
+    private View blurlayout;
+    private View blurImageLayout;
+    private ImageView blurImageBorader;
+    private PhotoView blurImageView;
 
     public static int getLayoutViewId(){
         return R.layout.custom_sticker_fragment_layout;
@@ -120,10 +124,16 @@ public class StickerFragment extends TuEditStickerFragment
     }
 
     public View getBlurImageLayout(){
-        View blurlayout = this.getViewById(R.id.lsq_blurlayout);
+        if(blurlayout==null){
+            blurlayout = this.getViewById(R.id.lsq_blurlayout);
+            blurImageBorader = this.getViewById(R.id.lsq_blurlayout_borader);
+            blurImageView = this.getViewById(R.id.lsq_blurlayout_photoview);
+        }
 
         return blurlayout;
     }
+
+
 
     @Override
     public void onStickerBarViewSelected(StickerBarView stickerBarView, StickerData stickerData) {
@@ -259,6 +269,26 @@ public class StickerFragment extends TuEditStickerFragment
                     stickerView.resetBitmap(posterBitmap);
                     stickerView.setVisibility(View.GONE);
 
+                    getBlurImageLayout().setVisibility(View.VISIBLE);
+
+//
+                    int width = (int) (posterBitmap.getWidth()* 0.7);
+                    int height = (int) (posterBitmap.getHeight()* 0.7f);
+                    blurImageView.setLayoutParams(new RelativeLayout.LayoutParams( width,height));
+                    blurImageBorader.setLayoutParams(new RelativeLayout.LayoutParams( width,height));
+
+                    blurImageBorader.setImageBitmap(stickerBitmap);
+                    blurImageView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                        @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+                        @Override
+                        public void onGlobalLayout() {
+
+                            blurImageView.setImageBitmap(originBitmap);
+                            blurImageView.enable();
+                            blurImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                            blurImageView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                        }
+                    });
 
                     isBlur = true;
                 }
@@ -283,19 +313,21 @@ public class StickerFragment extends TuEditStickerFragment
         getStickerView().cancelAllStickerSelected();
     }
 
+    private Bitmap getFullBitmap(Bitmap stickerBitmap,TuSdkSize fullWH){
 
-
-    private void full(Bitmap stickerBitmap){
-
-        TuSdkSize fullWH = getFullScreenWH();
         float ratioSticker = (float)stickerBitmap.getWidth()/ (float)stickerBitmap.getHeight();
         float ratioFull = (float)fullWH.width / (float)fullWH.height;
 
         //1.将相框放大至全屏
         float scale = ratioSticker  > ratioFull ?
                 (float)fullWH.width / (float)stickerBitmap.getWidth():
-               (float)fullWH.height / (float)stickerBitmap.getHeight();
-        final Bitmap fullBorader = BitmapUtils.resize(stickerBitmap,scale);
+                (float)fullWH.height / (float)stickerBitmap.getHeight();
+        return BitmapUtils.resize(stickerBitmap,scale);
+    }
+
+    private void full(Bitmap stickerBitmap){
+        TuSdkSize fullWH = getFullScreenWH();
+        final Bitmap fullBorader = getFullBitmap(stickerBitmap,fullWH);
         refixView(fullBorader.getWidth(), fullBorader.getHeight(), new ViewTreeObserver.OnGlobalLayoutListener() {
             @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
             @Override
@@ -321,6 +353,7 @@ public class StickerFragment extends TuEditStickerFragment
     private TuSdkResult generateBitmap() {
 
         Bitmap fullBitmap = null;
+        Bitmap blurBitmap = null;
         Bitmap stickerBitmap = null;
 
         if(getStickerView().getVisibility() == View.VISIBLE) {
@@ -339,6 +372,13 @@ public class StickerFragment extends TuEditStickerFragment
         }
 
 
+        if(isBlur){
+            View blurImageLayout = getBlurImageLayout();
+            blurBitmap = Bitmap.createBitmap(blurImageLayout.getWidth(), blurImageLayout.getHeight(), Bitmap.Config.ARGB_8888);
+            Canvas canvasFull = new Canvas(blurBitmap);
+            blurImageLayout.draw(canvasFull);
+        }
+
         Bitmap imageBitmap = Bitmap.createBitmap(getImageView().getWidth(),getImageView().getHeight(), Bitmap.Config.ARGB_8888);
         Canvas canvasOrigin = new Canvas(imageBitmap);
         getImageView().draw(canvasOrigin);
@@ -348,6 +388,12 @@ public class StickerFragment extends TuEditStickerFragment
         cv.drawBitmap(imageBitmap, 0 , 0, null);
         if(stickerBitmap!=null)cv.drawBitmap(stickerBitmap, 0, 0, null);
         if(fullBitmap!=null)cv.drawBitmap(fullBitmap, 0, 0, null);
+        if(blurBitmap!=null){
+            TuSdkSize screen = getImageWH(getImage());
+            float x = screen.width/2 - blurBitmap.getWidth()/2;
+            float y = screen.height/2 - blurBitmap.getHeight()/2;
+            cv.drawBitmap(blurBitmap, x, y, null);
+        }
         cv.save(Canvas.ALL_SAVE_FLAG);
         cv.restore();
 
