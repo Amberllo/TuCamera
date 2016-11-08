@@ -228,9 +228,19 @@ public class StickerFragment extends TuEditStickerFragment
 
 
     //添加气泡
-    private void addBoraderSticker(final Bitmap stickerBitmap) {
+    private void addBoraderSticker(Bitmap stickerBitmap) {
         TuSdkSize sdkSize = getImageWH(originBitmap);
         final BoraderStickerView boraderStickerView = new BoraderStickerView(getActivity(),sdkSize.width,sdkSize.height);
+        if(sdkSize.width > sdkSize.height){
+            //横图，将相框缩放至屏幕高度的65%
+
+            float scale = (float)sdkSize.height * 0.65f / (float)stickerBitmap.getHeight();
+            stickerBitmap = BitmapUtils.resize(stickerBitmap,scale);
+        }else{
+            //竖图，将相框缩放至屏幕宽度的65%
+            float scale = (float)sdkSize.width * 0.65f  / (float)stickerBitmap.getWidth();
+            stickerBitmap = BitmapUtils.resize(stickerBitmap,scale);
+        }
         boraderStickerView.setVisibility(View.VISIBLE);
         boraderStickerView.setBitmap(stickerBitmap);
         boraderStickerView.setOperationListener(new BoraderStickerView.OperationListener() {
@@ -265,15 +275,33 @@ public class StickerFragment extends TuEditStickerFragment
                 }else{
                     getImageView().setImageBitmap(BitmapUtils.blurImage(originBitmap));
 
+
+
+
                     Bitmap posterBitmap = BitmapUtils.combineBoraderBitmap(originBitmap,stickerBitmap);
+
+                    TuSdkSize sdkSize = getImageWH(originBitmap);
+                    if(sdkSize.width > sdkSize.height){
+                        //横图，将相框缩放至屏幕高度的65%
+                        float scale = (float)sdkSize.height * 0.65f / (float)posterBitmap.getHeight();
+                        posterBitmap = BitmapUtils.resize(posterBitmap,scale);
+                    }else{
+                        //竖图，将相框缩放至屏幕宽度的65%
+                        float scale = (float)sdkSize.width * 0.65f  / (float)posterBitmap.getWidth();
+                        posterBitmap = BitmapUtils.resize(posterBitmap,scale);
+                    }
+
+
+
                     stickerView.resetBitmap(posterBitmap);
                     stickerView.setVisibility(View.GONE);
 
                     getBlurImageLayout().setVisibility(View.VISIBLE);
 
+
 //
-                    int width = (int) (posterBitmap.getWidth()* 0.7);
-                    int height = (int) (posterBitmap.getHeight()* 0.7f);
+                    int width = (int) (posterBitmap.getWidth());
+                    int height = (int) (posterBitmap.getHeight());
                     blurImageView.setLayoutParams(new RelativeLayout.LayoutParams( width,height));
                     blurImageBorader.setLayoutParams(new RelativeLayout.LayoutParams( width,height));
 
@@ -516,14 +544,17 @@ public class StickerFragment extends TuEditStickerFragment
 
     private TuSdkSize getImageWH(Bitmap bitmap){
         TuSdkSize fullSize = getFullScreenWH();
+        float rateBitmap = (float)bitmap.getWidth() / (float)bitmap.getHeight();
+        float rateFull = (float)fullSize.width / (float)fullSize.height;
         int width = 0,height = 0;
         if(getImage()!=null){
-            if(bitmap.getWidth()<bitmap.getHeight()){
-                height = fullSize.height;
-                width = fullSize.height * bitmap.getWidth() / bitmap.getHeight();
-            }else{
+            if(rateBitmap > rateFull){
                 height = fullSize.width * bitmap.getHeight() / bitmap.getWidth();
                 width = fullSize.width;
+            }else{
+                height = fullSize.height;
+                width = fullSize.height * bitmap.getWidth() / bitmap.getHeight();
+
             }
         }
         return TuSdkSize.create(width,height);
