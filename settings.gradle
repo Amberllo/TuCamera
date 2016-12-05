@@ -1,2 +1,4 @@
 include ':app'
-include ':TuSDK'
+//include ':TuSDK'
+include ':TuSDKUIDefault'
+include ':TuSDKUIGeeV2'
