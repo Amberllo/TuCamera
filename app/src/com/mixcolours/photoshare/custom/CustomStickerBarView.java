@@ -1,6 +1,7 @@
 package com.mixcolours.photoshare.custom;
 
 import android.content.Context;
+import android.content.res.AssetManager;
 import android.content.res.ColorStateList;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -14,8 +15,11 @@ import org.lasque.tusdk.impl.components.widget.sticker.StickerBarTableView;
 import org.lasque.tusdk.impl.components.widget.sticker.StickerBarView;
 import org.lasque.tusdk.modules.view.widget.sticker.StickerCategory;
 import org.lasque.tusdk.modules.view.widget.sticker.StickerData;
+import org.lasque.tusdk.modules.view.widget.sticker.StickerGroup;
 import org.lasque.tusdk.modules.view.widget.sticker.StickerLocalPackage;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -51,5 +55,32 @@ public class CustomStickerBarView extends StickerBarView {
     @Override
     public StickerBarTableView getTableView() {
         return super.getTableView();
+    }
+
+    @Override
+    protected List<StickerData> getStickerDatas(long categoryId) {
+        List<StickerData> list = super.getStickerDatas(categoryId);
+        if(categoryId == 2 && list.size()!=0){
+            long groupId = list.get(0).groupId;
+            list.clear();
+
+            AssetManager am = getContext().getAssets();
+            try {
+                String[] stickers = am.list("Borader");
+                for(String path: stickers){
+                    String name = path.split("\\.")[0];
+                    StickerData sticker = new StickerData();
+                    sticker.stickerId = Long.valueOf(name);
+                    sticker.categoryId = categoryId;
+                    sticker.groupId =groupId;
+                    sticker.stickerType = 1;
+                    list.add(sticker);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return list;
+
     }
 }

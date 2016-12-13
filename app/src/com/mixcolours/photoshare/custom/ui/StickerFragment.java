@@ -10,6 +10,7 @@
 package com.mixcolours.photoshare.custom.ui;
 
 import android.annotation.TargetApi;
+import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
@@ -34,7 +35,9 @@ import org.lasque.tusdk.impl.components.widget.sticker.StickerBarView;
 import org.lasque.tusdk.impl.components.widget.sticker.StickerItemView;
 import org.lasque.tusdk.impl.components.widget.sticker.StickerView;
 import org.lasque.tusdk.modules.components.ComponentActType;
+import org.lasque.tusdk.modules.view.widget.sticker.StickerCategory;
 import org.lasque.tusdk.modules.view.widget.sticker.StickerData;
+import org.lasque.tusdk.modules.view.widget.sticker.StickerGroup;
 import org.lasque.tusdk.modules.view.widget.sticker.StickerItemViewInterface;
 import org.lasque.tusdk.modules.view.widget.sticker.StickerLocalPackage;
 
@@ -46,6 +49,7 @@ import com.mixcolours.photoshare.custom.CustomStickerBarView;
 import com.mixcolours.photoshare.photoview.PhotoView;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -102,7 +106,6 @@ public class StickerFragment extends TuEditStickerFragment
             }
         });
     }
-
 
     @Override
     public TuSdkImageButton getCompleteButton() {
