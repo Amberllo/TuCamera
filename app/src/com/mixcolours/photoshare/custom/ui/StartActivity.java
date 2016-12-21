@@ -11,6 +11,7 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 
 import com.mixcolours.photoshare.R;
+import com.mixcolours.photoshare.WelcomeActivity;
 
 /**
  * Created by LYL on 2016/8/10.
@@ -34,7 +35,7 @@ public class StartActivity extends Activity {
                 }
             },2000);
 
-            Intent i = new Intent(StartActivity.this,CameraEntryActivity.class);
+            Intent i = new Intent(StartActivity.this,WelcomeActivity.class);
             i.putExtra("wantFullScreen",true);
             startActivity(i);
 

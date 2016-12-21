@@ -142,7 +142,13 @@ public class EditMultipleFragment extends TuEditMultipleFragment {
             Intent shareIntent = new Intent();
             shareIntent.setAction(Intent.ACTION_SEND);
             shareIntent.putExtra(Intent.EXTRA_STREAM, imageUri);
+            shareIntent.putExtra(Intent.EXTRA_TITLE, "特写美刻");
+
             shareIntent.setType("image/*");
+//            shareIntent.setType("text/plain");
+            //当用户选择短信时使用sms_body取得文字
+            shareIntent.putExtra("sms_body", "测试分享图片+文字");
+
             startActivity(Intent.createChooser(shareIntent, "分享到"));
         }
 

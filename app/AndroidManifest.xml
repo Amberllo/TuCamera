@@ -83,6 +83,14 @@
             android:windowSoftInputMode="stateHidden|adjustResize" >
 
         </activity>
+        <activity
+            android:name=".WelcomeActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" >
+
+        </activity>
 
         <activity
             android:name=".TuComponentListActivity"
