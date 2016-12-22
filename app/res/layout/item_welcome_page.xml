@@ -9,31 +9,31 @@
         android:layout_height="match_parent"
         android:scaleType="fitCenter"/>
 
-    <Button
-        android:id="@+id/welcome_comein_btn"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginBottom="40dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:scaleType="fitCenter"
-        android:text="马上体验"
-        android:textSize="18sp"
-        android:textColor="@color/white"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true">
-    </Button>
+    <!--<Button-->
+        <!--android:id="@+id/welcome_comein_btn"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="50dp"-->
+        <!--android:layout_marginBottom="40dp"-->
+        <!--android:layout_marginLeft="30dp"-->
+        <!--android:layout_marginRight="30dp"-->
+        <!--android:scaleType="fitCenter"-->
+        <!--android:text="马上体验"-->
+        <!--android:textSize="18sp"-->
+        <!--android:textColor="@color/white"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_centerHorizontal="true">-->
+    <!--</Button>-->
 
-    <ImageView
-        android:id="@+id/welcome_close_btn"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_marginRight="11dp"
-        android:padding="10dip"
-        android:src="@drawable/ic_launcher"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="11dp" />
+    <!--<ImageView-->
+        <!--android:id="@+id/welcome_close_btn"-->
+        <!--android:layout_width="35dp"-->
+        <!--android:layout_height="35dp"-->
+        <!--android:layout_marginRight="11dp"-->
+        <!--android:padding="10dip"-->
+        <!--android:src="@drawable/ic_launcher"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_alignParentEnd="true"-->
+        <!--android:layout_marginEnd="11dp" />-->
 
 </RelativeLayout>

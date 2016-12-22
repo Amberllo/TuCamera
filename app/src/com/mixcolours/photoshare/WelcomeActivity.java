@@ -33,10 +33,9 @@ public class WelcomeActivity extends Activity {
 	private boolean misScrolled = false;
 
     private PageModel[] pages = new PageModel[]{
-        new PageModel(true,false,R.drawable.welcome_01),
-        new PageModel(true,false,R.drawable.welcome_02),
-        new PageModel(true,false,R.drawable.welcome_03),
-        new PageModel(false,true,R.drawable.welcome_04)};
+        new PageModel(true,false,R.drawable.welcome_1),
+        new PageModel(true,false,R.drawable.welcome_2),
+        new PageModel(false,true,R.drawable.welcome_3)};
 
 	private ImageView[] circleImages;
 
