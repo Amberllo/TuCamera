@@ -48,4 +48,7 @@
     <string name="color_lib_ok">確定</string>
     <string name="color_lib_cancel">取消</string>
     <string name="double_click_input_text">請輸入文字</string>
+
+    <string name="welcome_quickstart">立即體驗</string>
+    <string name="welcome_paas">跳過</string>
 </resources>

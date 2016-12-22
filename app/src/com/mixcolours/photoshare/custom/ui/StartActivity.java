@@ -33,7 +33,7 @@ public class StartActivity extends Activity {
                     imageView.setVisibility(View.GONE);
                     finish();
                 }
-            },2000);
+            },1000);
 
             Intent i = new Intent(StartActivity.this,WelcomeActivity.class);
             i.putExtra("wantFullScreen",true);

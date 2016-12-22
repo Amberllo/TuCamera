@@ -155,4 +155,6 @@
     <string name="color_lib_ok">确定</string>
     <string name="color_lib_cancel">取消</string>
 
+    <string name="welcome_quickstart">立刻体验</string>
+    <string name="welcome_paas">跳过</string>
 </resources>

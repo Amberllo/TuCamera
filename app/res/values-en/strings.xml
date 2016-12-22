@@ -49,4 +49,7 @@
     <string name="color_lib_cancel">cancel</string>
 
     <string name="double_click_input_text">Please said something</string>
+
+    <string name="welcome_quickstart">Immediate experience</string>
+    <string name="welcome_paas">pass</string>
 </resources>
