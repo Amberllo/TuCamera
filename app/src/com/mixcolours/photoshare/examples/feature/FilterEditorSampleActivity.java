@@ -68,7 +68,7 @@ public class FilterEditorSampleActivity extends FragmentActivity implements TuEd
 		TuEditFilterFragment fragment = option.fragment();
 				
 		// 输入的图片对象 (处理优先级: Image > TempFilePath > ImageSqlInfo)
-		fragment.setImage(BitmapHelper.getRawBitmap(this, R.raw.sample_photo));
+//		fragment.setImage(BitmapHelper.getRawBitmap(this, R.raw.sample_photo));
 
 		fragment.setDelegate(this);
 		

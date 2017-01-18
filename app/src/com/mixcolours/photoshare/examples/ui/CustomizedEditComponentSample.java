@@ -124,7 +124,7 @@ public class CustomizedEditComponentSample extends SampleBase implements TuEditT
 		TuEditTurnAndCutFragment fragment = option.fragment();
 
 		// 输入的图片对象 (处理优先级: Image > TempFilePath > ImageSqlInfo)
-		fragment.setImage(BitmapHelper.getRawBitmap(activity, R.raw.sample_photo));
+//		fragment.setImage(BitmapHelper.getRawBitmap(activity, R.raw.sample_photo));
 
 		// 输入的临时文件目录 (处理优先级: Image > TempFilePath > ImageSqlInfo)
 		// editFragment.setTempFilePath(result.imageFile);

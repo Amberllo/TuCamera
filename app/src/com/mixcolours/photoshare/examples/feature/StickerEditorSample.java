@@ -66,7 +66,7 @@ public class StickerEditorSample extends SampleBase implements TuEditStickerFrag
 	    TuEditStickerFragment fragment = option.fragment();
 
 		// 输入的图片对象 (处理优先级: Image > TempFilePath > ImageSqlInfo)
-		fragment.setImage(BitmapHelper.getRawBitmap(activity, R.raw.sample_photo));
+//		fragment.setImage(BitmapHelper.getRawBitmap(activity, R.raw.sample_photo));
 		
 	    fragment.setDelegate(this);
 	    
