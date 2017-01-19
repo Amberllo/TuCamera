@@ -18,26 +18,26 @@ android {
         applicationId 'com.mixcolours.photoshare'
         minSdkVersion 15
         targetSdkVersion 23
-        versionCode 4
-        versionName "1.4"
+        versionCode 5
+        versionName "1.5"
         multiDexEnabled true
     }
     signingConfigs {
         debug {
             storeFile file('./keystore/debug.keystore')
         }
-        releaseConfig {
-            keyAlias 'txmk_sign.keystore'
-            keyPassword 'Skincloser88'
-            storeFile file('./keystore/txmk_sign.keystore')
-            storePassword 'Skincloser88'
-        }
 //        releaseConfig {
-//            keyAlias 'android'
-//            keyPassword 'xw123456'
-//            storeFile file('./keystore/android.keystore')
-//            storePassword 'xw123456'
+//            keyAlias 'txmk_sign.keystore'
+//            keyPassword 'Skincloser88'
+//            storeFile file('./keystore/txmk_sign.keystore')
+//            storePassword 'Skincloser88'
 //        }
+        releaseConfig {
+            keyAlias 'android'
+            keyPassword 'xw123456'
+            storeFile file('./keystore/android.keystore')
+            storePassword 'xw123456'
+        }
     }
     sourceSets {
         main {
